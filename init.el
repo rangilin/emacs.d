@@ -1,12 +1,3 @@
-;; hide toolbar
-(tool-bar-mode -1)
+(add-to-list 'load-path user-emacs-directory)
 
-;; ido 
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-flex-matching t)
-(setq ido-use-virtual-buffers t)
-(setq ido-max-directory-size 100000)
-
-;; theme
-(load-theme 'tango t)
+(require 'init-misc)
