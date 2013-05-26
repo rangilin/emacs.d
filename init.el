@@ -9,4 +9,4 @@
 (setq ido-max-directory-size 100000)
 
 ;; theme
-(load-theme 'tango-dark t)
+(load-theme 'tango t)
