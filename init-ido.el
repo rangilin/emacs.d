@@ -5,6 +5,6 @@
 (setq ido-max-directory-size 100000)
 
 (require-package 'smex)
-(global-set-key (kbd "M-x") 'smex)
+
 
 (provide 'init-ido)

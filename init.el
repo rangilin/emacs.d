@@ -4,3 +4,5 @@
 
 (require 'init-ido)
 (require 'init-misc)
+
+(require 'init-keybinding)
