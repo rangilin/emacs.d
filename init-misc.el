@@ -18,5 +18,7 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; hide welcome message
+(setq inhibit-splash-screen t)
 
 (provide 'init-misc)
