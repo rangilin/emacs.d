@@ -7,12 +7,13 @@
 (require 'init-ibuffer)
 (require 'init-ido)
 (require 'init-theme)
+(require 'init-window)
 
 (require 'init-misc)
 ;; -------------------------------------------------- config keybinding
 (require 'init-keybinding)
 
-;; load customize last
+;; -------------------------------------------------- load customization
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
