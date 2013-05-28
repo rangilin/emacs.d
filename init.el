@@ -4,6 +4,7 @@
 (require 'init-elpa)
 
 ;; -------------------------------------------------- modes/features/packages
+(require 'init-ibuffer)
 (require 'init-ido)
 (require 'init-theme)
 
