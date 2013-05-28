@@ -12,13 +12,16 @@
 (setq-default show-trailing-whitespace t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq indent-line-function 'insert-tab)
+(setq-default indent-line-function 'insert-tab)
+(setq-default line-number-mode 1)
+(setq-default column-number-mode 1)
 
 ;; hide welcome message
 (setq inhibit-splash-screen t)
 
 ;; yes/no => y/n
 (fset 'yes-or-no-p 'y-or-n-p)
+
 
 
 
