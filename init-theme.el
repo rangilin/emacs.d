@@ -24,3 +24,5 @@
   "Activate a dark color theme."
   (interactive)
   (color-theme-sanityinc-solarized-dark))
+
+(provide 'init-theme)
