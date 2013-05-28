@@ -9,9 +9,10 @@
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 
 ;; editing
-(setq-default 
- show-trailing-whitespace t
- indent-tabs-mode nil)
+(setq-default show-trailing-whitespace t)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
 
 ;; customize
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
