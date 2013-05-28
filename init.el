@@ -5,9 +5,9 @@
 
 ;; -------------------------------------------------- modes/features/packages
 (require 'init-ido)
-(require 'init-misc)
 (require 'init-theme)
 
+(require 'init-misc)
 ;; -------------------------------------------------- config keybinding
 (require 'init-keybinding)
 
