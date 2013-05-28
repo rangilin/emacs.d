@@ -17,4 +17,7 @@
 ;; hide welcome message
 (setq inhibit-splash-screen t)
 
+;; yes/no => y/n
+(fset 'yes-or-no-p 'y-or-n-p)
+
 (provide 'init-misc)
