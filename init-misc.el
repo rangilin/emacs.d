@@ -14,11 +14,6 @@
 (setq-default tab-width 4)
 (setq indent-line-function 'insert-tab)
 
-;; customize
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file))
-
 ;; hide welcome message
 (setq inhibit-splash-screen t)
 
