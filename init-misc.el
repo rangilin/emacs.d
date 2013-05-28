@@ -16,6 +16,8 @@
 (setq-default line-number-mode 1)
 (setq-default column-number-mode 1)
 
+(setq-default x-select-enable-clipboard t)
+
 ;; hide welcome message
 (setq inhibit-splash-screen t)
 
