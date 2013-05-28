@@ -3,4 +3,6 @@
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+(global-set-key (kbd "RET") 'newline-and-indent)
+
 (provide 'init-keybinding)
