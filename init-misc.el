@@ -1,6 +1,3 @@
-;; hide toolbar
-(tool-bar-mode -1)
-
 ;; git
 (require-package 'magit)
 
@@ -8,8 +5,6 @@
 (setq backup-by-copying t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 
-;; hide welcome message
-(setq inhibit-splash-screen t)
 
 ;; yes/no => y/n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -30,5 +25,7 @@
 ;; exec path
 (require-package 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
+
+
 
 (provide 'init-misc)

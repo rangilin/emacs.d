@@ -5,6 +5,7 @@
 
 ;; -------------------------------------------------- modes/features/packages
 (require 'init-editing)
+(require 'init-gui-frames)
 (require 'init-ibuffer)
 (require 'init-ido)
 (require 'init-theme)
