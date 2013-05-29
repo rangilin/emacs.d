@@ -8,26 +8,6 @@
 (setq backup-by-copying t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 
-;; editing
-(setq-default
- show-trailing-whitespace t
- indent-tabs-mode nil
- tab-width 4
- line-number-mode 1
- column-number-mode 1
- delete-selection-mode t
- x-select-enable-clipboard t
- line-spacing 0.1)
-
-;; Auto refresh buffers
-(global-auto-revert-mode 1)
-
-;; Also auto refresh non-file buffer like dired, but be quiet about it
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
-
-
-
 ;; hide welcome message
 (setq inhibit-splash-screen t)
 
