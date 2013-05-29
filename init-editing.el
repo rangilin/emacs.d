@@ -4,9 +4,14 @@
  tab-width 4
  line-number-mode 1
  column-number-mode 1
- delete-selection-mode t
  x-select-enable-clipboard t
  line-spacing 0.1)
+
+
+;;----------------------------------------------------------------------------
+;; delete/replace active region when typing
+;;----------------------------------------------------------------------------
+(delete-selection-mode 1)
 
 ;;----------------------------------------------------------------------------
 ;; Auto refresh buffers
