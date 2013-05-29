@@ -1,0 +1,6 @@
+# name: class block
+# key: class
+# --
+class ${1:Class}
+  $0
+end

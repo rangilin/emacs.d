@@ -1,0 +1,6 @@
+# name : do end block
+# key: do
+# --
+do
+  $0
+end

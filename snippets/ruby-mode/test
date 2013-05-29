@@ -1,0 +1,6 @@
+# name: test..do..end
+# key: test
+# --
+test "$1" do
+  $0
+end
