@@ -12,7 +12,6 @@
 (setq-default show-trailing-whitespace t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq-default indent-line-function 'insert-tab)
 (setq-default line-number-mode 1)
 (setq-default column-number-mode 1)
 
