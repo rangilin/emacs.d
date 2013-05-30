@@ -8,6 +8,7 @@
 (require 'init-gui-frames)
 (require 'init-ibuffer)
 (require 'init-ido)
+(require 'init-ruby-mode)
 (require 'init-theme)
 (require 'init-window)
 

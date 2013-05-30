@@ -5,15 +5,8 @@
 (setq backup-by-copying t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 
-
 ;; yes/no => y/n
 (fset 'yes-or-no-p 'y-or-n-p)
-
-;; rvm
-(require-package 'rvm)
-(require 'rvm)
-
-(rvm-use-default)
 
 ;; yasnippet
 (require-package 'yasnippet)
