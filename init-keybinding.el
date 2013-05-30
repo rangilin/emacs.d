@@ -13,6 +13,6 @@
 (global-set-key (kbd "C-x |") 'split-window-horizontally-instead)
 (global-set-key (kbd "C-x _") 'split-window-vertically-instead)
 
-
+(global-set-key (kbd "C-M-c") `toggle-letter-case)
 
 (provide 'init-keybinding)
