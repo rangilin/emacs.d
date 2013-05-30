@@ -26,6 +26,7 @@
 (require-package 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
 
-
+;; dired
+(put 'dired-find-alternate-file 'disabled nil)
 
 (provide 'init-misc)
