@@ -3,7 +3,6 @@
 ;;----------------------------------------------------------------------------
 (require-package 'switch-window)
 (require 'switch-window)
-(setq switch-window-shortcut-style 'qwerty)
 
 ;;----------------------------------------------------------------------------
 ;; When splitting window, show (other-buffer) in the new window
