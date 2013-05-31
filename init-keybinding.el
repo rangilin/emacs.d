@@ -8,8 +8,8 @@
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 
-(global-set-key (kbd "C-x 2") (split-window-func-with-other-buffer 'split-window-vertically))
-(global-set-key (kbd "C-x 3") (split-window-func-with-other-buffer 'split-window-horizontally))
+(global-set-key (kbd "C-x 2") (focus-and-show-other-buffer-after 'split-window-vertically))
+(global-set-key (kbd "C-x 3") (focus-and-show-other-buffer-after 'split-window-horizontally))
 (global-set-key (kbd "C-x |") 'split-window-horizontally-instead)
 (global-set-key (kbd "C-x _") 'split-window-vertically-instead)
 
