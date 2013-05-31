@@ -1,5 +1,6 @@
 ;; git
 (require-package 'magit)
+(setq magit-status-buffer-switch-function 'switch-to-buffer)
 
 ;; backup
 (setq backup-by-copying t)
