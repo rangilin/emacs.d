@@ -3,7 +3,6 @@
 ;;----------------------------------------------------------------------------
 (require-package 'switch-window)
 (require 'switch-window)
-(setq switch-window-shortcut-style 'qwerty)
 
 ;;----------------------------------------------------------------------------
 ;; By calling split-window-vertically or split-window-horizontal with this
