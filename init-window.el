@@ -16,6 +16,14 @@
       (set-window-buffer (next-window) (other-buffer))
       (other-window 1))))
 
+;; FIXME : too wet :( gonna learn some lisp
+(defun show-other-buffer-after (split-function)
+  (lexical-let ((s-f split-function))
+    (lambda ()
+      (interactive)
+      (funcall s-f)
+      (set-window-buffer (next-window) (other-buffer)))))
+
 ;;----------------------------------------------------------------------------
 ;; Rearrange split windows
 ;;----------------------------------------------------------------------------
@@ -23,13 +31,12 @@
   (interactive)
   (save-excursion
     (delete-other-windows)
-    (funcall (split-window-func-with-other-buffer 'split-window-horizontally))))
+    (funcall (show-other-buffer-after 'split-window-horizontally))))
 
 (defun split-window-vertically-instead ()
   (interactive)
   (save-excursion
     (delete-other-windows)
-    (funcall (split-window-func-with-other-buffer 'split-window-vertically))))
-
+    (funcall (show-other-buffer-after 'split-window-vertically))))
 
 (provide 'init-window)
