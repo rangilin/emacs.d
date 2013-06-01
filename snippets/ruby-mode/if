@@ -1,0 +1,6 @@
+# name: if block
+# key: if
+# --
+if ${1:true}
+  $0
+end
