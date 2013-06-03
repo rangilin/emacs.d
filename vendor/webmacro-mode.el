@@ -1,7 +1,7 @@
 (require 'generic-x)
 
 (define-generic-mode 'webmacro-mode
-  '()
+  '("##")
   '()
   '()
   '("\\.wm[m]?\'")
