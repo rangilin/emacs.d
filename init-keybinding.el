@@ -1,6 +1,6 @@
-(global-set-key (kbd "C-j") 'join-line)
+(global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 
-(global-set-key (kbd "C-S-j") (lambda () (interactive) (join-line 1)))
+(global-set-key (kbd "C-S-j") 'join-line)
 
 (global-set-key (kbd "M-x") 'smex)
 
@@ -15,4 +15,6 @@
 
 (global-set-key (kbd "C-M-c") `toggle-letter-case)
 
+
 (provide 'init-keybinding)
+
