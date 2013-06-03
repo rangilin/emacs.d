@@ -1,4 +1,5 @@
 (add-to-list 'load-path user-emacs-directory)
+(add-to-list 'load-path (concat user-emacs-directory (convert-standard-filename "vendor/")))
 
 ;; -------------------------------------------------- Initializing
 (require 'init-elpa)
@@ -10,6 +11,7 @@
 (require 'init-ido)
 (require 'init-ruby-mode)
 (require 'init-theme)
+(require 'init-webmacro-mode)
 (require 'init-window)
 
 (require 'init-misc)
