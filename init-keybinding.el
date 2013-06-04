@@ -1,3 +1,49 @@
+;;----------------------------------------------------------------------------
+;; Movement
+;;----------------------------------------------------------------------------
+;; by line
+(global-set-key (kbd "M-i") 'previous-line)
+(global-set-key (kbd "M-k") 'next-line)
+
+;; by character
+(global-set-key (kbd "M-l") 'forward-char)
+(global-set-key (kbd "M-j") 'backward-char)
+
+;; by word
+(global-set-key (kbd "M-o") 'forward-word)
+(global-set-key (kbd "M-u") 'backward-word)
+
+;; page up/down
+(global-set-key (kbd "M-I") 'scroll-cursor-up)
+(global-set-key (kbd "M-K") 'scroll-cursor-down)
+
+;; to top/bottom of buffer
+(global-set-key (kbd "M-N") 'beginning-of-buffer)
+(global-set-key (kbd "M-n") 'end-of-buffer)
+
+;; to beginning/end of line
+(global-set-key (kbd "M-h") 'move-beginning-of-line)
+(global-set-key (kbd "M-H") 'move-end-of-line)
+
+;;----------------------------------------------------------------------------
+;; Deletion
+;;----------------------------------------------------------------------------
+
+;; by character
+(global-set-key (kbd "M-d") 'delete-backward-char)
+(global-set-key (kbd "M-f") 'delete-char)
+
+;; by word
+(global-set-key (kbd "M-e") 'backward-kill-word)
+(global-set-key (kbd "M-r") 'kill-word)
+
+;; kill line
+(global-set-key (kbd "M-g") 'kill-line)
+(global-set-key (kbd "M-G") 'kill-back-to-indentation)
+(global-set-key (kbd "C-S-g") 'kill-whole-line)
+
+
+;;----------------------------------------------------------------------------
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 
 (global-set-key (kbd "C-S-j") 'join-line)

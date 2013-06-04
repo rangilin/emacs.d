@@ -56,6 +56,47 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
       (downcase-region p1 p2) (put this-command 'state "all lower")) )
     ) )
 
+;;----------------------------------------------------------------------------
+;; Scroll by moving cursor instead of screen
+;;----------------------------------------------------------------------------
+(defun scroll-point-down ()
+  "Move cursor one page down"
+  (interactive)
+  (condition-case nil (scroll-up)
+    (end-of-buffer (goto-char (point-max)))))
+
+(defun scroll-point-up ()
+  "Move cursor one page up"
+  (interactive)
+  (condition-case nil (scroll-down)
+    (beginning-of-buffer (goto-char (point-min)))))
+
+;;----------------------------------------------------------------------------
+;; Scroll behaviors
+;;----------------------------------------------------------------------------
+
+;; mouse scrolling one line at a time
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 1)))
+
+;; don't accelerate mouse scrolling
+(setq mouse-wheel-progressive-speed nil)
+
+;; scroll window under mouse
+(setq mouse-wheel-follow-mouse 't)
+
+;; make emacs scroll one line instead of half screen when cursor meet top/bottom of the screen
+(setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
+
+
+(defun kill-back-to-indentation ()
+  "Kill from point back to the first non-whitespace character on the line."
+  (interactive)
+  (let ((prev-pos (point)))
+    (back-to-indentation)
+    (kill-region (point) prev-pos)))
 
 
 (provide 'init-editing)
+
