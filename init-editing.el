@@ -59,13 +59,13 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 ;;----------------------------------------------------------------------------
 ;; Scroll by moving cursor instead of screen
 ;;----------------------------------------------------------------------------
-(defun scroll-point-down ()
+(defun scroll-cursor-down ()
   "Move cursor one page down"
   (interactive)
   (condition-case nil (scroll-up)
     (end-of-buffer (goto-char (point-max)))))
 
-(defun scroll-point-up ()
+(defun scroll-cursor-up ()
   "Move cursor one page up"
   (interactive)
   (condition-case nil (scroll-down)
