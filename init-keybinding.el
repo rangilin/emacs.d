@@ -22,8 +22,8 @@
 (global-set-key (kbd "M-n") 'end-of-buffer)
 
 ;; to beginning/end of line
-(global-set-key (kbd "M-h") 'move-beginning-of-line)
-(global-set-key (kbd "M-H") 'move-end-of-line)
+(global-set-key (kbd "M-J") 'move-beginning-of-line)
+(global-set-key (kbd "M-L") 'move-end-of-line)
 
 ;;----------------------------------------------------------------------------
 ;; Deletion
