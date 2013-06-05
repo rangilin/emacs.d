@@ -42,6 +42,12 @@
 (global-set-key (kbd "M-G") 'kill-back-to-indentation)
 (global-set-key (kbd "C-S-g") 'kill-whole-line)
 
+;;----------------------------------------------------------------------------
+;; Others
+;;----------------------------------------------------------------------------
+
+;; Mark
+(global-set-key (kbd "M-.") 'set-mark-command)
 
 ;;----------------------------------------------------------------------------
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
