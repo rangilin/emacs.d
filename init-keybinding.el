@@ -18,8 +18,8 @@
 (global-set-key (kbd "M-K") 'scroll-cursor-down)
 
 ;; to top/bottom of buffer
-(global-set-key (kbd "M-N") 'beginning-of-buffer)
-(global-set-key (kbd "M-n") 'end-of-buffer)
+(global-set-key (kbd "M-Y") 'beginning-of-buffer)
+(global-set-key (kbd "M-y") 'end-of-buffer)
 
 ;; to beginning/end of line
 (global-set-key (kbd "M-J") 'move-beginning-of-line)
@@ -49,6 +49,8 @@
 ;; Mark
 (global-set-key (kbd "M-.") 'set-mark-command)
 
+;; cancel
+(global-set-key (kbd "M-n") 'keyboard-quit)
 ;;----------------------------------------------------------------------------
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 
