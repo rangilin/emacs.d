@@ -60,6 +60,11 @@
 (global-set-key (kbd "C-S-f") 'isearch-backward)
 (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
 (define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
+
+;; insert newline
+(global-set-key (kbd "<C-S-return>") 'insert-newline-above)
+(global-set-key (kbd "<S-return>") 'insert-newline-below)
+
 ;;----------------------------------------------------------------------------
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 

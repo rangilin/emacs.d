@@ -90,6 +90,7 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 (setq scroll-conservatively 10000)
 (setq auto-window-vscroll nil)
 
+;;----------------------------------------------------------------------------
 
 (defun kill-back-to-indentation ()
   "Kill from point back to the first non-whitespace character on the line."
@@ -98,6 +99,21 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
     (back-to-indentation)
     (kill-region (point) prev-pos)))
 
+(defun insert-newline-above ()
+  "Insert a newline above the current line."
+  (interactive)
+  (unless (bolp)
+    (beginning-of-line))
+  (newline)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun insert-newline-below ()
+  "Insert a newline below the current line."
+  (interactive)
+  (unless (eolp)
+    (end-of-line))
+  (newline-and-indent))
 
 (provide 'init-editing)
 
