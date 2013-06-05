@@ -5,7 +5,8 @@
  line-number-mode 1
  column-number-mode 1
  x-select-enable-clipboard t
- line-spacing 0.1)
+ line-spacing 0.1
+ cursor-type 'bar)
 
 
 ;;----------------------------------------------------------------------------
