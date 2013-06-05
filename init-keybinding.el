@@ -25,6 +25,9 @@
 (global-set-key (kbd "M-J") 'move-beginning-of-line)
 (global-set-key (kbd "M-L") 'move-end-of-line)
 
+;; goto line
+(global-set-key (kbd "C-g") 'goto-line)
+
 ;;----------------------------------------------------------------------------
 ;; Deletion
 ;;----------------------------------------------------------------------------
