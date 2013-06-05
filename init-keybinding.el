@@ -51,6 +51,12 @@
 
 ;; cancel
 (global-set-key (kbd "M-n") 'keyboard-quit)
+
+;; search
+(global-set-key (kbd "C-f") 'isearch-forward)
+(global-set-key (kbd "C-S-f") 'isearch-backward)
+(define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
+(define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
 ;;----------------------------------------------------------------------------
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 
