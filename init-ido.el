@@ -5,10 +5,10 @@
 (setq ido-max-directory-size 100000)
 
 ;;----------------------------------------------------------------------------
-;; Use smex to improve 'M-x' act like ido-mode
+;; Use smex to improve "execute extend command" act like ido-mode
 ;;----------------------------------------------------------------------------
 (require-package 'smex)
-
+(setq smex-prompt-string "M-a ")
 
 
 (provide 'init-ido)
