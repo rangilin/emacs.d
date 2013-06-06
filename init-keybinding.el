@@ -62,12 +62,18 @@
 (global-set-key (kbd "<C-M-return>") 'insert-newline-above)
 (global-set-key (kbd "<S-return>") 'insert-newline-below)
 
+;; copy, cut & paste
+(global-set-key (kbd "M-x") 'kill-region)
+(global-set-key (kbd "M-c") 'kill-ring-save)
+(global-set-key (kbd "M-v") 'yank)
+(global-set-key (kbd "M-V") 'yank-pop)
+
 ;;----------------------------------------------------------------------------
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 
 (global-set-key (kbd "C-S-j") 'join-line)
 
-(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-a") 'smex)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
