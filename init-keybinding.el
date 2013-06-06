@@ -26,7 +26,7 @@
 (global-set-key (kbd "M-L") 'move-end-of-line)
 
 ;; goto line
-(global-set-key (kbd "C-g") 'goto-line)
+(global-set-key (kbd "C-c g") 'goto-line)
 
 ;;----------------------------------------------------------------------------
 ;; Deletion
@@ -51,9 +51,6 @@
 
 ;; Mark
 (global-set-key (kbd "M-.") 'set-mark-command)
-
-;; cancel
-(global-set-key (kbd "M-n") 'keyboard-quit)
 
 ;; search
 (global-set-key (kbd "C-f") 'isearch-forward)
