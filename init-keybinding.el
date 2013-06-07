@@ -13,6 +13,10 @@
 (global-set-key (kbd "M-o") 'forward-word)
 (global-set-key (kbd "M-u") 'backward-word)
 
+;; by block
+(global-set-key (kbd "M-I") 'previous-block)
+(global-set-key (kbd "M-K") 'next-block)
+
 ;; page up/down
 (global-set-key (kbd "M-<") 'scroll-cursor-up)
 (global-set-key (kbd "M->") 'scroll-cursor-down)
@@ -64,8 +68,9 @@
 (global-set-key (kbd "M-Z") 'undo-tree-redo)
 
 ;; move-text
-(global-set-key (kbd "M-I") 'move-text-up)
-(global-set-key (kbd "M-K") 'move-text-down)
+(define-key input-decode-map (kbd "C-S-i") (kbd "H-S-i"))
+(global-set-key (kbd "H-S-i") 'move-text-up)
+(global-set-key (kbd "C-K") 'move-text-down)
 
 
 ;;----------------------------------------------------------------------------

@@ -104,6 +104,24 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 (require 'move-text)
 
 ;;----------------------------------------------------------------------------
+;; forward/backward block
+;;     http://ergoemacs.org/emacs/emacs_form_feed_section_paging.html
+;;----------------------------------------------------------------------------
+(defun previous-block ()
+  "Move cursor backward to previous occurrence of double newline char. See: `forward-block'"
+  (interactive)
+  (skip-chars-backward "\n")
+  (when (not (search-backward-regexp "\n[[:blank:]]*\n" nil t))
+    (goto-char (point-min))))
+
+(defun next-block ()
+  "Move cursor forward to next occurrence of double newline character.In most major modes, this is the same as `forward-paragraph', however, this command's behavior is the same regardless of syntax table."
+  (interactive)
+  (skip-chars-forward "\n")
+  (when (not (search-forward-regexp "\n[[:blank:]]*\n" nil t))
+    (goto-char (point-max))))
+
+;;----------------------------------------------------------------------------
 
 (defun kill-back-to-indentation ()
   "Kill from point back to the first non-whitespace character on the line."
