@@ -68,6 +68,9 @@
 (global-set-key (kbd "M-v") 'yank)
 (global-set-key (kbd "M-V") 'yank-pop)
 
+;; recenter
+(global-set-key (kbd "M-p") 'recenter-top-bottom)
+
 ;;----------------------------------------------------------------------------
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 
