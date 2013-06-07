@@ -14,8 +14,8 @@
 (global-set-key (kbd "M-u") 'backward-word)
 
 ;; page up/down
-(global-set-key (kbd "M-I") 'scroll-cursor-up)
-(global-set-key (kbd "M-K") 'scroll-cursor-down)
+(global-set-key (kbd "M-<") 'scroll-cursor-up)
+(global-set-key (kbd "M->") 'scroll-cursor-down)
 
 ;; to top/bottom of buffer
 (global-set-key (kbd "M-Y") 'beginning-of-buffer)
@@ -63,6 +63,11 @@
 (global-set-key (kbd "M-z") 'undo-tree-undo)
 (global-set-key (kbd "M-Z") 'undo-tree-redo)
 
+;; move-text
+(global-set-key (kbd "M-I") 'move-text-up)
+(global-set-key (kbd "M-K") 'move-text-down)
+
+
 ;;----------------------------------------------------------------------------
 ;; Others
 ;;----------------------------------------------------------------------------
@@ -75,7 +80,6 @@
 (global-set-key (kbd "C-S-f") 'isearch-backward)
 (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
 (define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
-
 
 ;; recenter
 (global-set-key (kbd "M-p") 'recenter-top-bottom)
@@ -100,4 +104,3 @@
 
 
 (provide 'init-keybinding)
-

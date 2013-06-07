@@ -98,6 +98,12 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 (global-undo-tree-mode 1)
 
 ;;----------------------------------------------------------------------------
+;; Move-text
+;;----------------------------------------------------------------------------
+(require-package 'move-text)
+(require 'move-text)
+
+;;----------------------------------------------------------------------------
 
 (defun kill-back-to-indentation ()
   "Kill from point back to the first non-whitespace character on the line."
