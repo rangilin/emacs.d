@@ -77,6 +77,9 @@
 (define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
 
 
+;; recenter
+(global-set-key (kbd "M-p") 'recenter-top-bottom)
+
 ;;----------------------------------------------------------------------------
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 
