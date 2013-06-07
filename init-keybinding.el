@@ -46,6 +46,24 @@
 (global-set-key (kbd "C-S-g") 'kill-whole-line)
 
 ;;----------------------------------------------------------------------------
+;; Editing
+;;----------------------------------------------------------------------------
+
+;; insert newline
+(global-set-key (kbd "<M-S-return>") 'insert-newline-above)
+(global-set-key (kbd "<S-return>") 'insert-newline-below)
+
+;; copy, cut & paste
+(global-set-key (kbd "M-x") 'kill-region)
+(global-set-key (kbd "M-c") 'kill-ring-save)
+(global-set-key (kbd "M-v") 'yank)
+(global-set-key (kbd "M-V") 'yank-pop)
+
+;; undo/redo
+(global-set-key (kbd "M-z") 'undo-tree-undo)
+(global-set-key (kbd "M-Z") 'undo-tree-redo)
+
+;;----------------------------------------------------------------------------
 ;; Others
 ;;----------------------------------------------------------------------------
 
@@ -58,15 +76,6 @@
 (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
 (define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
 
-;; insert newline
-(global-set-key (kbd "<M-S-return>") 'insert-newline-above)
-(global-set-key (kbd "<S-return>") 'insert-newline-below)
-
-;; copy, cut & paste
-(global-set-key (kbd "M-x") 'kill-region)
-(global-set-key (kbd "M-c") 'kill-ring-save)
-(global-set-key (kbd "M-v") 'yank)
-(global-set-key (kbd "M-V") 'yank-pop)
 
 ;;----------------------------------------------------------------------------
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))

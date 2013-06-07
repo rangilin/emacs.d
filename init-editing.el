@@ -76,7 +76,7 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 ;; Scroll behaviors
 ;;----------------------------------------------------------------------------
 
-;; mouse scrolling one line at a time
+;; mouse scrolling three line at a time
 (setq mouse-wheel-scroll-amount '(3 ((shift) . 1)))
 
 ;; don't accelerate mouse scrolling
@@ -89,6 +89,13 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 (setq scroll-step 1)
 (setq scroll-conservatively 10000)
 (setq auto-window-vscroll nil)
+
+;;----------------------------------------------------------------------------
+;; Undo-tree
+;;----------------------------------------------------------------------------
+(require-package 'undo-tree)
+(require 'undo-tree)
+(global-undo-tree-mode 1)
 
 ;;----------------------------------------------------------------------------
 
