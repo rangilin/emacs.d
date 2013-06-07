@@ -59,7 +59,7 @@
 (define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
 
 ;; insert newline
-(global-set-key (kbd "<C-M-return>") 'insert-newline-above)
+(global-set-key (kbd "<M-S-return>") 'insert-newline-above)
 (global-set-key (kbd "<S-return>") 'insert-newline-below)
 
 ;; copy, cut & paste
