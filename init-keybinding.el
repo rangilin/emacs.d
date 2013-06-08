@@ -26,7 +26,7 @@
 (global-set-key (kbd "M-y") 'end-of-buffer)
 
 ;; to beginning/end of line
-(global-set-key (kbd "M-J") 'move-beginning-of-line)
+(global-set-key (kbd "M-J") 'back-to-indentation-or-beginning-of-line)
 (global-set-key (kbd "M-L") 'move-end-of-line)
 
 ;; goto line

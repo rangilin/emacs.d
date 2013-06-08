@@ -5,7 +5,6 @@
  line-number-mode 1
  column-number-mode 1
  x-select-enable-clipboard t
- line-spacing 0.1
  cursor-type 'bar)
 
 
@@ -146,5 +145,13 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
     (end-of-line))
   (newline-and-indent))
 
-(provide 'init-editing)
 
+(defun back-to-indentation-or-beginning-of-line ()
+  "Move point to the first non-whitespace character, move to beginning of the line if repeated"
+  (interactive)
+  (if (eq last-command this-command)
+      (call-interactively 'move-beginning-of-line)
+    (back-to-indentation)))
+
+
+(provide 'init-editing)
