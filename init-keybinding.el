@@ -72,6 +72,8 @@
 (global-set-key (kbd "H-S-i") 'move-text-up)
 (global-set-key (kbd "C-K") 'move-text-down)
 
+;; save
+(global-set-key (kbd "C-s") 'save-buffer)
 
 ;;----------------------------------------------------------------------------
 ;; Others
