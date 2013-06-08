@@ -14,20 +14,20 @@
 (global-set-key (kbd "M-u") 'backward-word)
 
 ;; by block
-(global-set-key (kbd "M-I") 'previous-block)
-(global-set-key (kbd "M-K") 'next-block)
+(global-set-key (kbd "M-O") 'next-block)
+(global-set-key (kbd "M-U") 'previous-block)
 
 ;; page up/down
-(global-set-key (kbd "M-<") 'scroll-cursor-up)
-(global-set-key (kbd "M->") 'scroll-cursor-down)
+(global-set-key (kbd "M-I") 'scroll-cursor-up)
+(global-set-key (kbd "M-K") 'scroll-cursor-down)
 
 ;; to top/bottom of buffer
 (global-set-key (kbd "M-Y") 'beginning-of-buffer)
 (global-set-key (kbd "M-y") 'end-of-buffer)
 
 ;; to beginning/end of line
-(global-set-key (kbd "M-J") 'back-to-indentation-or-beginning-of-line)
-(global-set-key (kbd "M-L") 'move-end-of-line)
+(global-set-key (kbd "M-H") 'back-to-indentation-or-beginning-of-line)
+(global-set-key (kbd "M-h") 'move-end-of-line)
 
 ;; goto line
 (global-set-key (kbd "C-c g") 'goto-line)
