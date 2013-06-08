@@ -70,7 +70,7 @@
 ;; move-text
 (define-key input-decode-map (kbd "C-S-i") (kbd "H-S-i"))
 (global-set-key (kbd "H-S-i") 'move-text-up)
-(global-set-key (kbd "C-K") 'move-text-down)
+(global-set-key (kbd "C-S-k") 'move-text-down)
 
 ;; save
 (global-set-key (kbd "C-s") 'save-buffer)
