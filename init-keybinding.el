@@ -74,7 +74,7 @@
 
 ;; save
 (global-set-key (kbd "C-s") 'save-buffer)
-(global-set-key (kbd "C-S") 'save-some-buffers)
+(global-set-key (kbd "C-S-s") 'save-some-buffers)
 
 ;;----------------------------------------------------------------------------
 ;; Others
