@@ -4,8 +4,7 @@
  tab-width 4
  line-number-mode 1
  column-number-mode 1
- x-select-enable-clipboard t
- cursor-type 'bar)
+ x-select-enable-clipboard t)
 
 
 ;;----------------------------------------------------------------------------
@@ -104,21 +103,35 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 
 ;;----------------------------------------------------------------------------
 ;; forward/backward block
-;;     http://ergoemacs.org/emacs/emacs_form_feed_section_paging.html
+;; https://code.google.com/p/ergoemacs/source/browse/ergoemacs/ergoemacs-keybindings/ergoemacs-functions.el
 ;;----------------------------------------------------------------------------
-(defun previous-block ()
-  "Move cursor backward to previous occurrence of double newline char. See: `forward-block'"
-  (interactive)
-  (skip-chars-backward "\n")
-  (when (not (search-backward-regexp "\n[[:blank:]]*\n" nil t))
-    (goto-char (point-min))))
 
-(defun next-block ()
-  "Move cursor forward to next occurrence of double newline character.In most major modes, this is the same as `forward-paragraph', however, this command's behavior is the same regardless of syntax table."
-  (interactive)
-  (skip-chars-forward "\n")
-  (when (not (search-forward-regexp "\n[[:blank:]]*\n" nil t))
-    (goto-char (point-max))))
+(defun next-block (&optional number)
+  "Move cursor forward to the beginning of next text block.
+A text block is separated by 2 empty lines (or line with just whitespace).
+In most major modes, this is similar to `forward-paragraph', but this command's behavior is the same regardless of syntax table.
+
+With a prefix argument NUMBER, move forward NUMBER blocks.
+With a negative prefix argument NUMBER, move backward NUMBER blocks."
+  (interactive "p")
+  (if (and number
+           (> 0 number))
+      (previous-block (- 0 number))
+  (if (search-forward-regexp "\n[[:blank:]\n]*\n+" nil "NOERROR" number)
+      (progn (backward-char))
+    (progn (goto-char (point-max))))))
+
+(defun previous-block (&optional number)
+  "Move cursor backward to previous text block."
+  (interactive "p")
+  (if (and number
+           (> 0 number))
+      (next-block (- 0 number))
+    (if (search-backward-regexp "\n[\t\n ]*\n+" nil "NOERROR" number)
+        (progn
+          (skip-chars-backward "\n\t ")
+          (forward-char 1))
+      (progn (goto-char (point-min))))))
 
 ;;----------------------------------------------------------------------------
 
