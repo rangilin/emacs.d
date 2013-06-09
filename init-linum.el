@@ -1,6 +1,13 @@
+;; http://www.emacswiki.org/emacs/linum-off.el
+
 (require 'linum)
 
-(defcustom linum-disabled-modes '(eshell-mode text-mode dired-mode))
+(defcustom linum-disabled-modes '(eshell-mode text-mode dired-mode)
+  "* List of modes disabled when global linum mode is on"
+  :type '(repeat (sexp :tag "Major mode"))
+  :tag " Major modes where linum is disabled: "
+  :group 'linum
+  )
 
 (defun linum-on ()
   (unless (or (minibufferp)
