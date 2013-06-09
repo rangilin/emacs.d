@@ -6,6 +6,12 @@
  column-number-mode 1
  x-select-enable-clipboard t)
 
+;;----------------------------------------------------------------------------
+;; Turn off whitespace visualization in some modes
+;;----------------------------------------------------------------------------
+(dolist (hook '(eshell-mode-hook))
+  (add-hook hook
+            (lambda () (setq show-trailing-whitespace nil))))
 
 ;;----------------------------------------------------------------------------
 ;; delete/replace active region when typing
