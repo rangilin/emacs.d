@@ -3,6 +3,7 @@
 
 ;; -------------------------------------------------- Initializing
 (require 'init-elpa)
+(require 'init-key-definitions)
 
 ;; -------------------------------------------------- modes/features/packages
 (require 'init-editing)
