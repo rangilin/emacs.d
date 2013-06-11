@@ -23,4 +23,7 @@
 ;; dired
 (put 'dired-find-alternate-file 'disabled nil)
 
+;; isearch
+(setq isearch-allow-scroll 1)
+
 (provide 'init-misc)
