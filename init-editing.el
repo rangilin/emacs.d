@@ -9,7 +9,7 @@
 ;;----------------------------------------------------------------------------
 ;; Turn off whitespace visualization in some modes
 ;;----------------------------------------------------------------------------
-(dolist (hook '(eshell-mode-hook))
+(dolist (hook '(eshell-mode-hook shell-mode-hook))
   (add-hook hook
             (lambda () (setq show-trailing-whitespace nil))))
 
