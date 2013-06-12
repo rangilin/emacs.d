@@ -44,6 +44,9 @@
 (global-set-key (kbd "M-G") 'kill-back-to-indentation)
 (global-set-key (kbd "C-S-g") 'kill-whole-line)
 
+;; zap to character
+(global-set-key (kbd "M-z") 'zap-to-char)
+
 ;; insert newline
 (global-set-key (kbd "<M-S-return>") 'insert-newline-above)
 (global-set-key (kbd "<S-return>") 'insert-newline-below)
@@ -55,8 +58,8 @@
 (global-set-key (kbd "M-V") 'yank-pop)
 
 ;; undo/redo
-(global-set-key (kbd "M-z") 'undo-tree-undo)
-(global-set-key (kbd "M-Z") 'undo-tree-redo)
+(global-set-key (kbd "C-z") 'undo-tree-undo)
+(global-set-key (kbd "C-S-z") 'undo-tree-redo)
 
 ;; move-text
 (define-key input-decode-map (kbd "C-S-i") (kbd "H-S-i"))
