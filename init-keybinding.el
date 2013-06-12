@@ -1,117 +1,115 @@
 ;; -------------------------------------------------- Cursor movements
-;; by line
-(global-set-key rl-forward-line-key 'next-line)
-(global-set-key rl-backward-line-key 'previous-line)
-
 ;; by character
-(global-set-key rl-forward-char-key 'forward-char)
-(global-set-key rl-backward-char-key 'backward-char)
+(global-set-key (kbd "M-l") 'forward-char)
+(global-set-key (kbd "M-j") 'backward-char)
+
+;; by line
+(global-set-key (kbd "M-k") 'next-line)
+(global-set-key (kbd "M-i") 'previous-line)
 
 ;; by word
-(global-set-key rl-forward-word-key 'forward-word)
-(global-set-key rl-backward-word-key 'backward-word)
+(global-set-key (kbd "M-o") 'forward-word)
+(global-set-key (kbd "M-u") 'backward-word)
 
 ;; by block
-(global-set-key rl-forward-block-key 'next-block)
-(global-set-key rl-backward-block-key 'previous-block)
+(global-set-key (kbd "M-U") 'next-block)
+(global-set-key (kbd "M-O") 'previous-block)
 
 ;; page up/down
-(global-set-key rl-forward-page-key 'scroll-cursor-down)
-(global-set-key rl-backward-page-key 'scroll-cursor-up)
+(global-set-key (kbd "M-I") 'scroll-cursor-down)
+(global-set-key (kbd "M-K") 'scroll-cursor-up)
 
 ;; to top/bottom of buffer
-(global-set-key rl-beginning-of-buffer-key 'beginning-of-buffer)
-(global-set-key rl-end-of-buffer-key 'end-of-buffer)
+(global-set-key (kbd "M-Y") 'beginning-of-buffer)
+(global-set-key (kbd "M-y") 'end-of-buffer)
 
 ;; to beginning/end of line
-(global-set-key rl-move-to-indentation-or-beginning-of-line-key
-                'back-to-indentation-or-beginning-of-line)
-(global-set-key rl-move-to-end-of-line-key 'move-end-of-line)
+(global-set-key (kbd "M-H") 'back-to-indentation-or-beginning-of-line)
+(global-set-key (kbd "M-h") 'move-end-of-line)
 
 ;; goto line
-(global-set-key rl-goto-line-key 'goto-line)
+(global-set-key (kbd "C-c g" 'goto-line)
 
 ;; -------------------------------------------------- Editing
 ;; delete by character
-(global-set-key rl-delete-backward-char-key 'delete-backward-char)
-(global-set-key rl-delete-forward-char-key 'delete-char)
+(global-set-key (kbd "M-d") 'delete-backward-char)
+(global-set-key (kbd "M-f") 'delete-char)
 
 ;; delete by word
-(global-set-key rl-delete-backward-word-key 'backward-kill-word)
-(global-set-key rl-delete-forward-word-key 'kill-word)
+(global-set-key (kbd "M-e") 'backward-kill-word)
+(global-set-key (kbd "M-r") 'kill-word)
 
 ;; delete line
-(global-set-key rl-delete-to-end-of-line-key 'kill-line)
-(global-set-key rl-delete-to-indentation-of-line-key 'kill-back-to-indentation)
-(global-set-key rl-delete-whole-line-key 'kill-whole-line)
+(global-set-key (kbd "M-g") 'kill-line)
+(global-set-key (kbd "M-G") 'kill-back-to-indentation)
+(global-set-key (kbd "C-S-g") 'kill-whole-line)
 
 ;; insert newline
-(global-set-key rl-insert-newline-above-key 'insert-newline-above)
-(global-set-key rl-insert-newline-below-key 'insert-newline-below)
+(global-set-key (kbd "<M-S-return>") 'insert-newline-above)
+(global-set-key (kbd "<S-return>") 'insert-newline-below)
 
 ;; copy, cut & paste
-(global-set-key rl-cut-key 'kill-region)
-(global-set-key rl-copy-key 'kill-ring-save)
-(global-set-key rl-paste-key 'yank)
-(global-set-key rl-paste-history-key 'yank-pop)
+(global-set-key (kbd "M-x") 'kill-region)
+(global-set-key (kbd "M-c") 'kill-ring-save)
+(global-set-key (kbd "M-v") 'yank)
+(global-set-key (kbd "M-V") 'yank-pop)
 
 ;; undo/redo
-(global-set-key rl-undo-key 'undo-tree-undo)
-(global-set-key rl-redo-key 'undo-tree-redo)
+(global-set-key (kbd "M-z") 'undo-tree-undo)
+(global-set-key (kbd "M-Z") 'undo-tree-redo)
 
 ;; move-text
-(global-set-key rl-move-text-up-key 'move-text-up)
-(global-set-key rl-move-text-down-key 'move-text-down)
+(define-key input-decode-map (kbd "C-S-i") (kbd "H-S-i")
+(global-set-key (kbd "H-S-i") 'move-text-up)
+(global-set-key (kbd "C-S-k") 'move-text-down)
 
 ;; join line
-(global-set-key rl-join-line-below-key (lambda () (interactive) (join-line 1)))
-(global-set-key rl-join-line-above-key 'join-line)
+(global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
+(global-set-key (kbd "C-J") 'join-line)
 
 ;; newline & indent
-(global-set-key rl-newline-and-indent-key 'newline-and-indent)
+(global-set-key (kbd "RET") 'newline-and-indent)
 
 ;; toggle word case
-(global-set-key rl-toggle-word-letter-case-key `toggle-letter-case)
+(global-set-key (kbd "C-M-c") `toggle-letter-case)
 
 ;;---------------------------------------------------------------------------
 ;; Mark
 ;;----------------------------------------------------------------------------
 
 ;; Mark
-(global-set-key rl-set-mark-command-key 'set-mark-command)
+(global-set-key (kbd "M-.") 'set-mark-command)
 
 ;; expand region
-(global-set-key rl-expand-region-key 'er/expand-region)
+(global-set-key (kbd "M-w") 'er/expand-region)
 
 ;;----------------------------------------------------------------------------
 ;; Others
 ;;----------------------------------------------------------------------------
 ;; save
-(global-set-key rl-save-buffer-key 'save-buffer)
-(global-set-key rl-save-some-buffers-key 'save-some-buffers)
+(global-set-key (kbd "C-s") 'save-buffer)
+(global-set-key (kbd "C-S-s") 'save-some-buffers)
 ;; search
-(global-set-key rl-isearch-forward-key 'isearch-forward)
-(global-set-key rl-isearch-backward-key 'isearch-backward)
-(define-key isearch-mode-map rl-isearch-forward-key 'isearch-repeat-forward)
-(define-key isearch-mode-map rl-isearch-backward-key 'isearch-repeat-backward)
+(global-set-key (kbd "C-f") 'isearch-forward)
+(global-set-key (kbd "C-S-f") 'isearch-backward)
+(define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
+(define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
 
 ;; recenter
-(global-set-key rl-recenter-key 'recenter-top-bottom)
+(global-set-key (kbd "M-p") 'recenter-top-bottom)
 
 ;; use smex to execute extend command
-(global-set-key rl-execute-extend-command-key 'smex)
+(global-set-key (kbd "M-a") 'smex)
 
 ;; use ibuufer
-(global-set-key rl-ibuffer-key 'ibuffer)
+(global-set-key (kbd "C-x C-b" 'ibuffer)
 
 ;; window layout arragnement
-(global-set-key rl-split-window-vertically-key
-                (focus-and-show-other-buffer-after 'split-window-vertically))
-(global-set-key rl-split-window-horizontally-key
-                (focus-and-show-other-buffer-after 'split-window-horizontally))
-(global-set-key rl-split-window-horizontally-instead-key 'split-window-horizontally-instead)
-(global-set-key rl-split-window-vertically-instead-key 'split-window-vertically-instead)
-
+(global-set-key (kbd "C-x 2") (focus-and-show-other-buffer-after 'split-window-vertically))
+(global-set-key (kbd "C-x 3") (focus-and-show-other-buffer-after 'split-window-horizontally))
+(global-set-key (kbd "C-x _") 'split-window-horizontally-instead)
+(global-set-key (kbd "C-x |") 'split-window-vertically-instead)
 
 
 (provide 'init-keybinding)
+
