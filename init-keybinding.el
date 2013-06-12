@@ -12,12 +12,12 @@
 (global-set-key (kbd "M-u") 'backward-word)
 
 ;; by block
-(global-set-key (kbd "M-U") 'next-block)
-(global-set-key (kbd "M-O") 'previous-block)
+(global-set-key (kbd "M-U") 'previous-block)
+(global-set-key (kbd "M-O") 'next-block)
 
 ;; page up/down
-(global-set-key (kbd "M-I") 'scroll-cursor-down)
-(global-set-key (kbd "M-K") 'scroll-cursor-up)
+(global-set-key (kbd "M-I") 'scroll-cursor-up)
+(global-set-key (kbd "M-K") 'scroll-cursor-down)
 
 ;; to top/bottom of buffer
 (global-set-key (kbd "M-Y") 'beginning-of-buffer)
@@ -28,7 +28,7 @@
 (global-set-key (kbd "M-h") 'move-end-of-line)
 
 ;; goto line
-(global-set-key (kbd "C-c g" 'goto-line)
+(global-set-key (kbd "C-c g") 'goto-line)
 
 ;; -------------------------------------------------- Editing
 ;; delete by character
@@ -59,7 +59,7 @@
 (global-set-key (kbd "M-Z") 'undo-tree-redo)
 
 ;; move-text
-(define-key input-decode-map (kbd "C-S-i") (kbd "H-S-i")
+(define-key input-decode-map (kbd "C-S-i") (kbd "H-S-i"))
 (global-set-key (kbd "H-S-i") 'move-text-up)
 (global-set-key (kbd "C-S-k") 'move-text-down)
 
@@ -102,7 +102,7 @@
 (global-set-key (kbd "M-a") 'smex)
 
 ;; use ibuufer
-(global-set-key (kbd "C-x C-b" 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; window layout arragnement
 (global-set-key (kbd "C-x 2") (focus-and-show-other-buffer-after 'split-window-vertically))
