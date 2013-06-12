@@ -11,13 +11,17 @@
 (global-set-key (kbd "M-o") 'forward-word)
 (global-set-key (kbd "M-u") 'backward-word)
 
+;; by whitespace
+(global-set-key (kbd "M-O") 'forward-whitespace)
+(global-set-key (kbd "M-U") (lambda() (interactive) (forward-whitespace -1)))
+
 ;; by block
-(global-set-key (kbd "M-U") 'previous-block)
-(global-set-key (kbd "M-O") 'next-block)
+(global-set-key (kbd "M-I") 'previous-block)
+(global-set-key (kbd "M-K") 'next-block)
 
 ;; page up/down
-(global-set-key (kbd "M-I") 'scroll-cursor-up)
-(global-set-key (kbd "M-K") 'scroll-cursor-down)
+(global-set-key (kbd "M-<") 'scroll-cursor-up)
+(global-set-key (kbd "M->") 'scroll-cursor-down)
 
 ;; to top/bottom of buffer
 (global-set-key (kbd "M-Y") 'beginning-of-buffer)
