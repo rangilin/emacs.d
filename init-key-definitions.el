@@ -74,13 +74,17 @@
 ;; toogle letter case of a word
 (defconst rl-toggle-word-letter-case-key (kbd "C-M-c"))
 
+;; -------------------------------------------------- Selection
+;; mark
+(defconst rl-set-mark-command-key (kbd "M-."))
+
+;; expand region
+(defconst rl-expand-region-key (kbd "M-w"))
+
 ;; -------------------------------------------------- Others
 ;; save buffers
 (defconst rl-save-buffer-key (kbd "C-s"))
 (defconst rl-save-some-buffers-key (kbd "C-S-s"))
-
-;; mark
-(defconst rl-set-mark-command-key (kbd "M-."))
 
 ;; increment search
 (defconst rl-isearch-forward-key (kbd "C-f"))

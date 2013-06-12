@@ -73,6 +73,15 @@
 ;; toggle word case
 (global-set-key rl-toggle-word-letter-case-key `toggle-letter-case)
 
+;;---------------------------------------------------------------------------
+;; Mark
+;;----------------------------------------------------------------------------
+
+;; Mark
+(global-set-key rl-set-mark-command-key 'set-mark-command)
+
+;; expand region
+(global-set-key rl-expand-region-key 'er/expand-region)
 
 ;;----------------------------------------------------------------------------
 ;; Others
@@ -80,10 +89,6 @@
 ;; save
 (global-set-key rl-save-buffer-key 'save-buffer)
 (global-set-key rl-save-some-buffers-key 'save-some-buffers)
-
-;; Mark
-(global-set-key rl-set-mark-command-key 'set-mark-command)
-
 ;; search
 (global-set-key rl-isearch-forward-key 'isearch-forward)
 (global-set-key rl-isearch-backward-key 'isearch-backward)

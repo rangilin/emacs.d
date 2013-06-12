@@ -108,6 +108,12 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 (require 'move-text)
 
 ;;----------------------------------------------------------------------------
+;; expand-region
+;;----------------------------------------------------------------------------
+(require-package 'expand-region)
+(require 'expand-region)
+
+;;----------------------------------------------------------------------------
 ;; forward/backward block
 ;; https://code.google.com/p/ergoemacs/source/browse/ergoemacs/ergoemacs-keybindings/ergoemacs-functions.el
 ;;----------------------------------------------------------------------------
