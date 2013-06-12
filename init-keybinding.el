@@ -1,6 +1,4 @@
-;;----------------------------------------------------------------------------
-;; Movement
-;;----------------------------------------------------------------------------
+;; -------------------------------------------------- Cursor movements
 ;; by line
 (global-set-key rl-forward-line-key 'next-line)
 (global-set-key rl-backward-line-key 'previous-line)
@@ -33,26 +31,19 @@
 ;; goto line
 (global-set-key rl-goto-line-key 'goto-line)
 
-;;----------------------------------------------------------------------------
-;; Deletion
-;;----------------------------------------------------------------------------
-
-;; by character
+;; -------------------------------------------------- Editing
+;; delete by character
 (global-set-key rl-delete-backward-char-key 'delete-backward-char)
 (global-set-key rl-delete-forward-char-key 'delete-char)
 
-;; by word
+;; delete by word
 (global-set-key rl-delete-backward-word-key 'backward-kill-word)
 (global-set-key rl-delete-forward-word-key 'kill-word)
 
-;; kill line
+;; delete line
 (global-set-key rl-delete-to-end-of-line-key 'kill-line)
 (global-set-key rl-delete-to-indentation-of-line-key 'kill-back-to-indentation)
 (global-set-key rl-delete-whole-line-key 'kill-whole-line)
-
-;;----------------------------------------------------------------------------
-;; Editing
-;;----------------------------------------------------------------------------
 
 ;; insert newline
 (global-set-key rl-insert-newline-above-key 'insert-newline-above)
@@ -102,13 +93,13 @@
 ;; recenter
 (global-set-key rl-recenter-key 'recenter-top-bottom)
 
-;;----------------------------------------------------------------------------
-
+;; use smex to execute extend command
 (global-set-key rl-execute-extend-command-key 'smex)
 
+;; use ibuufer
 (global-set-key rl-ibuffer-key 'ibuffer)
 
-
+;; window layout arragnement
 (global-set-key rl-split-window-vertically-key
                 (focus-and-show-other-buffer-after 'split-window-vertically))
 (global-set-key rl-split-window-horizontally-key

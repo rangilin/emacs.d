@@ -1,5 +1,3 @@
-;; All key definitions
-
 ;; -------------------------------------------------- Cursor movements
 ;; move by chracter
 (defconst rl-forward-char-key (kbd "M-l"))
@@ -97,7 +95,7 @@
 ;; ibuffer
 (defconst rl-ibuffer-key (kbd "C-x C-b"))
 
-;; window layout arrange
+;; window layout arrangement
 (defconst rl-split-window-vertically-key (kbd "C-x 2"))
 (defconst rl-split-window-horizontally-key (kbd "C-x 3"))
 (defconst rl-split-window-vertically-instead-key (kbd "C-x _"))
