@@ -72,7 +72,7 @@
 
 ;; join line
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
-(global-set-key (kbd "C-J") 'join-line)
+(global-set-key (kbd "C-S-j") 'join-line)
 
 ;; newline & indent
 (global-set-key (kbd "RET") 'newline-and-indent)
