@@ -3,7 +3,7 @@
 (define-generic-mode 'webmacro-mode
   '("##")
   '()
-  '(("#if\\|#elseif\\|#else\\|#foreach\\|#begin\\|#end\\|#comment\\|#macro\\|#set\\|#include" . 'font-lock-keyword-face)
+  '(("#if\\|#elseif\\|#else\\|#foreach\\|#begin\\|#end\\|#comment\\|#macro\\|#set\\|#include\\|#text" . 'font-lock-keyword-face)
     ("\\$\\w+" . 'font-lock-variable-name-face))
   '("\\.wm[m]?\'")
   nil
