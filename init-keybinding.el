@@ -96,11 +96,16 @@
 ;; save
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-S-s") 'save-some-buffers)
+
 ;; search
 (global-set-key (kbd "C-f") 'isearch-forward)
 (global-set-key (kbd "C-S-f") 'isearch-backward)
 (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
 (define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
+
+;; replace
+(global-set-key (kbd "C-r") 'query-replace)
+(global-set-key (kbd "C-S-r") 'query-replace-regexp)
 
 ;; recenter
 (global-set-key (kbd "M-p") 'recenter-top-bottom)
