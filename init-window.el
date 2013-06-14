@@ -27,13 +27,13 @@
 ;;----------------------------------------------------------------------------
 ;; Rearrange split windows
 ;;----------------------------------------------------------------------------
-(defun split-window-horizontally-instead ()
+(defun split-window-vertically-instead ()
   (interactive)
   (save-excursion
     (delete-other-windows)
     (funcall (show-other-buffer-after 'split-window-horizontally))))
 
-(defun split-window-vertically-instead ()
+(defun split-window-horizontally-instead ()
   (interactive)
   (save-excursion
     (delete-other-windows)
