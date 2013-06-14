@@ -87,8 +87,9 @@
 ;; Mark
 (global-set-key (kbd "M-.") 'set-mark-command)
 
-;; expand region
+;; expand/contract region
 (global-set-key (kbd "M-w") 'er/expand-region)
+(global-set-key (kbd "M-W") 'er/contract-region)
 
 ;;----------------------------------------------------------------------------
 ;; Others
