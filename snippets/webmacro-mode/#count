@@ -1,0 +1,6 @@
+# name: count block
+# key: #count
+# --
+#count ${1:$num} from ${2:1} to ${3:10} {
+  $0
+}

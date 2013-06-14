@@ -1,0 +1,6 @@
+# name: macro block
+# key: #macro
+# --
+#macro ${1:a_macro}($2) {
+  $0
+}

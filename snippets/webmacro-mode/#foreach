@@ -1,0 +1,6 @@
+# name: foreach block
+# key: #foreach
+# --
+#foreach ${1:element} in ${2:collection} {
+  $0
+}

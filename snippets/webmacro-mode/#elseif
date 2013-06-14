@@ -1,0 +1,6 @@
+# name: else if block
+# key: #elseif
+# --
+#elseif (${1:true}) {
+  $0
+}
