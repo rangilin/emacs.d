@@ -123,6 +123,9 @@
 (global-set-key (kbd "C-x _") 'split-window-horizontally-instead)
 (global-set-key (kbd "C-x |") 'split-window-vertically-instead)
 
+;; ace jump mode
+(define-key global-map (kbd "M-m") 'ace-jump-mode)
+(define-key global-map (kbd "M-M") 'ace-jump-mode-pop-mark)
 
 (provide 'init-keybinding)
 

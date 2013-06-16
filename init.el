@@ -5,6 +5,7 @@
 (require 'init-elpa)
 
 ;; -------------------------------------------------- modes/features/packages
+(require 'init-ace-jump-mode)
 (require 'init-editing)
 (require 'init-gui-frames)
 (require 'init-ibuffer)
