@@ -114,7 +114,7 @@
 ;; use smex to execute extend command
 (global-set-key (kbd "M-a") 'smex)
 
-;; use ibuufer
+;; use ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; window layout arragnement
@@ -125,7 +125,11 @@
 
 ;; ace jump mode
 (define-key global-map (kbd "M-m") 'ace-jump-mode)
+(define-key global-map (kbd "C-m") 'ace-jump-char-mode)
 (define-key global-map (kbd "M-M") 'ace-jump-mode-pop-mark)
+
+;; comment
+(global-set-key (kbd "C-/") 'comment-dwim)
 
 (provide 'init-keybinding)
 

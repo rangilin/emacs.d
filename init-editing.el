@@ -104,6 +104,9 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
 ;;----------------------------------------------------------------------------
 (require-package 'undo-tree)
 (require 'undo-tree)
+(eval-after-load "undo-tree"
+  (define-key undo-tree-map (kbd "C-/") nil))
+
 (global-undo-tree-mode 1)
 
 ;;----------------------------------------------------------------------------
