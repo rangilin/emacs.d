@@ -23,6 +23,9 @@
 (global-set-key (kbd "M-<") 'scroll-cursor-up)
 (global-set-key (kbd "M->") 'scroll-cursor-down)
 
+(global-set-key (kbd "C-M-<") (lambda() (interactive) (scroll-other-window `-)))
+(global-set-key (kbd "C-M->") 'scroll-other-window)
+
 ;; to top/bottom of buffer
 (global-set-key (kbd "M-Y") 'beginning-of-buffer)
 (global-set-key (kbd "M-y") 'end-of-buffer)
