@@ -125,7 +125,6 @@
 
 ;; ace jump mode
 (define-key global-map (kbd "M-m") 'ace-jump-mode)
-(define-key global-map (kbd "C-m") 'ace-jump-char-mode)
 (define-key global-map (kbd "M-M") 'ace-jump-mode-pop-mark)
 
 ;; comment
