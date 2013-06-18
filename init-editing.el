@@ -193,5 +193,10 @@ With a negative prefix argument NUMBER, move backward NUMBER blocks."
       (call-interactively 'move-beginning-of-line)
     (back-to-indentation)))
 
+;;----------------------------------------------------------------------------
+;; browse-kill-ring
+;;----------------------------------------------------------------------------
+(require-package 'browse-kill-ring)
+
 
 (provide 'init-editing)
