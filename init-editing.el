@@ -33,6 +33,13 @@
 (show-paren-mode 1)
 
 ;;----------------------------------------------------------------------------
+;; duplicate-thing
+;; ----------------------------------------------------------------------------
+(require-package 'duplicate-thing)
+(require 'duplicate-thing)
+
+
+;;----------------------------------------------------------------------------
 ;; Toggle letter case of current word or active region
 ;; http://ergoemacs.org/emacs/modernization_upcase-word.html
 ;;----------------------------------------------------------------------------

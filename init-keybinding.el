@@ -63,6 +63,8 @@
 (global-set-key (kbd "M-c") 'kill-ring-save)
 (global-set-key (kbd "M-v") 'yank)
 (global-set-key (kbd "M-V") 'yank-pop)
+(global-set-key (kbd "M-s d") 'duplicate-thing)
+
 
 ;; undo/redo
 (global-set-key (kbd "C-z") 'undo-tree-undo)
