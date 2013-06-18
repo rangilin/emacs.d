@@ -1,9 +1,11 @@
 ;;----------------------------------------------------------------------------
-;; My favorite theme in Emacs so far
+;; My favorite themes
 ;;----------------------------------------------------------------------------
 (require-package 'color-theme-sanityinc-tomorrow)
+(require-package 'zenburn-theme)
 
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-eighties))
+(setq-default custom-enabled-themes '(zenburn-theme))
+
 
 ;;----------------------------------------------------------------------------
 ;; Ensure that themes will be applied even if they have not been customized
