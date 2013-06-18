@@ -128,8 +128,8 @@
 (global-set-key (kbd "C-x |") 'split-window-vertically-instead)
 
 ;; ace jump mode
-(define-key global-map (kbd "M-m") 'ace-jump-mode)
-(define-key global-map (kbd "M-M") 'ace-jump-mode-pop-mark)
+(define-key global-map (kbd "C-;") 'ace-jump-mode)
+(define-key global-map (kbd "C-:") 'ace-jump-mode-pop-mark)
 
 ;; comment
 (global-set-key (kbd "C-/") 'comment-dwim)
