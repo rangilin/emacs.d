@@ -26,4 +26,8 @@
 ;; isearch
 (setq isearch-allow-scroll 1)
 
+;; autopair
+(require-package 'autopair)
+(autopair-global-mode)
+
 (provide 'init-misc)
