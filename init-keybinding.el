@@ -90,11 +90,15 @@
 ;; toggle word case
 (global-set-key (kbd "C-M-c") `toggle-letter-case)
 
+;; remove trailing whitespace
+(global-set-key (kbd "M-w") 'delete-trailing-whitespace)
+
 ;;-------------------------------------------------- Mark
 (global-set-key (kbd "M-.") 'set-mark-command)
 
 ;; expand/contract region
-(global-set-key (kbd "M-w") 'er/expand-region)
+(global-set-key (kbd "M-m") 'er/expand-region)
+(global-set-key (kbd "M-M") 'er/contract-region)
 
 ;;-------------------------------------------------- Others
 ;; save
@@ -134,4 +138,3 @@
 (global-set-key (kbd "C-/") 'comment-dwim)
 
 (provide 'init-keybinding)
-
