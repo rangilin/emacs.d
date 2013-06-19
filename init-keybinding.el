@@ -37,6 +37,12 @@
 ;; goto line
 (global-set-key (kbd "C-c g") 'goto-line)
 
+;; switch window
+(global-set-key (kbd "M-s M-i") 'windmove-up)
+(global-set-key (kbd "M-s M-k") 'windmove-down)
+(global-set-key (kbd "M-s M-j") 'windmove-left)
+(global-set-key (kbd "M-s M-l") 'windmove-right)
+
 ;; -------------------------------------------------- Editing
 ;; delete by character
 (global-set-key (kbd "M-d") 'delete-backward-char)
@@ -65,7 +71,6 @@
 (global-set-key (kbd "M-V") 'browse-kill-ring)
 (global-set-key (kbd "M-s d") 'duplicate-thing)
 
-
 ;; undo/redo
 (global-set-key (kbd "C-z") 'undo-tree-undo)
 (global-set-key (kbd "C-S-z") 'undo-tree-redo)
@@ -85,19 +90,13 @@
 ;; toggle word case
 (global-set-key (kbd "C-M-c") `toggle-letter-case)
 
-;;---------------------------------------------------------------------------
-;; Mark
-;;----------------------------------------------------------------------------
-
-;; Mark
+;;-------------------------------------------------- Mark
 (global-set-key (kbd "M-.") 'set-mark-command)
 
 ;; expand/contract region
 (global-set-key (kbd "M-w") 'er/expand-region)
 
-;;----------------------------------------------------------------------------
-;; Others
-;;----------------------------------------------------------------------------
+;;-------------------------------------------------- Others
 ;; save
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-S-s") 'save-some-buffers)
