@@ -30,4 +30,15 @@
 (require-package 'autopair)
 (autopair-global-mode)
 
+
+;; powerline
+(require-package 'powerline)
+(require 'powerline)
+(powerline-default-theme)
+
+;; flycheck
+(require-package 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(eval-after-load 'flycheck '(setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers)))
+
 (provide 'init-misc)
