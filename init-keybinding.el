@@ -137,4 +137,12 @@
 ;; comment
 (global-set-key (kbd "C-/") 'comment-dwim)
 
+;;-------------------------------------------------- mode speicifed key
+;; Ruby
+(eval-after-load 'ruby-mode
+  '(progn
+     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+     (define-key ruby-mode-map (kbd "TAB") 'indent-for-tab-command)))
+
+
 (provide 'init-keybinding)
