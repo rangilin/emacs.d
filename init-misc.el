@@ -30,12 +30,6 @@
 (require-package 'autopair)
 (autopair-global-mode)
 
-
-;; powerline
-(require-package 'powerline)
-(require 'powerline)
-(powerline-default-theme)
-
 ;; flycheck
 (require-package 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
