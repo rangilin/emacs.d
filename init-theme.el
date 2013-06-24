@@ -2,9 +2,8 @@
 ;; My favorite themes
 ;;----------------------------------------------------------------------------
 (require-package 'color-theme-sanityinc-tomorrow)
-(require-package 'zenburn-theme)
 
-(setq-default custom-enabled-themes '(zenburn-theme))
+(setq-default custom-enabled-themes '(sanityinc-tomorrow-eighties))
 
 
 ;;----------------------------------------------------------------------------
