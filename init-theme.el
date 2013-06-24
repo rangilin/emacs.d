@@ -2,6 +2,7 @@
 ;; My favorite themes
 ;;----------------------------------------------------------------------------
 (require-package 'color-theme-sanityinc-tomorrow)
+(require-package 'monokai-theme)
 
 (setq-default custom-enabled-themes '(sanityinc-tomorrow-eighties))
 
