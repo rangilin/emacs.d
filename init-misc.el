@@ -1,6 +1,9 @@
 ;; git
 (require-package 'magit)
 (setq magit-status-buffer-switch-function 'switch-to-buffer)
+(eval-after-load "magit"
+  ;; override so magit don't highlight
+  '(defun magit-highlight-section ()))
 
 ;; backup
 (setq backup-by-copying t)
