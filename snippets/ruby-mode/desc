@@ -1,6 +1,0 @@
-# name: rspec describe block
-# key: desc
-# --
-describe ${1:Something} do
-  $0
-end
