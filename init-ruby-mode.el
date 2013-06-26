@@ -13,8 +13,8 @@
 (require-package 'rspec-mode)
 (require 'rspec-mode)
 
-;; (defun install-rspec-snippets ()
-;;   (setq yas-snippet-dirs (cons rspec-snippets-dir (yas-snippet-dirs)))
-;;   (yas-load-directory rspec-snippets-dir))
+(setq rspec-use-rvm t)
+
+
 
 (provide 'init-ruby-mode)
