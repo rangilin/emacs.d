@@ -135,6 +135,11 @@
 ;; comment
 (global-set-key (kbd "C-/") 'comment-dwim)
 
+;; frame-wise text scaling
+(global-set-key (kbd "C-M-=") 'sanityinc/increase-default-font-height)
+(global-set-key (kbd "C-M--") 'sanityinc/decrease-default-font-height)
+
+
 ;;-------------------------------------------------- mode speicifed key
 ;; Ruby
 (eval-after-load 'ruby-mode

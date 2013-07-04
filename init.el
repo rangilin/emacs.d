@@ -7,6 +7,7 @@
 ;; -------------------------------------------------- modes/features/packages
 (require 'init-ace-jump-mode)
 (require 'init-editing)
+(require 'init-fonts)
 (require 'init-gui-frames)
 (require 'init-ibuffer)
 (require 'init-ido)
