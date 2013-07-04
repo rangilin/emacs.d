@@ -108,8 +108,6 @@
 ;; search
 (global-set-key (kbd "C-f") 'isearch-forward)
 (global-set-key (kbd "C-S-f") 'isearch-backward)
-(define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
-(define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
 
 ;; replace
 (global-set-key (kbd "C-r") 'query-replace)
@@ -144,5 +142,10 @@
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
      (define-key ruby-mode-map (kbd "TAB") 'indent-for-tab-command)))
 
+
+;; isearch
+(define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
+(define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
+(define-key isearch-mode-map (kbd "M-v") 'isearch-yank-pop)
 
 (provide 'init-keybinding)
