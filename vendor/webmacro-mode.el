@@ -9,7 +9,7 @@
 
 (defun _init-webmacro ()
   (use-local-map webmacro-mode-map)
-  (run-hooks webmacro-mode-hook))
+  (run-hooks 'webmacro-mode-hook))
 
 (define-generic-mode 'webmacro-mode
   '("##")
