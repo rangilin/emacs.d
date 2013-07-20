@@ -1,6 +1,13 @@
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path (concat user-emacs-directory (convert-standard-filename "vendor/")))
 
+;; -------------------------------------------------- Load functions
+;; https://github.com/magnars/.emacs.d/blob/master/init.el
+(dolist (file (directory-files
+               (expand-file-name "defuns" user-emacs-directory) t "\\w+"))
+  (when (file-regular-p file)
+    (load file)))
+
 ;; -------------------------------------------------- Initializing
 (require 'init-elpa)
 
