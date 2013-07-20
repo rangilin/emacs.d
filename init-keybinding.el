@@ -133,7 +133,7 @@
 (define-key global-map (kbd "C-:") 'ace-jump-mode-pop-mark)
 
 ;; comment
-(global-set-key (kbd "C-/") 'comment-dwim)
+(global-set-key (kbd "C-/") 'comment-or-uncomment-region-or-line)
 
 ;; frame-wise text scaling
 (global-set-key (kbd "C-M-=") 'sanityinc/increase-default-font-height)
