@@ -3,8 +3,9 @@
 ;;----------------------------------------------------------------------------
 (require-package 'color-theme-sanityinc-tomorrow)
 (require-package 'monokai-theme)
+(require-package 'gandalf-theme)
 
-(setq-default custom-enabled-themes '(sanityinc-tomorrow-eighties))
+(setq-default custom-enabled-themes '(gandalf))
 
 
 ;;----------------------------------------------------------------------------
