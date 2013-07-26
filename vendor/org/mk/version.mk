@@ -1,0 +1,2 @@
+ORGVERSION	?= 8.0.6
+GITVERSION	?= 8.0.6-dist

@@ -1,6 +1,4 @@
 (add-to-list 'load-path user-emacs-directory)
-(add-to-list 'load-path (concat user-emacs-directory (convert-standard-filename "vendor/")))
-
 ;; -------------------------------------------------- Load functions
 ;; https://github.com/magnars/.emacs.d/blob/master/init.el
 (dolist (file (directory-files
@@ -19,6 +17,7 @@
 (require 'init-ibuffer)
 (require 'init-ido)
 (require 'init-linum)
+(require 'init-org-mode)
 (require 'init-ruby-mode)
 (require 'init-theme)
 (require 'init-webmacro-mode)
