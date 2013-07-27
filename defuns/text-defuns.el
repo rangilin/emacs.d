@@ -115,7 +115,8 @@ Toggles between: “all lower”, “Init Caps”, “ALL CAPS”."
     (let (beg end)
         (if (region-active-p)
             (setq beg (region-beginning) end (region-end))
-            (setq beg (line-beginning-position) end (line-end-position)))
+            (setq beg (line-beginning-position) end (line-end-position))
+            (deactivate-mark))
         (comment-or-uncomment-region beg end)
         (next-logical-line)))
 
