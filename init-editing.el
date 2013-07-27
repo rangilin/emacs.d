@@ -68,8 +68,14 @@
 (require-package 'expand-region)
 (require 'expand-region)
 
-;;browse-kill-ring
+;; browse-kill-ring
 ;; --------------------------------------------------
 (require-package 'browse-kill-ring)
+
+;; dabbrev-highlight
+;; --------------------------------------------------
+(add-to-list 'load-path (expand-file-name "vendor/dabbrev-highlight" user-emacs-directory))
+(require 'dabbrev-highlight)
+
 
 (provide 'init-editing)
