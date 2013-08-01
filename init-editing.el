@@ -4,7 +4,8 @@
  tab-width 4
  line-number-mode 1
  column-number-mode 1
- x-select-enable-clipboard t)
+ x-select-enable-clipboard t
+ comint-scroll-to-bottom-on-output 'all)
 
 ;; turn off whitespace visualization in some modes
 ;; --------------------------------------------------
