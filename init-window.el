@@ -1,10 +1,4 @@
 ;;----------------------------------------------------------------------------
-;; Make "C-x o" prompt for target window
-;;----------------------------------------------------------------------------
-(require-package 'switch-window)
-(require 'switch-window)
-
-;;----------------------------------------------------------------------------
 ;; By calling split-window-vertically or split-window-horizontal with this
 ;; function. It will focus and display other buffer in the new window.
 ;;----------------------------------------------------------------------------
