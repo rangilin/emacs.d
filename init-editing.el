@@ -54,14 +54,13 @@
 ;; --------------------------------------------------
 (require-package 'undo-tree)
 (require 'undo-tree)
-(eval-after-load "undo-tree"
-  (define-key undo-tree-map (kbd "C-/") nil))
 (global-undo-tree-mode 1)
 
 ;; move-text
 ;; --------------------------------------------------
 (require-package 'move-text)
 (require 'move-text)
+(move-text-default-bindings)
 
 ;; expand-region
 ;; --------------------------------------------------
@@ -77,5 +76,11 @@
 (add-to-list 'load-path (expand-file-name "vendor/dabbrev-highlight" user-emacs-directory))
 (require 'dabbrev-highlight)
 
+;; iy-go-to-char
+(require-package 'jump-char)
+(require 'jump-char)
+
+;; remove trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (provide 'init-editing)
