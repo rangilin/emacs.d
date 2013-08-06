@@ -1,126 +1,53 @@
 ;; -------------------------------------------------- Cursor movements
-;; by character
-(global-set-key (kbd "M-l") 'forward-char)
-(global-set-key (kbd "M-j") 'backward-char)
+;; smarter move to beginning line
+(global-set-key (kbd "C-a") 'smarter-move-beginning-of-line)
 
-;; by line
-(global-set-key (kbd "M-k") 'next-line)
-(global-set-key (kbd "M-i") 'previous-line)
+;; jump to char
+(global-set-key (kbd "M-m") 'jump-char-forward)
+(global-set-key (kbd "M-M") 'jump-char-backward)
 
-;; by word
-(global-set-key (kbd "M-o") 'forward-word)
-(global-set-key (kbd "M-u") 'backward-word)
-
-;; by whitespace
-(global-set-key (kbd "M-O") 'forward-whitespace)
-(global-set-key (kbd "M-U") (lambda() (interactive) (forward-whitespace -1)))
-
-;; by block
-(global-set-key (kbd "M-I") 'previous-block)
-(global-set-key (kbd "M-K") 'next-block)
-
-;; page up/down
-(global-set-key (kbd "M-<") 'scroll-cursor-up)
-(global-set-key (kbd "M->") 'scroll-cursor-down)
-
-(global-set-key (kbd "C-<") 'scroll-other-window)
-(global-set-key (kbd "C->") 'scroll-other-window-down)
-
-;; to top/bottom of buffer
-(global-set-key (kbd "M-Y") 'beginning-of-buffer)
-(global-set-key (kbd "M-y") 'end-of-buffer)
-
-;; to beginning/end of line
-(global-set-key (kbd "M-J") 'back-to-indentation-or-beginning-of-line)
-(global-set-key (kbd "M-L") 'move-end-of-line)
-
-;; goto line
-(global-set-key (kbd "C-c g") 'goto-line)
-
-;; switch window
-(global-set-key (kbd "M-s M-i") 'windmove-up)
-(global-set-key (kbd "M-s M-k") 'windmove-down)
-(global-set-key (kbd "M-s M-j") 'windmove-left)
-(global-set-key (kbd "M-s M-l") 'windmove-right)
-
-;; -------------------------------------------------- Editing
-;; delete by character
-(global-set-key (kbd "M-d") 'delete-backward-char)
-(global-set-key (kbd "M-f") 'delete-char)
-
-;; delete by word
-(global-set-key (kbd "M-e") 'backward-kill-word)
-(global-set-key (kbd "M-r") 'kill-word)
-
-;; delete line
-(global-set-key (kbd "M-g") 'kill-line)
-(global-set-key (kbd "M-G") 'kill-back-to-indentation)
-(global-set-key (kbd "C-S-g") 'kill-whole-line)
-
-;; zap to character
-(global-set-key (kbd "M-z") 'zap-to-char)
+;; better scrolling
+(global-set-key (kbd "C-v") 'scroll-cursor-down)
+(global-set-key (kbd "M-v") 'scroll-cursor-up)
 
 ;; insert newline
 (global-set-key (kbd "<M-S-return>") 'insert-newline-above)
 (global-set-key (kbd "<S-return>") 'insert-newline-below)
 
-;; copy, cut & paste
-(global-set-key (kbd "M-x") 'kill-region)
-(global-set-key (kbd "M-c") 'kill-ring-save)
-(global-set-key (kbd "M-v") 'yank)
-(global-set-key (kbd "M-V") 'browse-kill-ring)
-(global-set-key (kbd "M-s d") 'duplicate-thing)
+;; newline & indent
+(global-set-key (kbd "RET") 'newline-and-indent)
+
+;; expand region
+(global-set-key (kbd "C-'") 'er/expand-region)
+(global-set-key (kbd "C-\"") 'er/contract-region)
+
+;; -------------------------------------------------- Text manipulation
+;; kill line back
+(global-set-key (kbd "C-S-k") 'kill-back-to-indentation)
+
+;; better zap to char
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+
+;; browse kill ring
+(global-set-key (kbd "M-y") 'browse-kill-ring)
+
+;; duplicate thing
+(global-set-key (kbd "C-c d") 'duplicate-thing)
 
 ;; undo/redo
 (global-set-key (kbd "C-z") 'undo-tree-undo)
 (global-set-key (kbd "C-S-z") 'undo-tree-redo)
 
-;; move-text
-(define-key input-decode-map (kbd "C-S-i") (kbd "H-S-i"))
-(global-set-key (kbd "H-S-i") 'move-text-up)
-(global-set-key (kbd "C-S-k") 'move-text-down)
-
 ;; join line
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 (global-set-key (kbd "C-S-j") 'join-line)
 
-;; newline & indent
-(global-set-key (kbd "RET") 'newline-and-indent)
-
-;; toggle word case
-(global-set-key (kbd "C-M-c") `toggle-letter-case)
-
-;; remove trailing whitespace
-(global-set-key (kbd "M-w") 'delete-trailing-whitespace)
-
-;;-------------------------------------------------- Mark
-(global-set-key (kbd "M-.") 'set-mark-command)
-
-;; expand/contract region
-(global-set-key (kbd "M-m") 'er/expand-region)
-(global-set-key (kbd "M-M") 'er/contract-region)
-
-;;-------------------------------------------------- Others
-;; save
-(global-set-key (kbd "C-s") 'save-buffer)
-(global-set-key (kbd "C-S-s") 'save-some-buffers)
-
-;; search
-(global-set-key (kbd "C-f") 'isearch-forward)
-(global-set-key (kbd "C-S-f") 'isearch-backward)
-
-;; replace
-(global-set-key (kbd "C-r") 'query-replace)
-(global-set-key (kbd "C-S-r") 'query-replace-regexp)
-
-;; recenter
-(global-set-key (kbd "M-p") 'recenter-top-bottom)
-
-;; use smex to execute extend command
-(global-set-key (kbd "M-a") 'smex)
-
-;; use ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;; -------------------------------------------------- Windows
+;; switch window
+(global-set-key (kbd "<C-right>") 'windmove-right)
+(global-set-key (kbd "<C-left>") 'windmove-left)
+(global-set-key (kbd "<C-up>") 'windmove-up)
+(global-set-key (kbd "<C-down>") 'windmove-down)
 
 ;; window layout arragnement
 (global-set-key (kbd "C-x 2") (focus-and-show-other-buffer-after 'split-window-vertically))
@@ -128,17 +55,13 @@
 (global-set-key (kbd "C-x _") 'split-window-horizontally-instead)
 (global-set-key (kbd "C-x |") 'split-window-vertically-instead)
 
-;; ace jump mode
-(define-key global-map (kbd "C-;") 'ace-jump-mode)
-(define-key global-map (kbd "C-:") 'ace-jump-mode-pop-mark)
+;; -------------------------------------------------- Buffer
+;; switch buffer
+(global-set-key (kbd "<M-right>") 'next-buffer)
+(global-set-key (kbd "<M-left>") 'previous-buffer)
 
-;; comment
-(global-set-key (kbd "C-/") 'comment-or-uncomment-region-or-line)
-
-;; frame-wise text scaling
-(global-set-key (kbd "C-M-=") 'sanityinc/increase-default-font-height)
-(global-set-key (kbd "C-M--") 'sanityinc/decrease-default-font-height)
-
+;; -------------------------------------------------- Others
+(global-set-key (kbd "M-x") 'smex)
 
 ;;-------------------------------------------------- mode speicifed key
 ;; Ruby
@@ -148,9 +71,5 @@
      (define-key ruby-mode-map (kbd "TAB") 'indent-for-tab-command)))
 
 
-;; isearch
-(define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
-(define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
-(define-key isearch-mode-map (kbd "M-v") 'isearch-yank-pop)
 
 (provide 'init-keybinding)
