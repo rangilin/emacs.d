@@ -1,3 +1,5 @@
+;; Most stuff borrowed from
+;; https://github.com/purcell/emacs.d/blob/master/init-ibuffer.el
 (require-package 'ibuffer-vc)
 
 (defun ibuffer-set-up-preferred-filters ()
@@ -46,4 +48,3 @@
 (setq ibuffer-filter-group-name-face 'font-lock-doc-face)
 
 (provide 'init-ibuffer)
-
