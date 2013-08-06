@@ -44,4 +44,8 @@
 (autoload 'csv-mode "csv-mode"
   "Major mode for editing comma-separated value files." t)
 
+;; load zap up to char function
+(autoload 'zap-up-to-char "misc")
+
+
 (provide 'init-misc)
