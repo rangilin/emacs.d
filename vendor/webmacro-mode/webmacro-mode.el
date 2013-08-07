@@ -7,7 +7,7 @@
 
 (defvar webmacro-keywords
   (list
-   '("##.+\\|#comment \{\\(.*\n\\)+}\\|#comment #begin\\(.*\n\\)+#end" . 'font-lock-comment-face)
+   '("##.*\\|#comment \{\\(.*\n\\)+}\\|#comment #begin\\(.*\n\\)+#end" . 'font-lock-comment-face)
    '("#if\\|#elseif\\|#else\\|#foreach\\|#begin\\|#end\\|#comment\\|#macro\\|#set\\|#include\\|#text\\|#alternate" . 'font-lock-keyword-face)
    '("\\$[a-zA-Z]+[A-Za-z0-9_]*" . 'font-lock-variable-name-face)
    '("#[a-zA-Z]+[A-Za-z0-9_]*" . 'font-lock-function-name-face)))
