@@ -61,7 +61,6 @@
 ;; --------------------------------------------------
 (require-package 'move-text)
 (require 'move-text)
-(move-text-default-bindings)
 
 ;; expand-region
 ;; --------------------------------------------------

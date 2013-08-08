@@ -42,6 +42,11 @@
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 (global-set-key (kbd "C-S-j") 'join-line)
 
+;; move text
+(global-set-key (kbd "<C-S-up>") 'move-text-up)
+(global-set-key (kbd "<C-S-down>") 'move-text-down)
+
+
 ;; -------------------------------------------------- Windows
 ;; switch window
 (global-set-key (kbd "<C-right>") 'windmove-right)
