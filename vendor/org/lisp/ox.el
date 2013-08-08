@@ -3058,10 +3058,11 @@ to kill ring.  Return output file's name."
   ;; we'd rather avoid needless transcoding of parse tree.
   (unless (file-writable-p file) (error "Output file not writable"))
   ;; Insert contents to a temporary buffer and write it to FILE.
-  (let ((out (org-export-as backend subtreep visible-only body-only ext-plist)))
+  (let ((coding buffer-file-coding-system)
+	(out (org-export-as backend subtreep visible-only body-only ext-plist)))
     (with-temp-buffer
       (insert out)
-      (let ((coding-system-for-write org-export-coding-system))
+      (let ((coding-system-for-write (or org-export-coding-system coding)))
 	(write-file file)))
     ;; Maybe add file contents to kill ring.
     (when (and (org-export--copy-to-kill-ring-p) (org-string-nw-p out))
@@ -5208,9 +5209,8 @@ them."
 
 ;;;; Translation
 ;;
-;; `org-export-translate' translates a string according to language
-;; specified by LANGUAGE keyword or `org-export-language-setup'
-;; variable and a specified charset.  `org-export-dictionary' contains
+;; `org-export-translate' translates a string according to the language
+;; specified by the LANGUAGE keyword.  `org-export-dictionary' contains
 ;; the dictionary used for the translation.
 
 (defconst org-export-dictionary
@@ -5585,7 +5585,7 @@ within Emacs."
 	  ((bufferp source) (org-switch-to-buffer-other-window source))
 	  (t (org-open-file source in-emacs)))))
 
-(defconst org-export-stack-mode-map
+(defvar org-export-stack-mode-map
   (let ((km (make-sparse-keymap)))
     (define-key km " " 'next-line)
     (define-key km "n" 'next-line)
@@ -5922,11 +5922,11 @@ options as CDR."
 		(memq key '(14 16 ?\s ?\d)))
       (case key
 	(14 (if (not (pos-visible-in-window-p (point-max)))
-		(ignore-errors (scroll-up-line))
+		(ignore-errors (scroll-up 1))
 	      (message "End of buffer")
 	      (sit-for 1)))
 	(16 (if (not (pos-visible-in-window-p (point-min)))
-		(ignore-errors (scroll-down-line))
+		(ignore-errors (scroll-down 1))
 	      (message "Beginning of buffer")
 	      (sit-for 1)))
 	(?\s (if (not (pos-visible-in-window-p (point-max)))

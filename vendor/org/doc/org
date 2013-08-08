@@ -1,6 +1,6 @@
 This is org, produced by makeinfo version 4.13 from org.texi.
 
-This manual is for Org version 8.0.6 (release_8.0.6).
+This manual is for Org version 8.0.7 (release_8.0.7).
 
    Copyright (C) 2004-2013 Free Software Foundation, Inc.
 
@@ -26,7 +26,7 @@ File: org,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
 Org Mode Manual
 ***************
 
-This manual is for Org version 8.0.6 (release_8.0.6).
+This manual is for Org version 8.0.7 (release_8.0.7).
 
    Copyright (C) 2004-2013 Free Software Foundation, Inc.
 
@@ -11969,12 +11969,12 @@ using the `\nbsp' macro (where `_' stands for the non-breaking space):
      (add-to-list 'org-export-filter-plain-text-functions
                   'my-latex-filter-nobreaks)
 
-   Three arguments must be provided to a fiter: the code being changed,
-the back-end used, and some information about the export process.  You
-can safely ignore the third argument for most purposes.  Note the use of
-`org-export-derived-backend-p', which ensures that the filter will only
-be applied when using `latex' back-end or any other back-end derived
-from it (e.g., `beamer').
+   Three arguments must be provided to a filter: the code being
+changed, the back-end used, and some information about the export
+process.  You can safely ignore the third argument for most purposes.
+Note the use of `org-export-derived-backend-p', which ensures that the
+filter will only be applied when using `latex' back-end or any other
+back-end derived from it (e.g., `beamer').
 
 Extending an existing back-end
 ------------------------------
