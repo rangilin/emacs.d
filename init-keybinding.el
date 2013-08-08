@@ -60,6 +60,9 @@
 (global-set-key (kbd "<M-right>") 'next-buffer)
 (global-set-key (kbd "<M-left>") 'previous-buffer)
 
+;; use ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
 ;; -------------------------------------------------- Others
 (global-set-key (kbd "M-x") 'smex)
 
