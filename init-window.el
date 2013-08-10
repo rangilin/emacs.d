@@ -1,3 +1,6 @@
+;; -------------------------------------------------- winner mode
+(winner-mode 1)
+
 ;;----------------------------------------------------------------------------
 ;; By calling split-window-vertically or split-window-horizontal with this
 ;; function. It will focus and display other buffer in the new window.
