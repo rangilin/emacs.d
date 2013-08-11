@@ -26,6 +26,7 @@
 (global-set-key (kbd "C-S-k") 'kill-back-to-indentation)
 
 ;; better zap to char
+(global-set-key (kbd "M-Z") 'zap-to-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 
 ;; browse kill ring
