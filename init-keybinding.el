@@ -71,6 +71,7 @@
 
 ;; -------------------------------------------------- Others
 (global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "C-x C-m") 'smex)
 
 ;;-------------------------------------------------- mode speicifed key
 ;; Ruby
