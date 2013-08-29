@@ -73,6 +73,11 @@
 (require-package 'expand-region)
 (require 'expand-region)
 
+;; multiple-cursors
+;; --------------------------------------------------
+(require-package 'multiple-cursors)
+(require 'multiple-cursors)
+
 ;; browse-kill-ring
 ;; --------------------------------------------------
 (require-package 'browse-kill-ring)

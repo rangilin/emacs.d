@@ -21,6 +21,12 @@
 (global-set-key (kbd "C-'") 'er/expand-region)
 (global-set-key (kbd "C-\"") 'er/contract-region)
 
+;; multiple-cursor
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
 ;; -------------------------------------------------- Text manipulation
 ;; kill line back
 (global-set-key (kbd "C-S-k") 'kill-back-to-indentation)
