@@ -16,6 +16,8 @@
 
 ;; newline & indent
 (global-set-key (kbd "RET") 'newline-and-indent)
+;; add additonal key to works with multiple-cursor
+(global-set-key (kbd "<M-return>") 'newline-and-indent)
 
 ;; expand region
 (global-set-key (kbd "C-'") 'er/expand-region)
