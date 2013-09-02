@@ -82,6 +82,7 @@
 
 ;; -------------------------------------------------- Helm
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+(global-set-key (kbd "M-s o") 'helm-occur)
 
 ;;-------------------------------------------------- mode speicifed key
 ;; Ruby
