@@ -27,11 +27,6 @@
 ;; -------------------------------------------------- config keybinding
 (require 'init-keybinding)
 
-;;--------------------------------------------------- Start server
-(require 'server)
-(unless (server-running-p)
-  (server-start))
-
 ;; -------------------------------------------------- load customization
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
