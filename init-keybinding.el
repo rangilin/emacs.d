@@ -75,10 +75,13 @@
 (global-set-key (kbd "<M-left>") 'previous-buffer)
 
 ;; use ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; -------------------------------------------------- Others
 (global-set-key (kbd "M-x") 'smex)
+
+;; -------------------------------------------------- Helm
+(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
 
 ;;-------------------------------------------------- mode speicifed key
 ;; Ruby
