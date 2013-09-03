@@ -81,11 +81,17 @@
 
 ;;-------------------------------------------------- mode speicifed key
 ;; Ruby
-(eval-after-load 'ruby-mode
-  '(progn
+(add-hook 'ruby-mode-hook
+  (lambda()
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
      (define-key ruby-mode-map (kbd "TAB") 'indent-for-tab-command)))
 
-
+;; comint mode
+(add-hook 'comint-mode-hook
+  (lambda()
+     (define-key comint-mode-map (kbd "<C-right>") 'windmove-right)
+     (define-key comint-mode-map (kbd "<C-left>") 'windmove-left)
+     (define-key comint-mode-map (kbd "<C-up>") 'windmove-up)
+     (define-key comint-mode-map (kbd "<C-down>") 'windmove-down)))
 
 (provide 'init-keybinding)
