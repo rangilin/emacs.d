@@ -43,10 +43,6 @@
 ;; duplicate thing
 (global-set-key (kbd "C-c d") 'duplicate-thing)
 
-;; undo/redo
-(global-set-key (kbd "C-z") 'undo-tree-undo)
-(global-set-key (kbd "C-S-z") 'undo-tree-redo)
-
 ;; join line
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line 1)))
 (global-set-key (kbd "C-S-j") 'join-line)
@@ -54,7 +50,6 @@
 ;; move text
 (global-set-key (kbd "<C-S-up>") 'move-text-up)
 (global-set-key (kbd "<C-S-down>") 'move-text-down)
-
 
 ;; -------------------------------------------------- Windows
 ;; switch window
@@ -80,19 +75,38 @@
 ;; -------------------------------------------------- Others
 (global-set-key (kbd "C-x C-m") 'smex)
 
+;; Use shell-like backspace C-h
+(define-key key-translation-map [?\C-h] [?\C-?])
+
+(global-set-key (kbd "<f1>") 'help-command)
+
+(global-set-key (kbd "C-z") 'shell)
+
+;; -------------------------------------------------- Unbind
+(global-unset-key (kbd "C-x o"))
+(global-unset-key (kbd "M-x"))
+(global-unset-key (kbd "C-/"))
+(global-unset-key (kbd "C-?"))
+
 ;;-------------------------------------------------- mode speicifed key
 ;; Ruby
-(add-hook 'ruby-mode-hook
+(eval-after-load 'ruby-mode
   (lambda()
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
      (define-key ruby-mode-map (kbd "TAB") 'indent-for-tab-command)))
 
-;; comint mode
+;; comint mode, have to use hook, eval-after-load not work
 (add-hook 'comint-mode-hook
   (lambda()
      (define-key comint-mode-map (kbd "<C-right>") 'windmove-right)
      (define-key comint-mode-map (kbd "<C-left>") 'windmove-left)
      (define-key comint-mode-map (kbd "<C-up>") 'windmove-up)
      (define-key comint-mode-map (kbd "<C-down>") 'windmove-down)))
+
+;; undo tree mode
+(eval-after-load 'undo-tree
+  '(progn
+     (define-key undo-tree-map (kbd "C-/") nil)
+     (define-key undo-tree-map (kbd "C-?") nil)))
 
 (provide 'init-keybinding)
