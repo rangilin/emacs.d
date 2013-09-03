@@ -48,5 +48,8 @@
 ;; load zap up to char function
 (autoload 'zap-up-to-char "misc")
 
+;; loccur
+(require-package 'loccur)
+(require 'loccur)
 
 (provide 'init-misc)

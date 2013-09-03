@@ -1,5 +1,6 @@
 ;; -------------------------------------------------- Cursor movements
 ;; smarter move to beginning line
+
 (global-set-key (kbd "C-a") 'smarter-move-beginning-of-line)
 
 ;; jump to char
@@ -82,10 +83,16 @@
 
 (global-set-key (kbd "C-z") 'shell)
 
+(global-set-key (kbd "C-/") 'comment-or-uncomment-region-or-line)
+
+;; loccur
+(global-set-key (kbd "C-M-o") 'loccur-current)
+(global-set-key (kbd "C-o") 'loccur)
+(global-set-key (kbd "C-S-o") 'loccur-previous-match)
+
 ;; -------------------------------------------------- Unbind
 (global-unset-key (kbd "C-x o"))
 (global-unset-key (kbd "M-x"))
-(global-unset-key (kbd "C-/"))
 (global-unset-key (kbd "C-?"))
 
 ;;-------------------------------------------------- mode speicifed key
