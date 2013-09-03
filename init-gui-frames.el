@@ -11,6 +11,8 @@
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
-
+;; so we can make emacsclient maximized
+;; http://stackoverflow.com/questions/8363808/
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (provide 'init-gui-frames)
