@@ -1,6 +1,8 @@
 ;; git
 (require-package 'magit)
-(setq magit-status-buffer-switch-function 'switch-to-buffer)
+;(setq magit-status-buffer-switch-function 'switch-to-buffer)
+;(defadvice git-commit-commit (after delete-window activate)
+;  (delete-window))
 (eval-after-load "magit"
   ;; override so magit don't highlight
   '(defun magit-highlight-section ()))
