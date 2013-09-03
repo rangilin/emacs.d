@@ -1,7 +1,5 @@
 ;; git
 (require-package 'magit)
-(defadvice git-commit-commit (after delete-window activate)
-  (delete-window))
 (eval-after-load "magit"
   ;; override so magit don't highlight
   '(defun magit-highlight-section ()))
