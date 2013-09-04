@@ -15,4 +15,20 @@
 (require-package 'smex)
 (setq smex-prompt-string "Smex: ")
 
+;; -------------------------------------------------- flx ido
+(require-package 'flx-ido)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-use-faces nil)
+
+;; -------------------------------------------------- ido everywhere
+(require-package 'ido-ubiquitous)
+(ido-ubiquitous-mode 1)
+
+;; -------------------------------------------------- ido vertical
+(require-package 'ido-vertical-mode)
+(require 'ido-vertical-mode)
+(ido-vertical-mode)
+
+
 (provide 'init-ido)
