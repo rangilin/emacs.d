@@ -5,7 +5,11 @@
  line-number-mode 1
  column-number-mode 1
  x-select-enable-clipboard t
+ setq default-cursor-type 'bar
  comint-scroll-to-bottom-on-output 'all)
+
+(global-hl-line-mode 1)
+(visible-bell 1)
 
 ;; turn off whitespace visualization in some modes
 ;; --------------------------------------------------
