@@ -97,6 +97,7 @@
 
 ;; -------------------------------------------------- Unbind
 (global-unset-key (kbd "C-x o"))
+(global-unset-key (kbd "C-x C-z"))
 (global-unset-key (kbd "M-x"))
 (global-unset-key (kbd "C-?"))
 
