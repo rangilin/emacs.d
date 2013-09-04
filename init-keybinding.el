@@ -2,6 +2,9 @@
 ;; smarter move to beginning line
 (global-set-key (kbd "C-a") 'smarter-move-beginning-of-line)
 
+;; pop global mark
+(global-set-key (kbd "C-`") 'pop-global-mark)
+
 ;; jump to char
 (global-set-key (kbd "M-m") 'jump-char-forward)
 (global-set-key (kbd "M-M") 'jump-char-backward)
