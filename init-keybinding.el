@@ -1,6 +1,5 @@
 ;; -------------------------------------------------- Cursor movements
 ;; smarter move to beginning line
-
 (global-set-key (kbd "C-a") 'smarter-move-beginning-of-line)
 
 ;; jump to char
@@ -23,6 +22,9 @@
 ;; expand region
 (global-set-key (kbd "C-'") 'er/expand-region)
 (global-set-key (kbd "C-\"") 'er/contract-region)
+
+;; make mouse click can expand region like common editor
+(global-set-key (kbd "<S-down-mouse-1>") 'mouse-save-then-kill)
 
 ;; multiple-cursor
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
