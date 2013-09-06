@@ -59,10 +59,7 @@
 
 ;; -------------------------------------------------- Windows
 ;; switch window
-(global-set-key (kbd "<C-right>") 'windmove-right)
-(global-set-key (kbd "<C-left>") 'windmove-left)
-(global-set-key (kbd "<C-up>") 'windmove-up)
-(global-set-key (kbd "<C-down>") 'windmove-down)
+(global-set-key (kbd "C-<tab>") 'other-window)
 
 ;; window layout arragnement
 (global-set-key (kbd "C-x 2") (focus-and-show-other-buffer-after 'split-window-vertically))
@@ -72,8 +69,8 @@
 
 ;; -------------------------------------------------- Buffer
 ;; switch buffer
-(global-set-key (kbd "<M-right>") 'next-buffer)
-(global-set-key (kbd "<M-left>") 'previous-buffer)
+(global-set-key (kbd "M-]") 'next-buffer)
+(global-set-key (kbd "M-[") 'previous-buffer)
 
 ;; use ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -107,14 +104,6 @@
   (lambda()
      (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
      (define-key ruby-mode-map (kbd "TAB") 'indent-for-tab-command)))
-
-;; comint mode, have to use hook, eval-after-load not work
-(add-hook 'comint-mode-hook
-  (lambda()
-     (define-key comint-mode-map (kbd "<C-right>") 'windmove-right)
-     (define-key comint-mode-map (kbd "<C-left>") 'windmove-left)
-     (define-key comint-mode-map (kbd "<C-up>") 'windmove-up)
-     (define-key comint-mode-map (kbd "<C-down>") 'windmove-down)))
 
 ;; undo tree mode
 (eval-after-load 'undo-tree
