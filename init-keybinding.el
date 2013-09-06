@@ -44,7 +44,7 @@
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 
 ;; browse kill ring
-(global-set-key (kbd "M-y") 'browse-kill-ring)
+(global-set-key (kbd "C-S-y") 'browse-kill-ring)
 
 ;; duplicate thing
 (global-set-key (kbd "C-c d") 'duplicate-thing)
