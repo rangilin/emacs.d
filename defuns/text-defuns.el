@@ -66,3 +66,16 @@ point reaches the beginning or end of the buffer, stop there."
             (deactivate-mark))
         (comment-or-uncomment-region beg end)
         (next-logical-line)))
+
+;; -------------------------------------------------- move text
+;; made it eaiser to read when using move-text moving text block around
+(defun rangi-move-text-up (arg)
+  (interactive "*p")
+  (move-text-up arg)
+  (recenter-top-bottom (truncate (/ (window-body-height) -3))))
+
+(defun rangi-move-text-down (arg)
+  (interactive "*p")
+  (move-text-down arg)
+  (exchange-point-and-mark) ; let point at bottom of block
+  (recenter-top-bottom (truncate (/ (window-body-height) 3))))
