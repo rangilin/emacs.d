@@ -30,9 +30,9 @@
 ;; --------------------------------------------------
 (global-auto-revert-mode 1)
 ;; also refresh non-file buffer like dired
-(defvar global-auto-revert-non-file-buffers t)
+(setq-default global-auto-revert-non-file-buffers t)
 ;; do it sliently
-(defvar auto-revert-verbose nil)
+(setq-default auto-revert-verbose nil)
 
 ;; show matching parenthesis
 ;; --------------------------------------------------
