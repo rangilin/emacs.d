@@ -4,8 +4,9 @@
 (require-package 'color-theme-sanityinc-tomorrow)
 (require-package 'monokai-theme)
 (require-package 'gandalf-theme)
+(require-package 'zenburn-theme)
 
-(setq-default custom-enabled-themes '(gandalf))
+(setq-default custom-enabled-themes '(zenburn))
 
 
 ;;----------------------------------------------------------------------------
