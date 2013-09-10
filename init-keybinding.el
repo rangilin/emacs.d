@@ -51,8 +51,8 @@
 (global-set-key (kbd "C-S-j") 'join-line)
 
 ;; move text
-(global-set-key (kbd "<C-S-up>") 'rangi-move-text-up)
-(global-set-key (kbd "<C-S-down>") 'rangi-move-text-down)
+(global-set-key (kbd "M-P") 'rangi-move-text-up)
+(global-set-key (kbd "M-N") 'rangi-move-text-down)
 
 ;; -------------------------------------------------- Windows
 ;; switch window
