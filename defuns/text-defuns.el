@@ -72,10 +72,23 @@ point reaches the beginning or end of the buffer, stop there."
 (defun rangi-move-text-up (arg)
   (interactive "*p")
   (move-text-up arg)
-  (recenter-top-bottom (truncate (/ (window-body-height) -3))))
+  (if (and (region-active-p)
+           (point-is-at-upper-window))
+      (recenter-top-bottom (truncate (/ (window-text-height) -2)))))
 
 (defun rangi-move-text-down (arg)
   (interactive "*p")
   (move-text-down arg)
-  (exchange-point-and-mark) ; let point at bottom of block
-  (recenter-top-bottom (truncate (/ (window-body-height) 3))))
+  (if (region-active-p)
+        (progn (exchange-point-and-mark)
+               (if (point-is-at-lower-window)
+                   (recenter-top-bottom (truncate (/ (window-text-height) 2)))))))
+
+(defun point-related-to-window ()
+  (cdr (nth 6 (posn-at-point))))
+
+(defun point-is-at-upper-window ()
+  (< (point-related-to-window) (truncate (/ (window-text-height) 2))))
+
+(defun point-is-at-lower-window ()
+  (> (point-related-to-window) (truncate (/ (window-text-height) 2))))
