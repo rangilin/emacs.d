@@ -1,6 +1,7 @@
-(add-to-list 'load-path (expand-file-name "vendor/org/lisp" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "vendor/org/contrib/lisp" user-emacs-directory))
+(require-package 'org)
+(require-package 'org-plus-contrib)
 
+(require 'org)
 (setq-default org-catch-invisible-edits t)
 
 
