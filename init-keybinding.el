@@ -56,7 +56,7 @@
 
 ;; -------------------------------------------------- Windows
 ;; switch window
-(global-set-key (kbd "C-\\") 'other-window)
+(global-set-key (kbd "C-<tab>") 'other-window)
 
 ;; window layout arragnement
 (global-set-key (kbd "C-x 2") (focus-and-show-other-buffer-after 'split-window-vertically))
