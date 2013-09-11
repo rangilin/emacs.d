@@ -89,6 +89,9 @@
 (global-set-key (kbd "C-o") 'loccur)
 (global-set-key (kbd "C-S-o") 'loccur-previous-match)
 
+;; rss
+(global-set-key (kbd "<f5>") 'elfeed)
+
 ;; -------------------------------------------------- Unbind
 (global-unset-key (kbd "C-x o"))
 (global-unset-key (kbd "C-x C-z"))
