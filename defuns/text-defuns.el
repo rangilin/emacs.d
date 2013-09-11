@@ -88,7 +88,7 @@ point reaches the beginning or end of the buffer, stop there."
   (cdr (nth 6 (posn-at-point))))
 
 (defun point-is-at-upper-window ()
-  (< (point-related-to-window) (truncate (/ (window-text-height) 2))))
+  (<= (point-related-to-window) (truncate (/ (window-text-height) 2))))
 
 (defun point-is-at-lower-window ()
   (> (point-related-to-window) (truncate (/ (window-text-height) 2))))
