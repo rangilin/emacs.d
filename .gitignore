@@ -4,3 +4,4 @@ custom.el
 eshell
 session.*
 /tramp
+url/*
