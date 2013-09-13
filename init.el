@@ -24,6 +24,8 @@
 (require 'init-window)
 
 (require 'init-misc)
+
+(require 'init-local nil t) ; local settings goes here
 ;; -------------------------------------------------- config keybinding
 (require 'init-keybinding)
 

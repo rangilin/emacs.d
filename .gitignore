@@ -3,5 +3,6 @@ elpa
 custom.el
 eshell
 session.*
+init-local.el
 /tramp
 url/*
