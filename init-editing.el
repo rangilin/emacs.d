@@ -12,7 +12,11 @@
 
 ;; turn off whitespace visualization in some modes
 ;; --------------------------------------------------
-(dolist (hook '(eshell-mode-hook shell-mode-hook diff-mode-hook comint-mode-hook))
+(dolist (hook '(eshell-mode-hook
+                shell-mode-hook
+                diff-mode-hook
+                comint-mode-hook
+                term-mode-hook))
   (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
 
 (defun turn-off-whitespace-mode-by-file-extension ()
