@@ -22,8 +22,8 @@
 (setq ido-use-faces nil)
 
 ;; -------------------------------------------------- ido everywhere
-;(require-package 'ido-ubiquitous)
-;(ido-ubiquitous-mode 1)
+(require-package 'ido-ubiquitous)
+(ido-ubiquitous-mode 1)
 
 ;; -------------------------------------------------- ido vertical
 (require-package 'ido-vertical-mode)
