@@ -50,4 +50,11 @@
 (require-package 'loccur)
 (require 'loccur)
 
+(defun confirm-then-exit ()
+  (interactive)
+  (if (y-or-n-p "Exit emacs ?")
+      (save-buffers-kill-terminal)
+    (message "Canceled")))
+
+
 (provide 'init-misc)

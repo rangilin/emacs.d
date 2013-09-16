@@ -93,6 +93,9 @@
 ;; rss
 (global-set-key (kbd "<f5>") 'elfeed)
 
+;; confirm on exist
+(global-set-key (kbd "C-x C-c") 'confirm-then-exit)
+
 ;; -------------------------------------------------- Unbind
 (global-unset-key (kbd "C-x o"))
 (global-unset-key (kbd "C-x C-z"))
