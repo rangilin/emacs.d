@@ -19,6 +19,7 @@
 (require 'init-linum)
 (require 'init-org-mode)
 (require 'init-ruby-mode)
+(require 'init-shell)
 (require 'init-theme)
 (require 'init-webmacro-mode)
 (require 'init-window)
