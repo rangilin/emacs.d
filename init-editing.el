@@ -16,7 +16,8 @@
                 shell-mode-hook
                 diff-mode-hook
                 comint-mode-hook
-                term-mode-hook))
+                term-mode-hook
+                elfeed-search-mode-hook))
   (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
 
 (defun turn-off-whitespace-mode-by-file-extension ()
