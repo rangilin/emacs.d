@@ -81,7 +81,7 @@
 (global-set-key (kbd "<f1>") 'help-command)
 
 (global-set-key (kbd "C-z") 'shell)
-(global-set-key (kbd "C-Z") 'eshell)
+(global-set-key (kbd "C-S-z") 'eshell)
 
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region-or-line)
 
