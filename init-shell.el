@@ -2,11 +2,11 @@
 
 ;; exec-path-from-shell
 (require-package 'exec-path-from-shell)
-(eval-after-load 'exec-path-from-shell
-  (exec-path-from-shell-copy-envs '("LANG" "LC_CTYPE")))
+
 
 (require 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
+(exec-path-from-shell-copy-envs '("LANG" "LC_CTYPE"))
 
 
 ;; mimic my shell prompt in eshell
@@ -14,6 +14,6 @@
       (lambda ()
         (concat (eshell-user-name) "@" (system-name) ": "
                 (abbreviate-file-name (eshell/pwd))
-                (if (= (user-uid) 0) "\n# " "\n$"))))
+                (if (= (user-uid) 0) "\n# " "\n$ "))))
 
 (provide 'init-shell)
