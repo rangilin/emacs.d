@@ -95,6 +95,10 @@
 (add-to-list 'load-path (expand-file-name "vendor/dabbrev-highlight" user-emacs-directory))
 (require 'dabbrev-highlight)
 
+;; ace-jump
+(require-package 'ace-jump-mode)
+(autoload 'ace-jump-mode "ace-jump-mode" "Emacs quick move minor mode" t)
+
 ;; iy-go-to-char
 (require-package 'jump-char)
 (require 'jump-char)

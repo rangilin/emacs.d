@@ -10,7 +10,6 @@
 (require 'init-elpa)
 
 ;; -------------------------------------------------- modes/features/packages
-(require 'init-ace-jump-mode)
 (require 'init-editing)
 (require 'init-elfeed)
 (require 'init-gui-frames)
