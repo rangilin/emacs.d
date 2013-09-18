@@ -46,11 +46,14 @@
 (require-package 'loccur)
 (require 'loccur)
 
+(require 'server)
 (defun confirm-then-exit ()
   (interactive)
-  (if (y-or-n-p "Exit emacs ?")
+  (if (server-running-p)
       (save-buffers-kill-terminal)
-    (message "Canceled")))
+    (if (y-or-n-p "Exit emacs ?")
+      (save-buffers-kill-terminal)
+    (message "Canceled"))))
 
 
 (provide 'init-misc)
