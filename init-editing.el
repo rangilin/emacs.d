@@ -8,8 +8,8 @@
  visible-bell 1
  comint-scroll-to-bottom-on-output 'all)
 
-(global-hl-line-mode 1)
-
+;(global-hl-line-mode 1)
+(global-visual-line-mode 1)
 ;; turn off whitespace visualization in some modes
 ;; --------------------------------------------------
 (dolist (hook '(eshell-mode-hook
