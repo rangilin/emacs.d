@@ -6,7 +6,8 @@
 
 (require 'exec-path-from-shell)
 (exec-path-from-shell-initialize)
-(exec-path-from-shell-copy-envs '("LANG" "LC_CTYPE"))
+(exec-path-from-shell-copy-envs
+ '("LANG" "LC_CTYPE" "JAVA_HOME" "CATALINA_HOME" "CATALINA_PID"))
 
 
 ;; mimic my shell prompt in eshell
