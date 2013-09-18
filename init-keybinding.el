@@ -126,4 +126,8 @@
      (define-key undo-tree-map (kbd "C-/") nil)
      (define-key undo-tree-map (kbd "C-?") nil)))
 
+(add-hook 'nxml-mode-hook
+  (lambda ()
+    (define-key nxml-mode-map (kbd "C-<return>") 'nxml-complete)))
+
 (provide 'init-keybinding)

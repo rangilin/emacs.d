@@ -55,5 +55,9 @@
       (save-buffers-kill-terminal)
     (message "Canceled"))))
 
+;; nxml
+(add-to-list 'auto-mode-alist '("\\.zul$" . nxml-mode))
+(setq nxml-slash-auto-complete-flag t)
+
 
 (provide 'init-misc)
