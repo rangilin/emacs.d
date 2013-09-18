@@ -83,9 +83,14 @@
 ;; -------------------------------------------------- Others
 (global-set-key (kbd "C-x C-m") 'smex)
 
-;; Use shell-like backspace C-h
-(define-key key-translation-map [?\C-h] [?\C-?])
+;; backward kill
+(define-key key-translation-map (kbd "C-h") (kbd "<backspace>"))
+(global-set-key (kbd "M-h") 'backward-kill-word)
 
+;; kill-whole-line
+(define-key key-translation-map (kbd "C-S-h") (kbd "<C-S-backspace>"))
+
+;; rebind help command
 (global-set-key (kbd "<f1>") 'help-command)
 
 (global-set-key (kbd "C-z") 'shell)
