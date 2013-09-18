@@ -36,6 +36,9 @@
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 ;; -------------------------------------------------- Text manipulation
+;; backward kill word
+(global-set-key (kbd "C-M-h") 'backward-kill-word)
+
 ;; better zap to char
 (global-set-key (kbd "M-Z") 'zap-to-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
