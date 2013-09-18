@@ -43,8 +43,8 @@
 (autoload 'zap-up-to-char "misc")
 
 ;; loccur
-(require-package 'loccur)
-(require 'loccur)
+(require-package 'color-moccur)
+(require 'color-moccur)
 
 (require 'server)
 (defun confirm-then-exit ()

@@ -93,10 +93,8 @@
 
 (global-set-key (kbd "C-/") 'comment-or-uncomment-region-or-line)
 
-;; loccur
-(global-set-key (kbd "C-M-o") 'loccur-current)
-(global-set-key (kbd "C-o") 'loccur)
-(global-set-key (kbd "C-S-o") 'loccur-previous-match)
+;; color-moccur
+(global-set-key (kbd "C-o") 'moccur)
 
 ;; rss
 (global-set-key (kbd "<f5>") 'elfeed)
