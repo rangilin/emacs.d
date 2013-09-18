@@ -57,6 +57,11 @@
 (global-set-key (kbd "M-P") 'rangi-move-text-up)
 (global-set-key (kbd "M-N") 'rangi-move-text-down)
 
+;; hippie expand
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "M-C-/") 'my-ido-hippie-expand)
+
+
 ;; -------------------------------------------------- Windows
 ;; switch window
 (global-set-key (kbd "C-<tab>") 'other-window)
