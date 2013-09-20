@@ -88,7 +88,7 @@
 (global-set-key (kbd "M-h") 'backward-kill-word)
 
 ;; kill-whole-line
-(define-key key-translation-map (kbd "C-S-h") (kbd "<C-S-backspace>"))
+(define-key key-translation-map (kbd "M-H") (kbd "<C-S-backspace>")
 
 ;; rebind help command
 (global-set-key (kbd "<f1>") 'help-command)
