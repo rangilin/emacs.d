@@ -19,6 +19,7 @@
 (require 'init-ruby-mode)
 (require 'init-shell)
 (require 'init-theme)
+(require 'init-vc)
 (require 'init-webmacro-mode)
 (require 'init-window)
 

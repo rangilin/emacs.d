@@ -1,9 +1,3 @@
-;; git
-(require-package 'magit)
-(eval-after-load "magit"
-  ;; override so magit don't highlight
-  '(defun magit-highlight-section ()))
-
 ;; backup
 (setq backup-by-copying t)
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
