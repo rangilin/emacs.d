@@ -21,6 +21,7 @@
 (require 'init-theme)
 (require 'init-vc)
 (require 'init-webmacro-mode)
+(require 'init-web)
 (require 'init-window)
 
 (require 'init-misc)
