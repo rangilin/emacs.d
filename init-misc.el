@@ -26,6 +26,7 @@
 (require-package 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (eval-after-load 'flycheck '(setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers)))
+(setq-default flycheck-emacs-lisp-load-path load-path)
 
 ;; csv-mode
 (require-package 'csv-mode)
