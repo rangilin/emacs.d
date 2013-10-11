@@ -1,6 +1,7 @@
 ;;----------------------------------------------------------------------------
 ;; My favorite themes
 ;;----------------------------------------------------------------------------
+(require-package 'twilight-anti-bright-theme)
 (require-package 'color-theme-sanityinc-tomorrow)
 (require-package 'monokai-theme)
 (require-package 'gandalf-theme)
