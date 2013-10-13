@@ -37,7 +37,7 @@
 ;; load zap up to char function
 (autoload 'zap-up-to-char "misc")
 
-;; loccur
+;; occur
 (require-package 'color-moccur)
 (require 'color-moccur)
 
@@ -54,5 +54,7 @@
 (add-to-list 'auto-mode-alist '("\\.zul$" . nxml-mode))
 (setq nxml-slash-auto-complete-flag t)
 
+;; markdown
+(require-package 'markdown-mode)
 
 (provide 'init-misc)
