@@ -126,4 +126,12 @@
      (define-key undo-tree-map (kbd "C-/") nil)
      (define-key undo-tree-map (kbd "C-?") nil)))
 
+;; web-mode
+(eval-after-load 'web-mode
+  '(progn
+     (define-key web-mode-map (kbd "C-/") (lambda ()
+                                            (interactive)
+                                            (web-mode-comment-or-uncomment)
+                                            (next-logical-line)))))
+
 (provide 'init-keybinding)
