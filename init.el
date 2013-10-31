@@ -192,6 +192,9 @@
     (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))
     ))
 
+(use-package windmove
+  :config (windmove-default-keybindings 'shift))
+
 
 ;; -------------------------------------------------- local
 (require 'local nil t)

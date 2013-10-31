@@ -35,7 +35,7 @@
 
 ;; -------------------------------------------------- Windows
 ;; switch window
-(bind-key "C-<tab>" 'other-window)
+(bind-key "M-o" 'other-window)
 
 ;; window layout management
 (bind-key "C-x 2" (focus-and-show-other-buffer-after 'split-window-vertically))
