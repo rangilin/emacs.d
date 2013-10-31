@@ -1,7 +1,6 @@
 (source melpa)
 
 (depends-on "ace-jump-mode")
-(depends-on "autopair")
 (depends-on "bind-key")
 (depends-on "browse-kill-ring")
 (depends-on "color-moccur")
@@ -18,6 +17,7 @@
 (depends-on "monky")
 (depends-on "move-text")
 (depends-on "multiple-cursors")
+(depends-on "smartparens")
 (depends-on "smex")
 (depends-on "undo-tree")
 (depends-on "use-package")

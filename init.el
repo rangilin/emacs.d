@@ -152,9 +152,6 @@
     (yas-global-mode 1)
     (setq-default yas/prompt-functions '(yas/ido-prompt))))
 
-(use-package autopair
-  :init (autopair-global-mode))
-
 (use-package flycheck
   :init (global-flycheck-mode)
   :config
@@ -180,6 +177,20 @@
 
 (use-package smex
   :bind ("C-x C-m" . smex))
+
+(use-package smartparens
+  :init
+  (progn
+    (use-package smartparens-config)
+    (use-package smartparens-ruby)
+    (use-package smartparens-html)
+    (smartparens-global-mode 1)
+    (show-smartparens-global-mode 1))
+  :config
+  (progn
+    (setq smartparens-strict-mode t)
+    (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))
+    ))
 
 
 ;; -------------------------------------------------- local
