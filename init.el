@@ -131,13 +131,13 @@
     (setq monky-process-type 'cmdserver)))
 
 (use-package web-mode
+  :mode ("\\.html$" . web-mode)
   :config
   (progn
     (bind-key "C-/" (lambda ()
                       (interactive)
                       (web-mode-comment-or-uncomment)
-                      (next-logical-line)) web-mode-map))
-  :mode ("\\.html$" . web-mode))
+                      (next-logical-line)) web-mode-map)))
 
 (use-package webmacro-mode
   :load-path "site-lisp/webmacro-mode"
@@ -173,7 +173,19 @@
     (setq nxml-slash-auto-complete-flag t)))
 
 (use-package ibuffer
-  :bind ("C-x C-b" . ibuffer))
+  :bind ("C-x C-b" . ibuffer)
+  :config
+  (progn
+    (defun ibuffer-ido-find-file ()
+      "Like `ido-find-file', but default to the directory of the buffer at point."
+      (interactive
+       (let ((default-directory (let ((buf (ibuffer-current-buffer)))
+                                  (if (buffer-live-p buf)
+                                      (with-current-buffer buf
+                                        default-directory)
+                                    default-directory))))
+         (ido-find-file-in-dir default-directory))))
+    (bind-key "C-x C-f" 'ibuffer-ido-find-file ibuffer-mode-map)))
 
 (use-package smex
   :bind ("C-x C-m" . smex))
