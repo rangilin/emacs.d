@@ -1,9 +1,13 @@
 auto-save-list
 elpa
-custom.el
 eshell
+url
+.cask
+tramp
+autosaves
+backups
+
+
 session.*
+custom.el
 init-local.el
-/tramp
-url/*
-.cask/*
