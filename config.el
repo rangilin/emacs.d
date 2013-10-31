@@ -13,8 +13,6 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
-(setq backup-by-copying t)
-(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name))
@@ -71,5 +69,18 @@
 
 ;; -------------------------------------------------- isearch
 (setq isearch-allow-scroll 1)
+
+;; -------------------------------------------------- backup
+(setq backup-by-copying t)
+
+;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
+(custom-set-variables
+  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+
+;; create the autosave dir if necessary, since emacs won't.
+(make-directory "~/.emacs.d/autosaves/" t)
+(make-directory "~/.emacs.d/backups/" t)
+
 
 (provide 'config)
