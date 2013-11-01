@@ -46,20 +46,11 @@
 (setq-default auto-revert-verbose nil)
 
 ;; -------------------------------------------------- Scrolling
-;; mouse scrolling three line at a time
-(setq mouse-wheel-scroll-amount '(3 ((shift) . 1)))
-
-;; don't accelerate mouse scrolling
-(setq mouse-wheel-progressive-speed nil)
-
-;; scroll window under mouse
-(setq mouse-wheel-follow-mouse 't)
-
-;; make emacs scroll one line instead of half screen
-;; when cursor meet top/bottom of the screen
-(setq scroll-step 1)
-(setq scroll-conservatively 10000)
-(setq auto-window-vscroll nil)
+(setq redisplay-dont-pause t
+      scroll-margin 1
+      scroll-step 1
+      scroll-conservatively 10000
+      scroll-preserve-screen-position 1)
 
 ;; -------------------------------------------------- remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
