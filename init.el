@@ -111,13 +111,6 @@
      '("LANG" "LC_CTYPE" "JAVA_HOME" "CATALINA_HOME" "CATALINA_PID" "M2_HOME"))))
 
 (use-package eshell
-  :init
-  (progn
-    (defvar eshell-prompt-function
-      (lambda ()
-        (concat (eshell-user-name) "@" (system-name) ": "
-                (abbreviate-file-name (eshell/pwd))
-                (if (= (user-uid) 0) "\n# " "\n$ ")))))
   :bind ("C-S-z" . eshell))
 
 (use-package shell
