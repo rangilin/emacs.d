@@ -50,7 +50,8 @@
       scroll-margin 1
       scroll-step 1
       scroll-conservatively 10000
-      scroll-preserve-screen-position 1)
+      scroll-preserve-screen-position 1
+      mouse-wheel-progressive-speed nil)
 
 ;; -------------------------------------------------- remove trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
