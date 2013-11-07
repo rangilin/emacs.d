@@ -163,6 +163,7 @@
   :mode ("\\.zul$" . nxml-mode)
   :config
   (progn
+    (bind-key "M-h" nil nxml-mode-map)
     (setq nxml-slash-auto-complete-flag t)))
 
 (use-package ibuffer
