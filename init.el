@@ -24,6 +24,13 @@
 (use-package duplicate-thing
   :bind ("C-c d" . duplicate-thing))
 
+(use-package emacs-lisp-mode
+  :init
+  (progn
+    (use-package eldoc
+      :init (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)))
+  :mode ("Cask" . emacs-lisp-mode))
+
 (use-package eshell
   :bind ("C-S-z" . eshell))
 
@@ -191,8 +198,7 @@
   :config
   (progn
     (setq smartparens-strict-mode t)
-    (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))
-    ))
+    (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))))
 
 (use-package smex
   :bind ("C-x C-m" . smex))
