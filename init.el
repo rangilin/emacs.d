@@ -143,7 +143,10 @@
   (progn
     (bind-key "RET" 'reindent-then-newline-and-indent ruby-mode-map)
     (bind-key "TAB" 'indent-for-tab-command ruby-mode-map)
-    (use-package rvm)
+    (use-package rvm
+      :config
+      (progn
+        (add-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)))
     (use-package rspec-mode
       :config
       (progn
@@ -158,7 +161,17 @@
   (progn
     (use-package rvm
       :init (rvm-use-default))
-    (use-package yari))
+    (use-package yari)
+    (use-package rhtml-mode
+      :mode (("\\.html\\.erb$" . rhtml-mode)))
+    (use-package rinari
+      :init (global-rinari-mode 1)
+      :config (setq ruby-insert-encoding-magic-comment nil))
+    (use-package rspec-mode
+      :config
+      (progn
+        (setq-default rspec-use-rvm t)
+        (setq-default rspec-use-rake-flag nil))))
   :config
   (progn
     (setq ruby-deep-indent-paren nil)
@@ -211,7 +224,7 @@
   :init
   (progn
     (let ((snippets-dir (f-expand "snippets" user-emacs-directory)))
-      (yas/load-directory snippets-dir)
+      (yas-load-directory snippets-dir)
       (setq-default yas/snippet-dirs snippets-dir))
     (yas-global-mode 1)
     (setq-default yas/prompt-functions '(yas/ido-prompt))))
