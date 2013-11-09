@@ -9,38 +9,66 @@
 
 (require 'keybinding)
 
+(use-package ace-jump-mode
+  :bind (("C-;" . ace-jump-mode)))
+
+(use-package browse-kill-ring
+  :bind (("C-S-y" . browse-kill-ring)))
+
+(use-package color-moccur
+  :bind ("C-o" . moccur))
+
+(use-package dabbrev-highlight
+  :load-path "site-lisp/dabbrev-highlight")
+
 (use-package duplicate-thing
   :bind ("C-c d" . duplicate-thing))
 
-(use-package undo-tree
+(use-package eshell
+  :bind ("C-S-z" . eshell))
+
+(use-package exec-path-from-shell
   :init
   (progn
-    (bind-key "C-/" nil undo-tree-map)
-    (bind-key "C-?" nil undo-tree-map)
-    (global-undo-tree-mode 1)))
-
-(use-package move-text
-  :bind (("M-P" . rangi-move-text-up)
-         ("M-N" . rangi-move-text-down)))
+    (exec-path-from-shell-initialize)
+    (exec-path-from-shell-copy-envs
+     '("LANG" "LC_CTYPE" "JAVA_HOME" "CATALINA_HOME" "CATALINA_PID" "M2_HOME"))))
 
 (use-package expand-region
   :bind (("C-'" . er/expand-region)
          ("C-\"" . er/contract-region)))
 
-(use-package multiple-cursors
-  :bind (("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)
-         ("C-S-c C->" . mc/mark-more-like-this-extended)
-         ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
+(use-package flx-ido
+  :init (flx-ido-mode 1)
+  :config
+  (progn
+    ;; disable ido faces so can see flx highlights
+    (setq ido-use-faces nil)))
 
-(use-package browse-kill-ring
-  :bind (("C-S-y" . browse-kill-ring)))
+(use-package flycheck
+  :init (global-flycheck-mode)
+  :config
+  (progn
+    (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
+    (setq-default flycheck-emacs-lisp-load-path load-path)))
 
-(use-package dabbrev-highlight
-  :load-path "site-lisp/dabbrev-highlight")
+(use-package flycheck-cask
+  :init (add-hook 'flycheck-mode-hook 'flycheck-cask-setup))
 
-(use-package ace-jump-mode
-  :bind (("C-;" . ace-jump-mode)))
+(use-package ibuffer
+  :bind ("C-x C-b" . ibuffer)
+  :config
+  (progn
+    (defun ibuffer-ido-find-file ()
+      "Like `ido-find-file', but default to the directory of the buffer at point."
+      (interactive
+       (let ((default-directory (let ((buf (ibuffer-current-buffer)))
+                                  (if (buffer-live-p buf)
+                                      (with-current-buffer buf
+                                        default-directory)
+                                    default-directory))))
+         (ido-find-file-in-dir default-directory))))
+    (bind-key "C-x C-f" 'ibuffer-ido-find-file ibuffer-mode-map)))
 
 (use-package ido
   :init (ido-mode 1)
@@ -57,18 +85,11 @@
                    (file-writable-p buffer-file-name))
         (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))))
 
-(use-package flx-ido
-  :init (flx-ido-mode 1)
-  :config
-  (progn
-    ;; disable ido faces so can see flx highlights
-    (setq ido-use-faces nil)))
+(use-package ido-ubiquitous
+  :init (ido-ubiquitous-mode 1))
 
 (use-package ido-vertical-mode
   :init (ido-vertical-mode))
-
-(use-package ido-ubiquitous
-  :init (ido-ubiquitous-mode 1))
 
 (use-package js-mode
   :mode ("\\.json$" . js-mode))
@@ -89,6 +110,34 @@
         (linum-mode 1)))
     (global-linum-mode 1)))
 
+(use-package magit)
+
+(use-package misc
+  :bind (("M-Z" . zap-to-char)
+         ("M-z" . zap-up-to-char)))
+
+(use-package monky
+  :config
+  (progn
+    (setq monky-process-type 'cmdserver)))
+
+(use-package move-text
+  :bind (("M-P" . rangi-move-text-up)
+         ("M-N" . rangi-move-text-down)))
+
+(use-package multiple-cursors
+  :bind (("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-S-c C->" . mc/mark-more-like-this-extended)
+         ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
+
+(use-package nxml-mode
+  :mode ("\\.zul$" . nxml-mode)
+  :config
+  (progn
+    (bind-key "M-h" nil nxml-mode-map)
+    (setq nxml-slash-auto-complete-flag t)))
+
 (use-package ruby-mode
   :init
   (progn
@@ -104,89 +153,19 @@
     (custom-set-variables
      '(ruby-insert-encoding-magic-comment nil)))))
 
-(use-package exec-path-from-shell
+(use-package ruby-mode
   :init
   (progn
-    (exec-path-from-shell-initialize)
-    (exec-path-from-shell-copy-envs
-     '("LANG" "LC_CTYPE" "JAVA_HOME" "CATALINA_HOME" "CATALINA_PID" "M2_HOME"))))
-
-(use-package eshell
-  :bind ("C-S-z" . eshell))
+    (use-package rvm
+      :init (rvm-use-default))
+    (use-package yari))
+  :config
+  (progn
+    (setq ruby-deep-indent-paren nil)
+    (add-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)))
 
 (use-package shell
   :bind ("C-z" . shell))
-
-(use-package magit)
-
-(use-package monky
-  :config
-  (progn
-    (setq monky-process-type 'cmdserver)))
-
-(use-package web-mode
-  :mode ("\\.html$" . web-mode)
-  :config
-  (progn
-    (bind-key "C-/" (lambda ()
-                      (interactive)
-                      (web-mode-comment-or-uncomment)
-                      (next-logical-line)) web-mode-map)))
-
-(use-package webmacro-mode
-  :load-path "site-lisp/webmacro-mode"
-  :mode ("\\.wm[m]?$" . webmacro-mode))
-
-(use-package yasnippet
-  :init
-  (progn
-    (let ((snippets-dir (f-expand "snippets" user-emacs-directory)))
-      (yas/load-directory snippets-dir)
-      (setq-default yas/snippet-dirs snippets-dir))
-    (yas-global-mode 1)
-    (setq-default yas/prompt-functions '(yas/ido-prompt))))
-
-(use-package flycheck
-  :init (global-flycheck-mode)
-  :config
-  (progn
-    (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
-    (setq-default flycheck-emacs-lisp-load-path load-path)))
-
-(use-package flycheck-cask
-  :init (add-hook 'flycheck-mode-hook 'flycheck-cask-setup))
-
-(use-package misc
-  :bind (("M-Z" . zap-to-char)
-         ("M-z" . zap-up-to-char)))
-
-(use-package color-moccur
-  :bind ("C-o" . moccur))
-
-(use-package nxml-mode
-  :mode ("\\.zul$" . nxml-mode)
-  :config
-  (progn
-    (bind-key "M-h" nil nxml-mode-map)
-    (setq nxml-slash-auto-complete-flag t)))
-
-(use-package ibuffer
-  :bind ("C-x C-b" . ibuffer)
-  :config
-  (progn
-    (defun ibuffer-ido-find-file ()
-      "Like `ido-find-file', but default to the directory of the buffer at point."
-      (interactive
-       (let ((default-directory (let ((buf (ibuffer-current-buffer)))
-                                  (if (buffer-live-p buf)
-                                      (with-current-buffer buf
-                                        default-directory)
-                                    default-directory))))
-         (ido-find-file-in-dir default-directory))))
-    (bind-key "C-x C-f" 'ibuffer-ido-find-file ibuffer-mode-map)))
-
-(use-package smex
-  :bind ("C-x C-m" . smex))
 
 (use-package smartparens
   :init
@@ -202,19 +181,40 @@
     (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))
     ))
 
+(use-package smex
+  :bind ("C-x C-m" . smex))
+
+(use-package undo-tree
+  :init
+  (progn
+    (bind-key "C-/" nil undo-tree-map)
+    (bind-key "C-?" nil undo-tree-map)
+    (global-undo-tree-mode 1)))
+
+(use-package web-mode
+  :mode ("\\.html$" . web-mode)
+  :config
+  (progn
+    (bind-key "C-/" (lambda ()
+                      (interactive)
+                      (web-mode-comment-or-uncomment)
+                      (next-logical-line)) web-mode-map)))
+
+(use-package webmacro-mode
+  :load-path "site-lisp/webmacro-mode"
+  :mode ("\\.wm[m]?$" . webmacro-mode))
+
 (use-package windmove
   :config (windmove-default-keybindings 'shift))
 
-(use-package ruby-mode
+(use-package yasnippet
   :init
   (progn
-    (use-package rvm
-      :init (rvm-use-default))
-    (use-package yari))
-  :config
-  (progn
-    (setq ruby-deep-indent-paren nil)
-    (add-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)))
+    (let ((snippets-dir (f-expand "snippets" user-emacs-directory)))
+      (yas/load-directory snippets-dir)
+      (setq-default yas/snippet-dirs snippets-dir))
+    (yas-global-mode 1)
+    (setq-default yas/prompt-functions '(yas/ido-prompt))))
 
 ;; -------------------------------------------------- local
 (require 'local nil t)
