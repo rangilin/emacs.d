@@ -6,6 +6,7 @@
 (require 'defun)
 (require 'config)
 (require 'use-package)
+
 (require 'keybinding)
 
 (use-package duplicate-thing
@@ -152,6 +153,9 @@
     (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
     (setq-default flycheck-emacs-lisp-load-path load-path)))
 
+(use-package flycheck-cask
+  :init (add-hook 'flycheck-mode-hook 'flycheck-cask-setup))
+
 (use-package misc
   :bind (("M-Z" . zap-to-char)
          ("M-z" . zap-up-to-char)))
@@ -201,6 +205,16 @@
 (use-package windmove
   :config (windmove-default-keybindings 'shift))
 
+(use-package ruby-mode
+  :init
+  (progn
+    (use-package rvm
+      :init (rvm-use-default))
+    (use-package yari))
+  :config
+  (progn
+    (setq ruby-deep-indent-paren nil)
+    (add-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)))
 
 ;; -------------------------------------------------- local
 (require 'local nil t)
