@@ -203,6 +203,9 @@
 (use-package smex
   :bind ("C-x C-m" . smex))
 
+(use-package term
+  :config (add-hook 'term-mode-hook '(lambda () (yas-minor-mode -1))))
+
 (use-package undo-tree
   :init
   (progn
