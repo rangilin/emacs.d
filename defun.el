@@ -1,4 +1,4 @@
-;; -------------------------------------------------- smarter move-text
+ ;; -------------------------------------------------- smarter move-text
 (defun rangi-move-text-up (arg)
   (interactive "*p")
   (move-text-up arg)
@@ -114,6 +114,21 @@ point reaches the beginning or end of the buffer, stop there."
             (deactivate-mark))
         (comment-or-uncomment-region beg end)
         (next-logical-line)))
+
+
+;; -------------------------------------------------- comint/shell
+;; Make shell mode adjust column properly after window resize
+;; http://stackoverflow.com/a/11255996/554279
+(defun comint-fix-window-size ()
+  "Change process window size."
+  (when (derived-mode-p 'comint-mode)
+    (let ((process (get-buffer-process (current-buffer))))
+      (unless (eq nil process)
+        (set-process-window-size process (window-height) (window-width))))))
+
+(defun shell-window-resize-hook ()
+  ;; add this hook as buffer local, so it runs once per window.
+  (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
 
 
 (provide 'defun)
