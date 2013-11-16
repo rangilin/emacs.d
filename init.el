@@ -138,6 +138,11 @@
          ("C-S-c C->" . mc/mark-more-like-this-extended)
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 
+(use-package org
+  :config
+  (progn
+    (setq-default org-special-ctrl-a/e t)))
+
 (use-package nxml-mode
   :mode ("\\.zul$" . nxml-mode)
   :config
