@@ -1,4 +1,5 @@
 (source melpa)
+(source org)
 
 (depends-on "ace-jump-mode")
 (depends-on "bind-key")
@@ -18,6 +19,8 @@
 (depends-on "monky")
 (depends-on "move-text")
 (depends-on "multiple-cursors")
+(depends-on "org")
+(depends-on "org-plus-contrib")
 (depends-on "rhtml-mode")
 (depends-on "rinari")
 (depends-on "rspec-mode")
