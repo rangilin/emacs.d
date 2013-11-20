@@ -11,6 +11,7 @@
 (depends-on "expand-region")
 (depends-on "flx-ido")
 (depends-on "flycheck")
+(depends-on "impatient-mode")
 (depends-on "ido-ubiquitous")
 (depends-on "ido-vertical-mode")
 (depends-on "inf-ruby")
