@@ -210,7 +210,8 @@
   :config
   (progn
     (setq smartparens-strict-mode t)
-    (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))))
+    (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))
+    (sp-local-pair 'nxml-mode "<" nil :actions :rem)))
 
 (use-package smex
   :bind ("C-x C-m" . smex))
