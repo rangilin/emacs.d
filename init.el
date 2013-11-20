@@ -98,6 +98,9 @@
 (use-package ido-vertical-mode
   :init (ido-vertical-mode))
 
+(use-package ielm
+  :init (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode))
+
 (use-package js-mode
   :mode ("\\.json$" . js-mode))
 
