@@ -135,6 +135,24 @@
   :bind (("M-P" . rangi-move-text-up)
          ("M-N" . rangi-move-text-down)))
 
+(use-package moz
+  :load-path "site-lisp/moz"
+  :init
+  (progn
+    (defun rl/moz-start () (moz-minor-mode 1))
+    (defun rl/moz-reload-firefox ()
+      "Reload current tab of firefox if moz minor mode is enabled"
+      (interactive)
+      (if (and (boundp 'moz-minor-mode) moz-minor-mode)
+          (process-send-string (inferior-moz-process) "BrowserReload()\n")))
+    (defun rl/moz-hook-reload-after-save ()
+      "Add hook to reload firefox on save"
+      (interactive)
+      (add-hook 'after-save-hook 'rl/moz-reload-firefox))
+    (add-hook 'web-mode-hook 'rl/moz-hook-reload-after-save)
+    (add-hook 'css-mode-hook 'rl/moz-hook-reload-after-save)
+    (bind-key "C-c r" 'rl/moz-reload-firefox)))
+
 (use-package multiple-cursors
   :bind (("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
