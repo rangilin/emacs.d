@@ -231,10 +231,12 @@
   :mode ("\\.html$" . web-mode)
   :config
   (progn
-    (bind-key "C-/" (lambda ()
-                      (interactive)
-                      (web-mode-comment-or-uncomment)
-                      (next-logical-line)) web-mode-map)))
+    (defun rl/web-mode-toggle-comment()
+      (interactive)
+      (web-mode-comment-or-uncomment)
+      (next-logical-line))
+    (bind-key "C-/" 'rl/web-mode-toggle-comment web-mode-map)
+    (bind-key "C-;" nil web-mode-map)))
 
 (use-package webmacro-mode
   :load-path "site-lisp/webmacro-mode"
