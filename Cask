@@ -30,7 +30,6 @@
 (depends-on "smex")
 (depends-on "undo-tree")
 (depends-on "use-package")
-(depends-on "web-mode")
 (depends-on "yari")
 (depends-on "yasnippet")
 (depends-on "zenburn-theme")
