@@ -31,9 +31,6 @@
       :init (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)))
   :mode ("Cask" . emacs-lisp-mode))
 
-(use-package eshell
-  :bind ("C-c C-S-z" . eshell))
-
 (use-package exec-path-from-shell
   :init
   (progn
@@ -208,7 +205,6 @@
     (add-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)))
 
 (use-package shell
-  :bind ("C-c C-z" . shell)
   :config
   (progn
     (add-hook 'shell-mode-hook 'shell-window-resize-hook)
@@ -237,7 +233,6 @@
   :bind ("C-x C-m" . smex))
 
 (use-package term
-  :bind ("C-c z" . term)
   :config (add-hook 'term-mode-hook '(lambda () (yas-minor-mode -1))))
 
 (use-package undo-tree
