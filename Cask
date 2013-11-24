@@ -2,6 +2,7 @@
 (source org)
 
 (depends-on "ace-jump-mode")
+(depends-on "anzu")
 (depends-on "bind-key")
 (depends-on "browse-kill-ring")
 (depends-on "color-moccur")
