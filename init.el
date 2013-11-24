@@ -277,6 +277,12 @@
     (yas-global-mode 1)
     (setq-default yas/prompt-functions '(yas/ido-prompt))))
 
+(use-package zencoding-mode
+  :init
+  (progn
+    (bind-key "C-j" nil zencoding-mode-keymap)
+    (add-hook 'html-mode-hook 'zencoding-mode)))
+
 ;; -------------------------------------------------- local
 (require 'local nil t)
 ;; -------------------------------------------------- load customization
