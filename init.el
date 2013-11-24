@@ -217,6 +217,11 @@
     (add-hook 'shell-mode-hook 'shell-window-resize-hook)
     (bind-key "C-c C-z" 'shell comint-mode-map)))
 
+(use-package smart-mode-line
+  :init
+  (progn (setq sml/theme 'dark)
+         (sml/setup)))
+
 (use-package smartparens
   :init
   (progn

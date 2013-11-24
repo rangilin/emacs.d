@@ -25,6 +25,7 @@
 (depends-on "rinari")
 (depends-on "rspec-mode")
 (depends-on "rvm")
+(depends-on "smart-mode-line")
 (depends-on "smartparens")
 (depends-on "smex")
 (depends-on "undo-tree")
