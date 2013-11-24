@@ -1,4 +1,4 @@
- ;; -------------------------------------------------- smarter move-text
+;; -------------------------------------------------- smarter move-text
 (defun rangi-move-text-up (arg)
   (interactive "*p")
   (move-text-up arg)
@@ -105,15 +105,15 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; -------------------------------------------------- comments
 (defun comment-or-uncomment-region-or-line ()
-    "Comments or uncomments the region or the current line if there's no active region."
-    (interactive)
-    (let (beg end)
-        (if (region-active-p)
-            (setq beg (region-beginning) end (region-end))
-            (setq beg (line-beginning-position) end (line-end-position))
-            (deactivate-mark))
-        (comment-or-uncomment-region beg end)
-        (next-logical-line)))
+  "Comments or uncomments the region or the current line if there's no active region."
+  (interactive)
+  (let (beg end)
+    (if (region-active-p)
+        (setq beg (region-beginning) end (region-end))
+      (setq beg (line-beginning-position) end (line-end-position))
+      (deactivate-mark))
+    (comment-or-uncomment-region beg end)
+    (next-logical-line)))
 
 
 ;; -------------------------------------------------- comint/shell
@@ -130,5 +130,16 @@ point reaches the beginning or end of the buffer, stop there."
   ;; add this hook as buffer local, so it runs once per window.
   (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
 
+;; -------------------------------------------------- cursor movement
+;; http://stackoverflow.com/a/1249665/554279
+(defun rl/horizontal-recenter ()
+  "make the point horizontally centered in the window"
+  (interactive)
+  (let ((mid (/ (window-width) 2))
+        (line-len (save-excursion (end-of-line) (current-column)))
+        (cur (current-column)))
+    (if (< mid cur)
+        (set-window-hscroll (selected-window)
+                            (- cur mid)))))
 
 (provide 'defun)

@@ -18,6 +18,9 @@
 ;; make mouse click can expand region like common editor
 (bind-key "<S-down-mouse-1>" 'mouse-save-then-kill)
 
+;; horizontal recenter
+(bind-key "C-S-l" 'rl/horizontal-recenter)
+
 ;; -------------------------------------------------- Text manipulation
 ;; backward kill
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
