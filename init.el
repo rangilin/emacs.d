@@ -262,7 +262,8 @@
   :init
   (progn
     (bind-key "C-j" nil zencoding-mode-keymap)
-    (add-hook 'html-mode-hook 'zencoding-mode)))
+    (add-hook 'html-mode-hook 'zencoding-mode)
+    (add-hook 'nxml-mode-hook 'zencoding-mode)))
 
 ;; -------------------------------------------------- local
 (require 'local nil t)
