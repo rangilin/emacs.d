@@ -59,9 +59,6 @@
     (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
     (setq-default flycheck-emacs-lisp-load-path load-path)))
 
-(use-package flycheck-cask
-  :init (add-hook 'flycheck-mode-hook 'flycheck-cask-setup))
-
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
   :config
