@@ -12,3 +12,4 @@ session.*
 custom.el
 init-local.el
 /.mc-lists.el
+/local.el
