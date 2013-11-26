@@ -142,4 +142,9 @@ point reaches the beginning or end of the buffer, stop there."
         (set-window-hscroll (selected-window)
                             (- cur mid)))))
 
+(defun rl/previous-window ()
+  "Select previous window"
+  (interactive)
+  (other-window -1))
+
 (provide 'defun)

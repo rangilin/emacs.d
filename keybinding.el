@@ -39,6 +39,7 @@
 ;; -------------------------------------------------- Windows
 ;; switch window
 (bind-key "M-o" 'other-window)
+(bind-key "M-O" 'rl/previous-window)
 
 ;; window layout management
 (bind-key "C-x 2" (focus-and-show-other-buffer-after 'split-window-vertically))
