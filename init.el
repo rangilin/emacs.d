@@ -149,7 +149,7 @@
       "Add hook to reload firefox on save"
       (interactive)
       (add-hook 'after-save-hook 'rl/moz-reload-firefox))
-    (add-hook 'web-mode-hook 'rl/moz-hook-reload-after-save)
+    (add-hook 'html-mode-hook 'rl/moz-hook-reload-after-save)
     (add-hook 'css-mode-hook 'rl/moz-hook-reload-after-save)
     (bind-key "C-c r" 'rl/moz-reload-firefox)))
 
