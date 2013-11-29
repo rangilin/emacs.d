@@ -115,7 +115,7 @@
   (progn
     (defun linum-on ()
       (unless (or (minibufferp)
-                  (member major-mode '(eshell-mode text-mode dired-mode))
+                  (member major-mode '(shell-mode eshell-mode text-mode dired-mode))
                   (string-match "*" (buffer-name)))
         (linum-mode 1)))
     (global-linum-mode 1)))
