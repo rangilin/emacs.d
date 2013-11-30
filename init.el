@@ -48,6 +48,13 @@
   :bind (("C-'" . er/expand-region)
          ("C-\"" . er/contract-region)))
 
+(use-package fill-column-indicator
+  :init
+  (progn
+    (setq-default fci-rule-use-dashes t)
+    (setq-default fci-rule-width 5)
+    (add-hook 'prog-mode-hook 'fci-mode)))
+
 (use-package flx-ido
   :init (flx-ido-mode 1)
   :config
