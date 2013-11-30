@@ -109,6 +109,7 @@
   :init
   (progn
     (setq-default js2-basic-offset 2)
+    (setq-default js2-bounce-indent-p t)
     (add-hook 'js2-mode-hook '(lambda () (setq mode-name "js2")))))
 
 (use-package linum
