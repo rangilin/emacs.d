@@ -12,7 +12,7 @@
 (setq-default visible-bell 1)
 (setq-default show-trailing-whitespace t)
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
+(setq-default tab-width 2)
 (setq-default truncate-lines t)
 
 (setq frame-title-format
