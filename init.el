@@ -247,6 +247,11 @@
 (use-package smex
   :bind ("C-x C-m" . smex))
 
+(use-package sql
+  :config
+  (progn
+    (setq truncate-lines nil)))
+
 (use-package term
   :config (add-hook 'term-mode-hook '(lambda () (yas-minor-mode -1))))
 
