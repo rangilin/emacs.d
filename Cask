@@ -18,6 +18,7 @@
 (depends-on "inf-ruby")
 (depends-on "js2-mode")
 (depends-on "magit")
+(depends-on "markdown-mode")
 (depends-on "monky")
 (depends-on "move-text")
 (depends-on "multiple-cursors")

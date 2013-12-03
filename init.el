@@ -131,6 +131,11 @@
 
 (use-package magit)
 
+(use-package markdown-mode
+    :mode
+    (("\\.markdown\\'" . markdown-mode)
+     ("\\.md\\'" . markdown-mode)))
+
 (use-package misc
   :bind (("M-Z" . zap-to-char)
          ("M-z" . zap-up-to-char)))
