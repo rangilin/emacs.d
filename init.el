@@ -255,6 +255,9 @@
 (use-package term
   :config (add-hook 'term-mode-hook '(lambda () (yas-minor-mode -1))))
 
+(use-package tomatinho
+  :bind ("<f12>" . tomatinho))
+
 (use-package undo-tree
   :init
   (progn
