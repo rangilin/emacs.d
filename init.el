@@ -69,6 +69,17 @@
     (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
     (setq-default flycheck-emacs-lisp-load-path load-path)))
 
+(use-package flyspell
+  :bind
+  (("C-M-$" . flyspell-buffer)
+   ("C-$" . flyspell-check-previous-highlighted-word))
+  :init
+  (progn
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+  :config
+  (progn
+    (bind-key "C-;" nil flyspell-mode-map))) ; reserved for ace jump
+
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
   :config
