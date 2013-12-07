@@ -24,6 +24,7 @@
 (depends-on "multiple-cursors")
 (depends-on "org")
 (depends-on "org-plus-contrib")
+(depends-on "projectile")
 (depends-on "rhtml-mode")
 (depends-on "rinari")
 (depends-on "rspec-mode")

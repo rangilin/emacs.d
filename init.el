@@ -173,17 +173,23 @@
          ("C-S-c C->" . mc/mark-more-like-this-extended)
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 
-(use-package org
-  :config
-  (progn
-    (setq-default org-special-ctrl-a/e t)))
-
 (use-package nxml-mode
   :mode ("\\.zul$" . nxml-mode)
   :config
   (progn
     (bind-key "M-h" nil nxml-mode-map)
     (setq nxml-slash-auto-complete-flag t)))
+
+(use-package org
+  :config
+  (progn
+    (setq-default org-special-ctrl-a/e t)))
+
+(use-package projectile
+  :init
+  (progn
+    (projectile-global-mode)
+    (setq-default projectile-switch-project-action 'projectile-dired)))
 
 (use-package ruby-mode
   :init
