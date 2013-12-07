@@ -75,6 +75,7 @@
    ("C-$" . flyspell-check-previous-highlighted-word))
   :init
   (progn
+    (add-hook 'markdown-mode-hook 'flyspell-mode)
     (add-hook 'prog-mode-hook 'flyspell-prog-mode))
   :config
   (progn
