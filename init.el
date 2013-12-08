@@ -76,6 +76,7 @@
   :init
   (progn
     (add-hook 'markdown-mode-hook 'flyspell-mode)
+    (add-hook 'monky-log-edit-mode-hook 'flyspell-mode)
     (add-hook 'prog-mode-hook 'flyspell-prog-mode))
   :config
   (progn
