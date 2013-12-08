@@ -242,6 +242,15 @@
     (setq ruby-deep-indent-paren nil)
     (add-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)))
 
+(use-package sql
+  :init
+  (progn
+    (use-package sql-indent
+      :init
+      (progn
+        (setq-default sql-indent-offset tab-width)))
+    ))
+
 (use-package shell
   :config
   (progn

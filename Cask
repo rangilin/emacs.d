@@ -32,6 +32,7 @@
 (depends-on "smart-mode-line")
 (depends-on "smartparens")
 (depends-on "smex")
+(depends-on "sql-indent")
 (depends-on "tomatinho")
 (depends-on "undo-tree")
 (depends-on "use-package")
