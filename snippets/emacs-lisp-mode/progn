@@ -1,5 +1,6 @@
-#contributor: Xah Lee (XahLee.org)
-#name: progn
-#key: progn
+# -*- mode: snippet -*-
+# name: progn
+# key: progn
 # --
-(progn $0)
+(progn
+$0)
