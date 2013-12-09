@@ -260,8 +260,9 @@
 
 (use-package smart-mode-line
   :init
-  (progn (setq sml/theme 'dark)
-         (sml/setup)))
+  (progn
+    (setq sml/theme 'dark)
+    (sml/setup)))
 
 (use-package smartparens
   :init
@@ -282,9 +283,6 @@
 
 (use-package term
   :config (add-hook 'term-mode-hook '(lambda () (yas-minor-mode -1))))
-
-(use-package tomatinho
-  :bind ("<f12>" . tomatinho))
 
 (use-package undo-tree
   :init
