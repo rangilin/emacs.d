@@ -78,10 +78,11 @@
     (add-hook 'markdown-mode-hook 'flyspell-mode)
     (add-hook 'monky-log-edit-mode-hook 'flyspell-mode)
     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-    (defun rl/set-eng-dictionary ()
-      (ispell-change-dictionary "english"))
-    (add-hook 'flyspell-mode-hook 'rl/set-eng-dictionary)
-    (add-hook 'flyspell-prog-mode-hook 'rl/set-eng-dictionary))
+    ;; (defun rl/set-eng-dictionary ()
+    ;;   (ispell-change-dictionary "english"))
+    ;; (add-hook 'flyspell-mode-hook 'rl/set-eng-dictionary)
+    ;; (add-hook 'flyspell-prog-mode-hook 'rl/set-eng-dictionary)
+    )
   :config
   (progn
     (bind-key "C-;" nil flyspell-mode-map))) ; reserved for ace jump
