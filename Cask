@@ -13,6 +13,7 @@
 (depends-on "fill-column-indicator")
 (depends-on "flx-ido")
 (depends-on "flycheck")
+(depends-on "flycheck-cask")
 (depends-on "ido-ubiquitous")
 (depends-on "ido-vertical-mode")
 (depends-on "inf-ruby")

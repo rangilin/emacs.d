@@ -56,11 +56,13 @@
     (add-hook 'prog-mode-hook 'fci-mode)))
 
 (use-package flycheck
-  :init (global-flycheck-mode)
   :config
   (progn
     (setq flycheck-checkers (delq 'emacs-lisp-checkdoc flycheck-checkers))
-    (setq-default flycheck-emacs-lisp-load-path load-path)))
+    (add-hook 'after-init-hook 'global-flycheck-mode)))
+
+(use-package flycheck-cask
+  :init (add-hook 'flycheck-mode-hook 'flycheck-cask-setup))
 
 (use-package flyspell
   :bind
