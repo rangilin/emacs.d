@@ -55,13 +55,6 @@
     (setq-default fci-rule-width 5)
     (add-hook 'prog-mode-hook 'fci-mode)))
 
-(use-package flx-ido
-  :init (flx-ido-mode 1)
-  :config
-  (progn
-    ;; disable ido faces so can see flx highlights
-    (setq ido-use-faces nil)))
-
 (use-package flycheck
   :init (global-flycheck-mode)
   :config
@@ -102,8 +95,18 @@
   :init (ido-mode 1)
   :config
   (progn
+    (use-package ido-ubiquitous
+      :init (ido-ubiquitous-mode 1))
+    (use-package ido-vertical-mode
+      :init (ido-vertical-mode))
+    (use-package flx-ido
+      :init (flx-ido-mode 1)
+      :config
+      (progn
+        ;; disable ido faces so can see flx highlights
+        (setq ido-use-faces nil)))
     (setq ido-enable-flex-matching t)
-    (setq ido-use-virtual-buffers t)
+    ;; (setq ido-use-virtual-buffers t)
     (setq ido-create-new-buffer 'always)
     (setq ido-case-fold t)
     (setq ido-everywhere t)
@@ -113,11 +116,6 @@
                    (file-writable-p buffer-file-name))
         (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))))
 
-(use-package ido-ubiquitous
-  :init (ido-ubiquitous-mode 1))
-
-(use-package ido-vertical-mode
-  :init (ido-vertical-mode))
 
 (use-package ielm
   :init (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode))
@@ -127,11 +125,10 @@
 
 (use-package js2-mode
   :mode ("\\.js$" . js2-mode)
-  :init
+  :config
   (progn
     (setq-default js2-basic-offset 2)
-    (setq-default js2-bounce-indent-p t)
-    (add-hook 'js2-mode-hook '(lambda () (setq mode-name "js2")))))
+    (setq-default js2-bounce-indent-p t)))
 
 (use-package linum
   :init
@@ -146,9 +143,9 @@
 (use-package magit)
 
 (use-package markdown-mode
-    :mode
-    (("\\.markdown\\'" . markdown-mode)
-     ("\\.md\\'" . markdown-mode)))
+  :mode
+  (("\\.markdown\\'" . markdown-mode)
+   ("\\.md\\'" . markdown-mode)))
 
 (use-package misc
   :bind (("M-Z" . zap-to-char)
