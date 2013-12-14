@@ -7,7 +7,6 @@
 (depends-on "anzu")
 (depends-on "bind-key")
 (depends-on "browse-kill-ring")
-(depends-on "csv-nav")
 (depends-on "color-moccur")
 (depends-on "color-theme-sanityinc-tomorrow")
 (depends-on "colorsarenice-theme")
