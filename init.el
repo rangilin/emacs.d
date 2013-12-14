@@ -21,6 +21,12 @@
 (use-package browse-kill-ring
   :bind (("C-S-y" . browse-kill-ring)))
 
+;; 1.2.0 http://elpa.gnu.org/packages/csv-mode.html
+;; no idea why 1.5.0 in marmalade not works
+(use-package csv-mode
+  :load-path "site-lisp/csv-mode"
+  :mode ("\\.csv$" . csv-mode))
+
 (use-package color-moccur
   :bind ("C-o" . moccur))
 
