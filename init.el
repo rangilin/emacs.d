@@ -21,14 +21,14 @@
 (use-package browse-kill-ring
   :bind (("C-S-y" . browse-kill-ring)))
 
+(use-package color-moccur
+  :bind ("C-o" . moccur))
+
 ;; 1.2.0 http://elpa.gnu.org/packages/csv-mode.html
 ;; no idea why 1.5.0 in marmalade not works
 (use-package csv-mode
   :load-path "site-lisp/csv-mode"
   :mode ("\\.csv$" . csv-mode))
-
-(use-package color-moccur
-  :bind ("C-o" . moccur))
 
 (use-package dabbrev-highlight
   :load-path "site-lisp/dabbrev-highlight")
@@ -237,6 +237,14 @@
     (bind-key "TAB" 'indent-for-tab-command ruby-mode-map)
     (setq ruby-deep-indent-paren nil)
     (custom-set-variables '(ruby-insert-encoding-magic-comment nil))))
+
+(use-package simple
+  :config
+  (progn
+    (bind-key "n" 'next-line completion-list-mode-map)
+    (bind-key "p" 'previous-line completion-list-mode-map)
+    (bind-key "f" 'next-completion completion-list-mode-map)
+    (bind-key "b" 'previous-completion completion-list-mode-map)))
 
 (use-package sql
   :init
