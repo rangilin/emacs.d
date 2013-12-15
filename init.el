@@ -22,6 +22,31 @@
   :bind (("C-S-y" . browse-kill-ring)))
 
 (use-package color-moccur
+  :config
+  (progn
+    (defun moccur-view-file ()
+      "my version that will recenter when select an item"
+      (if (string= moccur-before-buffer-name moccur-buffer-name)
+          (moccur-color-check-view)
+        (if moccur-current-line-overlays
+            (progn
+              (delete-overlay moccur-current-line-overlays)
+              (setq moccur-overlays nil)))
+        (moccur-color-view))
+
+      (switch-to-buffer-other-window
+       (get-buffer moccur-buffer-name))
+      (goto-line (string-to-number moccur-line))
+      (if (re-search-forward moccur-regexp-color (line-end-position) t)
+          ()
+        (goto-line (string-to-number moccur-line)))
+
+      ;; color
+      (moccur-color-current-line)
+      (recenter)
+
+      (setq moccur-before-buffer-name moccur-buffer-name)
+      (switch-to-buffer-other-window moccur-mocur-buffer)))
   :bind ("C-o" . moccur))
 
 ;; 1.2.0 http://elpa.gnu.org/packages/csv-mode.html
@@ -151,9 +176,9 @@
 (use-package magit
   :init
   (progn
-    (defun disable-magit-item-highlight ()
+    (defun rl/disable-magit-item-highlight ()
       (face-remap-add-relative 'magit-item-highlight '()))
-    (add-hook 'magit-status-mode-hook 'disable-magit-item-highlight)))
+    (add-hook 'magit-status-mode-hook 'rl/disable-magit-item-highlight)))
 
 (use-package markdown-mode
   :mode
