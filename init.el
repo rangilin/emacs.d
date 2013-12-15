@@ -148,7 +148,12 @@
         (linum-mode 1)))
     (global-linum-mode 1)))
 
-(use-package magit)
+(use-package magit
+  :init
+  (progn
+    (defun disable-magit-item-highlight ()
+      (face-remap-add-relative 'magit-item-highlight '()))
+    (add-hook 'magit-status-mode-hook 'disable-magit-item-highlight)))
 
 (use-package markdown-mode
   :mode
