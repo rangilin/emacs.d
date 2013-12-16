@@ -21,6 +21,9 @@
 ;; horizontal recenter
 (bind-key "C-S-l" 'rl/horizontal-recenter)
 
+;; mark
+(bind-key "C-`" 'set-mark-command)
+
 ;; -------------------------------------------------- Text manipulation
 ;; backward kill
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
