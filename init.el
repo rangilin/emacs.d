@@ -288,8 +288,7 @@
 (use-package shell
   :config
   (progn
-    (add-hook 'shell-mode-hook 'shell-window-resize-hook)
-    (bind-key "C-c C-z" 'shell comint-mode-map)))
+    (add-hook 'shell-mode-hook 'shell-window-resize-hook)))
 
 (use-package smart-mode-line
   :init
