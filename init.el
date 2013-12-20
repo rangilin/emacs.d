@@ -315,7 +315,12 @@
   :bind ("C-x C-m" . smex))
 
 (use-package term
-  :config (add-hook 'term-mode-hook '(lambda () (yas-minor-mode -1))))
+  :config
+  (progn
+    (setq-default term-buffer-maximum-size 0)
+    (defun rl/setup-term-mode ()
+      (yas-minor-mode -1))
+    (add-hook 'term-mode-hook 'rl/setup-term-mode)))
 
 (use-package undo-tree
   :init
