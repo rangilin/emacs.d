@@ -1,11 +1,11 @@
 ;; -------------------------------------------------- smarter move-text
-(defun rangi-move-text-up (arg)
+(defun rl/move-text-up (arg)
   (interactive "*p")
   (move-text-up arg)
   (if (point-is-at-upper-window)
       (recenter-top-bottom (truncate (/ (window-text-height) 2)))))
 
-(defun rangi-move-text-down (arg)
+(defun rl/move-text-down (arg)
   (interactive "*p")
   (move-text-down arg)
   (if (region-active-p)

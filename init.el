@@ -195,8 +195,8 @@
     (setq monky-process-type 'cmdserver)))
 
 (use-package move-text
-  :bind (("M-P" . rangi-move-text-up)
-         ("M-N" . rangi-move-text-down)))
+  :bind (("M-P" . rl/move-text-up)
+         ("M-N" . rl/move-text-down)))
 
 (use-package moz
   :load-path "site-lisp/moz"
