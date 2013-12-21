@@ -27,7 +27,7 @@
 ;; -------------------------------------------------- Text manipulation
 ;; backward kill
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
-(bind-key "M-h" 'backward-kill-word)
+(bind-key "C-M-h" 'backward-kill-word)
 
 ;; kill-whole-line
 (define-key key-translation-map (kbd "M-H") (kbd "<C-S-backspace>"))
