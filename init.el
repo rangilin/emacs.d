@@ -59,6 +59,13 @@
 (use-package dabbrev-highlight
   :load-path "site-lisp/dabbrev-highlight")
 
+(use-package discover
+  :load-path "site-lisp/discover"
+  :init
+  (progn
+    (require 'makey-key-mode "site-lisp/makey/makey.el")
+    (global-discover-mode 1)))
+
 (use-package duplicate-thing
   :bind ("C-c d" . duplicate-thing))
 
