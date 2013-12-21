@@ -58,6 +58,9 @@
 (bind-key "M-]" 'next-buffer)
 (bind-key "M-[" 'previous-buffer)
 
+;; -------------------------------------------------- Misc
+(bind-key "C-c <f12>" 'rl/byte-recompile)
+
 ;;-------------------------------------------------- unbind
 (global-unset-key (kbd "C-x C-z"))
 (global-unset-key (kbd "M-x"))

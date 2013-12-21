@@ -159,4 +159,10 @@ point reaches the beginning or end of the buffer, stop there."
   (interactive "p")
   (rl/delete-word (- arg)))
 
+;; -------------------------------------------------- byte compile
+(defun rl/byte-recompile ()
+  "Byte-compile init files to improve speed"
+  (interactive)
+  (byte-recompile-directory "~/.emacs.d" 0))
+
 (provide 'defun)

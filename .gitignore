@@ -6,7 +6,7 @@ url
 tramp
 autosaves
 backups
-
+*.elc
 
 session.*
 custom.el
