@@ -290,12 +290,6 @@
   (progn
     (add-hook 'shell-mode-hook 'shell-window-resize-hook)))
 
-(use-package smart-mode-line
-  :init
-  (progn
-    (setq sml/theme 'dark)
-    (sml/setup)))
-
 (use-package smartparens
   :init
   (progn
