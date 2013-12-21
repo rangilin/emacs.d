@@ -10,6 +10,7 @@
 (depends-on "color-moccur")
 (depends-on "color-theme-sanityinc-tomorrow")
 (depends-on "colorsarenice-theme")
+(depends-on "diminish")
 (depends-on "duplicate-thing")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")

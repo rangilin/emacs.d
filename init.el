@@ -13,6 +13,7 @@
   :bind (("C-;" . ace-jump-mode)))
 
 (use-package anzu
+  :diminish ""
   :init (global-anzu-mode +1)
   :bind
   (("M-%" . anzu-query-replace)
@@ -68,6 +69,9 @@
       :init (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)))
   :mode ("Cask" . emacs-lisp-mode))
 
+(use-package eldoc
+  :diminish "")
+
 (use-package exec-path-from-shell
   :init
   (progn
@@ -96,6 +100,7 @@
   :init (add-hook 'flycheck-mode-hook 'flycheck-cask-setup))
 
 (use-package flyspell
+  :diminish ""
   :bind
   (("C-M-$" . flyspell-buffer)
    ("C-$" . flyspell-check-previous-highlighted-word))
@@ -291,6 +296,7 @@
     (add-hook 'shell-mode-hook 'shell-window-resize-hook)))
 
 (use-package smartparens
+  :diminish ""
   :init
   (progn
     (use-package smartparens-config)
@@ -336,6 +342,7 @@ execute something I don't want"
     (bind-key "M-O" 'rl/previous-window term-raw-map)))
 
 (use-package undo-tree
+  :diminish ""
   :init
   (progn
     (bind-key "C-/" nil undo-tree-map)
@@ -350,6 +357,7 @@ execute something I don't want"
   :config (windmove-default-keybindings 'shift))
 
 (use-package yasnippet
+  :diminish 'yas/minor-mode
   :init
   (progn
     (let ((snippets-dir (f-expand "snippets" user-emacs-directory)))
