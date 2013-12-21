@@ -337,6 +337,7 @@ execute something I don't want"
     (bind-key "M-t" 'rl/toggle-term-mode term-raw-map)
     (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)
 
+    (bind-key "M-]" 'next-buffer term-raw-map)
     (bind-key "M-o" 'other-window term-raw-map)
     (bind-key "M-O" 'rl/previous-window term-raw-map)))
 
