@@ -25,9 +25,12 @@
 (bind-key "C-`" 'set-mark-command)
 
 ;; -------------------------------------------------- Text manipulation
-;; backward kill
+;; delete word
+(bind-key "C-M-h" 'rl/backward-delete-word)
+(bind-key "M-d" 'rl/delete-word)
+
+;; delete character backward
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
-(bind-key "C-M-h" 'backward-kill-word)
 
 ;; kill-whole-line
 (define-key key-translation-map (kbd "M-H") (kbd "<C-S-backspace>"))

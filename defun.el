@@ -147,4 +147,16 @@ point reaches the beginning or end of the buffer, stop there."
   (interactive)
   (other-window -1))
 
+;; -------------------------------------------------- edit text
+;; http://www.emacswiki.org/emacs/BackwardDeleteWord
+(defun rl/delete-word (arg)
+  "Delete word after cursor without add to kill ring"
+  (interactive "p")
+  (delete-region (point) (progn (forward-word arg) (point))))
+
+(defun rl/backward-delete-word (arg)
+  "Delete word before cursor without add it to kill ring"
+  (interactive "p")
+  (rl/delete-word (- arg)))
+
 (provide 'defun)
