@@ -317,9 +317,28 @@
   :config
   (progn
     (setq-default term-buffer-maximum-size 0)
+
     (defun rl/setup-term-mode ()
       (yas-minor-mode -1))
-    (add-hook 'term-mode-hook 'rl/setup-term-mode)))
+    (add-hook 'term-mode-hook 'rl/setup-term-mode)
+
+    (defun rl/toggle-term-mode ()
+      "Toggle between `term-line-mode' and `term-char-mode', also
+enable `read-only-mode' in `term-line-mode' so I won't accidentally
+execute something I don't want"
+      (interactive)
+      (if (term-in-line-mode)
+          (progn
+            (read-only-mode -1)
+            (term-char-mode))
+        (progn
+          (term-line-mode)
+          (read-only-mode 1))))
+    (bind-key "M-t" 'rl/toggle-term-mode term-raw-map)
+    (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)
+
+    (bind-key "M-o" 'other-window term-raw-map)
+    (bind-key "M-O" 'rl/previous-window term-raw-map)))
 
 (use-package undo-tree
   :init
