@@ -59,11 +59,12 @@
 (use-package dabbrev-highlight
   :load-path "site-lisp/dabbrev-highlight")
 
+;; required by discover
+(require 'makey-key-mode "site-lisp/makey/makey.el")
 (use-package discover
   :load-path "site-lisp/discover"
   :init
   (progn
-    (require 'makey-key-mode "site-lisp/makey/makey.el")
     (global-discover-mode 1)))
 
 (use-package duplicate-thing
