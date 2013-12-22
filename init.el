@@ -381,9 +381,10 @@ execute something I don't want"
     (add-hook 'html-mode-hook 'zencoding-mode)
     (add-hook 'nxml-mode-hook 'zencoding-mode)))
 
-;; -------------------------------------------------- local
-(require 'local nil t)
 ;; -------------------------------------------------- load customization
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+;; -------------------------------------------------- local
+(require 'local nil t)
