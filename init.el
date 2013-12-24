@@ -326,6 +326,12 @@
   (progn
     (setq-default term-buffer-maximum-size 0)
 
+    ;; clear recorded keystroke on enter is pressed
+    ;; avoid view-lossage to display password
+    (defadvice term-send-raw (after clear-recorded-key activate)
+      (if (string= (kbd "RET") (this-command-keys))
+          (clear-this-command-keys)))
+
     (defun rl/setup-term-mode ()
       (yas-minor-mode -1))
     (add-hook 'term-mode-hook 'rl/setup-term-mode)
