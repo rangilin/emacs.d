@@ -122,6 +122,9 @@
   (progn
     (bind-key "C-;" nil flyspell-mode-map))) ; reserved for ace jump
 
+(use-package fullscreen-mode
+  :init (fullscreen-mode 1))
+
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
   :config
