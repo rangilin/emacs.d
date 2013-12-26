@@ -129,6 +129,21 @@
   :bind ("C-x C-b" . ibuffer)
   :config
   (progn
+    (define-ibuffer-column readable-size
+      (:name "Size" :inline t)
+      (cond
+       ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+       ((> (buffer-size) 1000) (format "%7.1fK" (/ (buffer-size) 1000.0)))
+       (t (format "%8d" (buffer-size)))))
+    (setq-default ibuffer-formats
+          '((mark modified read-only " "
+                  (name 18 18 :left :elide)
+                  " "
+                  (readable-size 9 -1 :right)
+                  " "
+                  (mode 16 16 :left :elide)
+                  " "
+                  filename-and-process)))
     (defun ibuffer-ido-find-file ()
       "Like `ido-find-file', but default to the directory of the buffer at point."
       (interactive
