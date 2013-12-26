@@ -165,6 +165,16 @@
                    (file-writable-p buffer-file-name))
         (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))))
 
+(eval-after-load "isearch"
+  '(progn
+    (defadvice
+      isearch-repeat-forward
+      (after isearch-repeat-forward-recenter activate)
+      (recenter))
+    (defadvice
+      isearch-repeat-backward
+      (after isearch-repeat-backward-recenter activate)
+      (recenter))))
 
 (use-package ielm
   :init (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode))
