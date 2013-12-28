@@ -194,11 +194,8 @@
 (use-package ielm
   :init (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode))
 
-(use-package js-mode
-  :mode ("\\.json$" . js-mode))
-
 (use-package js2-mode
-  :mode ("\\.js$" . js2-mode)
+  :mode (("\\.js$" . js2-mode))
   :config
   (progn
     (setq-default js2-basic-offset 2)
@@ -330,6 +327,11 @@
   :config
   (progn
     (add-hook 'shell-mode-hook 'shell-window-resize-hook)))
+
+(use-package sh-script
+  :init
+  (progn
+    (custom-set-variables '(sh-basic-offset tab-width))))
 
 (use-package smartparens
   :diminish ""
