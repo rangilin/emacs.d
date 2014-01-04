@@ -194,6 +194,9 @@
 (use-package ielm
   :init (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode))
 
+(use-package js
+  :mode (("\\.json$" . js-mode)))
+
 (use-package js2-mode
   :mode (("\\.js$" . js2-mode))
   :config
