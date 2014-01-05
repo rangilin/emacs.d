@@ -255,7 +255,7 @@
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 
 (use-package multi-term
-  :defer t
+  :bind (("C-c t" . multi-term))
   :config
   (progn
     ;; clear recorded keystroke on enter is pressed
@@ -285,7 +285,7 @@ execute something I don't want"
     (setq-default multi-term-program "/bin/bash")
     (setq-default term-buffer-maximum-size 10000)
     (setq-default term-unbind-key-list
-                  `("C-z" "C-x" "C-h" "C-y" "<ESC>"))
+                  `("C-z" "C-x" "C-h" "C-c" "C-y" "<ESC>"))
     (setq-default term-bind-key-alist
                   '(("C-c C-c" . term-interrupt-subjob)
                     ("C-m" . term-send-raw)
@@ -365,11 +365,6 @@ execute something I don't want"
       (progn
         (setq-default sql-indent-offset tab-width)))
     ))
-
-(use-package shell
-  :config
-  (progn
-    (add-hook 'shell-mode-hook 'shell-window-resize-hook)))
 
 (use-package sh-script
   :init
