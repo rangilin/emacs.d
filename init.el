@@ -294,6 +294,7 @@ execute something I don't want"
                     ("M-p" . term-send-up)
                     ("M-n" . term-send-down)
                     ("M-d" . term-send-forward-kill-word)
+                    ("C-M-h" . term-send-backward-kill-word)
                     ("M-," . term-send-input)
                     ("M-t" . rl/toggle-term-mode)
                     ("M-o" . other-window)
