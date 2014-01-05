@@ -44,3 +44,5 @@
 (depends-on "yasnippet")
 (depends-on "zenburn-theme")
 (depends-on "zencoding-mode")
+
+(depends-on "buffer-move")

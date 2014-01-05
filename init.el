@@ -22,6 +22,12 @@
 (use-package browse-kill-ring
   :bind (("C-S-y" . browse-kill-ring)))
 
+(use-package buffer-move
+  :bind (("M-S-<up>" . buf-move-up)
+         ("M-S-<down>" . buf-move-down)
+         ("M-S-<right>" . buf-move-right)
+         ("M-S-<left>" . buf-move-left)))
+
 (use-package color-moccur
   :config
   (progn
