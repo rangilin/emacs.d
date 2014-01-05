@@ -78,13 +78,6 @@
 (use-package eldoc
   :diminish "")
 
-(use-package exec-path-from-shell
-  :init
-  (progn
-    (exec-path-from-shell-initialize)
-    (exec-path-from-shell-copy-envs
-     '("LANG" "LC_CTYPE" "JAVA_HOME" "CATALINA_HOME" "CATALINA_PID" "M2_HOME"))))
-
 (use-package expand-region
   :bind (("C-'" . er/expand-region)
          ("C-\"" . er/contract-region)))
