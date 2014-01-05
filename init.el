@@ -393,7 +393,7 @@ execute something I don't want"
   :mode ("\\.wm[m]?$" . webmacro-mode))
 
 (use-package windmove
-  :config (windmove-default-keybindings 'shift))
+  :config (windmove-default-keybindings 'meta))
 
 (use-package yasnippet
   :diminish 'yas/minor-mode
