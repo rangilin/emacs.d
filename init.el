@@ -261,6 +261,54 @@
          ("C-S-c C->" . mc/mark-more-like-this-extended)
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 
+(use-package multi-term
+  :defer t
+  :config
+  (progn
+    ;; clear recorded keystroke on enter is pressed
+    ;; avoid view-lossage to display password
+    (defadvice term-send-raw (after clear-recorded-key activate)
+      (if (string= (kbd "RET") (this-command-keys))
+          (clear-this-command-keys)))
+
+    (defun rl/setup-term-mode ()
+      ; yas tab not works well with term
+      (yas-minor-mode -1))
+    (add-hook 'term-mode-hook 'rl/setup-term-mode)
+
+    (defun rl/toggle-term-mode ()
+      "Toggle between `term-line-mode' and `term-char-mode', also
+enable `read-only-mode' in `term-line-mode' so I won't accidentally
+execute something I don't want"
+      (interactive)
+      (if (term-in-line-mode)
+          (progn
+            (read-only-mode -1)
+            (term-char-mode))
+        (progn
+          (term-line-mode)
+          (read-only-mode 1))))
+
+    (setq-default multi-term-program "/bin/bash")
+    (setq-default term-buffer-maximum-size 10000)
+    (setq-default term-unbind-key-list
+                  `("C-z" "C-x" "C-h" "C-y" "<ESC>"))
+    (setq-default term-bind-key-alist
+                  '(("C-c C-c" . term-interrupt-subjob)
+                    ("C-m" . term-send-raw)
+                    ("M-f" . term-send-forward-word)
+                    ("M-b" . term-send-backward-word)
+                    ("M-p" . term-send-up)
+                    ("M-n" . term-send-down)
+                    ("M-d" . term-send-forward-kill-word)
+                    ("M-," . term-send-input)
+                    ("M-t" . rl/toggle-term-mode)
+                    ("M-o" . other-window)
+                    ))
+
+    (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)
+    ))
+
 (use-package nxml-mode
   :mode ("\\.zul$" . nxml-mode)
   :config
@@ -352,39 +400,8 @@
 (use-package smex
   :bind ("C-x C-m" . smex))
 
-(use-package term
-  :config
-  (progn
-    (setq-default term-buffer-maximum-size 0)
-
-    ;; clear recorded keystroke on enter is pressed
-    ;; avoid view-lossage to display password
-    (defadvice term-send-raw (after clear-recorded-key activate)
-      (if (string= (kbd "RET") (this-command-keys))
-          (clear-this-command-keys)))
-
-    (defun rl/setup-term-mode ()
-      (yas-minor-mode -1))
-    (add-hook 'term-mode-hook 'rl/setup-term-mode)
-
-    (defun rl/toggle-term-mode ()
-      "Toggle between `term-line-mode' and `term-char-mode', also
-enable `read-only-mode' in `term-line-mode' so I won't accidentally
-execute something I don't want"
-      (interactive)
-      (if (term-in-line-mode)
-          (progn
-            (read-only-mode -1)
-            (term-char-mode))
-        (progn
-          (term-line-mode)
-          (read-only-mode 1))))
-    (bind-key "M-t" 'rl/toggle-term-mode term-raw-map)
-    (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)
-
-    (bind-key "M-]" 'next-buffer term-raw-map)
-    (bind-key "M-o" 'other-window term-raw-map)
-    (bind-key "M-O" 'rl/previous-window term-raw-map)))
+(use-package transpose-frame
+  :load-path "site-lisp/transpose-frame")
 
 (use-package undo-tree
   :diminish ""

@@ -28,6 +28,7 @@
 (depends-on "monky")
 (depends-on "move-text")
 (depends-on "multiple-cursors")
+(depends-on "multi-term")
 (depends-on "projectile")
 (depends-on "rhtml-mode")
 (depends-on "rinari")
