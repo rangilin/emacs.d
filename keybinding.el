@@ -50,8 +50,6 @@
 ;; window layout management
 (bind-key "C-x 2" (focus-and-show-other-buffer-after 'split-window-vertically))
 (bind-key "C-x 3" (focus-and-show-other-buffer-after 'split-window-horizontally))
-(bind-key "C-x _" 'split-window-horizontally-instead)
-(bind-key "C-x |" 'split-window-vertically-instead)
 
 ;; -------------------------------------------------- Buffers
 ;; switch buffer

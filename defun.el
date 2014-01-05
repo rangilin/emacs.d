@@ -30,25 +30,6 @@
       (funcall s-f)
       (set-window-buffer (next-window) (other-buffer))
       (other-window 1))))
-(defun show-other-buffer-after (split-function)
-  (lexical-let ((s-f split-function))
-    (lambda ()
-      (interactive)
-      (funcall s-f)
-      (set-window-buffer (next-window) (other-buffer)))))
-
-;; -------------------------------------------------- rearrange split windows
-(defun split-window-vertically-instead ()
-  (interactive)
-  (save-excursion
-    (delete-other-windows)
-    (funcall (show-other-buffer-after 'split-window-horizontally))))
-
-(defun split-window-horizontally-instead ()
-  (interactive)
-  (save-excursion
-    (delete-other-windows)
-    (funcall (show-other-buffer-after 'split-window-vertically))))
 
 ;; -------------------------------------------------- better scrolling
 (defun scroll-cursor-down ()
