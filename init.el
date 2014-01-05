@@ -310,6 +310,7 @@ execute something I don't want"
     (setq nxml-slash-auto-complete-flag t)))
 
 (use-package org
+  :mode ("\\.org$" . org-mode)
   :config
   (progn
     (setq-default org-special-ctrl-a/e t)))
