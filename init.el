@@ -22,6 +22,12 @@
 (use-package browse-kill-ring
   :bind (("C-S-y" . browse-kill-ring)))
 
+(use-package buffer-move
+  :bind (("M-S-<up>" . buf-move-up)
+         ("M-S-<down>" . buf-move-down)
+         ("M-S-<right>" . buf-move-right)
+         ("M-S-<left>" . buf-move-left)))
+
 (use-package color-moccur
   :config
   (progn
@@ -59,14 +65,6 @@
 (use-package dabbrev-highlight
   :load-path "site-lisp/dabbrev-highlight")
 
-;; required by discover
-(require 'makey-key-mode "site-lisp/makey/makey.el")
-(use-package discover
-  :load-path "site-lisp/discover"
-  :init
-  (progn
-    (global-discover-mode 1)))
-
 (use-package duplicate-thing
   :bind ("C-c d" . duplicate-thing))
 
@@ -79,13 +77,6 @@
 
 (use-package eldoc
   :diminish "")
-
-(use-package exec-path-from-shell
-  :init
-  (progn
-    (exec-path-from-shell-initialize)
-    (exec-path-from-shell-copy-envs
-     '("LANG" "LC_CTYPE" "JAVA_HOME" "CATALINA_HOME" "CATALINA_PID" "M2_HOME"))))
 
 (use-package expand-region
   :bind (("C-'" . er/expand-region)
@@ -195,6 +186,9 @@
 (use-package ielm
   :init (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode))
 
+(use-package js
+  :mode (("\\.json$" . js-mode)))
+
 (use-package js2-mode
   :mode (("\\.js$" . js2-mode))
   :config
@@ -261,6 +255,55 @@
          ("C-S-c C->" . mc/mark-more-like-this-extended)
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 
+(use-package multi-term
+  :bind (("C-c t" . multi-term))
+  :config
+  (progn
+    ;; clear recorded keystroke on enter is pressed
+    ;; avoid view-lossage to display password
+    (defadvice term-send-raw (after clear-recorded-key activate)
+      (if (string= (kbd "RET") (this-command-keys))
+          (clear-this-command-keys)))
+
+    (defun rl/setup-term-mode ()
+      ; yas tab not works well with term
+      (yas-minor-mode -1))
+    (add-hook 'term-mode-hook 'rl/setup-term-mode)
+
+    (defun rl/toggle-term-mode ()
+      "Toggle between `term-line-mode' and `term-char-mode', also
+enable `read-only-mode' in `term-line-mode' so I won't accidentally
+execute something I don't want"
+      (interactive)
+      (if (term-in-line-mode)
+          (progn
+            (read-only-mode -1)
+            (term-char-mode))
+        (progn
+          (term-line-mode)
+          (read-only-mode 1))))
+
+    (setq-default multi-term-program "/bin/bash")
+    (setq-default term-buffer-maximum-size 10000)
+    (setq-default term-unbind-key-list
+                  `("C-z" "C-x" "C-h" "C-c" "C-y" "<ESC>"))
+    (setq-default term-bind-key-alist
+                  '(("C-c C-c" . term-interrupt-subjob)
+                    ("C-m" . term-send-raw)
+                    ("M-f" . term-send-forward-word)
+                    ("M-b" . term-send-backward-word)
+                    ("M-p" . term-send-up)
+                    ("M-n" . term-send-down)
+                    ("M-d" . term-send-forward-kill-word)
+                    ("C-M-h" . term-send-backward-kill-word)
+                    ("M-," . term-send-input)
+                    ("M-t" . rl/toggle-term-mode)
+                    ("M-o" . other-window)
+                    ))
+
+    (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)
+    ))
+
 (use-package nxml-mode
   :mode ("\\.zul$" . nxml-mode)
   :config
@@ -269,6 +312,7 @@
     (setq nxml-slash-auto-complete-flag t)))
 
 (use-package org
+  :mode ("\\.org$" . org-mode)
   :config
   (progn
     (setq-default org-special-ctrl-a/e t)))
@@ -324,11 +368,6 @@
         (setq-default sql-indent-offset tab-width)))
     ))
 
-(use-package shell
-  :config
-  (progn
-    (add-hook 'shell-mode-hook 'shell-window-resize-hook)))
-
 (use-package sh-script
   :init
   (progn
@@ -352,39 +391,8 @@
 (use-package smex
   :bind ("C-x C-m" . smex))
 
-(use-package term
-  :config
-  (progn
-    (setq-default term-buffer-maximum-size 0)
-
-    ;; clear recorded keystroke on enter is pressed
-    ;; avoid view-lossage to display password
-    (defadvice term-send-raw (after clear-recorded-key activate)
-      (if (string= (kbd "RET") (this-command-keys))
-          (clear-this-command-keys)))
-
-    (defun rl/setup-term-mode ()
-      (yas-minor-mode -1))
-    (add-hook 'term-mode-hook 'rl/setup-term-mode)
-
-    (defun rl/toggle-term-mode ()
-      "Toggle between `term-line-mode' and `term-char-mode', also
-enable `read-only-mode' in `term-line-mode' so I won't accidentally
-execute something I don't want"
-      (interactive)
-      (if (term-in-line-mode)
-          (progn
-            (read-only-mode -1)
-            (term-char-mode))
-        (progn
-          (term-line-mode)
-          (read-only-mode 1))))
-    (bind-key "M-t" 'rl/toggle-term-mode term-raw-map)
-    (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)
-
-    (bind-key "M-]" 'next-buffer term-raw-map)
-    (bind-key "M-o" 'other-window term-raw-map)
-    (bind-key "M-O" 'rl/previous-window term-raw-map)))
+(use-package transpose-frame
+  :load-path "site-lisp/transpose-frame")
 
 (use-package undo-tree
   :diminish ""
@@ -399,7 +407,7 @@ execute something I don't want"
   :mode ("\\.wm[m]?$" . webmacro-mode))
 
 (use-package windmove
-  :config (windmove-default-keybindings 'shift))
+  :config (windmove-default-keybindings 'meta))
 
 (use-package yasnippet
   :diminish 'yas/minor-mode

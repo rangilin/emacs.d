@@ -80,5 +80,15 @@
 (setq-default indicate-buffer-boundaries 'left)
 (setq-default indicate-empty-lines +1)
 
-
+;; -------------------------------------------------- font
+; Test whether width of 2 English chars equals to 1 CJK char
+; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (40 chars)
+; 測測測測測測測測測測測測測測測測測測測測 (20 chars)
+; あいうえおあいうえおあいうえおあいうえお (20 chars)
+;
+(setq face-font-rescale-alist '(("Microsoft JhengHei" . 1.1)))
+(set-face-attribute 'default nil :font "Consolas 14")
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (set-fontset-font (frame-parameter nil 'font)
+                    charset (font-spec :family "Microsoft JhengHei")))
 (provide 'config)

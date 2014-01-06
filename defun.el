@@ -30,25 +30,6 @@
       (funcall s-f)
       (set-window-buffer (next-window) (other-buffer))
       (other-window 1))))
-(defun show-other-buffer-after (split-function)
-  (lexical-let ((s-f split-function))
-    (lambda ()
-      (interactive)
-      (funcall s-f)
-      (set-window-buffer (next-window) (other-buffer)))))
-
-;; -------------------------------------------------- rearrange split windows
-(defun split-window-vertically-instead ()
-  (interactive)
-  (save-excursion
-    (delete-other-windows)
-    (funcall (show-other-buffer-after 'split-window-horizontally))))
-
-(defun split-window-horizontally-instead ()
-  (interactive)
-  (save-excursion
-    (delete-other-windows)
-    (funcall (show-other-buffer-after 'split-window-vertically))))
 
 ;; -------------------------------------------------- better scrolling
 (defun scroll-cursor-down ()
@@ -114,21 +95,6 @@ point reaches the beginning or end of the buffer, stop there."
       (deactivate-mark))
     (comment-or-uncomment-region beg end)
     (next-logical-line)))
-
-
-;; -------------------------------------------------- comint/shell
-;; Make shell mode adjust column properly after window resize
-;; http://stackoverflow.com/a/11255996/554279
-(defun comint-fix-window-size ()
-  "Change process window size."
-  (when (derived-mode-p 'comint-mode)
-    (let ((process (get-buffer-process (current-buffer))))
-      (unless (eq nil process)
-        (set-process-window-size process (window-height) (window-width))))))
-
-(defun shell-window-resize-hook ()
-  ;; add this hook as buffer local, so it runs once per window.
-  (add-hook 'window-configuration-change-hook 'comint-fix-window-size nil t))
 
 ;; -------------------------------------------------- cursor movement
 ;; http://stackoverflow.com/a/1249665/554279
