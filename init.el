@@ -94,6 +94,7 @@
 (use-package fill-column-indicator
   :init
   (progn
+    (setq-default fci-rule-column 80)
     (setq-default fci-rule-use-dashes t)
     (setq-default fci-rule-width 5)
     (add-hook 'prog-mode-hook 'fci-mode)))
