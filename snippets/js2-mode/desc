@@ -1,4 +1,4 @@
 # name: jasmine description
 # key: desc
 # --
-describe("$1", function() {$0});
+describe('$1', function() {$0});
