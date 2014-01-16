@@ -309,6 +309,8 @@ execute something I don't want"
   :config
   (progn
     (bind-key "M-h" nil nxml-mode-map)
+    (setq-default nxml-child-indent tab-width)
+    (setq-default nxml-outline-child-indent tab-width)
     (setq nxml-slash-auto-complete-flag t)))
 
 (use-package org
