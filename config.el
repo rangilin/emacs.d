@@ -60,6 +60,7 @@
 
 ;; -------------------------------------------------- dired
 (put 'dired-find-alternate-file 'disabled nil)
+(setq dired-listing-switches "-aBhl  --group-directories-first")
 
 ;; -------------------------------------------------- isearch
 (setq isearch-allow-scroll 1)
