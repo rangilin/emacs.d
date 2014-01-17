@@ -56,6 +56,12 @@
       (switch-to-buffer-other-window moccur-mocur-buffer)))
   :bind ("C-o" . moccur))
 
+(use-package css-mode
+  :mode ("\\.css$" . css-mode)
+  :init
+  (progn
+    (setq-default css-indent-offset tab-width)))
+
 ;; 1.2.0 http://elpa.gnu.org/packages/csv-mode.html
 ;; no idea why 1.5.0 in marmalade not works
 (use-package csv-mode
