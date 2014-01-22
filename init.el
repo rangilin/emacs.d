@@ -441,3 +441,6 @@ execute something I don't want"
 
 ;; -------------------------------------------------- local
 (require 'local nil t)
+
+;; -------------------------------------------------- after
+(kill-buffer "*Compile-Log*")
