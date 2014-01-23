@@ -311,7 +311,9 @@ execute something I don't want"
     ))
 
 (use-package nxml-mode
-  :mode ("\\.zul$" . nxml-mode)
+  :mode
+  (("\\.zul$" . nxml-mode)
+   ("\\.xml$" . nxml-mode))
   :config
   (progn
     (bind-key "M-h" nil nxml-mode-map)
