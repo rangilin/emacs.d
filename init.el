@@ -325,6 +325,7 @@ execute something I don't want"
   :mode ("\\.org$" . org-mode)
   :config
   (progn
+    (setq-default org-directory "/ramsey/Dropbox/org")
     (setq-default org-special-ctrl-a/e t)))
 
 (use-package projectile
