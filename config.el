@@ -87,7 +87,7 @@
 ;
 
 ; from https://gist.github.com/coldnew/7398845
-(defvar emacs-english-font "Source Code Pro")
+(defvar emacs-english-font "Monaco")
 (defvar emacs-cjk-font "WenQuanYi Micro Hei")
 (defvar emacs-font-size-pair '(17 . 20)
   "Default font size pair for (english . chinese)")
