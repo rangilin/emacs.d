@@ -334,6 +334,9 @@ execute something I don't want"
     (projectile-global-mode)
     (setq-default projectile-switch-project-action 'projectile-dired)))
 
+(use-package randomize-region
+  :load-path "site-lisp/randomize-region")
+
 (use-package ruby-mode
   :mode (("\\.rake$" . ruby-mode)
          ("\\.ru$" . ruby-mode)
