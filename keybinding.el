@@ -58,6 +58,8 @@
 
 ;; -------------------------------------------------- Misc
 (bind-key "C-c <f12>" 'rl/byte-recompile)
+(bind-key "C-x C-+" 'increase-emacs-font-size)
+(bind-key "C-x C--" 'decrease-emacs-font-size)
 
 ;;-------------------------------------------------- unbind
 (global-unset-key (kbd "C-x C-z"))
