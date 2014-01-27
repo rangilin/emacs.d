@@ -4,6 +4,7 @@
 (cask-initialize)
 
 (require 'defun)
+(require 'font)
 (require 'config)
 (require 'use-package)
 
