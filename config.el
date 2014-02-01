@@ -3,6 +3,8 @@
 (customize-set-variable 'delete-selection-mode t)
 (customize-set-variable 'indent-tabs-mode nil)
 (customize-set-variable 'inhibit-splash-screen t)
+(customize-set-variable 'inhibit-startup-message t)
+(customize-set-variable 'initial-scratch-message "")
 (customize-set-variable 'line-number-mode t)
 (customize-set-variable 'menu-bar-mode nil)
 (customize-set-variable 'scroll-bar-mode nil)
@@ -12,7 +14,7 @@
 (customize-set-variable 'tool-bar-mode nil)
 (customize-set-variable 'visible-bell t)
 (customize-set-variable 'x-select-enable-clipboard t)
-
+(customize-set-variable 'blink-cursor-mode nil)
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name))
