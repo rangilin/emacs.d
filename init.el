@@ -305,6 +305,7 @@ execute something I don't want"
                     ("M-," . term-send-input)
                     ("M-t" . rl/toggle-term-mode)
                     ("M-o" . other-window)
+                    ("C-y" . term-paste)
                     ))
 
     (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)
