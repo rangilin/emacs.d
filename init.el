@@ -93,8 +93,7 @@
   :init
   (progn
     (setq-default fci-rule-column 80)
-    (setq-default fci-rule-use-dashes t)
-    (setq-default fci-rule-width 5)
+    (setq-default fci-rule-width 2)
     (add-hook 'prog-mode-hook 'fci-mode)))
 
 (use-package flycheck
