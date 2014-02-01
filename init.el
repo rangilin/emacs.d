@@ -366,14 +366,6 @@ execute something I don't want"
     (setq ruby-deep-indent-paren nil)
     (custom-set-variables '(ruby-insert-encoding-magic-comment nil))))
 
-(use-package simple
-  :config
-  (progn
-    (bind-key "n" 'next-line completion-list-mode-map)
-    (bind-key "p" 'previous-line completion-list-mode-map)
-    (bind-key "f" 'next-completion completion-list-mode-map)
-    (bind-key "b" 'previous-completion completion-list-mode-map)))
-
 (use-package sql
   :init
   (progn
