@@ -123,6 +123,8 @@
 (use-package fullscreen-mode
   :init (fullscreen-mode 1))
 
+(use-package gnuplot-mode)
+
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
   :config
@@ -324,6 +326,10 @@ execute something I don't want"
 
 (use-package org
   :mode ("\\.org$" . org-mode)
+  :init
+  (progn
+    (use-package org-plot
+      :bind (("C-M-g" . org-plot/gnuplot))))
   :config
   (progn
     (setq-default org-directory "/ramsey/Dropbox/org")
