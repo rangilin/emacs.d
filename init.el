@@ -333,7 +333,12 @@ execute something I don't want"
   :config
   (progn
     (setq-default org-directory "/ramsey/Dropbox/org")
-    (setq-default org-special-ctrl-a/e t)))
+    (setq-default org-special-ctrl-a/e t)
+    ;; workaround windmove conflict
+    (add-hook 'org-shiftup-final-hook 'windmove-up)
+    (add-hook 'org-shiftleft-final-hook 'windmove-left)
+    (add-hook 'org-shiftdown-final-hook 'windmove-down)
+    (add-hook 'org-shiftright-final-hook 'windmove-right)))
 
 (use-package projectile
   :init
@@ -420,7 +425,7 @@ execute something I don't want"
   :mode ("\\.wm[m]?$" . webmacro-mode))
 
 (use-package windmove
-  :config (windmove-default-keybindings 'meta))
+  :config (windmove-default-keybindings 'shift))
 
 (use-package yasnippet
   :diminish 'yas/minor-mode
