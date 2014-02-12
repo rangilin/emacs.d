@@ -438,6 +438,9 @@ execute something I don't want"
 (use-package windmove
   :config (windmove-default-keybindings 'shift))
 
+(use-package winner
+  :init (winner-mode 1))
+
 (use-package yasnippet
   :diminish 'yas/minor-mode
   :init
