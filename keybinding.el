@@ -64,7 +64,6 @@
 
 ;;-------------------------------------------------- unbind
 (global-unset-key (kbd "C-x C-z"))
-(global-unset-key (kbd "M-x"))
 (global-unset-key (kbd "C-?"))
 (global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-SPC"))

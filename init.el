@@ -407,7 +407,7 @@ execute something I don't want"
     (sp-local-pair 'nxml-mode "<" nil :actions :rem)))
 
 (use-package smex
-  :bind ("C-x C-m" . smex))
+  :bind ("M-x" . smex))
 
 (use-package transpose-frame
   :load-path "site-lisp/transpose-frame")
