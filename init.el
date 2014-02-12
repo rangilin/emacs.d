@@ -410,7 +410,17 @@ execute something I don't want"
   :bind ("M-x" . smex))
 
 (use-package transpose-frame
-  :load-path "site-lisp/transpose-frame")
+  :load-path "site-lisp/transpose-frame"
+  :init
+  (progn
+    (define-prefix-command 'transpose-frame-map)
+    (bind-key "C-c f" transpose-frame-map)
+    (bind-key "l" 'rotate-frame-anticlockwise transpose-frame-map)
+    (bind-key "j" 'rotate-frame-clockwise transpose-frame-map)
+    (bind-key "o" 'rotate-frame transpose-frame-map)
+    (bind-key "k" 'flop-frame transpose-frame-map)
+    (bind-key "i" 'flip-frame transpose-frame-map)
+    (bind-key "m" 'transpose-frame transpose-frame-map)))
 
 (use-package undo-tree
   :diminish ""
