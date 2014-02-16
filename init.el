@@ -6,7 +6,6 @@
 (require 'defun)
 (require 'font)
 (require 'config)
-(require 'ert)
 (require 'use-package)
 
 (require 'keybinding)
