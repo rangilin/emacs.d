@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: pcase
+# key: pcase
+# --
+(pcase ${1:value}
+$0)
