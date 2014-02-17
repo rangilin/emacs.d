@@ -1,9 +1,14 @@
-; Test whether width of 2 English chars equals to 1 CJK char
-; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (40 chars)
-; 測測測測測測測測測測測測測測測測測測測測 (20 chars)
-; あいうえおあいうえおあいうえおあいうえお (20 chars)
+(require 'use-package)
+
+;; --------------------------------------------------
+;; Test whether width of 2 English chars equals to 1 CJK char
+;; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (40 chars)
+;; 測測測測測測測測測測測測測測測測測測測測 (20 chars)
+;; あいうえおあいうえおあいうえおあいうえお (20 chars)
+;; --------------------------------------------------
 
 ; from https://gist.github.com/coldnew/7398845
+
 (defvar emacs-english-font "Monaco")
 (defvar emacs-cjk-font "WenQuanYi Micro Hei")
 (defvar emacs-font-size-pair '(17 . 20)
@@ -58,4 +63,8 @@
 
 (rl/reset-emacs-font-size)
 
-(provide 'font)
+(bind-key "C-x C-=" 'rl/increase-emacs-font-size)
+(bind-key "C-x C--" 'rl/decrease-emacs-font-size)
+(bind-key "C-x C-0" 'rl/reset-emacs-font-size)
+
+(provide 'setup-font)
