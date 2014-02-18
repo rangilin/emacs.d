@@ -53,5 +53,17 @@ buffer in it"
 (use-package winner
   :init (winner-mode 1))
 
+;; ------------------------------ resizing
+(defun rl/resize-window ()
+  (interactive)
+  (set-temporary-overlay-map
+    (let ((map (make-sparse-keymap)))
+        (define-key map (kbd "<left>") 'shrink-window-horizontally)
+        (define-key map (kbd "<right>") 'enlarge-window-horizontally)
+        (define-key map (kbd "<down>") 'shrink-window)
+        (define-key map (kbd "<up>") 'enlarge-window)
+        map) t))
+
+(bind-key "C-c w" 'rl/resize-window);
 
 (provide 'setup-window)
