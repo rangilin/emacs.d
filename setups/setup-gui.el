@@ -55,16 +55,12 @@
 ;; ------------------------------ transpose frame
 (use-package transpose-frame
   :load-path "site-lisp/transpose-frame"
-  :init
-  (progn
-    (define-prefix-command 'transpose-frame-map)
-    (bind-key "C-c f" transpose-frame-map)
-    (bind-key "l" 'rotate-frame-anticlockwise transpose-frame-map)
-    (bind-key "j" 'rotate-frame-clockwise transpose-frame-map)
-    (bind-key "o" 'rotate-frame transpose-frame-map)
-    (bind-key "k" 'flop-frame transpose-frame-map)
-    (bind-key "i" 'flip-frame transpose-frame-map)
-    (bind-key "m" 'transpose-frame transpose-frame-map)))
+  :bind (("C-c f l" . rotate-frame-anticlockwise)
+         ("C-c f j" . rotate-frame-clockwise)
+         ("C-c f o" . rotate-frame)
+         ("C-c f k" . flop-frame)
+         ("C-c f i" . flip-frame)
+         ("C-c f m" . transpose-frame)))
 
 ;; ------------------------------ fringe
 (setq-default indicate-buffer-boundaries 'left)
