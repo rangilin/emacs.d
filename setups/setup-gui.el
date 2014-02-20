@@ -70,4 +70,10 @@
 (setq-default indicate-buffer-boundaries 'left)
 (setq-default indicate-empty-lines +1)
 
+;; ------------------------------ display time
+(setq-default display-time-format "%Y-%m-%d %T")
+(setq-default display-time-interval 1)
+(display-time-mode 1)
+
+
 (provide 'setup-gui)
