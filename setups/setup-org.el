@@ -4,7 +4,7 @@
   :mode ("\\.org$" . org-mode)
   :init
   (progn
-    (use-package gnuplot-mode)
+    (use-package gnuplot)
     (use-package org-plot
       :bind (("C-M-g" . org-plot/gnuplot))))
   :config
