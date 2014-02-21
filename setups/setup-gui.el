@@ -67,7 +67,7 @@
 (setq-default indicate-empty-lines +1)
 
 ;; ------------------------------ setting for display time
-(setq-default display-time-format "%Y-%m-%d %T")
+(setq-default display-time-format "%T")
 (setq-default display-time-interval 1)
 
 
