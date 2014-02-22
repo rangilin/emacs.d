@@ -1,12 +1,11 @@
 (require 'use-package)
 
-
-(setq-default menu-bar-mode nil)
-(setq-default scroll-bar-mode nil)
-(setq-default tool-bar-mode nil)
-
-(setq-default column-number-mode t)
-(setq-default line-number-mode t)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(transient-mark-mode -1)
+(column-number-mode t)
+(line-number-mode t)
 
 (setq-default inhibit-splash-screen t)
 (setq-default inhibit-startup-message t)
