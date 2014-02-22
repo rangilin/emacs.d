@@ -7,4 +7,5 @@ My Emacs configuration.
 
 **misc**
 
-add `-fs` when execute emacs for fullscreen
+`-fs` for fullscreen on start
+`-mm` for maximum frame on start
