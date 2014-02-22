@@ -4,11 +4,11 @@
   :init
   (progn
     (use-package eldoc
+      :diminish ""
       :init (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)))
-  :mode ("Cask" . emacs-lisp-mode))
-
-(use-package eldoc
-  :diminish "")
+  :mode
+  (("Cask" . emacs-lisp-mode)
+   ("\\.el$" . emacs-lisp-mode)))
 
 ;; ------------------------------ eval and replace the sexp
 ;; http://emacsredux.com/blog/2013/06/21/eval-and-replace/

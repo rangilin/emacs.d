@@ -165,7 +165,7 @@
 
 ;; ------------------------------ undo
 (use-package undo-tree
-  :diminish ""
+  :diminish undo-tree-mode
   :init
   (progn
     (bind-key "C-/" nil undo-tree-map)
@@ -174,7 +174,7 @@
 
 ;; ------------------------------ yasnippet
 (use-package yasnippet
-  :diminish 'yas/minor-mode
+  :diminish yas-minor-mode
   :init
   (progn
     (let ((snippets-dir (f-expand "snippets" user-emacs-directory)))
