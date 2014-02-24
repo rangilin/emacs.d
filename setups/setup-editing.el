@@ -183,7 +183,4 @@
     (yas-global-mode 1)
     (setq-default yas/prompt-functions '(yas/ido-prompt))))
 
-;; ------------------------------
-(bind-key "C-`" 'set-mark-command)
-
 (provide 'setup-editing)
