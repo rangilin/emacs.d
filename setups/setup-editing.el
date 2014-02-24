@@ -183,4 +183,7 @@
     (yas-global-mode 1)
     (setq-default yas/prompt-functions '(yas/ido-prompt))))
 
+;; ------------------------------
+(bind-key "C-d" 'delete-forward-char)
+
 (provide 'setup-editing)
