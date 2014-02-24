@@ -3,7 +3,7 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
-(transient-mark-mode -1)
+
 (column-number-mode t)
 (line-number-mode t)
 
