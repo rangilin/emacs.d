@@ -148,6 +148,10 @@
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 
 ;; ------------------------------ sp
+
+;; temporary workaround for https://github.com/Fuco1/smartparens/issues/256
+(require 'delsel)
+
 (use-package smartparens
   :diminish ""
   :init
