@@ -53,9 +53,9 @@
 (global-unset-key (kbd "C-SPC"))
 
 ;; -------------------------------------------------- load customization
-(let ((custom-file (expand-file-name "custom.el" user-emacs-directory)))
-  (when (file-exists-p custom-file)
-    (load custom-file)))
+(setq custom-file (expand-file-name "custom.el" rl/gen-dir))
+(when (file-exists-p custom-file)
+  (load custom-file))
 
 ;; -------------------------------------------------- read local configuration
 (require 'local nil t)
