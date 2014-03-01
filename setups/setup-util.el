@@ -66,4 +66,8 @@
     (projectile-global-mode)
     (setq-default projectile-switch-project-action 'projectile-dired)))
 
+;; ------------------------------ apropos
+;; use apropos instead of apropos-command
+(bind-key "a" 'apropos help-map)
+
 (provide 'setup-util)
