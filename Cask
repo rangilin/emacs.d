@@ -24,6 +24,7 @@
 (depends-on "ido-vertical-mode")
 (depends-on "inf-ruby")
 (depends-on "js2-mode")
+(depends-on "leuven-theme")
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "monky")
