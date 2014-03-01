@@ -10,7 +10,6 @@
 ;; ------------------------------ auto-save
 ;; put auto save files in gen dir
 (let ((rl/autosave-dir (rl/sub-gen-dir "autosave")))
-  (message rl/autosave-dir)
   (setq auto-save-file-name-transforms `((".*" ,rl/autosave-dir t)))
   ;; prevent `auto-save-list' empty dir created
   (setq auto-save-list-file-prefix nil))
