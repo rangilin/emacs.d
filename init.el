@@ -26,6 +26,7 @@
 (require 'setup-css)
 (require 'setup-editing)
 (require 'setup-elisp)
+(require 'setup-eshell)
 (require 'setup-flycheck)
 (require 'setup-flyspell)
 (require 'setup-font)
