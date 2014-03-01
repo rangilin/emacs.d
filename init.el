@@ -35,12 +35,20 @@
 (global-unset-key (kbd "C-SPC"))
 
 ;; -------------------------------------------------- load customization
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file))
+(let ((custom-file (expand-file-name "custom.el" user-emacs-directory)))
+  (when (file-exists-p custom-file)
+    (load custom-file)))
 
-;; -------------------------------------------------- local
+;; startup file
+(defvar rl/startup-file "/ramsey/Dropbox/org/personal/index.org")
+
+;; -------------------------------------------------- read local configuration
 (require 'local nil t)
 
 ;; -------------------------------------------------- after
+;; annoying!
 (kill-buffer "*Compile-Log*")
+
+;; open startup file
+(when (file-exists-p rl/startup-file)
+    (find-file rl/startup-file))
