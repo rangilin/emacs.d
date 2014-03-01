@@ -52,7 +52,8 @@
   :init
   (progn
     (projectile-global-mode)
-    (setq-default projectile-switch-project-action 'projectile-dired)))
+    (setq-default projectile-switch-project-action 'projectile-dired)
+    (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rl/gen-dir))))
 
 ;; ------------------------------ apropos
 ;; use apropos instead of apropos-command
