@@ -42,6 +42,7 @@
 (require 'setup-sql)
 (require 'setup-svc)
 (require 'setup-terminal)
+(require 'setup-tramp)
 (require 'setup-util)
 (require 'setup-window)
 
