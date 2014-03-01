@@ -1,16 +1,5 @@
-auto-save-list
-elpa
-eshell
-url
 .cask
-tramp
-autosaves
-backups
+.gen
 *.elc
 
-session.*
-custom.el
-init-local.el
-/.mc-lists.el
-/local.el
-/projectile-bookmarks.eld
+local.el

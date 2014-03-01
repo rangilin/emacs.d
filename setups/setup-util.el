@@ -22,18 +22,6 @@
 
 (bind-key "C-c <f12>" 'rl/byte-recompile)
 
-;; ------------------------------ backup
-(setq-default backup-by-copying t)
-
-;; Put autosave files (e.g: #foo#) and backup files (e.g: foo~) in ~/.emacs.d/.
-(custom-set-variables
-  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
-  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
-
-;; create the autosave dir if necessary, since emacs won't.
-(make-directory "~/.emacs.d/autosaves/" t)
-(make-directory "~/.emacs.d/backups/" t)
-
 ;; ------------------------------ trailing whitespace
 (dolist (hook '(eshell-mode-hook
 		shell-mode-hook
