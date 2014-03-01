@@ -142,6 +142,9 @@
 
 ;; ------------------------------ multiple cursors
 (use-package multiple-cursors
+  :init
+  (progn
+    (setq-default mc/list-file (expand-file-name ".mc-lists.el" rl/gen-dir)))
   :bind (("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
          ("C-S-c C->" . mc/mark-more-like-this-extended)
