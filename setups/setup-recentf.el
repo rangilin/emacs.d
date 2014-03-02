@@ -3,6 +3,7 @@
 (use-package recentf
   :init
   (progn
+    (setq-default recentf-exclude `("COMMIT_EDITMSG"))
     (recentf-mode 1))
   :bind ("C-x C-r" . rl/recentf-ido-find-file))
 
