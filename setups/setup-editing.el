@@ -191,6 +191,12 @@
     (setq-default yas/prompt-functions '(yas/ido-prompt))))
 
 ;; ------------------------------
+(defun rl/backward-whitespace (arg)
+  (interactive "p")
+  (forward-whitespace (- arg)))
+
+(bind-key "M-B" 'rl/backward-whitespace)
+(bind-key "M-F" 'forward-whitespace)
 (bind-key "C-d" 'delete-forward-char)
 
 (provide 'setup-editing)
