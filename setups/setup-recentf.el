@@ -4,6 +4,7 @@
   :init
   (progn
     (setq-default recentf-exclude `("COMMIT_EDITMSG"))
+    (setq-default recentf-save-file (expand-file-name "recentf" rl/gen-dir))
     (setq-default recentf-max-saved-items 100)
     (recentf-mode 1))
   :bind ("C-x C-r" . rl/recentf-ido-find-file))
