@@ -10,7 +10,7 @@
 
 ;; -------------------------------------------------- boostrap
 (add-to-list 'load-path rl/emacs-dir)
-(add-to-list 'load-path (expand-file-name "setups" rl/emacs-dir))
+(add-to-list 'load-path (expand-file-name "lisp" rl/emacs-dir))
 
 ;; create directory if not exist
 (make-directory rl/gen-dir t)
