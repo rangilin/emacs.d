@@ -13,6 +13,7 @@
 (depends-on "colorsarenice-theme")
 (depends-on "diminish")
 (depends-on "duplicate-thing")
+(depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 (depends-on "fill-column-indicator")
 (depends-on "flx-ido")

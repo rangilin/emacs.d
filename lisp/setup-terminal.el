@@ -50,6 +50,14 @@ execute something I don't want"
     (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)
     ))
 
+;; ------------------------------ exec path
+(use-package exec-path-from-shell
+  :init
+  (progn
+    (setq-default exec-path-from-shell-variables
+                  '("PATH" "MANPATH" "GOROOT" "GOPATH"))
+    (exec-path-from-shell-initialize)))
+
 
 (require 'comint)
 (setq-default comint-scroll-to-bottom-on-output 'all)
