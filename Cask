@@ -21,6 +21,8 @@
 (depends-on "flycheck-cask")
 (depends-on "fullscreen-mode")
 (depends-on "gnuplot")
+(depends-on "go-eldoc")
+(depends-on "go-mode")
 (depends-on "ido-ubiquitous")
 (depends-on "ido-vertical-mode")
 (depends-on "inf-ruby")

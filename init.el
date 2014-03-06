@@ -30,6 +30,7 @@
 (require 'setup-flycheck)
 (require 'setup-flyspell)
 (require 'setup-font)
+(require 'setup-go)
 (require 'setup-gui)
 (require 'setup-ido)
 (require 'setup-js)
