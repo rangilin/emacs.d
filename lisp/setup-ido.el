@@ -14,6 +14,7 @@
       (progn
         ;; disable ido faces so can see flx highlights
         (setq ido-use-faces nil)))
+    (setq ido-file-history (expand-file-name ".ido.last" rl/gen-dir))
     (setq ido-enable-flex-matching t)
     (setq ido-create-new-buffer 'always)
     (setq ido-case-fold t)
