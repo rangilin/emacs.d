@@ -6,11 +6,6 @@
   :load-path "site-lisp/csv-mode"
   :mode ("\\.csv$" . csv-mode))
 
-(use-package markdown-mode
-  :mode
-  (("\\.markdown\\'" . markdown-mode)
-   ("\\.md\\'" . markdown-mode)))
-
 (use-package moz
   :load-path "site-lisp/moz"
   :init

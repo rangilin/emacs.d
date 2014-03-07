@@ -34,6 +34,7 @@
 (require 'setup-gui)
 (require 'setup-ido)
 (require 'setup-js)
+(require 'setup-markdown)
 (require 'setup-nxml)
 (require 'setup-org)
 (require 'setup-others)
