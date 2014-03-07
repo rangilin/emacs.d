@@ -1,32 +1,29 @@
 (require 'use-package)
 
+;; ------------------------------ term
 (use-package multi-term
   :bind (("C-c t" . multi-term))
   :config
   (progn
+
+    ;; ------------------------------ workaround view-lossage issues
     ;; clear recorded keystroke on enter is pressed
     ;; avoid view-lossage to display password
     (defadvice term-send-raw (after clear-recorded-key activate)
       (if (string= (kbd "RET") (this-command-keys))
           (clear-this-command-keys)))
 
+    ;; ------------------------------ hook for setup term mode
     (defun rl/setup-term-mode ()
-                                        ; yas tab not works well with term
-      (yas-minor-mode -1))
+      (yas-minor-mode -1)) ; yas tab not works well with term
     (add-hook 'term-mode-hook 'rl/setup-term-mode)
 
     (defun rl/toggle-term-mode ()
-      "Toggle between `term-line-mode' and `term-char-mode', also
-enable `read-only-mode' in `term-line-mode' so I won't accidentally
-execute something I don't want"
+      "Toggle between `term-line-mode' and `term-char-mode'"
       (interactive)
       (if (term-in-line-mode)
-          (progn
-            (read-only-mode -1)
-            (term-char-mode))
-        (progn
-          (term-line-mode)
-          (read-only-mode 1))))
+          (term-char-mode)
+          (term-line-mode)))
 
     (setq-default multi-term-program "/bin/bash")
     (setq-default term-buffer-maximum-size 10000)
@@ -35,6 +32,7 @@ execute something I don't want"
     (setq-default term-bind-key-alist
                   '(("C-c C-c" . term-interrupt-subjob)
                     ("C-m" . term-send-raw)
+                    ("M-v" . term-send-raw)
                     ("M-f" . term-send-forward-word)
                     ("M-b" . term-send-backward-word)
                     ("M-p" . term-send-up)
@@ -44,11 +42,8 @@ execute something I don't want"
                     ("M-," . term-send-input)
                     ("M-t" . rl/toggle-term-mode)
                     ("M-o" . other-window)
-                    ("C-y" . term-paste)
-                    ))
-
-    (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)
-    ))
+                    ("C-y" . term-paste)))
+    (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)))
 
 ;; ------------------------------ exec path
 (use-package exec-path-from-shell
@@ -58,8 +53,9 @@ execute something I don't want"
                   '("PATH" "MANPATH" "GOROOT" "GOPATH"))
     (exec-path-from-shell-initialize)))
 
-
-(require 'comint)
-(setq-default comint-scroll-to-bottom-on-output 'all)
+;; ------------------------------ comint
+(use-package comint
+  :init
+  (setq-default comint-scroll-to-bottom-on-output 'all))
 
 (provide 'setup-terminal)
