@@ -26,6 +26,7 @@
           (term-line-mode)))
 
     (setq-default multi-term-program "/bin/bash")
+    (setq-default multi-term-program-switches "--login")
     (setq-default term-buffer-maximum-size 10000)
     (setq-default term-unbind-key-list
                   `("C-z" "C-x" "C-h" "C-c" "C-y" "<ESC>"))
