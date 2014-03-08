@@ -2,7 +2,7 @@
 
 (use-package css-mode
   :mode ("\\.css$" . css-mode)
-  :init
+  :config
   (progn
     (setq-default css-indent-offset tab-width)))
 
