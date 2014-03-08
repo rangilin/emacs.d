@@ -1,16 +1,12 @@
 (require 'use-package)
 
+;; ------------------------------ ruby
 (use-package ruby-mode
   :mode (("\\.rake$" . ruby-mode)
          ("\\.ru$" . ruby-mode)
          ("Rakefile$" . ruby-mode))
   :init
   (progn
-    (use-package rvm
-      ;; :init (rvm-use-default)
-      :config
-      (progn
-        (add-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)))
     (use-package rhtml-mode
       :mode (("\\.html\\.erb$" . rhtml-mode)))
     (use-package yari)
@@ -27,5 +23,12 @@
     (bind-key "TAB" 'indent-for-tab-command ruby-mode-map)
     (setq ruby-deep-indent-paren nil)
     (custom-set-variables '(ruby-insert-encoding-magic-comment nil))))
+
+;; ------------------------------ rvm
+(use-package rvm
+  :init (rvm-use-default)
+  :config
+  (progn
+    (add-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)))
 
 (provide 'setup-ruby)
