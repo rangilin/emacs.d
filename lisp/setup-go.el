@@ -10,6 +10,7 @@
         (add-hook 'go-mode-hook 'go-eldoc-setup))))
   :config
   (progn
-    (set indent-tabs-mode t)))
+    (add-hook 'before-save-hook 'gofmt-before-save)
+    (setq indent-tabs-mode t)))
 
 (provide 'setup-go)
