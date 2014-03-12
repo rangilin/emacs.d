@@ -11,6 +11,8 @@
   (progn
     (setq-default org-directory "/ramsey/Dropbox/org")
     (setq-default org-special-ctrl-a/e t)
+    (setq-default org-startup-truncated nil)
+
     ;; workaround windmove conflict
     (add-hook 'org-shiftup-final-hook 'windmove-up)
     (add-hook 'org-shiftleft-final-hook 'windmove-left)
