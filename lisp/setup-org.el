@@ -12,6 +12,7 @@
     (setq-default org-directory "/ramsey/Dropbox/org")
     (setq-default org-special-ctrl-a/e t)
     (setq-default org-startup-truncated nil)
+    (setq-default org-drawers `("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "DETAIL"))
 
     ;; workaround windmove conflict
     (add-hook 'org-shiftup-final-hook 'windmove-up)
