@@ -1,6 +1,5 @@
 (require 'use-package)
 
-;; ------------------------------ ruby
 (use-package ruby-mode
   :mode (("\\.rake$" . ruby-mode)
          ("\\.ru$" . ruby-mode)
@@ -9,7 +8,9 @@
   (progn
     (use-package rhtml-mode
       :mode (("\\.html\\.erb$" . rhtml-mode)))
-    (use-package yari)
+    (use-package yari
+      :bind ("C-c q" . yari)
+      :init (defalias 'ri 'yari))
     (use-package rspec-mode
       :config
       (progn
