@@ -21,6 +21,7 @@
 (require 'functions)
 
 ;; -------------------------------------------------- setup modules
+(require 'setup-autopair)
 (require 'setup-backup-n-autosave)
 (require 'setup-buffer)
 (require 'setup-css)

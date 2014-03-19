@@ -150,26 +150,6 @@
          ("C-S-c C->" . mc/mark-more-like-this-extended)
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 
-;; ------------------------------ sp
-
-;; temporary workaround for https://github.com/Fuco1/smartparens/issues/256
-(require 'delsel)
-
-(use-package smartparens
-  :diminish ""
-  :init
-  (progn
-    (use-package smartparens-config)
-    (use-package smartparens-ruby)
-    (use-package smartparens-html)
-    (smartparens-global-mode 1)
-    (show-smartparens-global-mode 1))
-  :config
-  (progn
-    (setq smartparens-strict-mode t)
-    (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))
-    (sp-local-pair 'nxml-mode "<" nil :actions :rem)))
-
 ;; ------------------------------ undo
 (use-package undo-tree
   :diminish undo-tree-mode
