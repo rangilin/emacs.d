@@ -11,7 +11,7 @@
 
 (defvar emacs-english-font "Source Code Pro")
 (defvar emacs-cjk-font "WenQuanYi Micro Hei")
-(defvar emacs-font-size-pair '(17 . 20)
+(defvar emacs-font-size-pair '(19 . 22)
   "Default font size pair for (english . chinese)")
 (defvar emacs-font-size-pair-list
   '(( 5 . 6) (10 . 12)
@@ -58,7 +58,7 @@
 
 (defun rl/reset-emacs-font-size ()
   (interactive)
-  (setq emacs-font-size-pair '(17 . 20))
+  (setq emacs-font-size-pair '(19 . 22))
   (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))
 
 (rl/reset-emacs-font-size)
