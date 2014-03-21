@@ -12,9 +12,10 @@
       :bind ("C-c q" . yari)
       :init (defalias 'ri 'yari))
     (use-package rspec-mode
-      :config
+      :init
       (progn
-        (defvar rspec-use-rvm t)))
+        (setq rspec-use-rvm t)
+        (setq rspec-use-rake-when-possible nil)))
     (use-package rinari
       :init (global-rinari-mode 1)
       :config (setq ruby-insert-encoding-magic-comment nil)))
