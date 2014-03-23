@@ -6,25 +6,52 @@
          ("Rakefile$" . ruby-mode))
   :init
   (progn
+    (setq-default ruby-insert-encoding-magic-comment nil)
+    (setq-default ruby-deep-indent-paren nil)
+
+    (defun rangi--setup-ruby-mode ()
+      (autopair-mode -1)) ; use ruby-electric instead
+    (add-hook 'ruby-mode-hook 'rangi--setup-ruby-mode)
+
+
+
+    (use-package ruby-electric
+      :init
+      (progn
+        (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+
+        ;; workaround ruby-insert-end void bug
+        (defun ruby-insert-end ()
+          "Insert \"end\" at point and reindent current line."
+          (interactive)
+          (insert "end")
+          (ruby-indent-line t)
+          (end-of-line))))
+
+
+
     (use-package rhtml-mode
       :mode (("\\.html\\.erb$" . rhtml-mode)))
+
+
+
     (use-package yari
       :bind ("C-c q" . yari)
       :init (defalias 'ri 'yari))
+
+
+
     (use-package rspec-mode
       :init
       (progn
-        (setq rspec-use-rvm t)
-        (setq rspec-use-rake-when-possible nil)))
+        (setq-default rspec-use-rvm t)
+        (setq-default rspec-use-rake-when-possible nil)))
+
+
+
     (use-package rinari
-      :init (global-rinari-mode 1)
-      :config (setq ruby-insert-encoding-magic-comment nil)))
-  :config
-  (progn
-    (bind-key "RET" 'reindent-then-newline-and-indent ruby-mode-map)
-    (bind-key "TAB" 'indent-for-tab-command ruby-mode-map)
-    (setq ruby-deep-indent-paren nil)
-    (custom-set-variables '(ruby-insert-encoding-magic-comment nil))))
+      :init (global-rinari-mode 1))
+  ))
 
 ;; ------------------------------ rvm
 (use-package rvm

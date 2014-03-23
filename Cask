@@ -43,6 +43,7 @@
 (depends-on "rhtml-mode")
 (depends-on "rinari")
 (depends-on "rspec-mode")
+(depends-on "ruby-electric")
 (depends-on "rvm")
 (depends-on "smart-mode-line")
 (depends-on "smex")
