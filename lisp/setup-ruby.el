@@ -3,7 +3,8 @@
 (use-package ruby-mode
   :mode (("\\.rake$" . ruby-mode)
          ("\\.ru$" . ruby-mode)
-         ("Rakefile$" . ruby-mode))
+         ("Rakefile$" . ruby-mode)
+         ("\\.gemspec$" . ruby-mode))
   :init
   (progn
     (setq-default ruby-insert-encoding-magic-comment nil)
