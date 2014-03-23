@@ -9,9 +9,9 @@
     (setq-default nxml-child-indent tab-width)
     (setq-default nxml-outline-child-indent tab-width)
     (setq-default nxml-slash-auto-complete-flag t)
-    (defun rangi--modify-nxml-syntax ()
+    (defun rangi--setup-nxml-mode ()
       (modify-syntax-entry ?\" "\""))
-    (add-hook 'nxml-mode-hook 'rangi--modify-nxml-syntax)))
+    (add-hook 'nxml-mode-hook 'rangi--setup-nxml-mode)))
 
 
 (use-package sgml-mode
