@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: for loop
-# key: for
-# --
-for ${1:each} in ${2:iterable}
-  $0
-end
