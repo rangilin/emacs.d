@@ -2,11 +2,12 @@
 
 (setq-default tab-width 2)
 (setq-default show-trailing-whitespace t)
-(setq-default show-paren-mode t)
 (setq-default comment-empty-lines t)
-(setq-default delete-selection-mode t)
 (setq-default indent-tabs-mode nil)
 (setq-default x-select-enable-clipboard t)
+
+(delete-selection-mode 1)
+(show-paren-mode 1)
 
 ;; ------------------------------ move text
 (defun rangi/move-text-up (arg)
