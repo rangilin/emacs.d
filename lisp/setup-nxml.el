@@ -6,7 +6,6 @@
    ("\\.xml$" . nxml-mode))
   :config
   (progn
-    (bind-key "C-c r" 'mc/mark-sgml-tag-pair nxml-mode-map)
     (setq-default nxml-child-indent tab-width)
     (setq-default nxml-outline-child-indent tab-width)
     (setq nxml-slash-auto-complete-flag t)))
@@ -16,7 +15,7 @@
   (progn
     (bind-key "C-c r" 'mc/mark-sgml-tag-pair html-mode-map)))
 
-;; ------------------------------ zen coding
+
 (use-package zencoding-mode
   :init
   (progn
