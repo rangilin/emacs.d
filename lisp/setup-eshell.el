@@ -4,7 +4,7 @@
 (use-package "eshell"
   :init
   (progn
-    (let ((rl/eshell-dir (rl/sub-gen-dir "eshell")))
-      (setq-default eshell-directory-name rl/eshell-dir))))
+    (let ((rangi/eshell-dir (rangi/sub-gen-dir "eshell")))
+      (setq-default eshell-directory-name rangi/eshell-dir))))
 
 (provide 'setup-eshell)

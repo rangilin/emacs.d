@@ -14,11 +14,11 @@
           (clear-this-command-keys)))
 
     ;; ------------------------------ hook for setup term mode
-    (defun rl/setup-term-mode ()
+    (defun rangi/setup-term-mode ()
       (yas-minor-mode -1)) ; yas tab not works well with term
-    (add-hook 'term-mode-hook 'rl/setup-term-mode)
+    (add-hook 'term-mode-hook 'rangi/setup-term-mode)
 
-    (defun rl/toggle-term-mode ()
+    (defun rangi/toggle-term-mode ()
       "Toggle between `term-line-mode' and `term-char-mode'"
       (interactive)
       (if (term-in-line-mode)
@@ -41,10 +41,10 @@
                     ("M-d" . term-send-forward-kill-word)
                     ("C-M-h" . term-send-backward-kill-word)
                     ("M-," . term-send-input)
-                    ("M-t" . rl/toggle-term-mode)
+                    ("M-t" . rangi/toggle-term-mode)
                     ("M-o" . other-window)
                     ("C-y" . term-paste)))
-    (bind-key "M-t" 'rl/toggle-term-mode term-mode-map)))
+    (bind-key "M-t" 'rangi/toggle-term-mode term-mode-map)))
 
 ;; ------------------------------ exec path
 (use-package exec-path-from-shell

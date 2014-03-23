@@ -1,7 +1,7 @@
 (require 'use-package)
 
 ;; ------------------------------ comment
-(defun rl/comment-or-uncomment-region-or-line ()
+(defun rangi/comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if there's no active region."
   (interactive)
   (let (beg end)
@@ -12,15 +12,15 @@
     (comment-or-uncomment-region beg end)
     (next-logical-line)))
 
-(bind-key "C-/" 'rl/comment-or-uncomment-region-or-line)
+(bind-key "C-/" 'rangi/comment-or-uncomment-region-or-line)
 
 ;; ------------------------------ byte compile
-(defun rl/byte-recompile ()
+(defun rangi/byte-recompile ()
   "Byte-compile init files to improve speed"
   (interactive)
   (byte-recompile-directory "~/.emacs.d" 0))
 
-(bind-key "C-c <f12>" 'rl/byte-recompile)
+(bind-key "C-c <f12>" 'rangi/byte-recompile)
 
 ;; ------------------------------ trailing whitespace
 (dolist (hook '(eshell-mode-hook
@@ -53,7 +53,7 @@
   (progn
     (projectile-global-mode)
     (setq-default projectile-switch-project-action 'projectile-dired)
-    (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rl/gen-dir))
+    (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rangi/gen-dir))
     (projectile-load-known-projects)))
 
 ;; ------------------------------ apropos

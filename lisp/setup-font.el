@@ -48,23 +48,23 @@
       (message "emacs font size set to %.1f" (car emacs-font-size-pair))
       (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))))
 
-(defun rl/increase-emacs-font-size ()
+(defun rangi/increase-emacs-font-size ()
   "Decrease emacs's font-size acording emacs-font-size-pair-list."
   (interactive) (emacs-step-font-size 1))
 
-(defun rl/decrease-emacs-font-size ()
+(defun rangi/decrease-emacs-font-size ()
   "Increase emacs's font-size acording emacs-font-size-pair-list."
   (interactive) (emacs-step-font-size -1))
 
-(defun rl/reset-emacs-font-size ()
+(defun rangi/reset-emacs-font-size ()
   (interactive)
   (setq emacs-font-size-pair '(19 . 22))
   (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))
 
-(rl/reset-emacs-font-size)
+(rangi/reset-emacs-font-size)
 
-(bind-key "C-x C-=" 'rl/increase-emacs-font-size)
-(bind-key "C-x C--" 'rl/decrease-emacs-font-size)
-(bind-key "C-x C-0" 'rl/reset-emacs-font-size)
+(bind-key "C-x C-=" 'rangi/increase-emacs-font-size)
+(bind-key "C-x C--" 'rangi/decrease-emacs-font-size)
+(bind-key "C-x C-0" 'rangi/reset-emacs-font-size)
 
 (provide 'setup-font)

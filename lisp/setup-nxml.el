@@ -4,17 +4,16 @@
   :mode
   (("\\.zul$" . nxml-mode)
    ("\\.xml$" . nxml-mode))
-  :config
+  :init
   (progn
     (setq-default nxml-child-indent tab-width)
     (setq-default nxml-outline-child-indent tab-width)
-    (setq nxml-slash-auto-complete-flag t)))
+    (setq-default nxml-slash-auto-complete-flag t)))
 
 (use-package sgml-mode
   :config
   (progn
     (bind-key "C-c r" 'mc/mark-sgml-tag-pair html-mode-map)))
-
 
 (use-package zencoding-mode
   :init

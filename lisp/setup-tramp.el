@@ -3,6 +3,6 @@
 (use-package tramp
   :init
   (progn
-    (setq-default tramp-persistency-file-name (expand-file-name "tramp" rl/gen-dir))))
+    (setq-default tramp-persistency-file-name (expand-file-name "tramp" rangi/gen-dir))))
 
 (provide 'setup-tramp)
