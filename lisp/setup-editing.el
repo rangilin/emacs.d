@@ -1,7 +1,6 @@
 (require 'use-package)
 
 (setq-default tab-width 2)
-(setq-default show-trailing-whitespace t)
 (setq-default comment-empty-lines t)
 (setq-default indent-tabs-mode nil)
 (setq-default x-select-enable-clipboard t)
@@ -113,11 +112,6 @@
 
 (bind-key "C-j" 'rangi/join-below-line)
 (bind-key "C-S-j" 'join-line)
-
-;; ------------------------------ buffer auto revert
-(global-auto-revert-mode 1)
-(setq-default global-auto-revert-non-file-buffers t)
-(setq-default auto-revert-verbose nil)
 
 ;; ------------------------------ ace jump
 (use-package ace-jump-mode

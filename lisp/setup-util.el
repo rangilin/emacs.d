@@ -22,22 +22,6 @@
 
 (bind-key "C-c <f12>" 'rangi/byte-recompile)
 
-;; ------------------------------ trailing whitespace
-(dolist (hook '(eshell-mode-hook
-		shell-mode-hook
-		diff-mode-hook
-		comint-mode-hook
-		term-mode-hook))
-  (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
-
-(defun turn-off-whitespace-mode-by-file-extension ()
-  (when (and (stringp buffer-file-name)
-             (string-match "\\.log" buffer-file-name))
-    (setq show-trailing-whitespace nil)))
-
-(add-hook 'find-file-hook 'turn-off-whitespace-mode-by-file-extension)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 ;; ------------------------------ shuffle lines
 (use-package randomize-region
   :load-path "site-lisp/randomize-region")

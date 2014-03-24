@@ -1,5 +1,26 @@
 (require 'use-package)
 
+;; ------------------------------ trailing whitespace
+(setq-default show-trailing-whitespace t)
+
+;; turn off in following mode
+(let ((f (lambda () (setq show-trailing-whitespace nil))))
+  (add-hook 'eshell-mode-hook f)
+  (add-hook 'shell-mode-hook f)
+  (add-hook 'diff-mode-hook f)
+  (add-hook 'comint-mode-hook f)
+  (add-hook 'term-mode-hook f)
+  (add-hook 'compilation-filter-hook f))
+
+(defun turn-off-whitespace-mode-by-file-extension ()
+  (when (and (stringp buffer-file-name)
+             (string-match "\\.log" buffer-file-name))
+    (setq show-trailing-whitespace nil)))
+(add-hook 'find-file-hook 'turn-off-whitespace-mode-by-file-extension)
+
+;; clean trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; ------------------------------ ibuffer
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
@@ -40,5 +61,9 @@
          ("M-S-<right>" . buf-move-right)
          ("M-S-<left>" . buf-move-left)))
 
+;; ------------------------------ buffer auto revert
+(global-auto-revert-mode 1)
+(setq-default global-auto-revert-non-file-buffers t)
+(setq-default auto-revert-verbose nil)
 
 (provide 'setup-buffer)
