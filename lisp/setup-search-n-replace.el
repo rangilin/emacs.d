@@ -49,7 +49,7 @@
 
       (setq moccur-before-buffer-name moccur-buffer-name)
       (switch-to-buffer-other-window moccur-mocur-buffer)))
-  :bind ("C-o" . moccur))
+  :bind (("C-o" . occur-by-moccur) ("C-S-o" . moccur)))
 
 ;; ------------------------------ dabbrev highlights
 (use-package dabbrev-highlight
