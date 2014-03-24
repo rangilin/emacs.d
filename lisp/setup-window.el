@@ -38,13 +38,9 @@ buffer in it"
 (bind-key "M-v" 'rangi/page-up)
 
 ;; ------------------------------ switch window
-(defun rangi/previous-window ()
-  "Select previous window"
-  (interactive)
-  (other-window -1))
-
-(bind-key "M-o" 'other-window)
-(bind-key "M-O" 'rangi/previous-window)
+(use-package switch-window
+  :bind (("C-x o" . switch-window)
+         ("C-x C-o" . switch-window)))
 
 (use-package windmove
   :config (windmove-default-keybindings 'shift))

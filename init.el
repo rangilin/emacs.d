@@ -50,10 +50,9 @@
 (require 'setup-window)
 
 ;;-------------------------------------------------- unbind keys
-(global-unset-key (kbd "C-x C-z"))
-(global-unset-key (kbd "C-?"))
-(global-unset-key (kbd "C-z"))
 (global-unset-key (kbd "C-SPC"))
+(global-unset-key (kbd "M-o"))
+(global-unset-key (kbd "M-O"))
 
 ;; -------------------------------------------------- load customization
 (setq custom-file (expand-file-name "custom.el" rangi/gen-dir))

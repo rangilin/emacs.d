@@ -50,6 +50,7 @@
 (depends-on "soft-stone-theme")
 (depends-on "sql-indent")
 (depends-on "subatomic-theme")
+(depends-on "switch-window")
 (depends-on "tangotango-theme")
 (depends-on "undo-tree")
 (depends-on "use-package")
