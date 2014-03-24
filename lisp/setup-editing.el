@@ -200,4 +200,8 @@
 
 (bind-key "C-/" 'rangi/comment-or-uncomment-region-or-line)
 
+;; ------------------------------ shuffle lines
+(use-package randomize-region
+  :load-path "site-lisp/randomize-region")
+
 (provide 'setup-editing)

@@ -28,5 +28,12 @@
 (use-package ielm
   :init (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode))
 
+;; ------------------------------ byte compile
+(defun rangi/byte-recompile ()
+  "Byte-compile init files to improve speed"
+  (interactive)
+  (byte-recompile-directory "~/.emacs.d" 0))
+
+(bind-key "C-c <f12>" 'rangi/byte-recompile)
 
 (provide 'setup-elisp)

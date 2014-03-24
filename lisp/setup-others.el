@@ -15,8 +15,24 @@
   :load-path "site-lisp/webmacro-mode"
   :mode ("\\.wm[m]?$" . webmacro-mode))
 
-;; -------------------------------------------------- dired
+(use-package smex
+  :bind ("M-x" . smex))
+
+(use-package projectile
+  :diminish projectile-mode
+  :init
+  (progn
+    (projectile-global-mode)
+    (setq-default projectile-switch-project-action 'projectile-dired)
+    (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rangi/gen-dir))
+    (projectile-load-known-projects)))
+
+;; ------------------------------ dired
 (put 'dired-find-alternate-file 'disabled nil)
 (setq dired-listing-switches "-aBhl  --group-directories-first")
+
+;; ------------------------------ apropos
+;; use apropos instead of apropos-command
+(bind-key "a" 'apropos help-map)
 
 (provide 'setup-others)
