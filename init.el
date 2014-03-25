@@ -23,6 +23,7 @@
 ;; -------------------------------------------------- setup modules
 (require 'setup-autopair)
 (require 'setup-backup-n-autosave)
+(require 'setup-browser)
 (require 'setup-buffer)
 (require 'setup-css)
 (require 'setup-editing)

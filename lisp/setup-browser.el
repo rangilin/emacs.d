@@ -1,16 +1,26 @@
+(require 'functions)
 (require 'use-package)
 
-(defun rangi/browse-fy (word)
-  (interactive "s Let me FY that for you: ")
-  (unless (zerop (length word))
-    (browse-url (format "http://cdict.net/?q=%s" word))))
+(defun rangi/browse-fy ()
+  "Dictionary look up with prompt"
+  (interactive)
+  (rangi/browse-url-with-prompt "Let me FY that for you: "
+                                "http://cdict.net/?q=%s"))
 
-(defun rangi/browse-google (word)
-  (interactive "s Let me Google that for you: ")
-  (unless (zerop (length word))
-    (browse-url (format "https://www.google.com.tw/#q=%s" word))))
+(defun rangi/browse-google ()
+  "Google with prompt"
+  (interactive)
+  (rangi/browse-url-with-prompt "Let me Google that for you: "
+                                "https://www.google.com.tw/#q=%s"))
 
-(bind-key "C-S-b f" 'rangi/browse-fy)
-(bind-key "C-S-b g" 'rangi/browse-google)
+(defun rangi/browse-url-with-prompt (prompt url-format)
+  "Browse URL with prompt as format arguments"
+  (interactive)
+  (let ((result (rangi/prompt prompt)))
+    (unless (zerop (length result))
+      (browse-url (format url-format result)))))
+
+(bind-key "C-c B f" 'rangi/browse-fy)
+(bind-key "C-c B g" 'rangi/browse-google)
 
 (provide 'setup-browser)
