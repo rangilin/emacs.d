@@ -12,7 +12,8 @@
 (setq-default initial-scratch-message "")
 
 (setq-default visible-bell t)
-(setq-default blink-cursor-mode nil)
+(blink-cursor-mode -1)
+(global-hl-line-mode 1)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
