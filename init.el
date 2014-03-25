@@ -79,5 +79,5 @@
 
 (bind-key "C-c <home>" 'rangi--open-startup-file)
 
-(set-face-attribute 'mode-line nil :family "Droid Sans" :height 140)
+(set-face-attribute 'mode-line nil :family "sans" :height 140)
 (set-face-attribute 'mode-line-inactive nil :box nil)
