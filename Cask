@@ -4,6 +4,7 @@
 
 (source melpa)
 (depends-on "ace-jump-mode")
+(depends-on "afternoon-theme")
 (depends-on "ample-zen-theme")
 (depends-on "anzu")
 (depends-on "autopair")
@@ -14,9 +15,9 @@
 (depends-on "color-theme-sanityinc-tomorrow")
 (depends-on "diminish")
 (depends-on "duplicate-thing")
-(depends-on "afternoon-theme")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
+(depends-on "feature-mode")
 (depends-on "fill-column-indicator")
 (depends-on "flatland-theme")
 (depends-on "flx-ido")

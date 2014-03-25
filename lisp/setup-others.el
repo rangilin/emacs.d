@@ -27,6 +27,9 @@
     (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rangi/gen-dir))
     (projectile-load-known-projects)))
 
+(use-package feature-mode
+  :mode ("\\.feature$" . feature-mode))
+
 ;; ------------------------------ dired
 (put 'dired-find-alternate-file 'disabled nil)
 (setq dired-listing-switches "-aBhl  --group-directories-first")
