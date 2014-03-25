@@ -3,7 +3,10 @@
 (use-package recentf
   :init
   (progn
-    (setq-default recentf-exclude `("COMMIT_EDITMSG"))
+    (setq-default recentf-exclude
+                  `("COMMIT_EDITMSG"
+                    "/Dropbox/journal"
+                    "\\.elc$"))
     (setq-default recentf-save-file (expand-file-name "recentf" rangi/gen-dir))
     (setq-default recentf-max-saved-items 100)
     (recentf-mode 1))
