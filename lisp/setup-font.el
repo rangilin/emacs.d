@@ -9,7 +9,7 @@
 
 ; from https://gist.github.com/coldnew/7398845
 
-(defvar emacs-english-font "Consolas")
+(defvar emacs-english-font "Monaco")
 (defvar emacs-cjk-font "WenQuanYi Micro Hei")
 (defvar emacs-font-size-pair '(17 . 20)
   "Default font size pair for (english . chinese)")
@@ -58,7 +58,7 @@
 
 (defun rangi/reset-emacs-font-size ()
   (interactive)
-  (setq emacs-font-size-pair '(19 . 22))
+  (setq emacs-font-size-pair '(17 . 20))
   (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))
 
 (rangi/reset-emacs-font-size)
