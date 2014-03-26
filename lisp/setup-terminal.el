@@ -42,7 +42,6 @@
                     ("C-M-h" . term-send-backward-kill-word)
                     ("M-," . term-send-input)
                     ("M-t" . rangi/toggle-term-mode)
-                    ("M-o" . other-window)
                     ("C-y" . term-paste)))
     (bind-key "M-t" 'rangi/toggle-term-mode term-mode-map)))
 
