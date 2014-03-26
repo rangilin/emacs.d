@@ -81,4 +81,3 @@
 
 (set-face-attribute 'mode-line nil :family "sans" :height 140)
 (set-face-attribute 'mode-line-inactive nil :box nil)
-(set-face-attribute hl-line-face nil :background "#332233")
