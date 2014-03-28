@@ -34,6 +34,7 @@
   (progn
     (setq-default fci-rule-column 80)
     (setq-default fci-rule-width 2)
+    (setq-default fci-rule-color "#777")
     (add-hook 'prog-mode-hook 'fci-mode)))
 
 ;; ------------------------------ fullscreen
