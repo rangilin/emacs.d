@@ -1,0 +1,3 @@
+[submodule "site-lisp/duplicator"]
+	path = site-lisp/duplicator
+	url = git@github.com:RangiLin/duplicator.git
