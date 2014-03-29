@@ -162,9 +162,10 @@
   :bind (("M-Z" . zap-to-char)
          ("M-z" . zap-up-to-char)))
 
-;; ------------------------------ duplicate thing
-(use-package duplicate-thing
-  :bind ("C-c d" . duplicate-thing))
+;; ------------------------------ duplicator
+(use-package duplicator
+  :load-path "site-lisp/duplicator"
+  :bind ("C-c d" . duplicator/duplicate-lines))
 
 ;; ------------------------------ insert new line
 (defun rangi/insert-newline-above ()
