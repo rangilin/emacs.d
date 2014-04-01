@@ -76,7 +76,6 @@
 (defadvice server-create-window-system-frame
   (after set-frame-font-size ())
   "Set custom frame colours when creating the first frame on a display"
-  (message "Setup font size for new frame")
   (rangi/reset-font-size))
 
 (rangi/reset-font-size)
