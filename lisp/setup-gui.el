@@ -20,6 +20,9 @@
               '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name))
                          "%b"))))
 
+;; default frame size to maximized
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 ;; ------------------------------ scrolling behavior
 (setq-default redisplay-dont-pause t)
 (setq-default scroll-margin 1)
@@ -71,5 +74,18 @@
 (setq-default display-time-format "%m/%d %T")
 (setq-default display-time-interval 1)
 
+;; ------------------------------ workaround emacsclient theme bug
+(defun rangi/reload-theme (&rest frame)
+  (when window-system
+      (load-theme 'afternoon)))
+
+(defadvice server-create-window-system-frame
+  (after reload-theme-on-frame-created ())
+  "Set frame color when a frame is created"
+  (message "Running after frame-initialize")
+  (rangi/reload-theme))
+
+(ad-activate 'server-create-window-system-frame)
+(add-hook 'after-make-frame-functions 'rangi/reload-theme t)
 
 (provide 'setup-gui)
