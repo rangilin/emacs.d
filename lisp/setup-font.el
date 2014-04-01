@@ -7,64 +7,78 @@
 ;; あいうえおあいうえおあいうえおあいうえお (20 chars)
 ;; --------------------------------------------------
 
-; from https://gist.github.com/coldnew/7398845
+; inspired from https://gist.github.com/coldnew/7398845
 
-(defvar emacs-english-font "Monaco")
-(defvar emacs-cjk-font "WenQuanYi Micro Hei")
-(defvar emacs-font-size-pair '(17 . 20)
-  "Default font size pair for (english . chinese)")
-(defvar emacs-font-size-pair-list
-  '(( 5 . 6) (10 . 12)
-    (13 . 16) (15 . 18) (17 . 20)
-    (19 . 22) (20 . 24) (21 . 26)
-    (24 . 28) (26 . 32) (28 . 34)
-    (30 . 36) (34 . 40) (36 . 44))
-  "This list is used to store matching (englis . chinese) font-size.")
+;; -------------------------------------------------- pre-made font alist
+(defvar rangi/font-alist-monaco-wqymh
+  '((english-font . "Monaco")
+    (cjk-font . "WenQuanYi Micro Hei")
+    (default-size-pair . (17 . 20))
+    (size-pairs . ((10 . 12) (13 . 16) (15 . 18) (17 . 20) (19 . 22) (20 . 24)
+                   (21 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40)
+                   (36 . 44)))))
 
-(defun font-exist-p (fontname)
-  "test if this font is exist or not."
-  (if (or (not fontname) (string= fontname ""))
-      nil
-    (if (not (x-list-fonts fontname))
-        nil t)))
+;; -------------------------------------------------- setup font
+(defvar rangi/font-alist rangi/font-alist-monaco-wqymh
+  "Default font alist")
 
-(defun set-font (english chinese size-pair)
-  "Setup emacs English and Chinese font on x window-system."
-  (if (font-exist-p english)
-      (set-frame-font (format "%s:pixelsize=%d" english (car size-pair)) t))
-  (if (font-exist-p chinese)
-      (dolist (charset '(kana han symbol cjk-misc bopomofo))
-        (set-fontset-font (frame-parameter nil 'font) charset
-                          (font-spec :family chinese :size (cdr size-pair))))))
+(defvar rangi/font-size-pair (cdr (assoc 'default-size-pair rangi/font-alist))
+  "Current font size pair, By default it is the default size pair of the default font alist")
 
-(defun emacs-step-font-size (step)
+(defun rangi/set-font (size-pair frame)
+  "Setup font of specified FRAME with ENGLISH, CJK font of current alist and  specified SIZE-PAIR"
+  (let ((english-font (cdr (assoc 'english-font rangi/font-alist)))
+        (cjk-font (cdr (assoc 'cjk-font rangi/font-alist))))
+    (setq rangi/font-size-pair size-pair)
+    (set-frame-font (format "%s:pixelsize=%d" english-font (car size-pair)) t (list frame))
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter frame 'font) charset (font-spec :family cjk-font :size (cdr size-pair)) frame))))
+
+(defun rangi/step-font-size (step frame)
   "Increase/Decrease emacs's font size."
-  (let ((scale-steps emacs-font-size-pair-list))
-    (if (< step 0) (setq scale-steps (reverse scale-steps)))
-    (setq emacs-font-size-pair
-          (or (cadr (member emacs-font-size-pair scale-steps))
-              emacs-font-size-pair))
-    (when emacs-font-size-pair
-      (message "emacs font size set to %.1f" (car emacs-font-size-pair))
-      (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))))
+    (let ((size-pair (or (cadr (member rangi/font-size-pair (rangi--get-pairs-steps step)))
+                         rangi/font-size-pair)))
+      (message "Font size set to %s" size-pair)
+      (rangi/set-font size-pair frame)))
 
-(defun rangi/increase-emacs-font-size ()
+(defun rangi/increase-font-size ()
   "Decrease emacs's font-size acording emacs-font-size-pair-list."
-  (interactive) (emacs-step-font-size 1))
-
-(defun rangi/decrease-emacs-font-size ()
-  "Increase emacs's font-size acording emacs-font-size-pair-list."
-  (interactive) (emacs-step-font-size -1))
-
-(defun rangi/reset-emacs-font-size ()
   (interactive)
-  (setq emacs-font-size-pair '(17 . 20))
-  (set-font emacs-english-font emacs-cjk-font emacs-font-size-pair))
+  (if window-system
+      (rangi/step-font-size 1 (selected-frame))
+    (message "Not in GUI Emacs frame, do nothing")))
 
-(rangi/reset-emacs-font-size)
+(defun rangi/decrease-font-size ()
+  "Increase emacs's font-size according emacs-font-size-pair-list."
+  (interactive)
+  (if window-system
+      (rangi/step-font-size -1 (selected-frame))
+    (message "Not in GUI Emacs frame, do nothing")))
 
-(bind-key "C-x C-=" 'rangi/increase-emacs-font-size)
-(bind-key "C-x C--" 'rangi/decrease-emacs-font-size)
-(bind-key "C-x C-0" 'rangi/reset-emacs-font-size)
+(defun rangi/reset-font-size ()
+  (interactive)
+  (if window-system
+      (rangi/set-font (cdr (assoc 'default-size-pair rangi/font-alist)) (selected-frame))
+    (message "Not in GUI Emacs frame, do nothing")))
+
+(defun rangi--get-pairs-steps (step)
+  "Get size pairs from current font alist, if step < 0, get reversed pairs"
+  (let ((steps (cdr (assoc 'size-pairs rangi/font-alist))))
+  (if (< step 0)
+      (reverse steps)
+    steps)))
+
+(bind-key "C-x C-=" 'rangi/increase-font-size)
+(bind-key "C-x C--" 'rangi/decrease-font-size)
+(bind-key "C-x C-0" 'rangi/reset-font-size)
+
+;; advice so new frame can be setup font size
+(defadvice server-create-window-system-frame
+  (after set-frame-font-size ())
+  "Set custom frame colours when creating the first frame on a display"
+  (message "Setup font size for new frame")
+  (rangi/reset-font-size))
+
+(rangi/reset-font-size)
 
 (provide 'setup-font)
