@@ -67,17 +67,5 @@
 ;; annoying!
 (kill-buffer "*Compile-Log*")
 
-;; startup file
-(when (file-exists-p rangi/startup-file)
-    (find-file rangi/startup-file))
-
-(defun rangi--open-startup-file ()
-  (interactive)
-  (if (file-exists-p rangi/startup-file)
-    (find-file rangi/startup-file)
-    (message (format "File %s does not exist" rangi/startup-file))))
-
-(bind-key "C-c <home>" 'rangi--open-startup-file)
-
 (set-face-attribute 'mode-line nil :family "sans" :height 140)
 (set-face-attribute 'mode-line-inactive nil :box nil)

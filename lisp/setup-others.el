@@ -38,4 +38,14 @@
 ;; use apropos instead of apropos-command
 (bind-key "a" 'apropos help-map)
 
+
+;; ------------------------------ startup file
+(defun rangi--open-startup-file ()
+  (interactive)
+  (if (file-exists-p rangi/startup-file)
+    (find-file rangi/startup-file)
+    (message (format "File %s does not exist" rangi/startup-file))))
+
+(bind-key "C-c <home>" 'rangi--open-startup-file)
+
 (provide 'setup-others)
