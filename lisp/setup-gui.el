@@ -77,12 +77,13 @@
 ;; ------------------------------ workaround emacsclient theme bug
 (defun rangi/reload-theme (&rest frame)
   (when window-system
-      (load-theme 'afternoon)))
+    (let ((theme 'afternoon))
+      (message "Reloading theme %s" theme)
+      (load-theme theme))))
 
 (defadvice server-create-window-system-frame
   (after reload-theme-on-frame-created ())
-  "Set frame color when a frame is created"
-  (message "Running after frame-initialize")
+  "Reload theme when a frame is created"
   (rangi/reload-theme))
 
 (ad-activate 'server-create-window-system-frame)
