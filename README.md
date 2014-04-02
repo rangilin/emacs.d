@@ -11,6 +11,7 @@ My Emacs configuration.
 `-mm` for maximum frame on start
 
 **.bashrc**
+
     export ALTERNATE_EDITOR=""`
     export EDITOR=emacsclient
     alias ec='emacsclient -c'
