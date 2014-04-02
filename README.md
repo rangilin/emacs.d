@@ -10,7 +10,7 @@ My Emacs configuration.
 **.bashrc**
 
     export ALTERNATE_EDITOR=""
-    export EDITOR=emacsclient
+    export EDITOR='emacsclient'
     alias ec='emacsclient -c'
     alias et='emacsclient -t'
 
