@@ -1,4 +1,5 @@
 ;;; functions.el --- utilities functions which are required by setup files
+(require 'thingatpt)
 
 (defun rangi/sub-gen-dir (sub-dir-name)
   "Create a directory under `rangi/gen-dir' and return full dir path of it"
