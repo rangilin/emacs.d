@@ -79,7 +79,7 @@
 ;; ------------------------------ workaround emacsclient theme bug
 (defun rangi/reload-theme (&rest frame)
   (when window-system
-    (let ((theme 'afternoon))
+    (let ((theme rangi/theme))
       (message "Reloading theme %s" theme)
       (load-theme theme))))
 

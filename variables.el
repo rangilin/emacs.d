@@ -4,6 +4,8 @@
 (defvar rangi/startup-file "/ramsey/Dropbox/org/personal/index.org"
   "File to open when emacs is started")
 
+(defvar rangi/theme 'sanityinc-tomorrow-bright
+  "Default theme")
 
 (require 'loacl-variables nil t)
 
