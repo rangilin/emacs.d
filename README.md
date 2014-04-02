@@ -5,10 +5,7 @@ My Emacs configuration.
 
 ### Other configurations  ###
 
-**misc**
-
-`-fs` for fullscreen on start
-`-mm` for maximum frame on start
+#### Start Emacs daemon if not available ####
 
 **.bashrc**
 
@@ -16,3 +13,7 @@ My Emacs configuration.
     export EDITOR=emacsclient
     alias ec='emacsclient -c'
     alias et='emacsclient -t'
+
+**shortcut**
+
+    emacsclient --alternate-editor="" -c
