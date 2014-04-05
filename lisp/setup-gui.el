@@ -41,7 +41,8 @@
       (setq fci-rule-color "#FFF")
       (fci-mode))
     (add-hook 'prog-mode-hook 'rangi--enable-fci)
-    (add-hook 'markdown-mode-hook 'rangi--enable-fci)))
+    (add-hook 'markdown-mode-hook 'rangi--enable-fci)
+    (add-hook 'org-mode-hook 'rangi--enable-fci)))
 
 ;; ------------------------------ fullscreen
 (use-package fullscreen-mode
