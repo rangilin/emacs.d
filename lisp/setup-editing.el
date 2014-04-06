@@ -79,15 +79,6 @@
 ;; Cursor Movement
 ;; ============================================================
 
-;; ------------------------------ move cursor by whitespace
-(defun rangi/backward-whitespace (arg)
-  (interactive "p")
-  (forward-whitespace (- arg)))
-
-(bind-key "M-B" 'rangi/backward-whitespace)
-(bind-key "M-F" 'forward-whitespace)
-
-
 ;; ------------------------------ back to indentation or beginning
 ;; http://www.emacswiki.org/emacs/BackToIndentationOrBeginning
 (defun rangi/back-to-indentation-or-beginning () (interactive)
