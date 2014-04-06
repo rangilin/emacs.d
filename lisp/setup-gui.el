@@ -49,15 +49,22 @@
   :init (fullscreen-mode 1))
 
 ;; ------------------------------ linum
+;; http://whattheemacsd.com//key-bindings.el-01.html
 (use-package linum
   :init
   (progn
-    (defun linum-on ()
-      (unless (or (minibufferp)
-                  (member major-mode '(shell-mode eshell-mode text-mode dired-mode))
-                  (string-match "*" (buffer-name)))
-        (linum-mode 1)))
-    (global-linum-mode 1)))
+    (defun goto-line-with-feedback ()
+      "Show line numbers temporarily, while prompting for the line number input"
+      (interactive)
+      (let ((line-numbers-off-p (not linum-mode)))
+        (unwind-protect
+            (progn
+              (when line-numbers-off-p
+                (linum-mode 1))
+              (call-interactively 'goto-line))
+          (when line-numbers-off-p
+            (linum-mode -1)))))
+    (global-set-key [remap goto-line] 'goto-line-with-feedback)))
 
 ;; ------------------------------ transpose frame
 (use-package transpose-frame
