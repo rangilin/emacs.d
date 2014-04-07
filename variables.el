@@ -7,6 +7,6 @@
 (defvar rangi/theme 'sanityinc-tomorrow-bright
   "Default theme")
 
-(require 'loacl-variables nil t)
+(require 'local-variables nil t)
 
 (provide 'variables)
