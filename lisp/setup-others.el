@@ -49,17 +49,5 @@
 
 (bind-key "C-c <home>" 'rangi--open-startup-file)
 
-;; ------------------------------ which function mode
-(use-package which-func
-  :init
-  (progn
-    ;; show function name in header instead of mode line
-    (setq-default header-line-format '((which-func-mode ("" which-func-format " "))))
-    (which-function-mode))
-  :config
-  (progn
-    ;; remove func mode in mode line because not necessary
-    (setq mode-line-misc-info (assq-delete-all 'which-func-mode mode-line-misc-info))))
-
 
 (provide 'setup-others)
