@@ -3,4 +3,4 @@
 *.elc
 session.*
 local.el
-/local-variable.el
+local-variables.el
