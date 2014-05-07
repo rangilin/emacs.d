@@ -58,6 +58,3 @@
 ;; -------------------------------------------------- after
 ;; annoying!
 (kill-buffer "*Compile-Log*")
-
-(set-face-attribute 'mode-line nil :family "sans" :height 140)
-(set-face-attribute 'mode-line-inactive nil :box nil)
