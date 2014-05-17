@@ -13,6 +13,8 @@
       (modify-syntax-entry ?\" "\""))
     (add-hook 'nxml-mode-hook 'rangi--setup-nxml-mode)))
 
+(use-package html-mode
+  :mode (("\\.mustache$" . html-mode)))
 
 (use-package sgml-mode
   :config
