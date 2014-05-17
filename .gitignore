@@ -4,3 +4,4 @@
 session.*
 local.el
 local-variables.el
+/projectile.cache
