@@ -13,8 +13,8 @@
       (modify-syntax-entry ?\" "\""))
     (add-hook 'nxml-mode-hook 'rangi--setup-nxml-mode)))
 
-(use-package html-mode
-  :mode (("\\.mustache$" . html-mode)))
+;; (use-package html-mode
+;;   :mode (("\\.mustache$" . html-mode)))
 
 (use-package sgml-mode
   :config
@@ -27,6 +27,7 @@
   (progn
     (bind-key "C-j" nil zencoding-mode-keymap)
     (add-hook 'html-mode-hook 'zencoding-mode)
-    (add-hook 'nxml-mode-hook 'zencoding-mode)))
+    (add-hook 'nxml-mode-hook 'zencoding-mode)
+    (add-hook 'web-mode-hook 'zencoding-mode)))
 
 (provide 'setup-nxml)

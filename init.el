@@ -40,6 +40,7 @@
 (require 'setup-svc)
 (require 'setup-terminal)
 (require 'setup-tramp)
+(require 'setup-web-mode)
 (require 'setup-window)
 
 ;;-------------------------------------------------- unbind keys

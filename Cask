@@ -52,6 +52,7 @@
 (depends-on "tronesque-theme")
 (depends-on "undo-tree")
 (depends-on "use-package")
+(depends-on "web-mode")
 (depends-on "yari")
 (depends-on "yasnippet")
 (depends-on "zencoding-mode")
