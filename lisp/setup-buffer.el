@@ -10,7 +10,8 @@
   (add-hook 'diff-mode-hook f)
   (add-hook 'comint-mode-hook f)
   (add-hook 'term-mode-hook f)
-  (add-hook 'compilation-filter-hook f))
+  (add-hook 'compilation-filter-hook f)
+  (add-hook 'minibuffer-inactive-mode-hook f))
 
 (defun turn-off-whitespace-mode-by-file-extension ()
   (when (and (stringp buffer-file-name)
