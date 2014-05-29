@@ -33,6 +33,7 @@
 (require 'setup-nxml)
 (require 'setup-org)
 (require 'setup-others)
+(require 'setup-php)
 (require 'setup-recentf)
 (require 'setup-ruby)
 (require 'setup-search-n-replace)
