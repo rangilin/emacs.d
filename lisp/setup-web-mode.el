@@ -2,6 +2,7 @@
 
 (use-package web-mode
   :mode (("\\.phtml\\'" . web-mode)
+         ("\\.php\\'" . web-mode)
          ("\\.tpl\\.php\\'" . web-mode)
          ("\\.[gj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
