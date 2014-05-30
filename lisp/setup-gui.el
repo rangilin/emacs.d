@@ -37,10 +37,13 @@
   :init
   (progn
     (defun rangi--enable-fci ()
-      (setq fci-rule-column 80)
-      (setq fci-rule-width 2)
-      (setq fci-rule-color "#FFF")
-      (fci-mode))
+      ;; temporary workaround
+      ;; https://github.com/alpaker/Fill-Column-Indicator/issues/46
+      (when (not (string= major-mode "web-mode"))
+        (setq fci-rule-column 80)
+        (setq fci-rule-width 2)
+        (setq fci-rule-color "#FFF")
+        (fci-mode)))
     (add-hook 'prog-mode-hook 'rangi--enable-fci)
     (add-hook 'markdown-mode-hook 'rangi--enable-fci)
     (add-hook 'org-mode-hook 'rangi--enable-fci)))
