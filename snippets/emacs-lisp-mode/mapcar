@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: mapcar
-# key: mapcar
-# --
-(mapcar ${1:function} ${2:sequence})

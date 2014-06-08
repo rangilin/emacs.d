@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: pred
-# key:pred
-# --
-((pred (${1:funtion})) ${2:body})$0
