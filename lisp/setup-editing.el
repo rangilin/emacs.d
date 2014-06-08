@@ -7,6 +7,7 @@
 
 (delete-selection-mode 1)
 (show-paren-mode 1)
+(global-subword-mode)
 
 ;; ------------------------------ horizontal recenter
 ;; http://stackoverflow.com/a/1249665/554279
@@ -78,6 +79,13 @@
 ;; ============================================================
 ;; Cursor Movement
 ;; ============================================================
+
+(defun rangi/backward-whitespace ()
+  (interactive)
+  (forward-whitespace -1))
+
+(bind-key "M-F" `forward-whitespace)
+(bind-key "M-B" `rangi/backward-whitespace)
 
 ;; ------------------------------ back to indentation or beginning
 ;; http://www.emacswiki.org/emacs/BackToIndentationOrBeginning
