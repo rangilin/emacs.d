@@ -26,6 +26,7 @@
 (require 'setup-font)
 (require 'setup-go)
 (require 'setup-gui)
+(require 'setup-guide-key)
 (require 'setup-limbo)
 (require 'setup-ido)
 (require 'setup-js)

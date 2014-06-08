@@ -57,3 +57,4 @@
 (depends-on "yari")
 (depends-on "yasnippet")
 (depends-on "zencoding-mode")
+(depends-on "guide-key")
