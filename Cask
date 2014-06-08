@@ -39,6 +39,7 @@
 (depends-on "multiple-cursors")
 (depends-on "naquadah-theme")
 (depends-on "noctilux-theme")
+(depends-on "php-mode")
 (depends-on "projectile")
 (depends-on "rhtml-mode")
 (depends-on "rinari")
@@ -56,4 +57,3 @@
 (depends-on "yari")
 (depends-on "yasnippet")
 (depends-on "zencoding-mode")
-(depends-on "php-mode")
