@@ -1,6 +1,7 @@
 (require 'use-package)
 
 (use-package guide-key
+  :diminish guide-key-mode
   :init
   (progn
     ;; ------------------------------ org-mode
