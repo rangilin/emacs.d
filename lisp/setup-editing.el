@@ -44,7 +44,12 @@
 ;; ------------------------------ expand region
 (use-package expand-region
   :bind (("C-'" . er/expand-region)
-         ("C-\"" . er/contract-region)))
+         ("C-\"" . er/contract-region))
+  :init
+  (progn
+    (defun rangi/er-org-mode-hook ()
+      (bind-key "C-'" 'er/expand-region org-mode-map))
+    (add-hook 'org-mode-hook 'rangi/er-org-mode-hook)))
 
 ;; ------------------------------ multiple cursors
 (use-package multiple-cursors
