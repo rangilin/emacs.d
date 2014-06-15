@@ -1,23 +1,15 @@
 (require 'use-package)
 
 ;; ------------------------------ trailing whitespace
-(setq-default show-trailing-whitespace t)
+;; show trailing whitespace in following mode
+(defun rangi/show-trailing-whitespace ()
+  (setq show-trailing-whitespace t))
+(add-hook 'prog-mode-hook 'rangi/show-trailing-whitespace)
 
-;; turn off in following mode
-(let ((f (lambda () (setq show-trailing-whitespace nil))))
-  (add-hook 'eshell-mode-hook f)
-  (add-hook 'shell-mode-hook f)
-  (add-hook 'diff-mode-hook f)
-  (add-hook 'comint-mode-hook f)
-  (add-hook 'term-mode-hook f)
-  (add-hook 'compilation-filter-hook f)
-  (add-hook 'minibuffer-inactive-mode-hook f))
-
-(defun turn-off-whitespace-mode-by-file-extension ()
-  (when (and (stringp buffer-file-name)
-             (string-match "\\.log" buffer-file-name))
-    (setq show-trailing-whitespace nil)))
-(add-hook 'find-file-hook 'turn-off-whitespace-mode-by-file-extension)
+;; hide trailing whitespace in following mode
+(defun rangi/hide-trailing-whitespace ()
+  (setq show-trailing-whitespace nil))
+(add-hook 'minibuffer-inactive-mode-hook 'rangi/hide-trailing-whitespace)
 
 ;; clean trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
