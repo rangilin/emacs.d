@@ -25,7 +25,6 @@
 (bind-key "RET" 'newline-and-indent)
 (bind-key "<M-return>" 'newline-and-indent)
 
-
 ;; ------------------------------ kill line
 (define-key key-translation-map (kbd "M-H") (kbd "<C-S-backspace>"))
 
@@ -105,6 +104,24 @@
 (use-package ace-jump-mode
   :bind (("C-;" . ace-jump-mode)))
 
+;; ------------------------------ forward/backward paragraph
+;; http://whattheemacsd.com/setup-html-mode.el-01.html
+(defun rangi/forward-paragraph ()
+  (interactive)
+  (let ((inhibit-changing-match-data t))
+    (skip-syntax-forward " >")
+    (unless (search-forward-regexp "^\\s *$" nil t)
+      (goto-char (point-max)))))
+
+(defun rangi/backward-paragraph ()
+  (interactive)
+  (let ((inhibit-changing-match-data t))
+    (skip-syntax-backward " >")
+    (unless (search-backward-regexp "^\\s *$" nil t)
+      (goto-char (point-min)))))
+
+(bind-key "M-a" 'rangi/backward-paragraph)
+(bind-key "M-e" 'rangi/forward-paragraph)
 
 ;; ============================================================
 ;; Text Manipulation
