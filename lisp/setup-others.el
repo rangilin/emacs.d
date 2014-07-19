@@ -32,6 +32,9 @@
   :mode ("\\.feature$" . feature-mode))
 
 (use-package apache-mode
+  :init
+  (progn
+    (setq-default apache-indent-level 2))
   :mode (("\\.htaccess\\'"   . apache-mode)
          ("httpd\\.conf\\'"  . apache-mode)
          ("srm\\.conf\\'"    . apache-mode)
