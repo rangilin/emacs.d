@@ -7,6 +7,7 @@
 (depends-on "afternoon-theme")
 (depends-on "ample-zen-theme")
 (depends-on "anzu")
+(depends-on "apache-mode")
 (depends-on "autopair")
 (depends-on "bind-key")
 (depends-on "browse-kill-ring")
