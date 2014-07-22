@@ -4,8 +4,9 @@
 (defvar rangi/startup-file "/ramsey/Dropbox/org/personal/main.org"
   "File to open when emacs is started")
 
-(defvar rangi/theme 'sanityinc-tomorrow-night
+(defvar rangi/theme 'monokai
   "Default theme")
+(custom-set-variables '(monokai-use-variable-pitch nil))
 
 (require 'local-variables nil t)
 

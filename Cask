@@ -35,6 +35,7 @@
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "monky")
+(depends-on "monokai-theme")
 (depends-on "move-text")
 (depends-on "multi-term")
 (depends-on "multiple-cursors")
