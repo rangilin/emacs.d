@@ -10,8 +10,9 @@
   :config
   (progn
     (autopair-mode -1) ;; use web-mode's auto pairing
-    (setq-default web-mode-html-offset tab-width)
-    (setq-default web-mode-css-offset tab-width)
-    (setq-default web-mode-script-offset tab-width)))
+    (setq-default web-mode-markup-indent-offset tab-width)
+    (setq-default web-mode-css-indent-offset tab-width)
+    (setq-default web-mode-code-indent-offset tab-width)
+    ))
 
 (provide 'setup-web-mode)
