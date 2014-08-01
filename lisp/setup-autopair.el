@@ -10,6 +10,7 @@
       (set (make-local-variable 'autopair-skip-criteria) 'always))
     ;; make autopair always insert pair, so *) syntax in org-mode won't screw up autopair
     (add-hook 'org-mode-hook 'rangi/autopair-always-pair)
+    (add-hook 'sql-mode-hook 'rangi/autopair-always-pair)
 
     (defun rangi/autopair-turn-off ()
       (autopair-mode -1))
