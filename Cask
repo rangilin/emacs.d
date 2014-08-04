@@ -4,8 +4,6 @@
 
 (source melpa)
 (depends-on "ace-jump-mode")
-(depends-on "afternoon-theme")
-(depends-on "ample-zen-theme")
 (depends-on "anzu")
 (depends-on "apache-mode")
 (depends-on "autopair")
@@ -35,7 +33,6 @@
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "monky")
-(depends-on "monokai-theme")
 (depends-on "move-text")
 (depends-on "multi-term")
 (depends-on "multiple-cursors")
