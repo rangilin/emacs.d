@@ -2,6 +2,7 @@
 # name: function
 # key: fn
 # --
-function ${1:fn}($2) {
+function ${1:fn}($2)
+{
 $0
 }
