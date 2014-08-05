@@ -14,6 +14,7 @@
 
 (setq-default visible-bell t)
 (blink-cursor-mode -1)
+(setq-default echo-keystrokes 0.1)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
