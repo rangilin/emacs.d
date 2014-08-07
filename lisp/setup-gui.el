@@ -8,6 +8,10 @@
 (column-number-mode t)
 (line-number-mode t)
 
+(global-hl-line-mode 1)
+(setq-default global-hl-line-sticky-flag nil)
+(set-face-background 'hl-line "#112233")
+
 (setq-default inhibit-splash-screen t)
 (setq-default inhibit-startup-message t)
 (setq-default initial-scratch-message "")
