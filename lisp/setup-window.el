@@ -2,7 +2,7 @@
 
 ;; split window vertically if window width is more than 80, otherwise do it horizontally
 (setq split-height-threshold nil)
-(setq split-width-threshold 80)
+(setq split-width-threshold 120)
 
 ;; ------------------------------ split window
 (defun rangi/split-window-vertically ()
