@@ -24,6 +24,7 @@
   :init
   (progn
     (projectile-global-mode)
+    (setq-default projectile-enable-caching t)
     (setq-default projectile-switch-project-action 'projectile-dired)
     (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rangi/gen-dir))
     (projectile-load-known-projects)))
