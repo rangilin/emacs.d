@@ -5,3 +5,4 @@ session.*
 local.el
 local-variables.el
 /projectile.cache
+.yas-compiled-snippets.el
