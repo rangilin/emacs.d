@@ -60,6 +60,3 @@
 ;; -------------------------------------------------- after
 ;; annoying!
 (kill-buffer "*Compile-Log*")
-
-;; (set-face-attribute 'mode-line-inactive nil :background "#2d2d2d")
-;; (set-face-attribute 'fringe nil :background "#2d2d2d")
