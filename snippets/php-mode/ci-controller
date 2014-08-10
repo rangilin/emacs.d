@@ -1,0 +1,13 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: CodeIgniter controller
+# key: ci-controller
+# --
+<?php
+
+class ${1:My_controller} extends ${2:CI_Controller}
+{
+public function ${3:index}($4)
+{
+$0
+}
+}

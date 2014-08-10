@@ -1,0 +1,15 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: CodeIgniter model
+# key: ci-model
+# --
+<?php
+
+class ${1:My_model} extends ${2:CI_Model}
+{
+function __construct()
+{
+parent::__construct();
+}
+
+$0
+}
