@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: function
+# name: php block
 # key: <?
 # --
 <?php $0 ?>
