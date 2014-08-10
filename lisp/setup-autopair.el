@@ -1,6 +1,7 @@
 (require 'use-package)
 
 (use-package autopair
+  :diminish autopair-mode
   :init
   (progn
     (autopair-global-mode)
