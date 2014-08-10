@@ -4,6 +4,7 @@
 (setq-default comment-empty-lines t)
 (setq-default indent-tabs-mode nil)
 (setq-default x-select-enable-clipboard t)
+(setq-default require-final-newline t)
 
 (delete-selection-mode 1)
 (show-paren-mode 1)
