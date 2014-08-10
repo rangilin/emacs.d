@@ -47,7 +47,7 @@
       (when (not (string= major-mode "web-mode"))
         (setq fci-rule-column 80)
         (setq fci-rule-width 2)
-        (setq fci-rule-color "#FFF")
+        (setq fci-rule-color "#666")
         (fci-mode)))
     (add-hook 'prog-mode-hook 'rangi--enable-fci)
     (add-hook 'markdown-mode-hook 'rangi--enable-fci)))
