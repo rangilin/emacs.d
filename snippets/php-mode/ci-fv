@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: CodeIgniter form validation
+# key: ci-fv
+# --
+$this->form_validation->${1:set_rules}($2);$0
