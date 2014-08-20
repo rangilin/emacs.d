@@ -85,12 +85,6 @@
 ;; Cursor Movement
 ;; ============================================================
 
-(defun rangi/previous-line (n)
-  (interactive "p")
-  (forward-line (* n -1)))
-
-(bind-key "C-p" 'rangi/previous-line)
-
 (defun rangi/backward-whitespace ()
   (interactive)
   (forward-whitespace -1))
