@@ -59,4 +59,7 @@
 (setq-default global-auto-revert-non-file-buffers t)
 (setq-default auto-revert-verbose nil)
 
+;; ------------------------------ default scratch buffer mode
+(setq initial-major-mode 'text-mode)
+
 (provide 'setup-buffer)
