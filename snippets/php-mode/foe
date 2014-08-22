@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: foreach loop
+# key: iter
+# --
+foreach (${1:$array} as ${2:$value}) {
+$0
+}

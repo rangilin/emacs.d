@@ -1,7 +1,7 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: foreach loop
+# name: for loop
 # key: for
 # --
-foreach (${1:$array} as ${2:$value}) {
+for (${1:initialization};${2:termination};${3:increment}) {
 $0
 }

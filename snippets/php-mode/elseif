@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: elseif block
+# key: elseif
+# --
+elseif (${1:$bool}) {
+$0
+}
