@@ -19,6 +19,7 @@
 (require 'setup-buffer)
 (require 'setup-css)
 (require 'setup-copy)
+(require 'setup-cursor)
 (require 'setup-dired)
 (require 'setup-editing)
 (require 'setup-elisp)
