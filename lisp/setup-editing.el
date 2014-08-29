@@ -193,8 +193,7 @@
 (defun rangi/insert-newline-above ()
   "Insert a newline above the current line."
   (interactive)
-  (unless (bolp)
-    (beginning-of-line))
+  (beginning-of-line)
   (newline)
   (forward-line -1)
   (indent-according-to-mode))
@@ -202,9 +201,9 @@
 (defun rangi/insert-newline-below ()
   "Insert a newline below the current line."
   (interactive)
-  (unless (eolp)
-    (end-of-line))
-  (newline-and-indent))
+  (end-of-line)
+  (newline)
+  (indent-according-to-mode))
 
 (bind-key "<M-S-return>" 'rangi/insert-newline-above)
 (bind-key "<S-return>" 'rangi/insert-newline-below)
