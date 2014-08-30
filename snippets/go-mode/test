@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: test function
+# key: test
+# --
+func Test${1:Something}(t *testing.T) {
+$0
+}

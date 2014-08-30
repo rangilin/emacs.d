@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # name: func
-# key: func
+# key: fn
 # --
-func ${1:function}($2)$3 {
+func ${1:foo}($2)$3 {
     $0
 }
