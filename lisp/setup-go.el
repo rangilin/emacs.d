@@ -2,22 +2,21 @@
 
 (use-package go-mode
   :mode (("\\.go$" . go-mode))
-  :init
+  :config
   (progn
+    (defun rangi/go-mode-hook ()
+      (setq tab-width 4)
+      (setq indent-tabs-mode t))
 
-	(defun rangi/go-mode-hook ()
-	  (setq tab-width 4))
-	(add-hook 'go-mode-hook 'rangi/go-mode-hook)
+    (add-hook 'go-mode-hook 'rangi/go-mode-hook)
+    (add-hook 'before-save-hook 'gofmt-before-save)
 
-	;; go-eldoc
+    (bind-key "C-c C-r" 'go-remove-unused-imports go-mode-map)
+
+    ;; ------------------------------ go-eldoc
     (use-package go-eldoc
       :config
       (progn
-        (add-hook 'go-mode-hook 'go-eldoc-setup))))
-  :config
-  (progn
-    (add-hook 'before-save-hook 'gofmt-before-save)
-    (setq tab-width 4)
-    (setq indent-tabs-mode t)))
+        (add-hook 'go-mode-hook 'go-eldoc-setup)))))
 
 (provide 'setup-go)
