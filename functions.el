@@ -27,4 +27,9 @@
   (let ((word (word-at-point)))
     (when word (substring-no-properties word))))
 
+(defun rangi/minor-mode-on-p (mode)
+  "Check whether minor mode `mode' is on, `mode' should be a symbol specifying
+the minor mode"
+  (and (boundp mode) (symbol-value mode)))
+
 (provide 'functions)

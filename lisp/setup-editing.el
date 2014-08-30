@@ -1,4 +1,5 @@
 (require 'use-package)
+(require 'functions)
 
 (setq-default tab-width 2)
 (setq-default comment-empty-lines t)
@@ -68,7 +69,12 @@
 (defun rangi/delete-word (arg)
   "Delete word after cursor without add to kill ring"
   (interactive "p")
-  (delete-region (point) (progn (forward-word arg) (point))))
+  (delete-region (point)
+                 (progn
+                   (if (rangi/minor-mode-on-p 'subword-mode)
+                       (subword-forward arg)
+                       (forward-word arg))
+                    (point))))
 
 (defun rangi/backward-delete-word (arg)
   "Delete word before cursor without add it to kill ring"
