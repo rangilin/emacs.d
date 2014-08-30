@@ -68,9 +68,9 @@
 (bind-key "M-e" 'rangi/forward-paragraph)
 
 ;; ------------------------------ move around a little faster
-(bind-key "C-S-n" (lambda () (interactive) (ignore-errors (forward-line 5))))
-(bind-key "C-S-p" (lambda () (interactive) (ignore-errors (forward-line -5))))
-(bind-key "C-S-f" (lambda () (interactive) (ignore-errors (forward-char 5))))
+(bind-key "C-S-p" (lambda () (interactive) (ignore-errors (previous-line 5))))
+(bind-key "C-S-n" (lambda () (interactive) (ignore-errors (next-line 5))))
 (bind-key "C-S-b" (lambda () (interactive) (ignore-errors (backward-char 5))))
+(bind-key "C-S-f" (lambda () (interactive) (ignore-errors (forward-char 5))))
 
 (provide 'setup-cursor)
