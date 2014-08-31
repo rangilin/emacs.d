@@ -166,13 +166,5 @@
 (use-package randomize-region
   :load-path "site-lisp/randomize-region")
 
-;; ------------------------------ yank & indent
-(defun rangi/yank-and-indent ()
-  "Yank and then indent according to mode."
-  (interactive)
-  (yank)
-  (call-interactively 'indent-region))
-
-(bind-key "C-y" 'rangi/yank-and-indent)
 
 (provide 'setup-editing)
