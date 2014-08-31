@@ -9,7 +9,8 @@
     ;; clear recorded keystroke on enter is pressed
     ;; avoid view-lossage to display password
     (defadvice term-send-raw (after clear-recorded-key activate)
-      (if (string= (kbd "RET") (this-command-keys))
+      (if (and (stringp (this-command-keys))
+               (string= (kbd "RET") (this-command-keys)))
           (clear-this-command-keys)))
 
     ;; ------------------------------ hook for setup term mode
