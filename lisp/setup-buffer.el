@@ -27,6 +27,9 @@
     (setq-default ibuffer-saved-filter-groups
                   `(("Default"
                      ("Dired" (mode . dired-mode))
+                     ("Terminal" (or (mode . term-mode)
+                                     (mode . shell-mode)
+                                     (mode . eshell-mode)))
                      ("Help" (or (mode . Man-mode)
                                  (mode . woman-mode)
                                  (mode . info-mode)
