@@ -19,6 +19,22 @@
   :bind ("C-x C-b" . ibuffer)
   :config
   (progn
+
+    ;; don't display empty filter groups
+    (setq-default ibuffer-show-empty-filter-groups nil)
+
+    ;; my filter groups
+    (setq-default ibuffer-saved-filter-groups
+                  `(("Default"
+                     ("Dired" (mode . dired-mode))
+                     ("Help" (or (mode . Man-mode)
+                                 (mode . woman-mode)
+                                 (mode . info-mode)
+                                 (mode . help-mode)))
+                     ("Temporary" (name . "\*.*\*"))
+                     )))
+
+    ;; define a column that display buffer size in readable format
     (define-ibuffer-column readable-size
       (:name "Size" :inline t)
       (cond
@@ -26,22 +42,31 @@
        ((> (buffer-size) 1000) (format "%7.1fK" (/ (buffer-size) 1000.0)))
        (t (format "%8d" (buffer-size)))))
 
+    ;; setup ibuffer format
     (setq-default ibuffer-formats
                   '((mark modified read-only
                           " " (name 24 24 :left :elide)
                           " " (readable-size 9 -1 :right)
                           " " (mode 16 16 :left :elide)
                           " " filename-and-process)))
+
+
     (defun ibuffer-ido-find-file ()
       "Like `ido-find-file', but default to the directory of the buffer at point."
       (interactive
-       (let ((default-directory (let ((buf (ibuffer-current-buffer)))
-                                  (if (buffer-live-p buf)
-                                      (with-current-buffer buf
-                                        default-directory)
-                                    default-directory))))
+       (let ((default-directory
+               (let ((buf (ibuffer-current-buffer)))
+                 (if (buffer-live-p buf)
+                     (with-current-buffer buf default-directory)
+                   default-directory))))
          (ido-find-file-in-dir default-directory))))
-    (bind-key "C-x C-f" 'ibuffer-ido-find-file ibuffer-mode-map)))
+    (bind-key "C-x C-f" 'ibuffer-ido-find-file ibuffer-mode-map)
+
+    (defun rangi/ibuffer-mode-hook ()
+      (ibuffer-switch-to-saved-filter-groups "Default"))
+    (add-hook 'ibuffer-mode-hook 'rangi/ibuffer-mode-hook)
+
+    ))
 
 ;; ------------------------------ switch buffer
 (bind-key "M-]" 'next-buffer)
