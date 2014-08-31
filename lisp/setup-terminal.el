@@ -1,5 +1,4 @@
 (require 'use-package)
-
 ;; ------------------------------ term
 (use-package multi-term
   :bind (("C-c t" . multi-term))
@@ -18,20 +17,17 @@
       (yas-minor-mode -1)) ; yas tab not works well with term
     (add-hook 'term-mode-hook 'rangi/setup-term-mode)
 
-    (defun rangi/toggle-term-mode ()
-      "Toggle between `term-line-mode' and `term-char-mode'"
-      (interactive)
-      (if (term-in-line-mode)
-          (term-char-mode)
-          (term-line-mode)))
-
     (setq-default multi-term-program "/bin/bash")
     (setq-default multi-term-program-switches "--login")
     (setq-default term-buffer-maximum-size 10000)
+    (setq-default multi-term-switch-after-close nil)
     (setq-default term-unbind-key-list
-                  `("C-z" "C-x" "C-h" "C-c" "C-y" "<ESC>"))
+                  `())
     (setq-default term-bind-key-alist
-                  '(("C-c C-c" . term-interrupt-subjob)
+                  '(
+                    ("C-c C-c" . term-interrupt-subjob)
+                    ("C-c C-j" . term-line-mode)
+                    ("C-c C-k" . term-char-mode)
                     ("C-m" . term-send-raw)
                     ("M-v" . term-send-raw)
                     ("M-/" . term-send-raw)
@@ -39,9 +35,8 @@
                     ("M-b" . term-send-backward-word)
                     ("M-d" . term-send-forward-kill-word)
                     ("C-M-h" . term-send-backward-kill-word)
-                    ("M-t" . rangi/toggle-term-mode)
                     ("C-y" . term-paste)))
-    (bind-key "M-t" 'rangi/toggle-term-mode term-mode-map)))
+    ))
 
 ;; ------------------------------ exec path
 (use-package exec-path-from-shell
