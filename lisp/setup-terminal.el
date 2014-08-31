@@ -22,7 +22,9 @@
     (setq-default term-buffer-maximum-size 10000)
     (setq-default multi-term-switch-after-close nil)
     (setq-default term-unbind-key-list
-                  `())
+                  `(
+                    "M-x" ;; for smex
+                    ))
     (setq-default term-bind-key-alist
                   '(
                     ("C-c C-c" . term-interrupt-subjob)
