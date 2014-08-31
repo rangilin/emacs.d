@@ -34,6 +34,7 @@
                                  (mode . woman-mode)
                                  (mode . info-mode)
                                  (mode . help-mode)))
+                     ("Emacs" (or (name . "*Messages*")))
                      ("Temporary" (name . "\*.*\*"))
                      )))
 
