@@ -4,8 +4,12 @@
 # --
 <?php
 
-class ${1:My_controller} extends ${2:CI_Controller}
+class ${1:My}_controller extends ${2:CI_Controller}
 {
+function __construct() {
+parent::__construct();
+}
+
 public function ${3:index}($4)
 {
 $0
