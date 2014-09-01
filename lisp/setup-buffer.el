@@ -27,14 +27,16 @@
     (setq-default ibuffer-saved-filter-groups
                   `(("Default"
                      ("Dired" (mode . dired-mode))
-                     ("Terminal" (or (mode . term-mode)
-                                     (mode . shell-mode)
-                                     (mode . eshell-mode)))
+                     ("Emacs" (or (name . "*Messages*")))
                      ("Help" (or (mode . Man-mode)
                                  (mode . woman-mode)
                                  (mode . info-mode)
                                  (mode . help-mode)))
-                     ("Emacs" (or (name . "*Messages*")))
+                     ("SQL client" (mode . sql-interactive-mode))
+                     ("Terminal" (or (mode . term-mode)
+                                     (mode . shell-mode)
+                                     (mode . eshell-mode)))
+                     ;; stay last
                      ("Temporary" (name . "\*.*\*"))
                      )))
 
