@@ -24,6 +24,7 @@
     (setq-default multi-term-switch-after-close nil)
     (setq-default term-unbind-key-list
                   `(
+                    "C-x" ;; all command with prefix "C-x"
                     "M-x" ;; smex
                     "M-[" ;; previous-buffer
                     "M-]" ;; next-buffer
