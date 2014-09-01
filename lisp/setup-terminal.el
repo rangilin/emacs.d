@@ -24,7 +24,9 @@
     (setq-default multi-term-switch-after-close nil)
     (setq-default term-unbind-key-list
                   `(
-                    "M-x" ;; for smex
+                    "M-x" ;; smex
+                    "M-[" ;; previous-buffer
+                    "M-]" ;; next-buffer
                     ))
     (setq-default term-bind-key-alist
                   '(
