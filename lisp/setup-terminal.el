@@ -42,6 +42,12 @@
                     ("M-d" . term-send-forward-kill-word)
                     ("C-M-h" . term-send-backward-kill-word)
                     ("C-y" . term-paste)))
+
+    ;; ------------------------------ workaround directory with Chinese name bug
+    (defadvice term-command-hook (before decode-string)
+      (setq string (decode-coding-string string locale-coding-system)))
+    (when (version< emacs-version "24.3.50.1") (ad-activate 'term-command-hook))
+
     ))
 
 ;; ------------------------------ exec path
