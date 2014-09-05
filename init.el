@@ -50,6 +50,7 @@
 
 ;;-------------------------------------------------- unbind keys
 (global-unset-key (kbd "C-SPC"))
+(global-unset-key (kbd "C-/"))
 
 ;; -------------------------------------------------- load customization
 (setq custom-file (expand-file-name "custom.el" rangi/gen-dir))
