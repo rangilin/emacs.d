@@ -24,10 +24,15 @@
   :init
   (progn
     (projectile-global-mode)
+
     (setq-default projectile-enable-caching t)
     (setq-default projectile-switch-project-action 'projectile-dired)
     (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rangi/gen-dir))
-    (projectile-load-known-projects)))
+    (projectile-load-known-projects)
+
+    (defadvice projectile-test-project
+      (before rangi/advise-projectile-save-before-test activate)
+      (save-some-buffers t))))
 
 (use-package feature-mode
   :mode ("\\.feature$" . feature-mode))
