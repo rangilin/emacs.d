@@ -93,4 +93,12 @@
 ;; ------------------------------ default scratch buffer mode
 (setq initial-major-mode 'text-mode)
 
+;; revert buffer ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun rangi/refresh-buffer ()
+  (interactive)
+  (revert-buffer nil t nil)
+  (message "buffer is refreshed"))
+
+(bind-key "<f5>" 'rangi/refresh-buffer)
+
 (provide 'setup-buffer)
