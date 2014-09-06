@@ -9,7 +9,7 @@
 
 (delete-selection-mode 1)
 (show-paren-mode 1)
-(global-subword-mode)
+
 
 ;; ------------------------------ newline & Indent
 (bind-key "RET" 'newline-and-indent)

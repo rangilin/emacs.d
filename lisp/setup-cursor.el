@@ -17,59 +17,31 @@
 
 (bind-key "C-S-l" 'rangi/horizontal-recenter)
 
-;; ------------------------------ multiple cursors
+;; ------------------------------ Multiple cursors
 (use-package multiple-cursors
   :init
   (progn
     (setq-default mc/list-file (expand-file-name ".mc-lists.el" rangi/gen-dir)))
   :bind (("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
-         ("C-S-c C->" . mc/mark-more-like-this-extended)
-         ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
+         ("C-S-c C->" . mc/mark-more-like-this-extended)))
 
-;; ------------------------------ forward/backward by whitespace
-(defun rangi/backward-whitespace ()
-  (interactive)
-  (forward-whitespace -1))
+;; ------------------------------ Sub word
+(global-subword-mode)
 
-(bind-key "M-F" `forward-whitespace)
-(bind-key "M-B" `rangi/backward-whitespace)
+;; solve issue that subword not support shift selection at my version
+(defadvice subword-backward (before handle-shift-selection activate)
+  (handle-shift-selection))
+(defadvice subword-forward (before handle-shift-selection activate)
+  (handle-shift-selection))
 
-;; ------------------------------ back to indentation or beginning
-;; http://www.emacswiki.org/emacs/BackToIndentationOrBeginning
-;; (defun rangi/back-to-indentation-or-beginning () (interactive)
-;;   "Back to indentation or beginning of current line"
-;;   (if (= (point) (progn (back-to-indentation) (point)))
-;;       (beginning-of-line)))
-;; (bind-key "C-a" 'rangi/back-to-indentation-or-beginning)
+;; ------------------------------ Mark
 
-;; ------------------------------ ace jump
+;; so I can pop mark multiple time with C-u C-@ C-@...
+(setq-default set-mark-command-repeat-pop t)
+
+;; ------------------------------ Ace Jump
 (use-package ace-jump-mode
   :bind (("C-;" . ace-jump-mode)))
-
-;; ------------------------------ forward/backward paragraph
-;; http://whattheemacsd.com/setup-html-mode.el-01.html
-(defun rangi/forward-paragraph ()
-  (interactive)
-  (let ((inhibit-changing-match-data t))
-    (skip-syntax-forward " >")
-    (unless (search-forward-regexp "^\\s *$" nil t)
-      (goto-char (point-max)))))
-
-(defun rangi/backward-paragraph ()
-  (interactive)
-  (let ((inhibit-changing-match-data t))
-    (skip-syntax-backward " >")
-    (unless (search-backward-regexp "^\\s *$" nil t)
-      (goto-char (point-min)))))
-
-(bind-key "M-a" 'rangi/backward-paragraph)
-(bind-key "M-e" 'rangi/forward-paragraph)
-
-;; ------------------------------ move around a little faster
-(bind-key "C-S-p" (lambda () (interactive) (ignore-errors (previous-line 5))))
-(bind-key "C-S-n" (lambda () (interactive) (ignore-errors (next-line 5))))
-(bind-key "C-S-b" (lambda () (interactive) (ignore-errors (backward-char 5))))
-(bind-key "C-S-f" (lambda () (interactive) (ignore-errors (forward-char 5))))
 
 (provide 'setup-cursor)
