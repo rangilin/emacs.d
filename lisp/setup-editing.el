@@ -159,8 +159,8 @@
 ;;       (deactivate-mark))
 ;;     (comment-or-uncomment-region beg end)
 ;;     (next-logical-line)))
-;;
-;; (bind-key "C-/" 'rangi/comment-or-uncomment-region-or-line)
+
+(bind-key "C-/" 'comment-dwim)
 
 ;; ------------------------------ shuffle lines
 (use-package randomize-region

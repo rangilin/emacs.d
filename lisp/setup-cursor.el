@@ -1,6 +1,7 @@
 ;;
-;; All operation related to cursor, such as moving cursor.
+;; All operation related to cursor, such as moving cursor, mark.
 ;;
+
 (require 'use-package)
 (require 'variables)
 (require 'thingatpt)
@@ -17,7 +18,7 @@
 
 (bind-key "C-S-l" 'rangi/horizontal-recenter)
 
-;; ------------------------------ Multiple cursors
+;; ------------------------------ multiple cursors
 (use-package multiple-cursors
   :init
   (progn
@@ -26,7 +27,7 @@
          ("C-<" . mc/mark-previous-like-this)
          ("C-S-c C->" . mc/mark-more-like-this-extended)))
 
-;; ------------------------------ Sub word
+;; ------------------------------ sub word
 (global-subword-mode)
 
 ;; solve issue that subword not support shift selection at my version
@@ -35,12 +36,12 @@
 (defadvice subword-forward (before handle-shift-selection activate)
   (handle-shift-selection))
 
-;; ------------------------------ Mark
+;; ------------------------------ mark
 
 ;; so I can pop mark multiple time with C-u C-@ C-@...
 (setq-default set-mark-command-repeat-pop t)
 
-;; ------------------------------ Ace Jump
+;; ------------------------------ ace jump
 (use-package ace-jump-mode
   :bind (("C-;" . ace-jump-mode)))
 
