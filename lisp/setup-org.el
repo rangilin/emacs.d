@@ -15,6 +15,11 @@
     (add-hook 'org-shiftdown-final-hook 'windmove-down)
     (add-hook 'org-shiftright-final-hook 'windmove-right)
 
+    (defadvice org-beginning-of-line (before advice-org-beginning-of-line activate)
+      (handle-shift-selection))
+    (defadvice org-end-of-line (before advice-org-end-of-line activate)
+      (handle-shift-selection))
+
     (use-package gnuplot)
     (use-package org-plot
       :bind (("C-M-g" . org-plot/gnuplot)))))

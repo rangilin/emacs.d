@@ -31,10 +31,11 @@
 (global-subword-mode)
 
 ;; solve issue that subword not support shift selection at my version
-(defadvice subword-backward (before handle-shift-selection activate)
+(defadvice subword-forward (before advice-subword-forward activate)
   (handle-shift-selection))
-(defadvice subword-forward (before handle-shift-selection activate)
+(defadvice subword-backward (before advice-subword-backward activate)
   (handle-shift-selection))
+
 
 ;; ------------------------------ mark
 
