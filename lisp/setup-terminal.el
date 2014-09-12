@@ -28,6 +28,8 @@
                     "M-x" ;; smex
                     "M-[" ;; previous-buffer
                     "M-]" ;; next-buffer
+                    "C-M-v" ;; other window page down
+                    "C-M-V" ;; other window page up
                     ))
     (setq-default term-bind-key-alist
                   '(
