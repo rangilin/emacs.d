@@ -1,0 +1,92 @@
+<p>Another “demystifying” article. Great! I know… bear with me.</p>
+
+<p>Of the SOLID principles, the Dependency Inversion Principle remains somewhat misunderstood. I’d like to help with that. I hope you’ll ask questions and challenge these ideas, so that I can improve this little article.</p>
+
+<p>I learned the Dependency Inversion Principle from <a href="http://link.jbrains.ca/11bh6NX">Bob Martin’s article</a>, the salient part of which states:</p>
+
+<blockquote>
+  <p>High level modules should not depend upon low level modules. Both should depend upon abstractions.</p>
+</blockquote>
+
+<p>or</p>
+
+<blockquote>
+  <p>Abstractions should not depend upon details. Details should depend upon abstractions.</p>
+</blockquote>
+
+<p>I’ve noticed that I spend the vast majority of my time introducing abstractions and inverting dependencies (abstractions that use concrete things) when rescuing legacy code or adding behavior to legacy systems. Sometimes I feel like I don’t know any other useful trick than <em>invert this dependency</em>. One could make a drinking game out of it.</p>
+
+<p>Even so, not enough people understand and apply DIP. Perhaps if I share a few examples or equivalent formulations, they will.</p>
+
+<!-- more -->
+
+<h2 id="move-specificity-towards-the-tests">Move Specificity Towards the Tests</h2>
+
+<p>Moving details from production code towards tests clarifies the tests. In particular, I find it easier to relate the inputs to the expected outputs. It eliminates duplication between tests and production code. It highlights opportunities for abstraction and reuse. Corey Haines interviewed me about this in summer 2009.</p>
+
+<iframe class="vimeo" src="http://player.vimeo.com/video/5895145" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+<p><a href="http://vimeo.com/5895145">JB Rainsberger - Move Specificity Towards the Tests</a> from <a href="http://vimeo.com/coreyhaines">Corey Haines</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
+
+<p>(If you can’t watch the embedded video, then <a href="http://link.jbrains.ca/119weXi">click here</a>.)</p>
+
+<p><a name="move-implementation-choices-up-the-call-stack"></a></p>
+
+<h2 id="move-implementation-choices-up-the-call-stack">Move Implementation Choices Up the Call Stack</h2>
+
+<p>Dependency injection confuses and annoys people, partly because some people miss the point. Injecting a dependency makes testing easier, by letting us substitute implementations in our tests that make those tests easier to write and understand. Don’t stop there. When in doubt, push <code>new</code> up the call stack. In particular, don’t instantiate a <em>service</em> if you can get your caller to do that. Keep pushing, even more than you think you should. Let all the choices of implementation of each service interface bubble up the call stack until they collect in your application’s or component’s entry point. This shines a huge floodlight on otherwise obscure duplication. It also paves the way for <em>sane</em> use of a dependency injection container, even though you don’t need a container to inject dependencies well. This movement of <code>new</code> up the call stack leaves in its wake a loosely-coupled network of abstractions talking to each other over well-defined interfaces with well-understood contracts. Using this technique helps me remove duplication, which decreases errors, particularly of the “I forgot to change that one” type. Using this technique also encourages me to write code that depends on narrower interfaces, which slowly become more generic interfaces, which makes the code depend less on its context and more suitable to use in other contexts.</p>
+
+<h2 id="abstraction-in-code-details-in-metadata">Abstraction in Code; Details in Metadata</h2>
+
+<p>I first learned this principle from the book <a href="http://link.jbrains.ca/WNg8Se">The Pragmatic Programmer</a>. You’ll find it as “tip 38”. I encourage you to buy the book and the read the tip yourself. The authors state among the benefits:</p>
+
+<ul>
+  <li>a more robust program</li>
+  <li>a more flexible program</li>
+  <li>opportunity to reuse the “engine” with different metadata</li>
+  <li>opportunity to express metadata in the language of the domain</li>
+  <li>opportunity to customise code without rebuilding it</li>
+</ul>
+
+<p>Who could argue with all that?</p>
+
+<h2 id="quick-summary">Quick Summary</h2>
+
+<p>If you agree with the specific principles I’ve cited here, then you also agree with the Dependency Inversion Principle. Said differently:</p>
+
+<blockquote>
+  <p><strong>Push details up towards the client and push generic patterns down towards the server.</strong></p>
+</blockquote>
+
+<p>This principle, applied everywhere, makes testing easier, promotes reuse, both of which reduce the incidence of errors and the cost of development.</p>
+
+<p>So tell me:</p>
+
+<ul>
+  <li>If you already felt you understood the DIP well, how faithfully did I represent it here?</li>
+  <li>If you didn’t quite understand the DIP well before, how much has this article helped or hindered your understanding?</li>
+  <li>If you explain the DIP to others, how do you do it?</li>
+  <li>If you still think the DIP is a load of nonsense, how do you justify that? I’d like the chance to help you as well as fix holes in my own understanding and reasoning.</li>
+</ul>
+
+<h2 id="one-more-thing">One More Thing</h2>
+
+<div style="font-size: 80%">
+  <blockquote>
+    <p><em>In what follows, I refer to the <a href="http://projects.spring.io/spring-framework/">Spring framework</a>’s dependency injection container, not the <a href="https://github.com/rails/spring">Rails Spring application preloader</a>. I didn’t even know that the latter existed until a commenter and I confused each other by using the same words to mean different things. (If you have a spare 50 minutes, you can <a href="http://bit.ly/1cxJN9b">watch a video</a> in which I discuss this and other tricks to improve how we programmers communicate with the world.)</em></p>
+  </blockquote>
+</div>
+
+<p>If you hate Spring’s dependency injection container, then I know why: you have code that <em>depends</em> on the container.</p>
+
+<p>Don’t do that.</p>
+
+<p>Dependency injection is related to the Inversion of Control principle, also known as the Hollywood Principle:</p>
+
+<blockquote>
+  <p>Don’t call us; we’ll call you.</p>
+</blockquote>
+
+<p>Spring’s dependency injection container calls you; you never call it. Never.</p>
+
+<p>Fine: you call it only from a smoke test that verifies that you’ve wired up your dependencies correctly, but you <strong>never call your dependency injection container from production code</strong>.</p>
+

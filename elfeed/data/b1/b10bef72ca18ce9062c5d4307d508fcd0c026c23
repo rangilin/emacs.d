@@ -1,0 +1,304 @@
+<p>寫了一陣子的 Objective-C/iOS app，這次讓我們回頭來看點基礎的東西 :)</p>
+
+<h3>什麼是 id?</h3>
+
+<p>在 Objective-C 裡，變數宣告通常得告知編譯器這個變數的型別，例如這樣：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSArray</span><span class="o">*</span> <span class="n">myArray</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="s">@&quot;eddie&quot;</span><span class="p">,</span> <span class="s">@&quot;kao&quot;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>而在 Objective-C 裡有個特別的型別叫做 <code>id</code>，它可以指向任何物件，像這樣：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="kt">id</span> <span class="n">myObject</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="s">@&quot;eddie&quot;</span><span class="p">,</span> <span class="s">@&quot;kao&quot;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>那這個 <code>id</code> 是什麼? 我們直接來從原始程式碼來找這個 <code>id</code> 的定義。大家可以打開 XCode，然後選擇「File」→「Open Quickly..」，應該可以找到 <code>objc.h</code> 這個檔案，往下捲一點，應該可以找到像下面的這幾行程式碼：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">/// 檔案名稱：objc.h</span>
+</span><span class='line'><span class="c1">/// A pointer to an instance of a class.</span>
+</span><span class='line'><span class="k">typedef</span> <span class="k">struct</span> <span class="n">objc_object</span> <span class="o">*</span><span class="n">id</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>就照上面這段註解說的，所謂的 <code>id</code> 就是一個「指向一個實例 (instance) 的指針」，而且 <code>id</code> 這個 Struct 的定義本身就有帶一個 <code>*</code>，這也是為什麼你在宣告其它一般物件型別的變數需要加註一個 <code>*</code> 來表示這是一個指標變數，而使用 <code>id</code> 卻不需要的原因。</p>
+
+<h2>什麼是一個物件 (Object)?</h2>
+
+<p>讓我們再從剛剛那個檔案，順蔓摸瓜的繼續看下去..</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">/// 檔案名稱：objc.h</span>
+</span><span class='line'><span class="c1">/// Represents an instance of a class.</span>
+</span><span class='line'><span class="k">struct</span> <span class="n">objc_object</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">Class</span> <span class="n">isa</span><span class="p">;</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>從這段程式碼可以知道，其實所謂的「物件」，說穿了就只是一個 C 的結構 (C Struct)，而在這個 Struct 裡面只有一個 <code>isa</code> 的指針，指向自己所屬的類別。</p>
+
+<p>再來我們來看看在 Objective-C 裡，到底什麼是一個類別(Class)</p>
+
+<h2>什麼是類別 (Class)?</h2>
+
+<p>繼續來看剛剛的那個檔案：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">/// 檔案：objc.h</span>
+</span><span class='line'><span class="c1">/// An opaque type that represents an Objective-C class.</span>
+</span><span class='line'><span class="k">typedef</span> <span class="k">struct</span> <span class="n">objc_class</span> <span class="o">*</span><span class="n">Class</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看得出來其實 <code>Class</code> 本身也是一個 C Struct，再往下看一下這個 <code>objc_class</code> 的定義 (runtime.h)：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">/// 檔案：runtime.h</span>
+</span><span class='line'><span class="k">struct</span> <span class="n">objc_class</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">Class</span> <span class="n">isa</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#if !__OBJC2__</span>
+</span><span class='line'>    <span class="n">Class</span> <span class="n">super_class</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">long</span> <span class="n">version</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">long</span> <span class="n">info</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">long</span> <span class="n">instance_size</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">struct</span> <span class="n">objc_ivar_list</span> <span class="o">*</span><span class="n">ivars</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">struct</span> <span class="n">objc_method_list</span> <span class="o">**</span><span class="n">methodLists</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">struct</span> <span class="n">objc_cache</span> <span class="o">*</span><span class="n">cache</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">struct</span> <span class="n">objc_protocol_list</span> <span class="o">*</span><span class="n">protocols</span><span class="p">;</span>
+</span><span class='line'><span class="cp">#endif</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>從上面這段程式碼可以看到，所謂的類別也是一個 C Struct，裡面第一個指針 <code>isa</code> 指向它的所屬類別，第二個指針 <code>super_class</code> 則是指向它的父類別。除此之外還有一些其它的指針，指向例如 instance variables、method list、cache、protocol 等 Struct。</p>
+
+<h2>訊息傳遞 (Message Passing)</h2>
+
+<p>大家在其它 Objective-C 的書上應該常看到，在 Objective-C 的世界裡，方法不像其它程式語言一樣的被直接呼叫，而是透過「訊息傳遞(Message Passing)」方式，像是這樣：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">someObject</span> <span class="nl">saySomething:</span><span class="s">@&quot;hello&quot;</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這裡的 <code>someObject</code> 稱作 <code>receiver</code>，就是接收「訊息」的傢伙，而 <code>saySomething:</code> 就是「訊息」，<code>@"hello"</code> 則是參數。</p>
+
+<p>事實上，在訊息傳遞的過程，當 <code>someObject</code> 這傢伙收到訊息之後，會順著這個物件的 <code>isa</code> 指針找到自己的類別，然後再依照收到的「訊息」去類別的 method list 找出對應的方法。如果在這個類別裡面找到了，就會直接執行它，如果找不到，會再往上一層父類別(super class)找。以上這個流程都是在程式執行過程中(Rumtime)才動態決定的，而不是在編譯(Compile)時期就決定好的。</p>
+
+<p>而這個訊息傳遞的過程畢竟是多做了幾件事，相對感覺會比較耗時，但實際上在程式的執行過程中，一但執行過的方法就會被暫存(cache)下來，下次再收到一樣的訊息的時候就會快得多了。</p>
+
+<p>其實，在 Objective-C 的世界裡，類別本身也是物件，所以你也可以對它「發送訊息」，像是這樣：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="s">@&quot;eddie&quot;</span><span class="p">,</span> <span class="s">@&quot;kao&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看起來就跟在其它程式語言的「類別方法」差不多，但事實上它就是對 <code>NSArray</code> 這個類別發送了 <code>arrayWithObjects:</code> 這個訊息。</p>
+
+<p>接下來我們直接寫一小段程式會比較容易想像：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// Animal Class</span>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">Animal</span> : <span class="nc">NSObject</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">Animal</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Fox Class</span>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">Fox</span> : <span class="nc">Animal</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">say</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">Fox</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">say</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;What does the fox say!?&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面這段程式碼建立了兩個類別，分別是 <code>Animal</code> 及 <code>Fox</code> ，而且 <code>Fox</code> 繼承自 <code>Animal</code>，而 <code>Animal</code> 類別則是繼承自 <code>NSObject</code> 類別。</p>
+
+<p>不管是「物件」或是「類別」，因為一樣都是物件，所以他們在收到訊息時的反應流程也是一樣的：</p>
+
+<ul>
+<li>當對「物件」發送訊息的時候，它會順著這個物件的 <code>isa</code> 指針找到它的所屬類別，然後翻看看這個類別的 method list 有沒有符合的方法可以執行；</li>
+<li>當對「類別」發送訊息的時候，它會順著這個類別的 <code>isa</code> 指針找到它的所屬類別(也就是我們待會要說明的 Meta Class)，然後翻看看這個類別的 method list 有沒有符合的方法可以執行。</li>
+</ul>
+
+
+<h2>什麼是 Meta Class?</h2>
+
+<p><code>Meta</code> 這個字我不太懂中文該怎麼翻譯比較好，有人翻譯成「元」，有人翻譯成「後設」，但我個人還是喜歡直接使用 <code>Meta</code> 這個詞就好。</p>
+
+<p>剛剛在看類別的 <code>objc_class</code> 的定義的時候有提到類別的 Struct 裡也有一個 <code>isa</code> 指針，指向它所屬的類別，你可以想像成是它是「類別的類別」，也就是所謂的 <code>Meta Class</code>。</p>
+
+<p>而 Meta Class 其實也是一種類別，所以也跟一般的類別一樣有 <code>isa</code> 跟 <code>super_class</code> 指針&#8230; 所以就可以把這整個的關係用一張圖表來解釋：</p>
+
+<p><img src="http://blog.eddie.com.tw/images/2013/objective-c-object-model.png" alt="image" /></p>
+
+<p>看圖說故事：</p>
+
+<ol>
+<li>每個 Class (Fox, Animal, NSObject) 的 <code>isa</code> 指針都指向一個唯一的 Class，這個 Class 稱之為 <code>Meta Class</code>。</li>
+<li>每個 Meta Class 的 <code>isa</code> 指針都是指向最上層的 Meta Class (在我們上面那段範例裡，就是 NSObject 的 Meta Class)，而最上層的 Meta Class 的 <code>isa</code> 則是指向自己，形成一個迴路。</li>
+<li>每個 Meta Class 的 <code>super_class</code> 指針都是指向它原本類別的 Super Class 的 Meta Class，但最上層的 Meta Class 的 <code>super_class</code> 則是指向 NSObject 類別本身。</li>
+<li>最上層的 Class (NSObject)，它的 Super Class 指向 <code>nil</code>。</li>
+</ol>
+
+
+<p>PS: 在 Objective-C 裡有兩種 Root Class(NSObject 跟 NSProxy)，但因為在 Objective-C 裡「大部份」的類別都是 <code>NSObject</code> 的子類別，所以舉例常會說最上層的類別就是 <code>NSObject</code>。</p>
+
+<p>一堆 Class、Super Class、Meta Class 的，有種快打結的感覺了嗎? 其實只要理解上面那張圖片，基本上就不用記這些繞舌的規則了。</p>
+
+<p>但口說無憑，讓我們來寫幾行程式碼驗證一下：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">Fox</span><span class="o">*</span> <span class="n">lucky</span> <span class="o">=</span> <span class="p">[[</span><span class="n">Fox</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">lucky</span> <span class="n">say</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// about fox instance</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;the class of lucky is %@, address = %p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">lucky</span> <span class="n">class</span><span class="p">],</span> <span class="p">[</span><span class="n">lucky</span> <span class="n">class</span><span class="p">]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// about Fox class</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Fox = %@, address = %p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">Fox</span> <span class="n">class</span><span class="p">],</span> <span class="p">[</span><span class="n">Fox</span> <span class="n">class</span><span class="p">]);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Fox&#39;s Super Class = %@, address = %p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">Fox</span> <span class="n">superclass</span><span class="p">],</span> <span class="p">[</span><span class="n">Fox</span> <span class="n">superclass</span><span class="p">]);</span>
+</span><span class='line'><span class="n">Class</span> <span class="n">metaClassOfFox</span> <span class="o">=</span> <span class="n">object_getClass</span><span class="p">([</span><span class="n">Fox</span> <span class="n">class</span><span class="p">]);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Fox&#39;s Meta Class = %p&quot;</span><span class="p">,</span> <span class="n">metaClassOfFox</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Fox&#39;s Meta Class&#39;s Super Class = %p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">metaClassOfFox</span> <span class="n">superclass</span><span class="p">]);</span>
+</span><span class='line'><span class="n">Class</span> <span class="n">metaMetaClassOfFox</span> <span class="o">=</span> <span class="n">object_getClass</span><span class="p">(</span><span class="n">metaClassOfFox</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Fox&#39;s Meta Class&#39;s Meta Class = %p&quot;</span><span class="p">,</span> <span class="n">metaMetaClassOfFox</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// about Animal class</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Animal = %@, address = %p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">Animal</span> <span class="n">class</span><span class="p">],</span> <span class="p">[</span><span class="n">Animal</span> <span class="n">class</span><span class="p">]);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Animal&#39;s Super Class = %@, address = %p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">Animal</span> <span class="n">superclass</span><span class="p">],</span> <span class="p">[</span><span class="n">Animal</span> <span class="n">superclass</span><span class="p">]);</span>
+</span><span class='line'><span class="n">Class</span> <span class="n">metaClassOfAnimal</span> <span class="o">=</span> <span class="n">object_getClass</span><span class="p">([</span><span class="n">Animal</span> <span class="n">class</span><span class="p">]);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Animal&#39;s Meta Class = %p&quot;</span><span class="p">,</span> <span class="n">metaClassOfAnimal</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Animal&#39;s Meta Class&#39;s Super Class = %p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">metaClassOfAnimal</span> <span class="n">superclass</span><span class="p">]);</span>
+</span><span class='line'><span class="n">Class</span> <span class="n">metaMetaClassOfAnimal</span> <span class="o">=</span> <span class="n">object_getClass</span><span class="p">(</span><span class="n">metaClassOfAnimal</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Animal&#39;s Meta Class&#39;s Meta Class = %p&quot;</span><span class="p">,</span> <span class="n">metaMetaClassOfAnimal</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// about NSObject class</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;NSObject = %@, address = %p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">NSObject</span> <span class="n">class</span><span class="p">],</span> <span class="p">[</span><span class="n">NSObject</span> <span class="n">class</span><span class="p">]);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;NSObject&#39;s Super Class = %@, address = %p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">NSObject</span> <span class="n">superclass</span><span class="p">],</span> <span class="p">[</span><span class="n">NSObject</span> <span class="n">superclass</span><span class="p">]);</span>
+</span><span class='line'><span class="n">Class</span> <span class="n">metaClassOfNSObject</span> <span class="o">=</span> <span class="n">object_getClass</span><span class="p">([</span><span class="n">NSObject</span> <span class="n">class</span><span class="p">]);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;NSObject&#39;s Meta Class = %p&quot;</span><span class="p">,</span> <span class="n">metaClassOfNSObject</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;NSObject&#39;s Meta Class&#39;s Super Class = %p&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">metaClassOfNSObject</span> <span class="n">superclass</span><span class="p">]);</span>
+</span><span class='line'><span class="n">Class</span> <span class="n">metaMetaClassOfNSObject</span> <span class="o">=</span> <span class="n">object_getClass</span><span class="p">(</span><span class="n">metaClassOfNSObject</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;NSObject&#39;s Meta Class&#39;s Meta Class = %p&quot;</span><span class="p">,</span> <span class="n">metaMetaClassOfNSObject</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>輸出結果如下：</p>
+
+<pre><code>What does the fox say!?
+
+the class of lucky is Fox, address = 0x100002260
+
+Fox = Fox, address = 0x100002260
+Fox's Super Class = Animal, address = 0x100002210
+Fox's Meta Class = 0x100002238
+Fox's Meta Class's Super Class = 0x1000021e8
+Fox's Meta Class's Meta Class = 0x7fff77cce838
+
+Animal = Animal, address = 0x100002210
+Animal's Super Class = NSObject, address = 0x7fff77cce810
+Animal's Meta Class = 0x1000021e8
+Animal's Meta Class's Super Class = 0x7fff77cce838
+Animal's Meta Class's Meta Class = 0x7fff77cce838
+
+NSObject = NSObject, address = 0x7fff77cce810
+NSObject's Super Class = (null), address = 0x0
+NSObject's Meta Class = 0x7fff77cce838
+NSObject's Meta Class's Super Class = 0x7fff77cce810
+NSObject's Meta Class's Meta Class = 0x7fff77cce838
+</code></pre>
+
+<p>輸出結果可能在每個人的電腦上都不一樣，但從輸出的結果就能證明上面那張圖片的每個類別之間的關係。</p>
+
+<p>要特別注意的是，你可能會覺得直接對類別發送 <code>class</code> 訊息就可以得到該類別的 Meta Class，事實上直接對類別發送 <code>class</code> 訊息只會得到該類別自己。要取得類別的 Meta Class，可以透過 <code>object_getClass</code> 來取得。</p>
+
+<p>以上，希望這篇文章能讓大家對 Objective-C 基本的物件跟類別有更進一步的了解。</p>
+
+<p>個人認為，雖然了解這些知識不見得對 iOS app 的開發有直接的幫助，但至少當在寫一個類別或使用一個物件的時候，會更清楚到底是怎麼一回事。如果有哪邊寫錯，還請前輩先進不吝指點。</p>

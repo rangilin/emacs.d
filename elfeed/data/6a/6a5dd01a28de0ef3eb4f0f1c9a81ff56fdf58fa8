@@ -1,0 +1,116 @@
+
+<p>Over the last week I have revamped my Gnus configuration. I used to
+look at my e-mail once a day because I felt it was distracting. I now
+want notification of interesting e-mail every minute.</p>
+
+<p>I will detail how I have setup this feature with my new configuration.</p>
+
+<p>To speed up Gnus you need to set the nnml backend as your primary
+select method. This is critical as setting up a news server will use
+the network and slow things down.</p>
+
+<p>I use getmail to fetch e-mail on a maildir directory. This way I don't
+have to deal with file locks of an mbox file. The getmail
+configuration is:</p>
+
+<pre class="example">
+[retriever]
+type = SimplePOP3SSLRetriever
+server = pop.gmail.com
+username = ivan.kanis@googlemail.com
+password = secret
+
+[destination]
+type = Maildir
+path = ~/keep/Maildir/
+
+[options]
+delete = True
+</pre>
+
+<p>The variables to set in Gnus are:</p>
+
+<pre class="src">
+(setq gnus-select-method '(nnml <span style="color: #8b5a00; background-color: #b9babd;">""</span>))
+(setq mail-sources '((maildir <span style="color: #00688b; background-color: #b9babd;">:path</span> <span style="color: #8b5a00; background-color: #b9babd;">"~/keep/Maildir"</span>)))
+</pre>
+
+<p>Before I used to do fancy splitting. It turned out to be a pain to
+maintain. I now use plain splitting with three inboxes: interesting,
+medium and boring.</p>
+
+<pre class="src">
+(setq
+ nnmail-split-methods
+ '((<span style="color: #8b5a00; background-color: #b9babd;">"medium"</span> <span style="color: #8b5a00; background-color: #b9babd;">".*bbdb-info@lists\\.sourceforge\\.net"</span>)
+   (<span style="color: #8b5a00; background-color: #b9babd;">"medium"</span> <span style="color: #8b5a00; background-color: #b9babd;">".*stumpwm-devel@nongnu\\.org"</span>)
+   (<span style="color: #8b5a00; background-color: #b9babd;">"interesting"</span> private-is-email-in-bbdb)
+   (<span style="color: #8b5a00; background-color: #b9babd;">"interesting"</span> <span style="color: #8b5a00; background-color: #b9babd;">"X-Ivan: interesting"</span>)
+   (<span style="color: #8b5a00; background-color: #b9babd;">"boring"</span> <span style="color: #8b5a00; background-color: #b9babd;">""</span>)))
+</pre>
+
+<p>The function private-is-email-in-bbdb will check that the person that
+sent me an e-mail is in bbdb. If that's the case, the e-mail will
+land in the &quot;interesting&quot; inbox.</p>
+
+<pre class="src">
+(<span style="color: #8b008b; background-color: #b9babd;">defun</span> <span style="color: #00008b; background-color: #b9babd;">private-is-email-in-bbdb</span> (arg)
+  (save-excursion
+    (goto-line 1)
+    (<span style="color: #8b008b; background-color: #b9babd;">when</span> (re-search-forward <span style="color: #8b5a00; background-color: #b9babd;">"^From: \\(.*\\)"</span> nil t)
+      (<span style="color: #8b008b; background-color: #b9babd;">let</span> ((e-mail (nth 1 (gnus-extract-address-components (match-string 1)))))
+        (bbdb-search (bbdb-records) nil nil e-mail)))))
+</pre>
+
+<p>The &quot;X-Ivan: interesting&quot; header comes from my mail server.</p>
+
+<p>I define a function that will fetch new e-mail:</p>
+
+<pre class="src">
+(<span style="color: #8b008b; background-color: #b9babd;">defun</span> <span style="color: #00008b; background-color: #b9babd;">private-get-mail</span> ()
+  (<span style="color: #8b008b; background-color: #b9babd;">when</span> (get-buffer <span style="color: #8b5a00; background-color: #b9babd;">"*Group*"</span>)
+    (setq ivan-var-display-message nil)
+    (<span style="color: #8b008b; background-color: #b9babd;">let</span> (state)
+      (setq state gnus-plugged)
+      (gnus-agent-toggle-plugged t)
+      (gnus-group-get-new-news)
+      (gnus-agent-toggle-plugged gnus-plugged))
+    (setq ivan-var-display-message t)))
+
+(run-at-time t 60 'private-get-mail)
+</pre>
+
+<p>I have gmane news as my secondary select. The function unplugs Gnus so
+it won't check for news over the network. I think it would be too slow.</p>
+
+<p>The ivan-var-display-message variable is a nasty, nasty hack to hide
+all the messages issued by Gnus while it fetches e-mail. I have
+advised the message function like so:</p>
+
+<pre class="src">
+(defadvice message (around ivan-fun-message activate)
+  <span style="color: #008b00; background-color: #b9babd;">"Shut up message"</span>
+  (<span style="color: #8b008b; background-color: #b9babd;">when</span> ivan-var-display-message
+    ad-do-it))
+</pre>
+
+<p>The following function shows the e-mail indicator when there are
+messages in my interesting inbox (thanks to Julien Danjou):</p>
+
+<pre class="src">
+(<span style="color: #8b008b; background-color: #b9babd;">defun</span> <span style="color: #00008b; background-color: #b9babd;">private-check-email</span> ()
+  <span style="color: #008b00; background-color: #b9babd;">"Return t when there are interesting e-mails"</span>
+  (<span style="color: #8b008b; background-color: #b9babd;">when</span> (boundp 'gnus-newsrc-alist)
+    (<span style="color: #8b008b; background-color: #b9babd;">dolist</span> (entry gnus-newsrc-alist)
+      (<span style="color: #8b008b; background-color: #b9babd;">let</span> ((group (car entry)))
+        (<span style="color: #8b008b; background-color: #b9babd;">when</span> (string= group <span style="color: #8b5a00; background-color: #b9babd;">"interesting"</span>)
+          (<span style="color: #8b008b; background-color: #b9babd;">let</span> ((unread (gnus-group-unread group)))
+            (<span style="color: #8b008b; background-color: #b9babd;">when</span> (and (numberp unread)
+                       (&gt; unread 0))
+              (<span style="color: #8b008b; background-color: #b9babd;">return</span> t))))))))
+
+(setq display-time-mail-function 'private-check-email)
+</pre>
+
+<p>And now I have an indicator when there is an interesting mail to read.</p>
+

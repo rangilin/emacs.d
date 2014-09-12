@@ -1,0 +1,10 @@
+
+<p>Christian Neukirchen sent me an easier way.</p>
+
+<p>&quot;I knew this was easier, and it works directly, even for nested paths.&quot;</p>
+
+<pre class="example">
+% git rev-parse master:gnupg
+05a47056fbf70f5bb3b04ce85843dd68458f5a0b
+</pre>
+

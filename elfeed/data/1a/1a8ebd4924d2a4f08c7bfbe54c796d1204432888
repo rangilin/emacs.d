@@ -1,0 +1,91 @@
+<p>
+A little thought experiment has been running around in my head for the
+past couple of days. I thought I'd share it with you.
+</p>
+
+<p>
+It's very hard to rank programming languages. We get a sense that some
+are good &amp; some are bad, but the more experience you have the more
+caveats you have to allow: X is good (but it's hard to find good X
+programmers); Y is fairly bad (but it's good for data-wrangling),
+etc. Choosing the right language for the job is an art. But, as a
+novel way of looking at the problem, here's my thought experiment:
+</p>
+
+<blockquote>
+<p>
+There's a 5-year project coming up. You don't know what it is. You
+don't know how many programmers will be working on it, or how good
+they'll be. You know nothing, except that it must be fairly large
+because it's a 5-year project.
+</p>
+
+<p>
+You have one choice, and one objective. You get to choose the
+programming language for the project. And your objective is to
+guarantee that at the end of five years, the code-base is a sprawling,
+hideous, unmaintainable nightmare.
+</p>
+
+<p>
+Which language do you pick?
+</p>
+</blockquote>
+
+<p>
+You're not allowed to cheat. You have to pick a language you'd use for
+a real project. You can't choose assembly language, and you certainly
+can't choose <a href="http://en.wikipedia.org/wiki/Brainfuck">Brainfuck</a>.
+</p>
+
+<p>
+I think this is an interesting way of thinking about the question for
+two reasons. First, whilst we spend so much of our time as programmers
+maintaining code, we spend surprisingly little time talking about
+maintenance. Or thinking about it. And second, the question isn't,
+"Which is the least maintainable language?", but rather, "Which
+languages tends to encourage the least maintainable behaviour?"
+</p>
+
+<p>
+I think I've made my choice. I think I'm picking Perl.
+</p>
+
+<p>
+Now don't get me wrong, I like Perl a lot. I seem to like Perl more
+than most people I meet. It's particularly strong at text-handling,
+and makes a good choice when you're forced to resort to
+screen-scraping semi-structured data.
+</p>
+
+<p>
+But Perl does not lend itself well to large, clear code bases. It has
+a good object model, but it doesn't enforce it. It doesn't even really
+recommend it. It's just there in case anyone's interested.
+</p>
+
+<p>
+It has something like a recommended project structure, but unless
+you're producing modules for CPAN or you've stumbled upon the object
+model, you'll probably miss it.
+</p>
+
+<p>
+And worst of all there's very little unity of approach. Ask five Java
+programmers to write a simple program, and by-and-large all five of
+them will come up with a similar answer. Ask five Perl programmers,
+and they'll all have a different preferred approach. And they'll
+probably all take pride in how novel their solution is. That's all
+good fun, but having five ways to do the same simple thing doesn't
+lend itself to large scale coding.
+</p>
+
+<p>
+I could pick other languages. The worst coding crimes I've ever seen
+have all been in PHP. But for an absolute lack of unity, I'm picking
+Perl.
+</p>
+
+<p>
+What would you pick?
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/pQbcmDXDNxQ" height="1" width="1"/>

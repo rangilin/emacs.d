@@ -1,0 +1,49 @@
+<p>I&#8217;ve picked up something this time which I&#8217;ve always wanted to study properly &#8211; <a href="http://gnus.org/"><em>Gnus</em></a>. The Emacs news and email reader. This is going to be a multipart episode since Gnus is so big. I don&#8217;t know how many exactly but as of now, I&#8217;ve got a 3 part thing planned.</p>
+
+<p>Also, the hiatus was unexpected. Things should be smoother now.</p>
+
+<iframe src="http://archive.org/embed/EmacsMovies/12.1-episode-gnus-1.webm" width="640" height="480" frameborder="0"></iframe>
+
+
+<p>.</p>
+
+<p>Other formats are available on the <a href="http://archive.org/details/EmacsMovies">Archive.org page</a>.</p>
+
+<p>Comments welcome.</p>
+
+<h2>Summary</h2>
+
+<ol>
+<li>The <code>gnus-select-method</code> variable decides where to pick news from.</li>
+<li><code>M-x gnus</code> starts gnus.</li>
+<li><code>g</code> refreshes subsribed groups.</li>
+<li><code>F</code> looks for new groups.</li>
+<li><code>^</code> takes you into the server buffer.</li>
+<li><code>RET</code> will do different things depending on where you are. On a group, it will show you articles in the group.</li>
+<li><code>t</code> toggles topics in the Groups buffer.</li>
+<li><code>L</code> shows all groups (including ones with no unread articles).</li>
+<li><code>l</code> shows only groups with no unread articles.</li>
+<li><code>c</code> catches up a group marking all articles as read.</li>
+<li><code>U</code> is used to subscribe to a group.</li>
+<li>Information on groups and articles in cached in the <code>.newsrc.eld</code> file which you shouldn&#8217;t delete.</li>
+<li>Gnus uses <code>.gnus</code> as a startup file.</li>
+<li><code>gnus-secondary-select-methods</code> is the variable that controls sources other than the primary one mentioned in <code>gnus-select-method</code>. Mail sources usually come here.</li>
+<li>The <code>mail-sources</code> variable specify where the mail backends should pick data up from.</li>
+<li>The <code>nnmail-split-methods</code> function can be used to split mail depending on criteria like sender etc.</li>
+</ol>
+
+
+<h2>Further reading</h2>
+
+<ol>
+<li>The <a href="http://gnus.org/manual.html">Gnus manual</a>.</li>
+<li>The <a href="http://www.emacswiki.org/CategoryGnus">Gnus category on emacswiki</a> for lots of tips and tricks.</li>
+</ol>
+
+
+<h2>Extras</h2>
+
+<ol>
+<li>The <a href="http://code.activestate.com/recipes/578514-create-a-temporary-mailbox/?in=user-4173873">recipe</a> used to generate the mailbox.</li>
+</ol>
+

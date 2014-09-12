@@ -1,0 +1,26 @@
+<p>These are the topics I&#8217;m planning to cover in the first <em>section</em>. I&#8217;m posting this up to solicit feedback on content as well as order</p>
+
+<ol>
+<li>Registers and bookmarks</li>
+<li>A bunch of minor modes (auto-fill, flyspell etc.)</li>
+<li>Basic customisation (probably a multi part episode)
+
+<ul>
+<li>Very basic elisp.</li>
+<li>Simple settings like colours, font size etc.</li>
+<li>Minor modes</li>
+<li>Mode hooks</li>
+<li>Key bindings</li>
+<li>The <code>customize</code> system</li>
+<li>Organising your <code>.emacs</code> file.</li>
+</ul>
+</li>
+<li>Keyboard macros</li>
+</ol>
+
+
+<p>I think this should cover it. I might make changes based on how the episodes turn out but this sounds like a decent starting point.</p>
+
+<p>The other three sections will cover applications like <code>dired</code> etc., programming modes and utilities and finally, elisp. I&#8217;ll worry about those when I get there.</p>
+
+<p>This is a call for feedback so please let me know.</p>

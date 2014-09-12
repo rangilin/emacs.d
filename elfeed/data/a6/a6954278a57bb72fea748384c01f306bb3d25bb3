@@ -1,0 +1,46 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #29. As ever, things are moving quickly in the world of Go: Go 1.3 has been released and there has been lots of Go-related activity at I/O (recordings to come). Also, we tipped over the 5,000 subscriber mark yesterday, so thanks for reading!</p>
+<p>Also, a quick reminder that there are two upcoming conferences: dotGo in Paris later this year, and Gophercon India early next year.</p>
+<p>Compiled by <a href="https://twitter.com/mattrco">Matt Cottingham</a> and <a href="https://twitter.com/kelseyhightower">Kelsey Hightower</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="http://blog.golang.org/go1.3">Go 1.3 is released</a><br />Go 1.3 has been released; read the announcement here.</p>
+<p><a href="http://dave.cheney.net/2014/06/27/ice-cream-makers-and-data-races">Ice cream makers and data races</a><br />"There is no such thing as a safe data race. Your program either has no data races, or its operation is undefined." <a href="http://www.goinggo.net/2014/06/ice-cream-makers-and-data-races-part-ii.html">Follow-up article</a>.</p>
+<p><a href="http://beego.me/blog/beego_api">Building a web service with auto-generated documentation</a><br />A useful integration of Beego, the web framework, and Swagger, a tool that can generate documentation.</p>
+<p><a href="https://docs.google.com/document/d/1N3XyVkAP8nmWjASz8L_OjjnjVKxgeVBjIsTr5qIUcA4/">Go support for Android</a><br />A proposal to add support for the Android NDK to Go.</p>
+<p><a href="https://medium.com/@kapuramax/procedural-image-generation-in-go-7a57ff2e2e90">Go, colourspace, and all the RGB colours in one image</a><br />A writeup of using Go to generate images containing all RGB colours.</p>
+<p><a href="http://blog.maxcdn.com/learned-stop-worrying-love-logs/">How we built our real-time analytics platform</a><br />A look at how MaxCDN use Go.</p>
+<p><a href="https://willnorris.com/2014/05/go-rest-apis-and-pointers">Go, REST APIs, and pointers</a><br />Covering some of the important features of implementing a REST web service consumer in Go.</p>
+<p><a href="http://www.thumbtack.com/engineering/go-hercule/">Implementing a search engine in Go</a><br />Summarising some of the interesting aspects of writing a service in Go.</p>
+<p><a href="http://gophervids.appspot.com/">GopherVids</a><br />Excellent catalogue of videos about Go.</p>
+<p><a href="http://golang-examples.tumblr.com/post/87553422434/template-and-associated-templates">Template and associated templates</a><br />In-depth look at some Go template features.</p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="https://github.com/peco/peco">peco/peco</a><br />An interactive filtering tool for the command line.</p>
+<p><a href="https://github.com/google/cayley">google/cayley</a><br />Cayley is an open-source graph inspired by the graph database behind Freebase and Google's Knowledge Graph.</p>
+<p><a href="https://github.com/wandoulabs/tyrant">wandoulabs/tyrant</a><br />A distributed job scheduler running on Apache Mesos.</p>
+<p><a href="https://github.com/kaicheng/jobmux">kaicheng/jobmux</a><br />jobmux reads jobs from stdin and executes them concurrently.</p>
+<p><a href="https://github.com/shirou/gopsutil">shirou/gopsutil</a><br />A port of psutil, the system information collector.</p>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.sendgrid.com/"><img src="https://s3.amazonaws.com/golangweekly/sendgrid.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.sendgrid.com/">SendGrid</a> powers your app's outgoing &amp; incoming email capabilities, through a super-scalable cloud-based infrastructure. SMTP &amp; API integration options let developers build more faster and focus on the important stuff. One of the early companies to use Go in a large scale production environment, SendGrid will reliably and at scale deliver your critical application email.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator and provider of Continuum, the secure, hybrid cloud platform that provides cross-cutting control over all service layers, resources, and connections. Built in Go, Continuum enables perimeter-less network security over large-scale distributed systems, uses policy to unify dev and ops, and blends legacy and new technologies. With Continuum, you can use the tools you want, focus on what you do best, and go faster, safely. At enterprise scale.</p>
+</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,12 @@
+<p>Just a fun link today.</p>
+
+<p>I read about Design by Contract first, didn’t understand it, then read about Test-Driven Development and began to think of TDD as a kind of DbC by example. Accordingly, I have respect for both practices and have even combined them on projects. Moreover, “<a href="http://blog.thecodewhisperer.com/blog/categories/integrated-tests-are-a-scam">Integrated Tests are a Scam</a>” amounts to little more than Isolating Layers by Contract.</p>
+
+<p>When I saw <a href="http://link.jbrains.ca/Wnd5i1">the Vigil programming language</a> today, I fell in love. To quote its README:</p>
+
+<blockquote>
+  <p>When a Vigil program is executed, Vigil itself will monitor all oaths (implorations and swears) that have been made. If an oath is broken, the offending function (the caller in the case of implore and the callee in the case of swear) will be duly punished.</p>
+</blockquote>
+
+<p>I know for sure I’ll try Vigil at the next <a href="http://www.coderetreat.org">Code Retreat</a>.</p>
+

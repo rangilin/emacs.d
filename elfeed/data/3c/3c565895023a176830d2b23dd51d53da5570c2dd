@@ -1,0 +1,18 @@
+
+<p>You need to run exim as root. So edit Local/Makefile thus:</p>
+
+<pre class="example">
+EXIM_USER=mailnull
+# FIXED_NEVER_USERS=root (comment out)
+</pre>
+
+<p>In your configuration file set:</p>
+
+<pre class="example">
+exim_user = root
+exim_group = mail
+</pre>
+
+<p>And, hey presto, it works! I hope it will save you the many hours it
+took me to figure it out.</p>
+

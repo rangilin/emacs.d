@@ -1,0 +1,125 @@
+<h2>Rachel's Suffering</h2>
+
+<p>In one of my first jobs as a programmer I joined a team working on a governmental project. The team was sitting at the code shop, not at the governmental place.</p>
+
+<p>The coding shop I was working for as a coder at that time had some really good people working there. Many of them were suffering silently.</p>
+
+<p>I remember this one specific coder working there. I'll call her <em>Rachel</em> because that's not her real name. <em>Rachel</em> was in her 40s, and she was an expert database person. She mastered <em>SQL</em> syntax, stored procedure optimizations, index optimizations and partitioning like nobody else at that office. </p>
+
+<p>I remember the first time I came up to Rachel's desk to ask her something. She was hunched over the screen, like <em>Golum</em> staring at his precious ring. Her nose almost touching the screen. </p>
+
+<p>I turned my face at the screen to see what was so interesting. For half a second, I didn't understand what I was seeing.
+It looked like very small, dead black ants, on a white background, all over her screen.</p>
+
+<p>I squinted (I must have been 25 at the time) to try and see better. These were words. </p>
+
+<blockquote>
+  <p>"SELECT * FROM…"</p>
+</blockquote>
+
+<p>There were well over a hundred lines of SQL code, in a tiny, oh so tiny font, all made to fit the small 15" screen. </p>
+
+<p>"What the…" I muttered. Rachel smiled with pride. "Yeah, I know". She was proud of having been able to work on such a small screen with such a large amount of data.</p>
+
+<p>She accepted the smallness of the screen as a god given commandment, and was just trying to do her best. She wasn't unhappy, or at least unaware of how unhappy she was.</p>
+
+<p>I could not understand what she was smiling about. She has been working there for at least five years before I stepped through the door, and I tried to imagine her life as a developer, hunched over the code, trying to get just enough real-estate to be able to do their job. Focusing her eyes so many hours a day at such small text must not have made much good.</p>
+
+<p>It was madness. </p>
+
+<p>I looked around, and everyone around me had 15" monitors. A 15 inch monitor was not unheard of at the time, but most developers had at home nothing less than a 17" monitor, and some had 19". These were the old, bloated CRT screens, not the nice thin ones like we have today.</p>
+
+<h2>Breaking the Screen Rules</h2>
+
+<p>I had a 17" screen. Well, not at first. I started out with a 15" screen, but having had a 17" screen at home, I knew I couldn't go back to working on a 15" for long. </p>
+
+<p>I asked my team leader if I could get a 17" screen. I heard back that there was a line of seniority to receive the screens. There were at least six people ahead of me. Rachel was number 8 on that list. New screen would arrive only when an older screen had broke, which was every couple of months.</p>
+
+<p>I couldn't stand it. I just couldn't accept it. I had just finished reading "Mythical Man Month" and "The Pragmatic Programmer" and was all riled up about having good developer environments and tools that help rather than hurt.</p>
+
+<p>So I took my 17" screen from home and brought it to work. I would work at home with a 15" and work at work with 17". 
+So one morning I just showed up at the office with a big box containing a 17" screen and connected it to my computer. 
+As I walked down the corridor I had to explain to everyone that I got it from home, so that nobody will feel like I cheated my way up to a 17" screen. How silly is it to have a screen size measure your "seniority" anyway?</p>
+
+<p>I <em>was</em> cheating,  though. I didn't go by the rules. I went around the rules, and made up my own rules. Nobody got hurt. But I got to work in an environment that was better than I had, and it helped me do better at my work.</p>
+
+<p>I didn't care that it wasn't "my job" to take care of the tooling I was working on. Because <em>it is</em> my job to worry about the tools I work with.</p>
+
+<blockquote>
+  <p>If you don't worry about your technical environment, nobody else won't either, probably.</p>
+</blockquote>
+
+<p>A year later I got my new screen, but it was old news. I had already been working with such a screen for a year, so I gave up my turn and gave it to the next in line after me.</p>
+
+<h2>The Creeping Whiteboard</h2>
+
+<p>As I reach back into my mind, I had behaved like this in other technical projects. Always trying to find a way to shorten, simplify or simply work around things that bother me.</p>
+
+<p>In a recent (again, governmental) project, we had to use TFS to manage the tasks. It was a team of 7 developers. And the testers were using Mercury tools to manage their own tasks.</p>
+
+<p>I was coaching the Scrum Master at the time and suggested that we also use a whiteboard to "you know, manage just the weekly tasks". This task board became more and more sophisticated, and the product owner liked it as well.</p>
+
+<p>Soon, all work would revolve around the task board and its notes. People started to forget to put tasks in TFS, and nothing happened. </p>
+
+<p>When I left the project six months later, the product owner asked me:</p>
+
+<blockquote>
+  <p>"Hey, am I crazy, or do we not really need TFS to manage our tasks anymore? we seem to be doing just fine with the whiteboard."</p>
+
+<p>"Exactly"    - I replied.</p>
+</blockquote>
+
+<p>Win for common sense over company bureaucracy. 
+The only reason this worked is because people <em>felt</em> it working. It's not enough to just discuss something and try to convince people. <em>Show them what it feels like</em>. </p>
+
+<h2>Technical Disobedience</h2>
+
+<p>I never had a name for this behavior that I seem to be repeating over and over again at various places. I do know that it helps move things and get shit done.</p>
+
+<p>I know that <a href="http://TeamLeadSkills.com">I teach it in my book for software team leaders</a>, to never accept the status quo for what it is and to realize you always have things you can do.</p>
+
+<p>Then the phrase "Technical Disobedience" finally clicked into place when I saw <a href="http://blog.p2pfoundation.net/technological-disobedience-in-cuba/2013/09/22">this short film about Cuba and the "Technological Disobedience"</a> the cubans had to come up with to survive in a society that had choked out any input of mechanical parts, new technology and new science.</p>
+
+<p>The cubans had to deal with being in a very closed bubble, and had to make their own luck and their own innovations with the things they already had. So they reinvented old ideas, and gave them a twist. Old ventilator engines became bicycle engines, freezer engines. Cars and Bicycle would be combines to create half breed mutants that did what they couldn't do with the things they already had. get around.</p>
+
+<h2>And what about us developers?</h2>
+
+<p>We take so many things for granted, when we could be going so much farther and faster with just a little more courage to break and remake the small rules that govern our technical life.</p>
+
+<p>We are all locked in our own little technical world; A technical kingdom with DOs and DON'Ts. From startups to "enterprise software houses" — we are all bound by some rules. </p>
+
+<p>Those rules can be as simple as "we don't have the budget to do this", as annoying as "approving a budget for this will take three months", as frustrating as being unable to have test or staging environments due to oblivious "security restrictions" and as down right stupid as "we'd rather spend $20,000 on the wrong thing rather than get the right thing for $1000 because that's where the budgets are".</p>
+
+<p>If you just accept it, you're stuck just like everybody else. If you realize that you can actually do small hacks in the way the system works, you can get things done that none in that organization ever thought possible.</p>
+
+<p>Sometimes you just have to say "screw it" and try out something. <br />
+It's better to try than to continue to fail and sometimes it's better to ask forgiveness than permission.</p>
+
+<p>It's actually pretty easy once you try it.
+Here are some other examples.</p>
+
+<h2>The Test Machine(s)</h2>
+
+<p>A project I was consulting for wanted to get things just right. The team even got an OK from management to try this new <em>Kanban</em> and <em>Continuous Integration</em> they have been hearing so much about.</p>
+
+<p>So I introduced the team to the idea of <a href="http://osherove.com/blog/2013/1/7/build-pattern-shipping-skeleton.html">Shipping Skeleton</a>. You start with a shipping "hello world" application that gets deployed to test, staging and production with the click of a button, while also passing all the tests.
+then you start working on the actual code.</p>
+
+<p>Great idea? Only in theory for that team. They tried, but they didn't even have test machines to deploy to and show a demo.
+To get new virtual test machines would take a month, and they wanted to start as quickly as possible without compromising on their new values. You had to go through a whole system of things to get something as precious as that, and the people responsible were always so damn busy, and in a totally different country.</p>
+
+<p>This is a classic case of management saying one thing, and the system fully designed to say a totally different thing ("screw you, you ain't going nowhere so quickly").</p>
+
+<p>So I went to management as asked their permission to stop using the company that was providing the virtualization services for that team. They were happy and said "go ahead. try other things. it will give us leverage with that 3rd party company come negotiations day. " So I urged the team to try and look into amazon EC2 or Azure machines. No such luck. Security would not let something as simple as that work. Too many loopholes.</p>
+
+<p>So I went to master architect at the company asked him if there are any machines lying around that we could use for internal test and demo machines. He pointed me at the machine we had then used to show demos on the big screen TV, and that as long as it is not in use, it should be ok to use it. Bam, we had a machine under our control that we could at least do automated deploys and demos on. Better than nothing.</p>
+
+<h2>The unplanned team room and hardware</h2>
+
+<p>Me and a team once took over a non used project room along with a bunch of non used machines from an abandoned project. We had 4 test machines for load testing. it was a good project.</p>
+
+<h2>Summary</h2>
+
+<p>In software, it is far to easy to accept the system around you as status quo. It is harder to realize that software is soft, and that systems can be soft as well. There are many small rules you can try and hack around to get things done.</p>
+
+<p>Innovation is part of your job, even if the system directs you otherwise. If you are not going to quit your job, do what you can to innovate in your own boundaries, and get things done by changing the rules just enough. That is why I write about continuous experimentation as part of your role as a team leader <a href="http://5whys.com/blog/team-leader-manifesto-take-3.html">in the team leader manifesto.</a> </p>

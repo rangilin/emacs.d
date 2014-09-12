@@ -1,0 +1,50 @@
+<p>There are quite a few packages in the &ldquo;official&rdquo;
+<a href="https://github.com/clojure-emacs">clojure-emacs GitHub organization</a>,
+but many of them have been deprecated recently with the release of
+CIDER 0.7. Unfortunately not everyone is aware of this yet and I often see
+tickets related to those deprecated projects. In this short post I&rsquo;ll
+outline the deprecations and provide a bit of background for them.</p>
+
+<h3>clojure-test-mode</h3>
+
+<p>The venerable
+<a href="https://github.com/clojure-emacs/clojure-mode">clojure-test-mode</a> was
+deprecated in favor of <code>cider-test</code> (which is bundled with CIDER 0.7).
+<code>clojure-test-mode</code> featured quite a lot of inlined Clojure code,
+which made the package very hard to maintain and reworking it to use
+nREPL middleware was a no-brainer for us. <code>clojure-test-mode</code> will be
+removed from the <code>clojure-mode</code> repo at some point. It also interferes
+with CIDER&rsquo;s initialization, so you&rsquo;re <strong>strongly encouraged</strong> to get rid of it.</p>
+
+<p>Down the road we might extend <code>cider-test</code> to support other test frameworks
+as well (which should be feasible with different middleware providing the same interface).</p>
+
+<h3>company-cider</h3>
+
+<p><a href="https://github.com/clojure-emacs/company-cider">company-cider</a> was deprecated, because <code>company-mode</code>
+integration was added to CIDER itself (making <code>company-mode</code> the officially supported and recommended
+completion library).</p>
+
+<h3>ac-nrepl</h3>
+
+<p><a href="https://github.com/clojure-emacs/ac-nrepl">ac-nrepl</a> has been
+superseded by <a href="https://github.com/clojure-emacs/ac-cider">ac-cider</a>.
+<code>ac-cider</code> has a simpler codebase and leverages the <code>compliment</code>-based completion
+introduced in CIDER 0.7. We&rsquo;ll probably remove <code>ac-nrepl</code> at some point in the future
+to avoid the confusion between the two.</p>
+
+<h3>cider-inspect</h3>
+
+<p><a href="https://github.com/clojure-emacs/cider-inspect">cider-inspect</a> was absorbed into CIDER 0.7.</p>
+
+<h3>cider-tracing</h3>
+
+<p><a href="https://github.com/clojure-emacs/cider-tracing">cider-tracing</a> was superseded by middleware-based
+tracing support integrated in CIDER 0.7.</p>
+
+<h2>Epilogue</h2>
+
+<p>Those deprecations are also mentioned in the documentation of the
+respective packages, but I feel it&rsquo;s nice to have them listed together
+in a single document. Most of the packages will also emit load-time
+deprecation warnings.</p>

@@ -1,0 +1,38 @@
+<p>Securing funding for OS projects and blogs (outside of displaying annoying ads)
+is a hard endeavor.  While I&#8217;d love to raise enough cash to work on
+CIDER, projectile and Emacs itself for an entire year through some
+wildly successful crowdfunding campaign, that&#8217;s unlikely to ever
+happen.</p>
+
+<p>That said, I recently discovered an interesting alternative to one-off
+crowdfunding campaigns called <a href="http://gittip.com">gittip</a>.
+Self-described as <code>sustainable crowdfunding</code> (meaning people will get
+microdonations (say half a buck) from their patrons each week) it seems like a
+reasonable way to raise a modest sum of money so you could work on
+open-source projects more than your regular schedule might permit.</p>
+
+<p>So, if you like Emacs Redux and the Emacs projects in which I&#8217;m involved like:</p>
+
+<ul>
+<li><a href="https://github.com/bbatsov/prelude">Prelude</a> - An Emacs distribution built on top of GNU Emacs 24</li>
+<li><a href="https://github.com/bbatsov/projectile">Projectile</a> - Project Interaction Library for Emacs, that stays out of your way</li>
+<li><a href="https://github.com/clojure-emacs/clojure-mode">clojure-mode</a> - A major mode for programming in Clojure</li>
+<li><a href="https://github.com/clojure-emacs/cider">cider</a> - A Clojure programming environment for Emacs</li>
+<li><a href="https://github.com/bbatsov/guru-mode">guru-mode</a> - An annoying companion on your journey to Emacs mastery</li>
+<li><a href="https://github.com/bbatsov/projectile">rubocop-emacs</a> - Emacs integration for <a href="https://github.com/bbatsov/rubocop">RuboCop</a></li>
+<li><a href="https://github.com/bbatsov/zenburn-emacs">zenburn-emacs</a> - The Zenburn color theme, ported to Emacs</li>
+<li><a href="https://github.com/bbatsov/solarized-emacs">solarized-emacs</a> - The Solarized color theme, ported to Emacs</li>
+<li><a href="https://github.com/lunaryorn/puppet-mode">puppet-mode</a> - A mode for editing Puppet 3 manifests</li>
+<li><a href="https://github.com/chrisbarrett/swift-mode">swift-mode</a> - A mode for editing Swift code</li>
+</ul>
+
+
+<p>consider supporting my work via gittip.</p>
+
+<p><a href="https://www.gittip.com/bbatsov"><img src="https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png" alt="Support via Gittip" /></a></p>
+
+<p><strong>P.S.</strong></p>
+
+<p>Alternatively you can use PayPal.</p>
+
+<p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=3J4QE5QBJU84Q"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" alt="Paypal" /></a></p>

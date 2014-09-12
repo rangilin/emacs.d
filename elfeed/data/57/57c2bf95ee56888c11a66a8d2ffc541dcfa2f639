@@ -1,0 +1,72 @@
+<p>Emacs 24.4 ships with a new minor mode called
+<code>prettify-symbols-mode</code>. Its purpose is to replace the standard text
+representation of various identifiers/symbols with a (arguably) more
+aesthetically pleasing representation (often a single unicode
+character would replace several ascii characters).</p>
+
+<p>A classic example would be <code>lambda</code> from various Lisp dialects that many people
+prefer to replace with the greek letter <code>λ</code> (small lambda). <code>prettify-symbols-mode</code> allows you
+to achieve this by relying on a simple mapping expressed in the form of an <code>alist</code> that
+each major mode must initialize (<code>prettify-symbols-alist</code>).
+Simply put - major modes have to provide the configuration for <code>prettify-symbols-mode</code>.</p>
+
+<p>Lisp modes do this via <code>lisp--prettify-symbols-alist</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">defconst</span> <span class="nv">lisp--prettify-symbols-alist</span>
+</span><span class='line'>  <span class="o">&#39;</span><span class="p">((</span><span class="s">&quot;lambda&quot;</span>  <span class="o">.</span> <span class="nv">?</span><span class="err">λ</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This means that out of the box only <code>lambda</code> will get replaced.
+You can, of course, add more mappings for different major modes:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;emacs-lisp-mode-hook</span>
+</span><span class='line'>            <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span>
+</span><span class='line'>              <span class="p">(</span><span class="nb">push</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;&gt;=&quot;</span> <span class="o">.</span> <span class="nv">?</span><span class="err">≥</span><span class="p">)</span> <span class="nv">prettify-symbols-alist</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let&#8217;s see the mode in action. Consider this bit of Emacs Lisp code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">&gt;=</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="nv">something</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="nv">something-else</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After you do <code>M-x prettify-symbols-mode</code> you&#8217;ll end up with:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="err">λ</span> <span class="p">(</span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="err">≥</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="nv">something</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">(</span><span class="nv">something-else</span><span class="p">)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To enable this for a particular mode use <code>(add-hook 'some-mode-hook 'prettify-symbols-mode)</code>.
+If you&#8217;d like to enable it globally just add the following to your config:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">global-prettify-symbols-mode</span> <span class="mi">+1</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>By the way, sky is the limit for symbol prettification. One fairly extreme example would be
+vim&#8217;s plugin <a href="https://github.com/enomsg/vim-haskellConcealPlus">haskell-conceal+</a> that goes to great
+lengths to bring proper mathematical notation to Haskell code. We can achieve more or less the same effect
+with <code>prettify-symbols-mode</code>, but one have to ask themselves where should we draw the border between
+tasteful and distasteful prettifications.</p>

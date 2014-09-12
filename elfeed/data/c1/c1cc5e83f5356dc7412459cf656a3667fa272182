@@ -1,0 +1,113 @@
+<p>昨晚寫完 <a href="https://github.com/brucehsu/gobiesvm">GobiesVM</a> 裡的<code>IO.readlines</code>函式後，很開心地用了有著100k個單詞的單行文字檔作測試。咦？怎麼一個字都沒有？</p>
+
+<p>第一版的<code>IO.readlines</code>實作，就如同你在stackoverflow上會找到的一樣，是用<code>bufio.Scanner</code>來讀文字檔</p>
+
+<figure class="figure-code code"><figcaption><span>
+</span></figcaption><div class="highlight"><pre>input, err := os.Open(filename)
+scanner := bufio.NewScanner(input)
+
+for scanner.Scan() {
+  line := scanner.Text()
+}
+</pre></div>
+</figure><p>上面這段code看似沒有問題，在一般的文字檔（例如程式碼本身）測試也都正常，為什麼在遇到大檔的時候就出包了呢？<br>
+當我們去看 <a href="http://golang.org/src/pkg/bufio/scan.go">bufio.Scanner的實作</a> 時，會發現 <code>Scanner</code> 在運作時，會將文字分為一個個的token，並交由<code>SplitFunc</code>決定如何區分token（預設是斷行），由於是buffered IO，所以會有每個token所能用的buffer的最大size（<code>MaxScanTokenSize = 64 * 1024</code>），以上面的檔案為例，因為100k個單字全部都集中於一行內，所以很輕易地就超過了這個限制。因此當我將每個詞分至多行後就可以正常運行。</p>
+
+<p>有鑑於這樣的解決之道只是治標不治本，所以讓我們來看看第二個版本吧：</p>
+
+<figure class="figure-code code"><figcaption><span>
+</span></figcaption><div class="highlight"><pre>input, _ := os.Open(filename)
+defer input.Close()
+
+reader := bufio.NewReader(input)
+
+line, err := reader.ReadString('\n')
+for ; err == nil; line, err = reader.ReadString('\n') {
+  // Do something
+}
+</pre></div>
+</figure><p>同樣在<code>bufio</code>之下有實作<code>io.Reader</code>的buffered <code>Reader</code>物件可使用，裡頭也提供了<code>bufio.Reader.ReadLine()</code>可用，不過在文件內提到一般建議使用<code>bufio.Reader.ReadString('\n')</code>，而 <a href="http://golang.org/src/pkg/bufio/bufio.go">bufio的實作</a> 內也是後者單純些。</p>
+
+<p><img src="http://user-image.logdown.io/user/76/blog/76/post/210837/CI7et2SHSquJzV0gK1I4_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7%202014-07-18%20%E4%B8%8B%E5%8D%8823.33.59.png" alt="螢幕快照 2014-07-18 下午23.33.59.png"></p>
+
+<p>註：這裡雖然有印出內容，但以下的測試皆改為僅只有印出回傳陣列的大小，所以速度會有所不同。</p>
+
+<p>這次測試出來的結果，相當地令人滿意，至少就如同上圖，GobiesVM的<code>IO.readlines</code>所用的時間都比MRI來得少。</p>
+
+<p>然而事情沒有憨人想得那麼簡單，在不安穩的一覺醒來，我再度用10M行的文字檔作測試時，GobiesVM就原形畢露了。此時的MRI平均只要4秒多就能夠讀取完畢，而GobiesVM則要11秒左右。</p>
+
+<p>當然最便利的藉口就是：GobiesVM沒有作最佳化！所以我就跑去編了個把最佳化（這些選項位於<code>vm_opts.h</code>裡，如果你想知道的話）全部關掉的MRI出來了…… XD<br>
+把最佳化全部拿掉之後的效果十分顯著，完成時間都在30秒以上。</p>
+
+<p>……好吧，這樣的方法基本上只是自嗨，還是得找出一個比較實在點的方式才行。<br>
+可能的overhead在哪裡呢？一來當然就是即使Go效能出眾，但在多數時候拖著一個Runtime的它還是比輕盈的C還要來得慢些，二來buffered IO本來就是一個chunk一個chunk地讀進來時作處理，甚至會丟掉在所設定的delimiter後的內容，這樣難免會有些overhead。</p>
+
+<p>所以綜合以上兩點，最偷吃步的方法就是：一口氣將檔案讀進來後再處理斷行：</p>
+
+<figure class="figure-code code"><figcaption><span>
+</span></figcaption><div class="highlight"><pre>content, _ := ioutil.ReadFile(filename)
+str := string(content[:])
+
+lines := strings.SplitAfter(str, "\n")
+for _, line := range lines {
+  // Do something
+}
+
+</pre></div>
+</figure><p>以下是簡易的效能測試</p>
+
+<table>
+<tr>
+<th>GobiesVM</th>
+<th>MRI 2.0.0</th>
+</tr>
+<tr>
+<td>7.930</td>
+<td>4.495</td>
+</tr>
+<tr>
+<td>8.004</td>
+<td>4.058</td>
+</tr>
+<tr>
+<td>7.102</td>
+<td>4.649</td>
+</tr>
+<tr>
+<td>7.075</td>
+<td>5.129</td>
+</tr>
+<tr>
+<td>7.521</td>
+<td>4.192</td>
+</tr>
+<tr>
+<td>7.696</td>
+<td>3.851</td>
+</tr>
+<tr>
+<td>7.202</td>
+<td>4.490</td>
+</tr>
+<tr>
+<td>7.327</td>
+<td>3.732</td>
+</tr>
+<tr>
+<td>7.606</td>
+<td>4.082</td>
+</tr>
+<tr>
+<td>7.536</td>
+<td>4.041</td>
+</tr>
+<tr>
+<td colspan="2"><b>Mean</b></td>
+</tr>
+<tr>
+<td>7.499</td>
+<td>4.272</td>
+</tr>
+</table><p>雖然還是有2~3秒的差距，但其實這也差不多是多數benchmark中Go與C本身的速度差異，所以個人是覺得這樣的結果尚可接受，況且再繼續追下去所花的時間與得到的效益相比可能沒有那麼高。</p>
+
+<p>喔，有些人可能會好奇將檔案全部讀入是否會讓記憶體的使用量飆高，根據不負責的觀察，在使用第二個方法和第三個方法的memory peak並沒有明顯的差異（吃記憶體同樣都吃很兇的意味，而MRI本身也差不多）。</p>

@@ -1,0 +1,70 @@
+<p>
+I've been playing with the GitHub API, through Emacs. For all the
+interesting stuff, it needs OAuth2 authorization, and though there's
+good support in Emacs for OAuth2, I couldn't find a getting started
+guide. So, here goes:
+</p>
+
+<p>
+First you'll need an access token. The standard way of getting an
+access token - redirect to the service (Github), authorize, redirect
+back to your website - isn't going to help us much. We don't have a
+website to come back to. It's just an Emacs client.
+But there's an alternative, and all the providers I've played around
+with so far support it. They'll issue you an access token manually
+for personal use.
+</p>
+
+<p>
+So, we head off to Github <b>&gt;</b> Account Settings <b>&gt;</b> Applications and there's
+a box marked "Personal Access Tokens". Creating one of those gives us
+a token like <code>70ea4b4d58f5fb41a534d9d021d3c5bcfeb2d5ae</code>.
+</p>
+
+<p>
+With that magic string we're away. Require the package (you may need
+to <code>M-x package-install</code> it first), then create an oauth2-token struct:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #66D9EF;">require</span> '<span style="color: #AE81FF;">oauth2</span>)
+(<span style="color: #66D9EF;">defvar</span> <span style="color: #F92672;">my-token</span>
+  (make-oauth2-token <span style="color: #A6E22E;">:access-token</span> <span style="color: #E6DB74;">"70ea4b4d58f5fb41a534d9d021d3c5bcfeb2d5ae"</span>))
+</pre>
+</div>
+
+<p>
+With that we turn to <code>oauth2-url-retrieve-synchronously</code>. It will take a
+token and a url and return a buffer containing the HTTP request. We
+can dip into that buffer and read the json like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #66D9EF;">require</span> '<span style="color: #AE81FF;">json</span>)
+(<span style="color: #66D9EF;">defvar</span> <span style="color: #F92672;">user-data</span>
+  (<span style="color: #66D9EF;">with-current-buffer</span>
+      (oauth2-url-retrieve-synchronously my-token <span style="color: #E6DB74;">"https://api.github.com/user"</span>)
+    (goto-char url-http-end-of-headers)
+    (json-read)))
+</pre>
+</div>
+
+<p>
+Job done. Let's just pull out an item:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(cdr (assoc 'name user-data))
+</pre>
+</div>
+
+<pre class="example">
+Kris Jenkins
+</pre>
+
+<p>
+And that's all there is to it. (Or at least, enough to get you started&#x2026;)
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/u2til84R3ts" height="1" width="1"/>

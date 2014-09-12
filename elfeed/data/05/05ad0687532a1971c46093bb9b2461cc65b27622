@@ -1,0 +1,16 @@
+
+<p>I find that enabling the microphone with Alsa is very painful. Here is
+a detailed step by step explanation</p>
+
+<p>You'll need to launch <code>alsamixer</code> from a console.</p>
+
+<p>Use the left arrow key till you get to the <code>Capture</code> channel. Press the
+space key you should see <code>CAPTUR</code> on top of the bar in red. Next
+increase the channel volume with the up key.</p>
+
+<p>Make sure that you you have <code>Mic1</code> selected on the <code>Mic Select</code>
+channel. Last it can be a good idea to unmute the <code>Mic Boost</code> channel to
+amplify your microphone input.</p>
+
+<p>Now that was really simple wasn't it? Yeah right...</p>
+

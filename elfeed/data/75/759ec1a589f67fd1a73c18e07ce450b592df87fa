@@ -1,0 +1,84 @@
+<p>It is convenient to throw your trash out your car window, but it is not always
+right.</p>
+
+<p>There are exceptions to this.</p>
+
+<p>If you are parked in your personal driveway, and the scene of scattered plastic
+cups, fast-food paper bags, rotting food, fly colonies, and milkshake stains
+bring you the utmost joy—then throwing your trash out your car window may be right.</p>
+
+<p>It is convenient to run a red light, but it is not always right.</p>
+
+<p>There are exceptions to this.</p>
+
+<p>If you are a police officer, and you are driving to ticket someone who has
+just littered the public streets with their fast food trash, and you have your
+lights flashing, and you have your sirens wailing—then running a red light
+may be right.</p>
+
+<p>It is convenient to derive your class from some other class that has methods
+on it that you would like to use, but it is not always right.</p>
+
+<p>There are exceptions to this.</p>
+
+<p>If you are using a framework in which you are required to derive from some base
+class and then call methods on that base class in order to accomplish something
+that you are trying to accomplish, and the framework designers have provided
+inheritance as the only way of accomplishing this thing that you are trying to
+accomplish, and you are comfortable with forming such a strong
+relationship<sup><a href="#references-1">1</a></sup> with that framework—then
+deriving your class from some other class that has methods on it that you would
+like to use may be right.</p>
+
+<p>However, if you are working around a piece of code that is entirely under your
+control and you are exploring the possibility of using inheritance, then make
+sure you have fully explored other options (i.e. composition, decoration,
+delegation, or even static functions) before you choose to move forward with
+inheritance.</p>
+
+<p>Inheritance is a powerful tool that works great when used for the right job.
+When used on a job for which it was not intended, it will more than likely
+cause a mess and produce less-than-desirable results<sup><a href="#references-2">2</a></sup>.</p>
+
+<p>Now, I was about to give you a short list of common patterns that rely on
+inheritance for their implementation. I was going suggest that you become
+familiar with those patterns so you know when to apply them.  I was also going
+to tell you that before you start using inheritance to solve your next problem,
+really make sure that it fits into one of the categories of problems that these
+patterns help solve. The problem is, I could only think of one pattern that
+involves inheritance: Template Method. And even this pattern can <em>usually</em> be
+replaced by the Strategy pattern, which avoids inheritance altogether. I was
+able to Google a few other patterns here and there, such as the
+<a href="http://en.wikipedia.org/wiki/Specification_pattern">Specification Pattern</a> and some
+implementations of the <a href="http://en.wikipedia.org/wiki/Adapter_pattern">Adapter Pattern</a>,
+but I have never really used these (knowingly), so I hesitate to recommend them.</p>
+
+<p>Perhaps the shortage of patterns that depend on inheritance hint at the possibility that, &quot;Hey, you
+really don&#39;t need inheritance to write great software,&quot; or, &quot;hey, wanna drive
+your co-workers nuts? Try using a little inheritance in your code!&quot;</p>
+
+<p>I would like to end my rant with a challenge to the software community to stop
+using inheritance in your code base, unless you are absolutely certain that it
+is the way to go<sup><a href="#references-3">3</a></sup> <sup><a href="#references-4">4</a></sup>.
+Yes, it is a very cool language feature, and it lets you
+use the word &quot;polymorphic&quot; when talking to your colleagues or boss about it;
+but from what I have seen so far, there have been more misuses and abuses of
+inheritance than there have been legitimate and clever uses of it.</p>
+
+<hr>
+
+<p><span id="references-1">
+  <sup>1</sup> Inheritance is one of the strongest forms of coupling in object-oriented code.
+</span></p>
+
+<p><span id="references-2">
+  <sup>2</sup> Imagine using a power washer to clean your kitchen floor.
+</span></p>
+
+<p><span id="references-3">
+  <sup>3</sup> Being absolutely certain means that you have genuinely explored and attempted an implementation of other options, and have shown that implementation to your colleagues, and you all agree that inheritance is the the way to go here.
+</span></p>
+
+<p><span id="references-3">
+  <sup>4</sup> Warning: do not use inheritance to solve more than 2 problems within a 48-hour period.
+</span></p>

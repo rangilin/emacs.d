@@ -1,0 +1,21 @@
+
+<p>I read about the Pomodoro Technique on the org mode mailing list. I
+have decided to try it out and have noticed a definite gain in
+productivity.</p>
+
+<p>I naturally take breaks such as browsing the web or chatting...  The
+pomodoro mode gives me a precise slice of time for such breaks. I am
+always surprised how quickly a five minutes break just flies by. The
+other gain is that I am tracking my time better.</p>
+
+<p>Since I use it so much I decided to write <a href="pomodoro.el">write code</a> to integrate it
+with emacs.</p>
+
+<p class="image"><img src="pomodoro.png" alt=""></p>
+
+<p>In the screen shot above the modeline indicates that I am on my second
+set of work. The number indicates I have 22 minutes left and it
+decreases each minute. The pomodoro buffer pops up in between break
+and work.  At that time the emacs windows will be raised in front
+so that I don't miss it when I am working outside emacs.</p>
+

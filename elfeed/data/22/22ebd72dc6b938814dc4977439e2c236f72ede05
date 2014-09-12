@@ -1,0 +1,257 @@
+
+<p>It's common for software systems to make remote calls to software
+  running in different processes, probably on different machines
+  across a network. One of the big differences between in-memory calls
+  and remote calls is that remote calls can fail, or hang without a
+  response until some timeout limit is reached. What's worse if you
+  have many callers on a unresponsive supplier, then you can run out
+  of critical resources leading to cascading failures across multiple
+  systems. In his excellent book <a href="http://www.amazon.com/gp/product/0978739213?ie=UTF8&amp;tag=martinfowlerc-20&amp;linkCode=as2&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0978739213">Release
+  It</a><img src="http://www.assoc-amazon.com/e/ir?t=martinfowlerc-20&amp;l=as2&amp;o=1&amp;a=0321601912" width="1" height="1" border="0" alt="" style="width: 1px !important; height: 1px !important; border:none !important; margin:0px !important;"/>, Michael Nygard popularized the Circuit Breaker pattern to
+  prevent this kind of catastrophic cascade.</p>
+
+<p>The basic idea behind the circuit breaker is very simple. You
+  wrap a protected function call in a circuit breaker object, which monitors for
+  failures. Once the failures reach a certain threshold, the circuit
+  breaker trips, and all further calls to the circuit breaker return
+  with an error, without the protected call being made at all. Usually
+  you'll also want some kind of monitor alert if the circuit breaker
+  trips.</p>
+<img src="http://martinfowler.com/bliki/images/circuitBreaker/sketch.png"/>
+<p>Here's a simple example of this behavior in Ruby, protecting against timeouts.</p>
+
+<p>I set up the breaker with a block (<a href="http://martinfowler.com/bliki/Lambda.html">Lambda</a>) which is the
+  protected call.</p>
+
+<pre>cb = CircuitBreaker.new {|arg| @supplier.func arg}</pre>
+
+<p>The breaker stores the block, initializes various parameters
+  (for thresholds, timeouts, and monitoring), and resets the breaker
+  into its closed state.</p>
+
+<p class="code-label">class CircuitBreaker...
+</p>
+
+<pre>  attr_accessor :invocation_timeout, :failure_threshold, :monitor
+  def initialize &amp;block
+    @circuit = block
+    @invocation_timeout = 0.01
+    @failure_threshold = 5
+    @monitor = acquire_monitor
+    reset
+  end
+</pre>
+
+<p>Calling the circuit breaker will call the underlying block if the
+  circuit is closed, but return an error if it's open</p>
+
+<pre># client code
+    aCircuitBreaker.call(5)
+
+
+</pre>
+
+<p class="code-label">class CircuitBreaker...
+</p>
+
+<pre>  def call args
+    case state
+    when :closed
+      begin
+        do_call args
+      rescue Timeout::Error
+        record_failure
+        raise $!
+      end
+    when :open then raise CircuitBreaker::Open
+    else raise "Unreachable Code"
+    end
+  end
+  def do_call args
+    result = Timeout::timeout(@invocation_timeout) do
+      @circuit.call args
+    end
+    reset
+    return result
+  end
+</pre>
+
+<p>Should we get a timeout, we increment the failure counter,
+  successful calls reset it back to zero. </p>
+
+<p class="code-label">class CircuitBreaker...
+</p>
+
+<pre>  def record_failure
+    @failure_count += 1
+    @monitor.alert(:open_circuit) if :open == state
+  end
+  def reset
+    @failure_count = 0
+    @monitor.alert :reset_circuit
+  end
+</pre>
+
+<p>I determine the state of the breaker comparing the failure count
+  to the threshold</p>
+
+<p class="code-label">class CircuitBreaker...
+</p>
+
+<pre>  def state
+     (@failure_count &gt;= @failure_threshold) ? :open : :closed
+  end
+</pre>
+
+<p>This simple circuit breaker avoids making the protected call when
+  the circuit is open, but would need an external intervention to
+  reset it when things are well again. This is a reasonable approach
+  with electrical circuit breakers in buildings, but for software
+  circuit breakers we can have the breaker itself detect if the
+  underlying calls are working again. We can implement this
+  self-resetting behavior by trying the protected call again after a
+  suitable interval, and resetting the breaker should it succeed.</p>
+<img src="http://martinfowler.com/bliki/images/circuitBreaker/state.png"/>
+<p>Creating this kind of breaker means adding a threshold for trying
+  the reset and setting up a variable to hold the time of the last error.</p>
+
+<p class="code-label">class ResetCircuitBreaker...
+</p>
+
+<pre>  def initialize &amp;block
+    @circuit = block
+    @invocation_timeout = 0.01
+    @failure_threshold = 5
+    @monitor = BreakerMonitor.new
+    @reset_timeout = 0.1
+    reset
+  end
+  def reset
+    @failure_count = 0
+    @last_failure_time = nil
+    @monitor.alert :reset_circuit
+  end
+</pre>
+
+<p>There is now a third state present - half open - meaning the
+  circuit is ready to make a real call as trial to see if the problem
+  is fixed.</p>
+
+<p class="code-label">class ResetCircuitBreaker...
+</p>
+
+<pre>  def state
+    case
+    when (@failure_count &gt;= @failure_threshold) &amp;&amp; 
+        (Time.now - @last_failure_time) &gt; @reset_timeout
+      :half_open
+    when (@failure_count &gt;= @failure_threshold)
+      :open
+    else
+      :closed
+    end
+  end
+</pre>
+
+<p>Asked to call in the half-open state results in a trial call,
+  which will either reset the breaker if successful or restart the
+  timeout if not.</p>
+
+<p class="code-label">class ResetCircuitBreaker...
+</p>
+
+<pre>  def call args
+    case state
+    when :closed, :half_open
+      begin
+        do_call args
+      rescue Timeout::Error
+        record_failure
+        raise $!
+      end
+    when :open
+      raise CircuitBreaker::Open
+    else
+      raise "Unreachable"
+    end
+  end
+  def record_failure
+    @failure_count += 1
+    @monitor.alert(:open_circuit) if :open == state
+    @last_failure_time = Time.now
+  end
+</pre>
+
+<p>This example is a simple explanatory one, in practice circuit
+  breakers provide a good bit more features and parameterization.
+  Often they will protect against a range of errors that protected
+  call could raise, such as network connection failures. Not all
+  errors should trip the circuit, some should reflect normal failures
+  and be dealt with as part of regular logic. </p>
+
+<p>With lots of traffic, you can have problems with many calls just
+  waiting for the initial timeout. Since remote calls are often slow,
+  it's often a good idea to put each call on a different thread using
+  a <a href="http://en.wikipedia.org/wiki/Futures_and_promises">future or
+  promise</a> to handle the results when they come back. By drawing
+  these threads from a thread pool, you can arrange for the circuit to
+  break when the thread pool is exhausted.</p>
+
+<p>The example shows a simple way to trip the breaker — a count that
+  resets on a successful call. A more sophisticated approach might
+  look at frequency of errors, tripping once you get, say, a 50% failure
+  rate. You might also have different thresholds for different errors,
+  such as a threshold of 10 for timeouts but 3 for connection failures.</p>
+
+<p>The example I've shown is a circuit breaker for synchronous
+  calls, but circuit breakers are also useful for asynchronous
+  communications. A common technique here is to put all requests on a
+  queue, which the supplier consumes at its speed - a useful technique
+  to avoid overloading servers. In this case the circuit breaks when
+  the queue fills up.</p>
+
+<p>On their own, circuit breakers help reduce resources tied up in
+  operations which are likely to fail. You avoid waiting on timeouts
+  for the client, and a broken circuit avoids putting load on a
+  struggling server. I talk here about remote calls, which are a
+  common case for circuit breakers, but they can be used in any
+  situation where you want to protect parts of a system from failures
+  in other parts. </p>
+
+<p>Circuit breakers are a valuable place for monitoring. Any change
+  in breaker state should be logged and breakers should reveal details
+  of their state for deeper monitoring. Breaker behavior is often a
+  good source of warnings about deeper troubles in the environment.
+  Operations staff should be able to trip or reset breakers.</p>
+
+<p>Breakers on their own are valuable, but clients using them need
+  to react to breaker failures. As with any remote invocation you need
+  to consider what to do in case of failure. Does it fail the
+  operation you're carrying out, or are there workarounds you can do?
+  A credit card authorization could be put on a queue to deal with
+  later, failure to get some data may be mitigated by showing some
+  stale data that's good enough to display.</p>
+
+<div class="furtherReading">
+<h2>Further Reading</h2>
+
+<p>The netflix tech blog contains a lot of useful information on
+    improving reliability of systems with lots of services. <a href="http://techblog.netflix.com/2012/02/fault-tolerance-in-high-volume.html">Their
+    Dependency Command</a> talks about using circuit breakers and
+    a thread pool limit. </p>
+
+<p>Netflix have open-sourced <a href="https://github.com/Netflix/Hystrix/">Hystrix</a>, a sophisticated
+    tool for dealing with latency and fault tolerance for distributed
+    systems. It includes an implementation of the circuit breaker
+    pattern with the thread pool limit</p>
+
+<p>There are other open-source implementations of the circuit
+    breaker pattern in <a href="http://github.com/wsargent/circuit_breaker/tree/master">Ruby</a>,
+    <a href="https://github.com/Comcast/jrugged">Java</a>, 
+    <a href="http://www.grails.org/plugin/circuit-breaker">Grails
+    Plugin</a>, <a href="http://timross.wordpress.com/2008/02/10/implementing-the-circuit-breaker-pattern-in-c/">C#</a>,
+    <a href="http://github.com/sptz45/circuit-breaker/tree/master">AspectJ</a>,
+    and <a href="http://github.com/FaKod/Circuit-Breaker-for-Scala">Scala</a></p>
+</div>
+
+<p class="shares"><span class="label">Share: </span><a href="https://twitter.com/intent/tweet?url=http://martinfowler.com/bliki/CircuitBreaker.html&amp;text=Bliki: CircuitBreaker" title="Share on Twitter"><img src="/t_mini-a.png"/></a><a href="https://facebook.com/sharer.php?u=http://martinfowler.com/bliki/CircuitBreaker.html" title="Share on Facebook"><img src="/fb-icon-20.png"/></a><a href="https://plus.google.com/share?url=http://martinfowler.com/bliki/CircuitBreaker.html" title="Share on Google Plus"><img src="/gplus-16.png"/></a></p>

@@ -1,0 +1,191 @@
+<p>
+Last day of 2013, and it's time to look ahead to the year to
+come. Here are my tech aims for 2014:
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Learn Haskell</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+I decided last year I wasn't going to learn any new
+languages<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>. Instead I was going to double down &amp; get <i>really
+tasty</i> at Clojure. There's still plenty of deliciousness left in that
+journey, but I think I've done well enough to pick up a little
+something new.
+</p>
+
+<p>
+But what new thing should I choose? Well, probably the best advice I
+heard all year was from <a href="https://twitter.com/sanityinc">Steve Purcell</a>, which I'll paraphrase as,
+"Figure out what the smartest, nicest people you can find are
+learning, and learn that." I look around and see Clojure &amp; Haskell
+fitting that description, so it feels like the time is coming.
+</p>
+
+<p>
+(Actually, Haskell isn't new to me. It's just my Haskell skills are so
+crusty as to earn a seat in the House of Lords. A 15-year hiatus, by my
+calculations.)
+</p>
+
+<p>
+<b>Chances of it happening</b>: Strong. I love a new language. Would be nice
+if I had a commercial reason to motivate it though.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Write A Good Database Reporting System</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Reports servers, universally, suck. In roughly-chronological order,
+I've used Oracle Reports, BIRT, Oracle Apex, JasperReports &amp; Crystal
+Reports, and not one of them has shed a glimmer of hope. They're
+tolerable, but they're not good.
+</p>
+
+<p>
+Here's a test you can apply to see if your report-server sucks: Which
+is easier? Adding a pink circle to the top-left corner of a report, or
+adding a new column to it and pushing it live?
+</p>
+
+<p>
+The fact that it's easier to find the ellipse button than the deploy
+button is proof that something is tragically wrong.
+</p>
+
+<p>
+I know why they all suck. I know exactly why. It's because they're
+designed on a lie. The lie is, "Use our tool and you can just drag &amp;
+drop reports together. You'll never need to learn SQL and you'll never
+need to ask IT again."
+</p>
+
+<p>
+BS. Never happens. Putting a drag &amp; drop interface on it doesn't save
+you from learning the database schema, so the job gets pushed to IT
+anyway. Except now you've spent a packet on forcing a dumbed-down
+interface on people who'd be happier with SQL and <code>git push</code>.  If we
+assumed the report-reader was non-technical, but the <i>report-writer</i> was
+a geek, we could get the turnaround time on new reports down to less
+than half an hour. And everyone would be happier.
+</p>
+
+<p>
+<b>Chances of it happening</b>: Unknown. I can see how to build it. I believe
+it's commercially viable. But I can't see how to market it. That's
+something to mull.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Write an EDN Parser for Emacs</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+I've been playing around with a few CIDER tricks lately - such as <a href="http://blog.jenkster.com/2013/12/a-cider-excursion.html">this bind-a-Clojure-command</a>
+tip - to improve my Clojure-on-Emacs workflow. I could do some far
+cooler stuff if Emacs could read Clojure data structures, and an EDN
+parser's the route to that.
+</p>
+
+<p>
+For instance, I'm thinking a much better org-babel/Clojure
+integration<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup> for starters. After that, I'd love to have a
+buffer that pretty-prints the value of an atom, watches it for
+changes, and does some <code>watch</code>-style syntax-highlighting for any diffs.
+That would rock.
+</p>
+
+<p>
+<b>Chances of it happening</b>: Good. Geeky confession: I enjoy writing
+parsers. And I'm always buggering around with Emacs these days, so
+it's probably just a matter of time.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Write An Editor</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+If you've been here before you've probably gathered that I'm an editor
+junkie, and there's a constant pull to scratch my own itch. My ideal
+editor would be a mashup of these principles:
+</p>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">Treat The User Like A Programmer, The Way Emacs Does.</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Why is Emacs the only programming tool that assumes you'll want to
+program it? Sure, almost every editor has some means of extension, but
+Emacs really is in a different league. It opens on a "Program Me!"
+buffer for chrissakes.
+</p>
+
+<p>
+(If you don't believe Emacs is <i>uniquely</i> extensible, check out my
+video, <a href="/2013/10/writing-a-spotify-client-in-16-minutes.html">Writing A Spotify Client in 16 Minutes</a>.)
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">Treat The User Like An Expert, The Way Vim Does.</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+For any tool you'll use for 40 hours a week, for the next decade, the
+initial learning curve is irrelevant. It's how productive it makes you
+after the first month that counts.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3">Treat The World Like It's The 21st Century, The Way LightTable Does.</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+In short, I would trade terminal support for an <code>&lt;svg&gt;</code> tag.
+</p>
+
+<p>
+<b>Chances of it happening</b>: Slim, sadly. Writing a good editor - and a
+good one is the only kind I have any interest in writing - is a long,
+long road. Unless it can pay its way, I'm going to have to resist
+going down that rabbit hole.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Find A Day Job</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+2013 has been something of a sabbatical year for me. It's been
+fantastic for feeding my brain, but too isolated, and if I'm brutally
+honest, a little navel-gazing. I've decided to <a href="/files/Kris_Jenkins_CV.pdf" alt="brush up my CV">brush up my CV</a> and
+find some smart people to build interesting things with. I did a few
+contracts last year, and there is something delightful about building
+to spec. This year I'm going to dive in with both feet.
+</p>
+
+<p>
+<b>Chances of it happening</b>: Strong. Tell me if you know of any
+interesting opportunities!
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+Okay, I tripped up &amp; fell into Scala, but I got back up quickly.
+</p></div>
+
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara">
+Better than <a href="http://blog.jenkster.com/2013/02/org-babel-clojure-and-nrepl.html">this quick fix</a> at least!
+</p></div>
+
+
+</div>
+</div><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/3dHUMx-R-V4" height="1" width="1"/>

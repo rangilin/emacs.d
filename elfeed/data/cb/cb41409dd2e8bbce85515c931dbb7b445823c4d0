@@ -1,0 +1,72 @@
+<p>Speed limits exist to encourage traveling at speeds that are deemed safe for a
+given road. Although the meaning of &quot;safe&quot; will vary per person, the posted
+speed limits are more or less agreed upon as &quot;good enough&quot; by most people.</p>
+
+<p>I don&#39;t know the history behind speed limits, but I&#39;m fairly certain they came
+about after many incidents of people putting common sense aside and driving
+their automobiles at speeds that were <em>way</em> beyond any sane person&#39;s idea of
+safe: people would consistently drive at speeds that ultimately led to
+tragedies. Phrased differently, people were engaging in <a href="http://en.wikipedia.org/wiki/Speed_limit#History">furious driving</a>. Because the entire community of
+drivers could not adhere to what &quot;safe&quot; was, authorities defined it for them.</p>
+
+<p>Fortunately for all the brilliant developers, the software community does not have authorities to define any sort of &quot;safe&quot; metrics for source code. What the software community does have is plenty of developers who put common sense aside and pump out
+source code files that are hundreds, thousands, and tens of thousands of lines
+long!</p>
+
+<p>It&#39;s wonderful that you have copy and paste, it&#39;s great to hear that you&#39;re a fast
+typer, and it&#39;s liberating that you have virtually unlimited disk space on which
+you can store all those bytes of text that you create—but stop doing it!</p>
+
+<p>Nobody wants to dig through a source code file that&#39;s 4,000 lines long. I would also say that most people don’t want to dig through a source code file that&#39;s even 800 lines long. And although I&#39;ve heard some people say that they &quot;really don’t mind files that are a few hundred
+lines long&quot; (possibly to emphasize their ginormous mental capacity), I&#39;m sure
+that source code, split up nicely across three or four files, would register in their
+head much faster than the same source code bunched together into one file.</p>
+
+<h3>Warning: Only Serious Developers Beyond this Point</h3>
+
+<p>To all serious developers out there, I propose a challenge: Stop with the
+tragically gigantic source code files. I don’t want to throw up an arbitrary number that I think is “safe,” because the definition of &quot;too long&quot; will vary widely per person. But I feel like we need a number so that we have a very clear line of when we are
+being sloppy and unprofessional. If the number is too low, then many developers
+will say I&#39;m crazy, unrealistic, and an idealist. They&#39;ll waive it off and not
+even continue reading. If the number is too high, then many developers who
+believe in short source code files and are good at keeping them short but still
+manage to pump out some long ones here and there will not be inclined to
+improve further still.</p>
+
+<p>Give me a second here. This is not an easy decision.</p>
+
+<p>Ok, after some deep thought, contemplation, and internal debate, I think I have a number.
+I will choose to err on the side of &quot;that&#39;s still too long&quot; and then bring that number down
+when we reach that goal, rather than err on the side of &quot;that&#39;s way too low&quot; and discourage
+countless number of developers from even trying to reach that goal.</p>
+
+<p>I challenge all serious developers who are capable of writing excellent
+software to stop writing source code files that are more than 400 lines long—no exceptions. That 
+means it doesn&#39;t matter that it was already 395 lines long
+when you got to it and you only added six more lines—fix it. It doesn&#39;t matter
+that &quot;all that stuff in there really belongs together&quot;—find a way to split it
+up. It doesn&#39;t matter that copy, paste, and mass rename was really the simplest
+way to do this and any other way would take you at least another two hours to
+make it better—find a way to make it better.</p>
+
+<p>Now that&#39;s to all developers who consistently pump out hundred-line files like
+the sun consistently rises from the east.</p>
+
+<p>To those developers who are usually under 400 lines—you&#39;re not off the hook.
+Remember, I said I&#39;m going to err on the side of &quot;that&#39;s still too long&quot; so as
+not to discourage people who are really high up there from taking on this
+challenge. Those of you who are consistently in the 100-300, don&#39;t settle!  I
+still want you to get better. You&#39;re still working with enough real estate to
+create big barriers to other developers who are new to your codebase, so make sure
+that, if your files really are in the couple-of-hundred-line range, there
+is a good reason why they&#39;re there. Revisit them once more—are you really
+sure that this is as simple as it could be?  Are you really sure that you got
+at least all the low-hanging fruit?</p>
+
+<h3>So, Who&#39;s In?</h3>
+
+<p>The software community needs to get better at writing code. The software
+<em>community</em>—that means you as well! We&#39;re not going to get better at writing
+software by simply reading blogs and complaining about other developers&#39; code.
+We need to reflect on our own code and identify specific points upon which we
+can improve. This, I believe, is an easy one to start with. Are you in?</p>

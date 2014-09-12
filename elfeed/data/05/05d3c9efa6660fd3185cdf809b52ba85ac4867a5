@@ -1,0 +1,75 @@
+<p>很高興這次能有機會到日本參加 <a href="http://rubykaigi.org/2013" target="_blank">RubyKaigi 2013</a>，我分享的題目是：&#8221;<a href="http://rubykaigi.org/2013/talk/S41" target="_blank">Code Reading, Learning More about Ruby by Reading Ruby Source Code</a>&#8220;，算是個滿冷門的題目，主要是分享我自己從閱讀 Ruby 原始程式碼中學習到的一些經驗。不過當天還有不少朋友來捧場，讓場子看起來不會太冷清，真是太意外了(其實我也搞不清楚到底有多少人，我當時已經緊張到沒辦法算數了)。<br />
+<span class="translate">Really glad to go to Japan and join the <a href="http://rubykaigi.org/2013" target="_blank">RubyKaigi 2013</a>, the topic of my talk is &#8221;<a href="http://rubykaigi.org/2013/talk/S41" target="_blank">Code Reading, Learning More about Ruby by Reading Ruby Source Code</a>&#8221;, which I don&#8217;t think it&#8217;s a popular topic, and it&#8217;s about my experience while reading Ruby source code. Thanks to those friends who are willing to come to my talk.(Actually I was too nervous to count how many people already)</span></p>
+
+<p>在進入主題之前，我問大家有多少人曾經來過台灣，結果在場有十來個人舉手，就以現場人數的比例來說不算少。<br />
+<span class="translate">
+Before I jump into my topic, I asked everyone how many of you have been to Taiwan before, to my surprise, there&#8217;re more than 15 people raised their hand, which is about 20% of the attendees in this hall(I think).</span></p>
+
+<p><a href="https://speakerdeck.com/eddie/code-reading" target="_blank"><img src="http://blog.eddie.com.tw/images/2013/rubykaigi-code-reading.jpg" alt="image" /></a>
+<a href="https://speakerdeck.com/eddie/code-reading" target="_blank">View on Speaker Deck</a> | <a href="https://speakerd.s3.amazonaws.com/presentations/0186a390abc5013057536ee43d4d4638/Code_Reading.pdf" target="_blank">Download PDF</a></p>
+
+<p>雖然之前有一些些上台演講的經驗，但這是第一次出國演講，而且還是全程用英文演講，我知道有很多的大神甚至 Ruby Committer 就坐在台下，所以我相當緊張。我那個「上台的前一天不會睡」的魔咒果然還是依舊存在，所以演講當天凌晨四點，我拿著筆電到飯店的大廳練習對著空氣講，練到早上七點，但還是覺得不夠穩。<br />
+<span class="translate">
+Although I have a some experience about having public speech, but it&#8217;s my first time to have a presentation abroad and do my speech in English, and I also know there might be lots of awesome rubyists sitting there, including some Ruby core committer, so I really feel nervous. And I have a curse that &#8220;I won&#8217;t sleep if I have a public presentation on the next day&#8221;, so I practiced in the lobby of the hotel from 4 A.M. to 7 A.M., but still not stable enough.
+</span></p>
+
+<p>我的演講廳是小間的，所以壓力有稍微小一點點。<br />
+<span class="translate">
+My presentation hall is the smaller one, so my pressure is also slightly smaller, too.
+</span></p>
+
+<p>為了怕現場出包，所以在 code review 展示的部份我是用預錄的，不過事後想想好像直接現場操作比較容易掌控時間<br />
+<span class="translate">
+I think I might make some mistakes while presenting, so I recorded the code review demo in advance, but I think the real live demo might be easier for me to control time.
+</span></p>
+
+<p>上午的演講結束後，下午發生的小插曲讓我抖了好大一下。我在演講內容裡有提到一些在 Ruby 的原始碼裡面有一些小地方的命名不太優，當下大家笑得很開心，雖然娛樂效果達到了，但我其實也有點擔心會不會有什麼不好的副作用。結果上午的講場結束，下午就看到<a href="https://twitter.com/_zzak/status/340391416314331136" target="_blank">這則</a>：<br />
+<span class="translate">
+After finishing my talk, there&#8217;s something surprised me. In my speech, I mentioned some interesting naming in the Ruby source code just for fun. I know it might be entertaining but still a little worried about if there would be any bad consequence. Then in the afternoon, I saw this <a href="https://twitter.com/_zzak/status/340391416314331136" target="_blank">tweet</a>:
+</span></p>
+
+<p><img src="http://blog.eddie.com.tw/images/2013/rubykaigi-zzak.png" alt="image" /></p>
+
+<p>哇!! 我有嚇到的感覺了，不過因為我個人覺得這樣好像有些失禮，所以當晚的 Official Party，我就親自去跟 @nobu 說聲不好意思，希望沒有造成他的困擾。其實我也是想趁這個機會認識一下只有在網路上才能看得到的傳說大神，而且他好像一點也不在意。<br />
+<span class="translate">
+Wow! That&#8217;s really really surprised me!! and I don&#8217;t know if this would cause any trouble for committer, so I went to @nobu and said sorry to him on the official party in the night, and hope didn&#8217;t cause extra trouble for him. In fact, I went to him also want to know him by this chance, and actually he didn&#8217;t mind at all.
+</span></p>
+
+<p>第三天的議程，我本來就打算要來聽 <a href="https://twitter.com/saturnflyer" target="_blank">Jim Gay</a> 的主題(他是 <a href="http://www.clean-ruby.com/" target="_blank">Clean Ruby</a> 一書的作者 )，沒想到坐下來沒多久竟然看到自己的名字跟前一天講的東西出現在投影片上：<br />
+<span class="translate">
+In the last day, I was planning to attend <a href="https://twitter.com/saturnflyer" target="_blank">Jim Gay</a>&#8217;s talk, whihc is the author of the book &#8221;<a href="http://www.clean-ruby.com/" target="_blank">Clean Ruby</a>&#8221;. After sitting in the hall, I suddenly found my name was quoted in the slide:
+</span></p>
+
+<p><img src="http://blog.eddie.com.tw/images/2013/rubykaigi-jim-gay.jpg" alt="image" /></p>
+
+<p>再度有被嚇到的感覺。<br />
+<span class="translate">
+Yes, Supprised me again.
+</span></p>
+
+<p>活動結束後，RubyKaigi 2013 的頭目角谷<a href="https://twitter.com/kakutani/status/341202764472406017" target="_blank">也推了一篇</a>：<br />
+<span class="translate">
+the Organizing Director of RubyKaigi 2013 Shintaro Kakutani also <a href="https://twitter.com/kakutani/status/341202764472406017" target="_blank">tweeted this</a>:
+</span></p>
+
+<p><img src="http://blog.eddie.com.tw/images/2013/rubykaigi-kakutani.png" alt="image" /></p>
+
+<p>再次看到自己的名字被提到，有些驚訝也有些不好意思，不過這個&#8221;Conference-Driven Development(CDD)&#8221; 聽起來好像不錯，而且我喜歡 &#8220;RubyKaigi made Ruby Better&#8221;，如果有朝一日我有能力，我也希望可以多貢獻一些心力。<br />
+<span class="translate">
+I feel surprised again and also little embarrassing, but the &#8220;Conference-Driven Development(CDD)&#8221; sounds workable, and I love the &#8220;RubyKaigi made Ruby Better&#8221;, I hope I can do more contributions to Ruby and this community someday if possible.
+</span></p>
+
+<p>感謝高井さん(<a href="https://twitter.com/takai" target="_blank">@takai</a>)幫我拍的照片，讓我在 <a href="http://rubyistokei.herokuapp.com/" target="_blank">Rubyist 時計</a>上也可以有一張漂亮的照片。<br />
+<span class="translate">
+Thanks to Naoto Takai(<a href="https://twitter.com/takai" target="_blank">@takai</a>) to take a photo for me so that I can have a nice picture on the <a href="http://rubyistokei.herokuapp.com/" target="_blank">Rubyist Tokei</a>.
+</span></p>
+
+<p><img src="http://blog.eddie.com.tw/images/2013/rubykaigi-rubyist-clock.jpg" alt="image" />
+photoed by <a href="https://twitter.com/takai" target="_blank">@takai</a></p>
+
+<p>這趟日本之行有學習到不少東西，收獲很多，會在接下來的幾篇文章介紹。最後，有講的不好的地方，還請多多指教。<br >
+<span class="translate">
+Anyway, I learned a lot on this trip to Japan, and I&#8217;ll write them down in next blog posts. At last, if there&#8217;s any bad or something wrong about my speech, please feel free to comment.
+</span></p>
+
+<p>Thank you all, RubyKaigi team, you&#8217;re all AWESOME!</p>

@@ -1,0 +1,27 @@
+<p>
+Quite often in Emacs, especially when writing Clojure code, I want to
+reindent the entire file. I think that arises from the fact that I'm
+writing a lot of Lisp these days, and Lisp is the only language I've
+ever encountered where automatic indenting actually works well.
+</p>
+
+<p>
+Anyway, here's the code I use to map <code>meta-shift-q</code> to "reindent the
+whole buffer":
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #66D9EF;">defun</span> <span style="color: #F92672; font-style: italic;">reindent-whole-buffer</span> ()
+  <span style="color: #E6DB74; font-style: italic;">"Reindent the whole buffer."</span>
+  (interactive)
+  (indent-region (point-min)
+                 (point-max)))
+
+(global-set-key (kbd <span style="color: #E6DB74;">"M-Q"</span>) 'reindent-whole-buffer)
+</pre>
+</div>
+
+<p>
+Pretty simple, huh?
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/QPg2kI1QWDw" height="1" width="1"/>

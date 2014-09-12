@@ -1,0 +1,11 @@
+
+<p>I use xscreensaver to blank out my monitor when it's not in use. I got
+annoyed that my screen would activate for no particular reason.</p>
+
+<p>I have made a patch to fix this problem. It will prevent the screen
+from activating when someone bumps your desk or wind blows on your
+touch pad, etc ...</p>
+
+<p>It works by ignoring small cursor motion. It does the job
+for my laptop, maybe someone else will find it useful.</p>
+

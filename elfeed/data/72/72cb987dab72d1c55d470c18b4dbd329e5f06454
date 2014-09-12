@@ -1,0 +1,89 @@
+
+<p>This a quick how-to for setting up and encrypted mail server using
+Exim on Debian. I have seen a bunch of web site dealing with the
+subject but not a complete guide. OK, enough talk, let's get started!</p>
+
+<p>First install all the needed packages:</p>
+
+<p><code>apt-get install exim4-daemon-heavy sasl2-bin</code></p>
+
+<p>Make sure you are using split configuration files with Exim:</p>
+
+<p><code>dpkg-reconfigure exim4-config</code></p>
+
+<p>Next generate a self signed certificate, make sure you enter the
+server name and domain when the program asks for it:</p>
+
+<p><code>/usr/share/doc/exim4-base/examples/exim-gencert</code></p>
+
+<p>Edit <code>/etc/exim4/conf.d/main/03_exim4-config_tlsoptions</code> and
+add <code>MAIN_TLS_ENABLE = 1</code>, it should look like this:</p>
+
+<pre class="example">
+### main/03_exim4-config_tlsoptions
+#################################
+
+# TLS/SSL configuration.
+# See /usr/share/doc/exim4-base/README.Debian.gz for explanations.
+MAIN_TLS_ENABLE = 1
+</pre>
+
+<p>Next enable authentication by commenting out the following section
+in <code>/etc/exim4/conf.d/auth/30_exim4-config_examples</code>:</p>
+
+<pre class="example">
+plain_saslauthd_server:
+    driver = plaintext
+    public_name = PLAIN
+    server_condition = ${if saslauthd{{$2}{$3}}{1}{0}}
+    server_set_id = $2
+    server_prompts = :
+    .ifndef AUTH_SERVER_ALLOW_NOTLS_PASSWORDS
+        server_advertise_condition = ${if eq{$tls_cipher}{}{}{*}}
+    .endif
+</pre>
+
+<p>Do not worry that is using plain text to authenticate, the password is
+encrypted over TLS. Let's update the configuration and restart Exim:</p>
+
+<pre class="example">
+update-exim4.conf
+/etc/init.d/exim4 restart
+</pre>
+
+<p>Next we need to configure sasl, first edit <code>/etc/default/saslauthd</code> so
+that the service starts.</p>
+
+<pre class="example">
+# This needs to be uncommented before saslauthd will be run
+automatically
+START=yes
+</pre>
+
+
+<p>Next you will need to give Exim the permission to use sasl
+and start the service:</p>
+
+<pre class="example">
+adduser Debian-exim sasl
+/etc/init.d/saslauthd start
+</pre>
+
+
+<p>It should be working, I use the following python script to check
+that the server is working:</p>
+
+<pre class="example">
+#!/usr/bin/python
+
+import smtplib
+
+server = smtplib.SMTP('mail.server.name')
+server.set_debuglevel(1)
+server.ehlo()
+server.starttls()
+server.ehlo()
+server.login(&quot;joe&quot;, &quot;test&quot;)
+server.sendmail(&quot;fromaddr&quot;,&quot;toaddr&quot;, &quot;Subject: test&quot;)
+</pre>
+

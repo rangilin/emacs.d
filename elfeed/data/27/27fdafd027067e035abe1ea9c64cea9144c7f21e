@@ -1,0 +1,12 @@
+
+<p>Of course I am not talking about the pet. Unix cat has two useful
+switches that I have overlooked for year.</p>
+
+<p>First -e show end of line as $, I find that useful to check my shell
+script to see if I made and error when defining a variable.</p>
+
+<p>Next is -A that will display tab as ^I. It was a life saver when I was
+troubleshooting an automated Debian script. I had to seed
+configuration variable and the program was expecting tab instead of
+space.</p>
+

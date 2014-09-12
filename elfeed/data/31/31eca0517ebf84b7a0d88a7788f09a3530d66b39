@@ -1,0 +1,71 @@
+<p>I have the honour and pleasure to announce a new release of <a href="http://flycheck.github.io">Flycheck</a>, the modern syntax-checking extension for Emacs:</p>
+<div class="panel panel-default text-center">
+<div class="panel-body">
+<img src="/images/flycheck-0.15.png" class="img-responsive img-thumbnail">
+</div>
+<div class="panel-footer">
+Flycheck 0.15 with <a href="https://github.com/bbatsov/zenburn-emacs">Zenburn</a> and <a href="https://github.com/adobe/source-code-pro">Source Code Pro</a>
+</div>
+</div>
+<p>It is three months since the last release, so this release brings quite a lot of changes. For a complete list of all changes, please read the complete list of <a href="http://flycheck.readthedocs.org/en/latest/changes.html#nov-15-2013">changes</a>. In this post, I will just go through the most important ones.</p>
+<h1 id="breaking-changes">Breaking changes</h1>
+<p>This release introduces three breaking changes. Two of these are related to the [new error list][]:</p>
+<div class="alert alert-warning">
+<p><strong>Warning!</strong></p>
+<p><code>flycheck-display-errors-in-list</code> is gone. If you had previously set <code>flycheck-display-errors-function</code> to this function, <strong>remove</strong> this setting from your configuration.</p>
+</div>
+<p>Besides, <code>flycheck-list-errors</code> does not take a prefix argument anymore. It cannot list errors at point any longer.</p>
+<p>The third breaking change is the removal of <code>flycheck-declare-checker</code>, which was obsolete already since the last release. Unless you have custom syntax checkers not yet ported to <code>flycheck-define-checker</code>, this won’t affect you in any way. I am not aware of any 3rd party extension which still uses <code>flycheck-declare-checker</code>.</p>
+<h1 id="new-syntax-checkers">New syntax checkers</h1>
+<p>Two new languages made it into this release: YAML (using the YAML parser from the Ruby standard library) and <a href="http://slim-lang.com">Slim</a>.</p>
+<p>Additionally there are new syntax checkers for Javascript and PHP. Flycheck can check Javascript with Google’s <a href="https://code.google.com/p/closure-linter/">Closure Linter</a>, in place of Jshint. For PHP, Flycheck now uses the <a href="http://phpmd.org/">PHP Mess Detector</a> to check for semantic errors, in <em>addition</em> to a syntax checks with PHP CLI and a style checks with PHP CodeSniffer.</p>
+<h1 id="new-error-list">New error list</h1>
+<p>The error list at :kbd:<code>C-c ! l</code> has been redesigned.</p>
+<p>It is no longer a static list filled once by :kbd:<code>C-c ! l</code>. Instead, it automatically updates after each syntax check, and follows the current window, i.e. if you switch to another window, the error list is updated to show the errors of the corresponding buffer.</p>
+<p>Furthermore, the error list highlights the errors at point and at the current line. If you move the point to an error location, the error list automatically scrolls to the corresponding error, and highlights it with the new <code>flycheck-error-list-highlight-at-point</code> face. Additionally, it highlights all other errors at the current line with the new <code>flycheck-error-list-highlight</code> face.</p>
+<h1 id="cc-support">C/C++ support</h1>
+<p>The <code>c/c++-clang</code> syntax checker for C and C++ got a bunch of new options:</p>
+<ul>
+<li>Set additional preprocessor definitions for syntax checking with <code>flycheck-clang-definitions</code>, corresponding to the <code>-D</code> option for <code>clang</code>.</li>
+<li>Include additional headers or files during syntax checking with <code>flycheck-clang-includes</code>, corresponding to the <code>-include</code> option for <code>clang</code>.</li>
+<li>Choose the language standard, e.g. C++98 or C++11, with <code>flycheck-clang-language-standard</code>, corresponding to the <code>-std</code> option for <code>clang</code>.</li>
+<li>Disable RTTI during syntax checking with <code>flycheck-clang-no-rtti</code>, corresponding to the <code>-fno-rtti</code> option for <code>clang</code>. In current Clang versions, however, this does not cause errors or warnings when using RTTI.</li>
+<li>Choose the standard library for syntax checking with <code>flycheck-clang-standard-library</code>, corresponding to the <code>-stdlib</code> option for <code>clang</code>. Currently, Clang supports <code>libstdc++</code> for the good old GNU standard library, and <code>libc++</code> for the modern Libc++ from the LLVM project.</li>
+</ul>
+<p>Besides, the Clang syntax checker was changed to correctly handle local include files, e.g. <code>#include &quot;foo.h&quot;</code>.</p>
+<h1 id="new-info-level-messages">New <code>info</code> level messages</h1>
+<p>In addition to the <code>warning</code> and <code>error</code> levels, Flycheck now has a new <code>info</code> level, which is intended for informational messages which provide additional information about a specific location in the source code. With this new level, the semantics of error levels is as follows:</p>
+<p>.. class:: dl-horizontal</p>
+<p><code>error</code> Definite errors which must be fixed for the source code to work correctly <code>warning</code> Potential errors and issues, which can be ignored, but still deserve to be fixed <code>info</code> Additional information about a specific source code location, which does not indicate an error or issue, but is still worth noting</p>
+<p>Some syntax checkers were changed to use this new level for messages, which do not really fit into the <code>warning</code> level:</p>
+<ul>
+<li><code>c/c++-clang</code> for <code>note:</code> messages</li>
+<li><code>python-flake8</code> for PEP8 naming issues emitted by the <code>pep8-naming</code> plugin</li>
+<li><code>python-pylint</code> for convention level messages, e.g. naming issues, etc.</li>
+</ul>
+<p>The new level is already supported by the popular <a href="https://github.com/bbatsov/solarized-emacs">Solarized</a> and <a href="https://github.com/bbatsov/zenburn-emacs">Zenburn</a> themes.</p>
+<h1 id="custom-error-levels">Custom error levels</h1>
+<p>The new <code>info</code> level is backed by a generic mechanism to define new error levels, using the new function <code>flycheck-define-error-level</code>. For instance, the <code>warning</code> level is now defined as follows:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nv">flycheck-define-error-level</span> <span class="ss">&#39;warning</span>
+  <span class="ss">:overlay-category</span> <span class="ss">&#39;flycheck-warning-overlay</span>
+  <span class="ss">:fringe-bitmap</span> <span class="ss">&#39;question-mark</span>
+  <span class="ss">:fringe-face</span> <span class="ss">&#39;flycheck-fringe-warning</span><span class="p">)</span>
+</pre></div>
+
+<p>A error level consists of a category for overlays, which defines the appearance and priority of overlays for this level, and bitmap and face for fringe indicators.</p>
+<p>After defining an error level, you can use it the error patterns of a syntax checker as usual.</p>
+<h1 id="other-improvements">Other improvements</h1>
+<p>Beside these important changes, there are also a number of smaller improvements:</p>
+<ul>
+<li>Flycheck does not longer check encrypted files for obvious reasons.</li>
+<li>The <code>emacs-lisp-checkdoc</code> syntax checker does not check <code>.dir-locals.el</code> anymore.</li>
+<li><code>python-pylint</code> now parses error columns from the output of <code>pylint</code>.</li>
+<li>Spurious “flawed definition” warnings in <code>lua</code>, <code>rst</code> and <code>go-build</code> were fixed.</li>
+<li><p><code>c/c++-cppcheck</code> output now parses correctly when using the pure Emacs Lisp XML parser in <code>xml.el</code>.</p>
+<div class="alert alert-info">
+<p><strong>Note!</strong></p>
+<p>Nonetheless, you are advised to use Emacs with <code>libxml</code> support. Most Linux distributions ship Emacs packages with <code>libxml</code> support, but if you are building your own, or use a source-based distribution such as Gentoo, take care to enable <code>libxml</code> for Emacs.</p>
+</div></li>
+</ul>
+<h1 id="get-it">Get it</h1>
+<p>As usual, from <a href="http://melpa.milkbox.net/">MELPA</a> or <a href="http://marmalade-repo.org/packages/flycheck">Marmalade</a>. I recommend the former.</p>

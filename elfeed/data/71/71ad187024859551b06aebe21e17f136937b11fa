@@ -1,0 +1,1 @@
+If you&#8217;re a regular user of the commandline tools top or ps then I have good news for you: there&#8217;s an Emacs command that does that and it works on Windows too! The command is M-x proced and it is modelled on M-x dired (but it is not built on top of dired) and it [...]

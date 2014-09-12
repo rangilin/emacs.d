@@ -1,0 +1,8 @@
+<p>In case someone has trouble with this: A way to add brew apps to a path invokable by a gui is by exporting the environment variable path in /etc/launchd.conf:</p>
+<pre class="literal-block">
+# /etc/launchd.conf
+setenv PATH /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Users/yusuket/bin
+</pre>
+<p>You need to add the /usr/local/bin for brew's apps.</p>
+<p><cite>THEN</cite> make sure to restart you machine. Logging out and logging back in won't work.</p>
+<p>And you're done! Now you can run your brew executables from GUI apps in Mavericks.</p>

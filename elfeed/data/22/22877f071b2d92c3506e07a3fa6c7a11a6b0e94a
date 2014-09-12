@@ -1,0 +1,12 @@
+
+<p>I migrated from 10.10 to 13.10. I usually turn off my computer by
+typing <code>sudo halt</code> in xterm.</p>
+
+<p>With the new version of Ubuntu my computer will halt but not power
+off. Taking a look at the man page there is a command called <code>poweroff</code>
+that does the job. I find it awkward to type as my old habits die
+hard. A better alternative for me is to pass the argument <code>-p</code> to the
+<code>halt</code> command.</p>
+
+<p>So I now type <code>sudo halt -p</code> to turn off my computer.</p>
+

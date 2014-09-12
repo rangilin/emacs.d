@@ -1,0 +1,36 @@
+<p>I apologise for the pompous title; I wrote it just for fun. If this “demystifies” anything, I’ll consider that a coincidence.</p>
+
+<p>Of the SOLID principles, the most pompous-sounding is the one named for a person: Barbara Liskov. I don’t label her pompous – I never knew her – but of those five principles, only LSP has a common formulation that looks like the kind of mathematics so many programmers like to avoid, while others flock to.</p>
+
+<blockquote>
+  <p>Let <em>q(x)</em> be a property provable about objects <em>x</em> of type <em>T</em>. Then <em>q(y)</em> should be provable for objects <em>y</em> of type <em>S</em> where <em>S</em> is a subtype of <em>T</em>.</p>
+</blockquote>
+
+<p>Or, if you prefer:</p>
+
+<blockquote>
+  <p>Subtypes must not change any supertype’s significant behavior. Here, “significant behavior” means behavior upon which clients of those objects expressly depend.</p>
+</blockquote>
+
+<p>If you like the language of contracts, then you might prefer this formulation:
+<!-- more -->
+&gt; Subtypes must respect the contracts of their supertypes.</p>
+
+<p>If, like me, you like to check contract compliance with <a href="http://link.jbrains.ca/13e1S9Y">contract tests</a>, then you might prefer <em>this</em> formulation:</p>
+
+<blockquote>
+  <p>Subtypes must pass the same set of contract tests that their supertypes pass.</p>
+</blockquote>
+
+<p>Remember that <em>subtype</em> here means any implementation of an interface or subclass of a class.</p>
+
+<p>So, what does it look like when we violate the Liskov Substitution Principle? Usually like this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">// This should never happen</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>You can’t trace <em>all</em> such problems to a violation of LSP. Sometimes you have a simpler disagreement between a client and its collaborator. Even so, subtyping without careful attention to the type’s contract opens the door wide to breaking the contract, which creates disagreement between a client and a collaborator whose type <em>we sometimes only know at runtime</em>. You’ve experienced this if you’ve ever ended a 2-hour-long debugging session by yelling “You idiot! How did you expect that <em>ever</em> to work?!” You’ve discovered a fundamental contract disagreement.</p>
+
+<p>While the LSP doesn’t receive the same attention as the Single Responsibility Principle, breaking the LSP leads to painful, costly mistakes. Understanding LSP, clarifying and respecting contracts helps you avoid this frustration.</p>
+
+<p>I hope this helps.</p>

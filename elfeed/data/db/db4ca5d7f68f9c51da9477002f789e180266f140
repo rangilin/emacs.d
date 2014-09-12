@@ -1,0 +1,64 @@
+<p>Sometimes we&rsquo;d like to build a new collection object from the elements
+of another collection.  One trivial example would be element
+occurrence counting, which basically means you need to build a hash
+from an array.</p>
+
+<p>People coming from an imperative background will probably implement this in terms of <code>each</code> (or <code>for</code>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+</span><span class='line'><span class="n">result</span> <span class="o">=</span> <span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># with each</span>
+</span><span class='line'><span class="n">nums</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="n">result</span><span class="o">[</span><span class="n">n</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># with for</span>
+</span><span class='line'><span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="n">nums</span>
+</span><span class='line'>  <span class="n">result</span><span class="o">[</span><span class="n">num</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is a reasonable solution, but surely we can do better!</p>
+
+<p>Rubyists fond of functional programming techniques might use <code>reduce</code> to solve the problem at hand:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+</span><span class='line'><span class="n">nums</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span> <span class="o">|</span><span class="n">a</span><span class="p">,</span> <span class="n">e</span><span class="o">|</span> <span class="n">a</span><span class="o">[</span><span class="n">e</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">a</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; {1=&gt;2, 2=&gt;1, 3=&gt;2, 5=&gt;1}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code works well, but it&rsquo;s a bit more complex than it needs to be &ndash;
+mostly because of the need to return the hash explicitly in <code>reduce</code>&rsquo;s block.
+Enter <code>Enumerable#each_with_object</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">nums</span> <span class="o">=</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="o">]</span>
+</span><span class='line'><span class="n">nums</span><span class="o">.</span><span class="n">each_with_object</span><span class="p">(</span><span class="no">Hash</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="p">{</span> <span class="o">|</span><span class="n">e</span><span class="p">,</span> <span class="n">a</span><span class="o">|</span> <span class="n">a</span><span class="o">[</span><span class="n">e</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># =&gt; {1=&gt;2, 2=&gt;1, 3=&gt;2, 5=&gt;1}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>each_with_object</code> invokes its block for each element with an
+arbitrary object argument, and returns the initially given object,
+thus eliminating the need to return it ourselves as the block&rsquo;s
+result. Simple and neat!</p>
+
+<p>That&rsquo;s all for now, folks. I hope you&rsquo;ll find this article useful.
+As usual I&rsquo;m looking forward to hearing your thoughts here and on
+<a href="http://twitter.com/bbatsov">Twitter</a>!</p>

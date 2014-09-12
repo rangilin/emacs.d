@@ -1,0 +1,70 @@
+<p>Computer performance is <a href="">a bit of a shell game</a>. You're always waiting for one of four things:</p>
+
+<ul>
+<li>Disk</li>
+<li>CPU</li>
+<li>Memory</li>
+<li>Network</li>
+</ul>
+
+<p>But which one? How long will you wait? And what will you do while you're waiting?</p>
+
+<p>Did you see <a href='http://www.imdb.com/title/tt1798709' >the movie "Her"</a>? If not, you should. It's great. One of my favorite scenes is the AI describing just how difficult it becomes to communicate with humans:</p>
+
+<blockquote>
+  <p>It's like I'm reading a book&hellip; and it's a book I deeply love. But I'm reading it slowly now. So the words are really far apart and the spaces between the words are almost infinite. I can still feel you&hellip; and the words of our story&hellip; but it's in this endless space between the words that I'm finding myself now. It's a place that's not of the physical world. It's where everything else is that I didn't even know existed. I love you so much. But this is where I am now. And this who I am now. And I need you to let me go. As much as I want to, I can't live your book any more.</p>
+</blockquote>
+
+<p>I have some serious reservations about the work environment pictured in Her where everyone's spending all day creepily whispering to their computers, but there is deep fundamental truth in that one pivotal scene. That infinite space "between" what we humans feel as time is where computers spend <em>all</em> their time. It's an entirely different timescale.</p>
+
+<p>The book <a href='http://www.amazon.com/dp/0133390098/?tag=codihorr-20' >Systems Performance: Enterprise and the Cloud</a> has a great table that illustrates just how enormous these time differentials are. Just translate computer time into arbitrary seconds:</p>
+
+<table width="600px">  
+<tr><td>1 CPU cycle</td><td>0.3 ns</td><td>1 s</td></tr>  
+<tr><td>Level 1 cache access</td><td>0.9 ns</td><td>3 s</td></tr>  
+<tr><td>Level 2 cache access</td><td>2.8 ns</td><td>9 s</td></tr>  
+<tr><td>Level 3 cache access</td><td>12.9 ns</td><td>43 s</td></tr>  
+<tr><td>Main memory access</td><td>120 ns</td><td>6 min</td></tr>  
+<tr><td>Solid-state disk I/O</td><td>50-150 μs</td><td>2-6 days</td></tr>  
+<tr><td>Rotational disk I/O</td><td>1-10 ms</td><td>1-12 months</td></tr>  
+<tr><td>Internet: SF to NYC</td><td>40 ms</td><td>4 years</td></tr>  
+<tr><td>Internet: SF to UK</td><td>81 ms</td><td>8 years</td></tr>  
+<tr><td>Internet: SF to Australia</td><td>183 ms</td><td>19 years</td></tr>  
+<tr><td>OS virtualization reboot</td><td>4 s</td><td>423 years</td></tr>  
+<tr><td>SCSI command time-out</td><td>30 s</td><td>3000 years</td></tr>  
+<tr><td>Hardware virtualization reboot</td><td>40 s</td><td>4000 years</td></tr>  
+<tr><td>Physical system reboot</td><td>5 m</td><td>32 millenia</td></tr>  
+</table>
+
+<p>The above Internet times are kind of optimistic. If you look at <a href='http://ipnetwork.bgtmo.ip.att.net/pws/network_delay.html' >the AT&amp;T real time US internet latency chart</a>, the time from SF to NYC is more like 70ms. So I'd double the Internet numbers in that chart.</p>
+
+<p><img src='http://blog.codinghorror.com/content/images/2014/May/internet-latency-usa.png'  alt="" /></p>
+
+<p>Latency is one thing, but it's also worth considering <a href='http://blog.codinghorror.com/the-economics-of-bandwidth/' >the cost of that bandwidth</a>.</p>
+
+<p>Speaking of the late, great <a href='http://en.wikipedia.org/wiki/Jim_Gray_' (computer_scientist)">Jim Gray</a>, he also <a href='http://loci.cs.utk.edu/dsi/netstore99/docs/presentations/keynote/sld023.htm' >had an interesting way of explaining this</a>. If the CPU registers are how long it takes you to fetch data from your brain, then <strong>going to disk is the equivalent of fetching data from Pluto.</strong></p>
+
+<p><img src='http://blog.codinghorror.com/content/images/2014/May/storage-latency-how-far-away-is-the-data.png'  alt="" /></p>
+
+<p>He was probably referring to traditional spinning rust hard drives, so let's adjust that extreme endpoint for today:</p>
+
+<ul>
+<li>Distance to Pluto: 4.67 billion miles.</li>
+<li>Latest fastest spinning HDD performance (<a href='http://www.anandtech.com/show/5729/western-digital-velociraptor-1tb-wd1000dhtz-review/3' >49.7</a>) versus latest fastest PCI Express SSD (<a href='http://anandtech.com/show/8006/samsung-ssd-xp941-review-the-pcie-era-is-here/6' >506.8</a>). That's an improvement of 10x.</li>
+<li>New distance: 467 million miles.</li>
+<li>Distance to Jupiter: 500 million miles.</li>
+</ul>
+
+<p>So instead of travelling to Pluto to get our data from disk in 1999, <strong>today we only need to travel to &hellip; Jupiter</strong>. </p>
+
+<p><img src='http://blog.codinghorror.com/content/images/2014/May/solar-system-distances.png'  alt="" /></p>
+
+<p>That's disk performance over the last decade. How much faster did CPUs, memory, and networks get in the same time frame? Would a 10x or 100x improvement really make a dent in these vast infinite spaces in time that computers deal with?</p>
+
+<p>To computers, we humans work on a completely different time scale, practically <a href='http://en.wikipedia.org/wiki/Timeline_of_the_far_future' >geologic time</a>. Which is completely mind-bending. The faster computers get, the bigger this time disparity grows. </p>
+
+<table>  
+<tr><td class="welovecodinghorror">  
+[advertisement] <a href='http://careers.stackoverflow.com/'  rel="nofollow">Stack Overflow Careers</a> matches the best developers (you!) with the best employers. You can search our <a href='http://careers.stackoverflow.com/jobs'  rel="nofollow">job listings</a> or <a href='http://careers.stackoverflow.com/cv'  rel="nofollow">create a profile</a> and even let employers find you.
+</td></tr>  
+</table>

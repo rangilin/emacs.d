@@ -1,0 +1,48 @@
+
+<p>Here's how I deal with multiple SMTP servers. I have a function that
+runs just before sending an e-mail (after hitting C-c C-c in the
+message buffer). It asks where the e-mail is coming from and sets the
+right SMTP server.</p>
+
+<p>In the example below inputting google will pick the google SMTP
+server. Everything else will be sent via kanis.fr.</p>
+
+<p>The last setq removes the &quot;From&quot; header when composing an e-mail. This
+is required since I query this value just before sending the message.
+Using the default value would send the wrong header.</p>
+
+<pre class="src">
+(<span style="color: #8b008b; background-color: #b9babd;">defun</span> <span style="color: #00008b; background-color: #b9babd;">private-gnus-prompt-address</span> ()
+  <span style="color: #008b00; background-color: #b9babd;">"Prompt for sender address before sending e-mail
+  Optionally cover address name to avoid spam"</span>
+  (interactive)
+
+  <span style="color: #008b00; background-color: #b9babd;">;; </span><span style="color: #008b00; background-color: #b9babd;">never user agent for e-mail
+</span>  (setq message-send-mail-real-function nil)
+
+  (setq user-mail-address (read-string <span style="color: #8b5a00; background-color: #b9babd;">"From: "</span> <span style="color: #8b5a00; background-color: #b9babd;">"google"</span>)
+  (<span style="color: #8b008b; background-color: #b9babd;">cond</span>
+   ((string= user-mail-address <span style="color: #8b5a00; background-color: #b9babd;">"google"</span>)
+    (setq
+     user-mail-address <span style="color: #8b5a00; background-color: #b9babd;">"ivan@gmail.com"</span>
+     smtpmail-smtp-server <span style="color: #8b5a00; background-color: #b9babd;">"smtp.gmail.com"</span>
+     smtpmail-smtp-service 587))
+   (t
+    (setq
+     smtpmail-smtp-server <span style="color: #8b5a00; background-color: #b9babd;">"kanis.fr"</span>
+     smtpmail-smtp-service 2525
+     mail-host-address <span style="color: #8b5a00; background-color: #b9babd;">"kanis.fr"</span>)))
+  (<span style="color: #8b008b; background-color: #b9babd;">if</span> (not (string-match <span style="color: #8b5a00; background-color: #b9babd;">"@"</span> user-mail-address))
+      (setq user-mail-address
+            (concat user-mail-address <span style="color: #8b5a00; background-color: #b9babd;">"@"</span> mail-host-address))))
+
+(add-hook 'message-send-hook 'private-gnus-prompt-address)
+
+(setq
+  <span style="color: #008b00; background-color: #b9babd;">;; </span><span style="color: #008b00; background-color: #b9babd;">Prevent "From" headers when composing
+</span>  message-required-mail-headers
+  '(Subject Date (optional . In-Reply-To) Message-ID (optional . User-Agent))
+  message-required-headers '((optional . References)))
+
+</pre>
+

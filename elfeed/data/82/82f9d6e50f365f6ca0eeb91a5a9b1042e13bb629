@@ -1,0 +1,40 @@
+<p>
+A lesson for the less-informed: while using ido to switch buffers, you
+can kill buffers with <kbd>C-k</kbd>.
+</p>
+
+<p>
+For some reason, though, you can't bury them. <kbd>C-b</kbd>
+seems like an obvious choice, but find your personal preference.
+</p>
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="p">(</span><span class="nv">add-hook</span>
+ <span class="ss">&#39;ido-setup-hook</span>
+ <span class="p">(</span><span class="nb">defun</span> <span class="nv">endless/define-ido-bury-key</span> <span class="p">()</span>
+   <span class="p">(</span><span class="nv">define-key</span> <span class="nv">ido-completion-map</span>
+     <span class="p">(</span><span class="nv">kbd</span> <span class="s">&quot;C-b&quot;</span><span class="p">)</span> <span class="ss">&#39;endless/ido-bury-buffer-at-head</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">endless/ido-bury-buffer-at-head</span> <span class="p">()</span>
+  <span class="s">&quot;Bury the buffer at the head of `ido-matches&#39;.&quot;</span>
+  <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">enable-recursive-minibuffers</span> <span class="no">t</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">buf</span> <span class="p">(</span><span class="nv">ido-name</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">ido-matches</span><span class="p">)))</span>
+        <span class="p">(</span><span class="nv">nextbuf</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">ido-matches</span><span class="p">)))</span>
+    <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nv">get-buffer</span> <span class="nv">buf</span><span class="p">)</span>
+      <span class="c1">;; If next match names a buffer use the buffer object;</span>
+      <span class="c1">;; buffer name may be changed by packages such as</span>
+      <span class="c1">;; uniquify.</span>
+      <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">and</span> <span class="nv">nextbuf</span> <span class="p">(</span><span class="nv">get-buffer</span> <span class="nv">nextbuf</span><span class="p">))</span>
+        <span class="p">(</span><span class="k">setq</span> <span class="nv">nextbuf</span> <span class="p">(</span><span class="nv">get-buffer</span> <span class="nv">nextbuf</span><span class="p">)))</span>
+      <span class="p">(</span><span class="nv">bury-buffer</span> <span class="nv">buf</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nv">bufferp</span> <span class="nv">nextbuf</span><span class="p">)</span>
+          <span class="p">(</span><span class="k">setq</span> <span class="nv">nextbuf</span> <span class="p">(</span><span class="nv">buffer-name</span> <span class="nv">nextbuf</span><span class="p">)))</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">ido-default-item</span> <span class="nv">nextbuf</span>
+            <span class="nv">ido-text-init</span> <span class="nv">ido-text</span>
+            <span class="nv">ido-exit</span> <span class="ss">&#39;refresh</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">exit-minibuffer</span><span class="p">))))</span></code></pre></div>
+<p>
+Don't be overly impressed by the apparent robustness of the code,
+it's merely an adaptation of <a href="http://bruce-connor.github.io/emacs-online-documentation/Fun/ido-kill-buffer-at-head"><code>ido-kill-buffer-at-head</code></a>.
+</p>
+
+   <p><a href="http://endlessparentheses.com/Ido-Bury-Buffer.html?source=rss#disqus_thread">Comment on this.</a></p>

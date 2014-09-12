@@ -1,0 +1,14 @@
+
+<p>The Mac has a built in VNC server for screen sharing. Unfortunately
+since Lion it's broken for all client except the one distributed by
+Apple.</p>
+
+<p>I fixed this by installing Vine Server version 4.0 available here:</p>
+
+<p><a href="http://www.testplant.com/support/downloads/vine/">http://www.testplant.com/support/downloads/vine/</a></p>
+
+<p>To have it start when your server boots you just need to go to User &amp;
+Group in the System Preference. Click on the Login Items tab and drag
+the VNC server icon there. Obviously you will need to set autologin
+otherwise it won't work.</p>
+

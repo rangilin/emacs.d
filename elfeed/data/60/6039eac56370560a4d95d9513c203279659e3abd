@@ -1,0 +1,34 @@
+<p>
+This is <a href="http://en.wikiquote.org/wiki/Lisp">quote of the day</a>:
+</p>
+
+<blockquote>
+<p>
+DOLIST is similar to Perl's foreach or Python's for. Java added a
+similar kind of loop construct with the "enhanced" for loop in Java
+1.5, as part of JSR-201. Notice what a difference macros make. A Lisp
+programmer who notices a common pattern in their code can write a
+macro to give themselves a source-level abstraction of that pattern. A
+Java programmer who notices the same pattern has to convince Sun that
+this particular abstraction is worth adding to the language. Then Sun
+has to publish a JSR and convene an industry-wide "expert group" to
+hash everything out. That process&#x2013;according to Sun&#x2013;takes an average
+of 18 months. After that, the compiler writers all have to go upgrade
+their compilers to support the new feature. And even once the Java
+programmer's favorite compiler supports the new version of Java, they
+probably still can't use the new feature until they're allowed to
+break source compatibility with older versions of Java. So an
+annoyance that Common Lisp programmers can resolve for themselves
+within five minutes plagues Java programmers for years.
+</p>
+
+<p>
+Peter Seibel, Practical Common Lisp.
+</p>
+</blockquote>
+
+<p>
+So true. And that's just for a language feature that everyone will
+agree on. God help you if you want language feature in Java that's
+only useful to web developers.
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/DEch7cMew9U" height="1" width="1"/>

@@ -1,0 +1,48 @@
+
+<p>I can listen to the BBC radio again on Linux! It took me a little work
+but the result is gratifying. Note that the pause, forward and volume
+controls are now working. I am thrilled :)</p>
+
+<table class="image" width="100%">
+  <tr><td align="center"><img src="helixbbc.png" alt="Snapshot of the Helix Player plugin on the BBC radio site"></td></tr>
+  <tr><td align="center" class="image-caption">Snapshot of the Helix Player plugin on the BBC radio site</td></tr>
+</table>
+
+<p>I have compiled the Helix Player on Debian this morning and I have
+taken the following notes.</p>
+
+<p>You will need the Ogg Vorbis development file:</p>
+
+<p><code>apt-get install libvorbis-dev</code></p>
+
+<p>The player also depends on the <a href="http://www.theora.org/">Theora</a> codecs. These files are not
+packaged in Debian yet. Grab the sources from the web site, unpack
+them and type the following commands:</p>
+
+<pre class="example">
+./configure --prefix=/usr
+make
+make install
+</pre>
+
+<p>Once the dependences are taken care of you should be able to build
+the player. Here is what my build environment looks like :</p>
+
+<pre class="example">
+Build System Menu
+-&gt; Current Directory: /home/ivan/src/helix/helix
+[0] Set BIF branch (helix-player)
+[1] Set Target(s) (player_inst)
+[2] Set Profile (/home/ivan/src/helix/build/umakepf/helix-client-all-defines)
+[3] run: build -trelease
+</pre>
+
+<p>Next run the build by pressing 3. I have the self extracting
+installer in the releasedirectory. So I ran the
+following command:</p>
+
+<p><code>./hxplay-0.3.0.59-linux-2.2-libc6-gcc32-i586.bin</code></p>
+
+<p>The installer register the plugin to Mozilla and you should be able to
+listen to the best <a href="http://www.bbc.co.uk/radio">radio</a> out there!</p>
+

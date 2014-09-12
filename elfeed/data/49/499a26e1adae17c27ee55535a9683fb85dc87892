@@ -1,0 +1,48 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #32!</p>
+<p>Compiled by <a href="https://twitter.com/mattrco">Matt Cottingham</a> and <a href="https://twitter.com/kelseyhightower">Kelsey Hightower</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="https://groups.google.com/d/msg/golang-nuts/CF5wyVEjEaY/a-Ls1yXzRX8J">Go 1.3.1 is released</a></p>
+<p><a href="http://blog.labix.org/2014/08/13/announcing-qml-v1-for-go">Announcing qml v1 for Go</a><br />Some of you will remember the impressive original demo of go-qml; this version represents an important milestone for modelling UI applications in Go.</p>
+<p><a href="http://www.darrencoxall.com/golang/executing-commands-in-go/">Command execution in Go</a><br />A thoughtful post on using os/exec.</p>
+<p><a href="http://blog.gitorious.org/2014/08/11/golang-patterns-for-serving-on-demand-generated-content/">Patterns for serving on-demand, generated content</a></p>
+<p><a href="http://dave.cheney.net/2014/08/17/go-has-both-make-and-new-functions-what-gives">Why does Go have both 'make' and 'new' functions?</a></p>
+<p><a href="http://99designs.com/tech-blog/blog/2014/08/11/cmdstalk-golang-beanstalkd/">Giving our beanstalkd queue a UNIX interface with Go</a></p>
+<p><a href="http://txt.fliglio.com/2014/07/restful-microservices-in-go-with-gin/">Building a HTTP service with Gin</a></p>
+<p><a href="http://www.minaandrawos.com/2014/05/27/practical-guide-protocol-buffers-protobuf-go-golang/">A guide to using protocol buffers in Go</a></p>
+<p><a href="http://obahua.com/setup-vim-for-go-development/">Setting up VIM for Go development</a></p>
+<p><a href="https://medium.com/@kelseyhightower/optimizing-docker-images-for-static-binaries-b5696e26eb07">Building Docker images for static Go binaries</a></p>
+<p><a href="https://flynn.io/blog/flynn-beta">Flynn Beta</a><br />Flynn, a PaaS tool built in Go, is now in beta</p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="https://github.com/sourcegraph/srclib">sourcegraph/srclib</a><br />srclib is a polyglot code analysis library, built for hackability. It consists of language analysis toolchains (currently for Go, Python, JavaScript, and Ruby) with a common output format, and developer tools (such as editor plugins) that consume this format.</p>
+<p><a href="https://github.com/ernesto-jimenez/httplogger">ernesto-jimenez/httplogger</a><br />Enabling logging of http.Transport</p>
+<p><a href="https://github.com/hashicorp/hcl">hashicorp/hcl</a><br />The goal of HCL is to build a structured configuration language that is both human and machine friendly for use with command-line tools, but specifically targeted towards DevOps tools, servers, etc.</p>
+<p><a href="https://github.com/cockroachdb/cockroach">cockroachdb/cockroach</a><br />A scalable, geo-replicated, transactional datastore</p>
+<p><a href="https://github.com/siddontang/mixer">siddontang/mixer</a><br />Mixer is a MySQL proxy powered by Go which aims to supply a simple solution for MySQL sharding.</p>
+<p><a href="https://github.com/3rf/go-unused-funcs">3rf/go-unused-funcs</a><br />A tool for detecting dead functions in Go code, built on Go Oracle.</p>
+<p><a href="https://www.youtube.com/watch?v=OKLR6rrsBmI&amp;feature=youtu.be">Easier debugging with CGDB</a></p>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.sendgrid.com/"><img src="https://s3.amazonaws.com/golangweekly/sendgrid.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.sendgrid.com/">SendGrid</a> powers your app's outgoing &amp; incoming email capabilities, through a super-scalable cloud-based infrastructure. SMTP &amp; API integration options let developers build more faster and focus on the important stuff. One of the early companies to use Go in a large scale production environment, SendGrid will reliably and at scale deliver your critical application email.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator and provider of Continuum, the secure, hybrid cloud platform that provides cross-cutting control over all service layers, resources, and connections. Built in Go, Continuum enables perimeter-less network security over large-scale distributed systems, uses policy to unify dev and ops, and blends legacy and new technologies. With Continuum, you can use the tools you want, focus on what you do best, and go faster, safely. At enterprise scale.</p>
+</td>
+</tr>
+</tbody>
+</table>

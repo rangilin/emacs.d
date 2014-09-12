@@ -1,0 +1,31 @@
+<p>
+<a href="http://www.meetup.com/West-London-Hack-Night/events/120495682/">Last Thursday's</a> <a href="http://www.meetup.com/West-London-Hack-Night/">West London Hack Night</a> was great fun. The chosen topic
+was Genetic Algorithms. More specifically, given a pool of random
+strings, can you use GA to get them to evolve towards a target?
+</p>
+
+<p>
+It's a simple application of a sophisticated idea, but perhaps a
+perfect way to get started as you actually can code it up in about an
+hour and a half.
+</p>
+
+<p>
+There were four teams hacking in four different languages, and here's
+their code:
+</p>
+
+<ul class="org-ul">
+<li><a href="https://github.com/krisajenkins/javascriptgeneticalgorithm">JavaScript</a>
+</li>
+<li><a href="https://github.com/oppianmatt/westlondonhack_20130711">Python</a>
+</li>
+<li><a href="https://github.com/t-ob/genetic">Clojure</a>
+</li>
+<li><a href="https://github.com/CaffeinatedDave/GeneticAlgorithms">Scala</a>
+</li>
+</ul>
+
+<p>
+Great fun, as usual. I'm already looking forward to the next.
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/f8fmkBXD4oo" height="1" width="1"/>

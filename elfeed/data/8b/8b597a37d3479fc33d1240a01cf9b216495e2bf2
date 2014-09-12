@@ -1,0 +1,24 @@
+<p>
+Just in case this isn't completely obvious:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sql"><span style="color: #f92672;">CREATE</span> <span style="color: #f92672;">TABLE</span> <span style="color: #a6e22e;">some_collection</span> (
+  <span style="color: #ae81ff;">id</span>   <span style="color: #66d9ef;">VARCHAR</span> <span style="color: #f92672;">NOT</span> <span style="color: #f92672;">NULL</span>,
+  <span style="color: #ae81ff;">data</span> <span style="color: #ae81ff;">BLOB</span>    <span style="color: #f92672;">NOT</span> <span style="color: #f92672;">NULL</span>
+);
+</pre>
+</div>
+
+<p>
+There you go - you can serialize any key-value pair you like, without
+a schema. Heck, the values don't even have to be of the same type.
+</p>
+
+<p>
+You may or may not want to do this, but you can. My point is, while
+there are many good things to say about NoSQL databases,
+schemalessness isn't the interesting one. Enforcing a schema is a
+feature. Not enforcing one is not.
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/WAVRqWByA7M" height="1" width="1"/>

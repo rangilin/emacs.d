@@ -1,0 +1,107 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #20. It was great to meet some gophers and hear about interesting projects over the weekend at FOSDEM; you'll find a summary of the Go devroom below. The next Go conference will be GopherCon in April, and an <a href="http://blog.gopheracademy.com/scholarship-for-women">initiative to help improve diversity</a> has been announced for the conference. Don't forget there's also the <a href="http://www.dotgo.eu/">dotGo</a> conference in October. Compiled by <a href="https://twitter.com/mattrco">Matt Cottingham</a> and <a href="https://twitter.com/kelseyhightower">Kelsey Hightower</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="https://sourcegraph.com/blog/fosdem-2014-go-devroom">FOSDEM 2014 Go devroom roundup</a><br />A summary of the talks given this weekend at FOSDEM. If you missed the livestream, videos will be available soon.</p>
+<p><a href="http://commandcenter.blogspot.com/2014/01/self-referential-functions-and-design.html">Self-referential functions and the design of options</a><br />Rob Pike demonstrates a beautiful use of closures when designing an interface for setting options on a Go package.</p>
+<p><a href="http://joshua.themarshians.com/go-io.html">Go I/O is Fun*!</a><br />Simplify code by using I/O interfaces and an introduction to the wrapio package.</p>
+<p><a href="http://www.jerf.org/iri/post/2929">The Environment Object Pattern in Go</a><br />Avoid global variables and improve testability by leveraging structs, packages, and struct embedding.</p>
+<p><a href="http://rd.happypancake.com/2014/moving-forward-with-golang/">Moving forward with Go</a><br />"After a couple of iterations we settled for the go language as the primary language for rewrite of happy pancake from C#."</p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="https://github.com/ahmetalpbalkan/go-linq">ahmetalpbalkan/go-linq</a><br />.NET LINQ-like query methods for Go</p>
+<p><a href="https://github.com/ajg/form">ajg/form</a><br />A HTTP Form Encoding &amp; Decoding Package</p>
+<h4>DISCUSSIONS</h4>
+<p><a href="https://groups.google.com/forum/#!topic/golang-nuts/rmHMi1wrHYk">Should we care about minimizing memory padding in Go?</a><br />Kevin Gillette provides some great insight on the Go memory alignment rules and offers some simple guidelines to save memory when working with structs.</p>
+<p><a href="https://groups.google.com/forum/#!topic/golang-nuts/moCDscfIc9E">Go - Should I use it as the only webserver or should it work with a traditional one?</a><br />Nice discussion regarding the use of Nginx or Apache as a reverse proxy for Go web applications. TLDR; Go can serve 25K/s easily, but if you need things like caching, logging, rate-limiting, and advanced SSL features using a reverse proxy can save you a lot of time.</p>
+<p><a href="https://groups.google.com/forum/#!topic/golang-nuts/ph38ABPsHoA">GitLab support for "go get"</a><br />Led by Bruno Albuquerque, an initiative to make projects hosted in GitLab go gettable.</p>
+<p><a href="https://groups.google.com/forum/#!topic/golang-nuts/9zc95Dkqf1g">third_party.go - self contained GOPATH helper</a><br />Brandon Philips introduces third_party.go and explains its used to manage external dependencies for projects such as etcd.</p>
+<h4>EVENTS</h4>
+<table class="events">
+<tbody>
+<tr>
+<td><a href="http://www.meetup.com/golang-users-berlin/events/159374622/">The Elder Gopher</a></td>
+<td>2014-02-04</td>
+<td>GDG Berlin Golang</td>
+</tr>
+<tr>
+<td><a href="http://edmontongo.org/2014-02/">Edmonton Go February Meetup</a></td>
+<td>2014-02-24</td>
+<td>Edmonton Go</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golangsf/events/158275152/">GoSF Meetup - Mesos + Go | Stream Multiplexing | Dependency Mgmt</a></td>
+<td>2014-02-20</td>
+<td>GoSF</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Golang-DC/events/154671022/">Graph Database + GolangDC; how to write a driver for neo4j in go</a></td>
+<td>2014-02-11</td>
+<td>Golang DC</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golang-mel/events/159968462/">Intro to Go</a></td>
+<td>2014-02-04</td>
+<td>Golang Melbourne</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Golang-Paris/events/163437752/">Rencontre avec Francesc Campoy Flores, ing&eacute;nieur Dev Rel Golang</a></td>
+<td>2014-02-05</td>
+<td>Golang Paris</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/GDG-Gigcity/events/161712332/">Kick off meeting</a></td>
+<td>2014-02-17</td>
+<td>GDG Gigcity</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-Miami/events/162796832/">General Meetup and Hack Night</a></td>
+<td>2014-02-14</td>
+<td>Go Miami</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-Tampa/events/160718192/">Go Tampa Kick Off</a></td>
+<td>2014-02-20</td>
+<td>Go Tampa</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golangvan/events/160359492/">GolangVan Kickoff</a></td>
+<td>2014-02-06</td>
+<td>GolangVan</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Gainesville-Gophers/events/159510352/">First Go User Group Meetup!</a></td>
+<td>2014-02-06</td>
+<td>Gainesville Go User Group</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/go-mad/events/160013972/">Charla: &iquest;Por que Go? por Victor Castell y Mesa redonda</a></td>
+<td>2014-02-04</td>
+<td>GoMAD - Madrid Go User Group</td>
+</tr>
+</tbody>
+</table>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator and provider of Continuum, the secure, hybrid cloud platform that provides cross-cutting control over all service layers, resources, and connections. Built in Go, Continuum enables perimeter-less network security over large-scale distributed systems, uses policy to unify dev and ops, and blends legacy and new technologies. With Continuum, you can use the tools you want, focus on what you do best, and go faster, safely. At enterprise scale.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.iron.io/"><img src="http://s3.amazonaws.com/golangweekly/iron_io.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.iron.io/">Iron.io</a> is the maker of IronMQ, a scalable cloud-based message queue, and IronWorker, an elastic task queue/worker service, and one of the first companies to use Go in production. Iron.io's services are designed for building distributed cloud applications quickly and operating at scale. The services are easy to use, highly available, and require no setup and no ops. Reduce complexity, build to scale, get Iron.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />

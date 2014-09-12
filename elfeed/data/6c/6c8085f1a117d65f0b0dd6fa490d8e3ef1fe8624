@@ -1,0 +1,30 @@
+
+<p>Setting up Amanda client on Mandrake. A word for the wise:
+forget about the rpm package! It doesn't have the service that the
+server expects: amandad.</p>
+
+<p>The quickest way to make it work is to grab the source from
+the Amanda web page. Compile and install the client part.</p>
+
+<pre class="example">
+./configure --without-server --with-user=backup --with-group=backup
+make
+make install
+</pre>
+
+<p>Next create and add the following lines in the file <code>/etc/xinet.d/amanda</code>:</p>
+
+<pre class="example">
+service amanda
+{
+    socket_type = dgram
+    protocol = udp
+    wait = yes
+    user = backup
+    server  = /usr/local/libexec/amandad
+}
+</pre>
+
+<p>Run <code>amcheck</code> on the server to check that the
+client is set up properly. You should be set!</p>
+

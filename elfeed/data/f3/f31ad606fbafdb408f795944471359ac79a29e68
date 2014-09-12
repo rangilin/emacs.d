@@ -1,0 +1,8 @@
+
+<p>Should be easy, right? Of course not!</p>
+
+<pre class="example">
+apt-get install libunistring libunistring-dev libffi-dev libgc-dev
+BDW_GC_CFLAGS=-L/usr/lib BDW_GC_LIBS=-lgc ./configure
+</pre>
+

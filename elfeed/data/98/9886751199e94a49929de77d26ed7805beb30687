@@ -1,0 +1,6 @@
+
+<p>I have just discovered M-. on my shell prompt. It works on bash and
+zsh. It pastes the last argument of the previous command. If you press
+it again it will retrieve the second to last and so on. I have found
+it tremendously useful so I thought I'd share.</p>
+

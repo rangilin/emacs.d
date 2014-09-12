@@ -1,0 +1,27 @@
+<p>
+I've got a code-review for you. Here's the spec that the programmer
+was given:
+</p>
+
+<ul class="org-ul">
+<li>We have to read a tree-structure into memory.
+</li>
+<li>The end result will a tree of nodes.
+</li>
+<li>Each node can have 0 or more children.
+</li>
+<li>Each node has a value which is one of a few types: string, number, label, etc.
+</li>
+
+<li>Your job is to decide a file format for this tree, and write a
+parser to read it in.
+</li>
+<li>The file-format must be human-writable.
+</li>
+</ul>
+
+<p>
+My guess is, already some of you are thinking XML; some of you are
+shuddering at the very thought of XML; and most of us are thinking
+some kind of
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/tOY6Jx5gaHY" height="1" width="1"/>

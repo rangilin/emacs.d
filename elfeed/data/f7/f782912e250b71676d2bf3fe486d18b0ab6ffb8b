@@ -1,0 +1,30 @@
+<p>
+At the moment, org-babel's Clojure evaluator assumes you're running
+swank. But if you've made the switch from swank to nREPL, that's not
+going to work.  I bumped up against this problem this afternoon while
+writing <a href="/2013/02/deepest-node-in-a-binary-tree.html">this little Clojure-related blog post</a>.
+</p>
+
+<p>
+Getting org-babel to use nREPL is easy enough though. I've just added this to <code>~/.emacs</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #f92672;">eval-after-load</span> <span style="color: #e6db74;">"ob-clojure"</span>
+  '(<span style="color: #f92672;">defun</span> <span style="color: #a6e22e;">org-babel-execute:clojure</span> (body params)
+     <span style="color: #e6db74;">"Execute a block of Clojure code with Babel and nREPL."</span>
+     (<span style="color: #f92672;">require</span> '<span style="color: #fd971f;">nrepl</span>)
+     (<span style="color: #f92672;">if</span> (nrepl-current-connection-buffer)
+         (<span style="color: #f92672;">let</span> ((result (nrepl-eval (org-babel-expand-body:clojure body params))))
+           (car (read-from-string (plist-get result <span style="color: #ae81ff;">:value</span>))))
+       (<span style="color: #960050; background-color: #1e0010; font-weight: bold;">error</span> <span style="color: #e6db74;">"nREPL not connected!"</span>))))
+</pre>
+</div>
+
+<p>
+It's just a first pass. It works, but I'm not sure I'm handling all the
+options correctly, so I'll let it sit here for a while until I've
+given it enough exercise to be worth submitting back to the main
+project. Still, you might find it useful. Any feedback would be appreciated. <code>:-)</code>
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/ackkDVeHzZs" height="1" width="1"/>

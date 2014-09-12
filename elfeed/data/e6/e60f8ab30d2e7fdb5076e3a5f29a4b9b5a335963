@@ -1,0 +1,26 @@
+<p><img src="http://blog.eddie.com.tw/images/2013/fanxin-app.jpg" alt="image" /></p>
+
+<p>今年二月份剛好有機會到朋友的公司幫忙開發 iOS app：「分心 FanXin」。顧名思義，就是一個可以讓你一邊看電視，一邊分心地跟朋友聊劇情的 app。</p>
+
+<p>下載網址：<a href="https://itunes.apple.com/tw/app/fanxin-fen-xin/id545965153?mt=8" target="_blank">https://itunes.apple.com/tw/app/fanxin-fen-xin/id545965153?mt=8</a></p>
+
+<p>但近期因為覺得我家的那兩隻小朋友在長大的速度變好快，覺得好像再這樣忙下去就會錯過小朋友的成長過程了(像今天才看到我家三歲的小男生拿媽媽的化妝品在畫自己的臉)。所以把專案進度做個段落之後，就要回家來養小孩了(沒錯，我就是要從小開始訓練小朋友寫 code 了!)。</p>
+
+<h2>做玩具與做產品的差別</h2>
+
+<p>這回幾乎把一些常見的 iOS app 常用的東西都再磨過一輪。UI customization 當然是免不了的，另外，從 Facebook SDK 到 remote &amp; local notification，從 HTTP API 的串接到 streaming messaging protocol 的訊息處理，從 Core Data 到 NoSQL 等等，甚至也很幸運的遇到了 iOS 7 的 migration，完全體會到做玩具跟做產品的差別。</p>
+
+<p>這個 app 雖然不是全新打造的，但由於舊版的 app 架構有些不適合新改版的功能需求，所以最後幾乎是整個砍掉重練，從無到有手刻了超過三萬五千多行的程式碼(不包含3rd party library)：
+<img src="http://blog.eddie.com.tw/images/2013/fanxin-cloc.png" alt="image" />
+雖然跟一些大型專案比起來還差很遠，但對我個人來說已是個里程碑，除了提昇了不少寫 code 的手感外，也更了解 Objective-C 跟 Cocoa framework 是怎麼回事。</p>
+
+<p><a href="http://fanxin.tv/">分心團隊</a>雖然是個新創團隊，但裡面的成員都不會太新手，有眼光犀利的UI、UX designer 讓整個 app 看起來很精緻，使用起來也更直覺；有優秀的工程師負責處理 API，也有專門負責行銷及想點子的同事，讓開發人員可以 專心的開發 app；除此之外，還有 Web 平台的開發人員，讓 Web 跟 Mobile 都有一樣的功能。在這短短的八個多月的時間跟大家學到不少。</p>
+
+<h2>徵人啟事</h2>
+
+<p>分心團隊目前仍持續有在徵人，有興趣的朋友歡迎來試試看囉!</p>
+
+<ul>
+<li><a href="http://www.104.com.tw/jobbank/custjob/index.php?r=cust&amp;j=5e70436b5a6c3e233c423b1d1d1d1d5f2443a363189j01">徵才頁面</a></li>
+</ul>
+

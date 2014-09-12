@@ -1,0 +1,245 @@
+
+<p>There are many factors that lead to the troubling
+  <a href="http://martinfowler.com/bliki/DiversityImbalance.html">DiversityImbalance</a> that we find in the software
+  community. Some of these, like the problems in teenage education
+  that discourages girls from <a href="http://en.wikipedia.org/wiki/STEM_fields">STEM subjects</a> is a long term problem
+  where our profession can't play a central role in fixing <a href="#footnote-teenage">[1]</a>. But one factor that comes down directly to us is
+  the alienating atmosphere that hangs over the tech community.</p>
+<img src="http://martinfowler.com/bliki/images/alienatingAtmosphere/sketch.png"/>
+<p>One of the hardest things about talking about this alienating
+  atmosphere is that it's something that's experienced very
+  differently depending on who you are. For most middle-class white
+  guys like me, it's something we've rarely experienced. Yet for
+  many people in <a href="http://martinfowler.com/bliki/HistoricallyDiscriminatedAgainst.html">HistoricallyDiscriminatedAgainst</a> populations it's a
+  constant indication that "you're not welcome here".</p>
+
+<p>One of the sharpest technologists I know is a woman who has been
+  in the industry for a long time, much of it in technical leadership
+  roles. There's nobody I'd rather have at my side in an important
+  architecture meeting or reviewing a draft of mine that's veering
+  into deep language theory. Yet she still says that she feels a
+  reaction as she walks into a gathering of techies where nearly every face
+  is different to hers, a little voice saying "this place is not for
+  you". If such a reaction still strikes someone as accomplished as
+  this, we shouldn't be surprised to see it elsewhere.</p>
+
+<p>That basic reaction is set off just by the disparity in numbers,
+  which is a long term problem to solve - but it can amplified by
+  things within our short term influence. Sexually-oriented jokes tend
+  to reinforce a men-only locker-room atmosphere which many women do
+  find alienating. Many women have had real incidents of harassment,
+  such jokes remind them of that. And although the chances of a
+  serious incident are slim, they are not zero. <a href="#footnote-physical">[2]</a></p>
+
+<p>If you have any doubt about how ugly this can get, just peruse
+  the comments on a blog or news entry whenever this kind of thing
+  comes up. The bile that falls on people who criticize
+  alienating incidents is both vile and sadly predictable. Ironically
+  the bilers often complain about censorship infringing their right to
+  make sexual jokes, but not acknowledging that fear of the intermobs
+  imposes its own censorship. I know several articulate women who will
+  not post their opinions because they don't want to have to deal with
+  this inevitable backlash.</p>
+
+<p>There's an important asymmetry here. I've occasionally been on
+  the receiving end of some nasty satire, but that's not such a big
+  issue for me because I'm in a position of relative influence in the
+  software world as well as part of a historically powerful group. For
+  people from historically-discriminated-against (HDA) populations the
+  dynamic changes. Such attacks reinforce the history of exclusion and
+  oppression, and trigger fears of physical attack. Merely the fact
+  that people think it's ok to make such attacks makes it clear that
+  "your kind is not welcome here". </p>
+
+<p>Trying to clear internet atmosphere of this feels like trying to
+  deal with global warming - what can we do?</p>
+
+<p>A first start is just to be aware that different people will
+  react differently to the same things. One person might not find a
+  remark offensive while it really hurts someone else. A phrase I've
+  found useful <a href="http://martinfowler.com/bliki/SmutOnRails.html">in the past</a> is
+  <b>I can't choose whether someone is offended by my actions. I can
+  choose whether I care.</b> If someone reacts in an hurt way to
+  something I say, I don't get to say "you can't be offended by that".
+  Their reaction is a result of their life experiences, which will be
+  different to mine. Often HDA people gets lots of these small hurts,
+  individually they don't mean much - but <a href="http://www.apa.org/monitor/2009/02/microaggression.aspx">the sheer
+  quantity has a big cumulative effect</a>.</p>
+
+<p>While I can't tell someone if they should be hurt or not, I can
+  choose whether I care about the hurtful feeling. And it is a choice.
+  I have offended some people when I've said we should treat gay people
+  equally. In that case say I don't care very much. It's my choice
+  that I'm not concerned about hurting the feelings of homophobes and
+  I accept responsibility for that decision.</p>
+<img src="http://martinfowler.com/bliki/images/alienatingAtmosphere/offence.png"/>
+<p>I do care, and think we as a profession should care, about this
+  kind of thing with <a href="http://martinfowler.com/bliki/HistoricallyDiscriminatedAgainst.html">HistoricallyDiscriminatedAgainst</a>
+  groups. Correcting these long-term discriminations takes time, and
+  can't be solved by just saying "we're all equal now". An alienating
+  atmosphere against women, both in our profession and on the wider
+  internet, reinforces an injustice that's been perpetrated for
+  thousands of years. While I cannot be responsible for what my
+  ancestors did, I can take responsibility to play what small part I
+  can in cleaning up their mess.</p>
+
+<p>I don't find it straightforward to learn about what causes
+  alienation and how to avoid contributing to it. I try to pay
+  attention to incidents when they come up and to listen to those who
+  feel attacked. Not all women are alienated by an act, so I have to
+  make a judgement about what proportion of people are going to react
+  - is it just this one person, or is this individual the only one of many who
+  felt brave enough to speak out?</p>
+
+<p>I've found it valuable to find people who I can
+  confidently talk to about these issues, and I certainly recommend
+  searching out a few people who can act as guides. It's important to
+  get a variety here, as different people react differently - it's
+  easy to miss things by generalizing from opinions that are too few
+  or not diverse enough. I feel that these steps have increased my awareness
+  over the years, but it's far from being a territory I can be
+  confident in.</p>
+
+<p>Once we can begin to sense the alienation in the atmosphere the
+  next step is to try to create environments with cleaner air. An
+  example is how many conferences now have code of conduct policies
+  designed to spell out that certain behaviors are not good manners.
+  They can (and must) reinforce this by making it easy for people to
+  make complaints and dealing with them swiftly and fairly. Yes, there
+  is a risk that specious complaints will be made, and these are
+  frustrating, but in practice the problems due to these are much
+  smaller than the problems that never get reported. <a href="#footnote-specious">[3]</a></p>
+
+<p>One question is what people in the majority groups should do when
+  they detect some miasma in the air. If I hear a bunch of guys making
+  sexual jokes in clear earshot, should I intervene? I don't find this
+  an easy question to answer. I don't have high confidence in my
+  ability to detect whether a group I care about is going to be
+  offended by things that I personally don't find offensive, so I'd be
+  reluctant to overreact myself. </p>
+
+<p>But I agree with the notion that <a href="http://www.youtube.com/watch?v=QaqpoeVgr8U"><b>the standard you
+  walk past is the standard you accept</b></a>. Many women are <a href="http://www.jimchines.com/2013/08/sexual-harassment-conversations-in-comic-form/">sick
+  of complaining</a> about this kind of behavior because these
+  complaints often only lead to more trouble. So I think it's
+  important for all of us to battle against this miasma, to intervene
+  when someone is fueling the bad air and to support someone's right
+  to speak up and say they are feeling excluded.</p>
+
+<p>So I believe I have the responsibility to act when such
+  things happen but I say this with trepidation, I have that British
+  thing about wanting to avoid fuss-and-bother, so my natural
+  inclination is to let things go when I'm feeling offended. I know
+  that even in the last few years I've missed opportunities to speak
+  up when I should, but I know that I should not let that stop me from
+  doing better in the future <a href="#footnote-talk">[4]</a>. We must change this culture of silence.</p>
+
+<p>In particular we must avoid supporting this alienating
+  atmosphere. Sadly such support appears when people attack those who
+  are trying to fight it. Often women who complain about alienating
+  incidents are told to "grow a thick skin". I find this kind of
+  support for <a href="http://martinfowler.com/bliki/NetNastiness.html">NetNastiness</a> deeply annoying. </p>
+<img src="http://martinfowler.com/bliki/images/alienatingAtmosphere/skin.png" width="400"/>
+<p>I value people with good ideas and don't consider the thickness
+   of their skin. Anyone driven away from expressing innovation or
+   writing excellent code is a loss to all of us, however unoffended
+   we think they should be.</p>
+
+<div class="furtherReading">
+<h2>Further Reading</h2>
+
+<p>Amanda Hess gives <a href="http://www.psmag.com/navigation/health-and-behavior/women-arent-welcome-internet-72170">a sad but worthwhile summary</a> of attacks
+    against women online. These are wider than just within the tech
+    community, but are typical of what women have to deal with here too.</p>
+
+<p>Ashe Dryden writes about the <a href="http://ashedryden.com/blog/the-risk-in-speaking-up">risks and
+    rewards of speaking up</a> to oppose the alienating atmosphere in
+    tech. The post includes responses to common misconceptions and suggestions
+    of how to help.</p>
+</div>
+
+<div class="footnote-list">
+<h2>Notes</h2>
+
+<div class="footnote-list-item" id="footnote-teenage">
+<p><span class="num">1: </span>
+      There are a number of initiatives out there to encourage HDA
+      teenagers to get involved in programming, such as <a href="http://www.blackgirlscode.com">Black Girls
+      Code</a> and <a href="http://iridescentlearning.org/programs/technovation-challenge/">Technovation Challenge</a>. 
+    </p>
+</div>
+
+<div class="footnote-list-item" id="footnote-physical">
+<h3 class="head-text">2: Fear of physical attacks</h3>
+
+<p>Physical attacks are rare, but not negligible. <a href="http://www.bjs.gov/index.cfm?ty=pbdetail&amp;iid=4594">Recent
+      statistics</a> in the US indicate that 2 per thousand women
+      suffer rape or sexual abuse each year (4 per thousand for
+      younger women). Another <a href="http://www.bjs.gov/content/pub/pdf/fvsv9410.pdf">survey
+      focusing on college women</a> found 35 women per thousand per
+      year suffered sexual victimization in college.</p>
+
+<p>It's also important to note that the fear of an attack, even
+      if irrational, is still a factor. As one reviewer commented "I once
+      had a rather unpleasant experience with a male colleague, I
+      spoke up and took a stand and pretty much held my own. But after
+      that, I couldn't shake off the fear for days together, that he
+      might turn around and physically harm me! This was probably the
+      farthest thing from a possibility - but that thought was with me
+      with an annoying amount of conviction. And every time I take a
+      stand I feel a pinch of that." </p>
+
+<p>Someone can be very sure intellectually that there isn't a threat
+      of a physical attack, yet the debilitating emotion is still there.
+      These reactions come from triggers that are deeply
+      ingrained in our culture.</p>
+</div>
+
+<div class="footnote-list-item" id="footnote-specious">
+<p><span class="num">3: </span>
+      The <a href="http://www.nsvrc.org/publications/articles/false-reports-moving-beyond-issue-successfully-investigate-and-prosecute-non-s">best study into this</a> that I could find indicated that false
+      report rate was somewhere in the range of 2-8%
+    </p>
+</div>
+
+<div class="footnote-list-item" id="footnote-talk">
+<p><span class="num">4: </span>
+      It's difficult talk about what to do because different
+  cases are so varied. Even with a specific example, I frequently
+  find myself at a loss. I've often thought
+  about what action I should take if I found myself in an audience for
+  a talk that uses sexual imagery to illustrate its concepts. I know I
+  should do <i>something</i>, but I confess that I'm unsure what it
+  should be - which gives me little confidence that I'd do the right
+  thing.
+    </p>
+</div>
+</div>
+
+<div class="appendix">
+<div id="PinkAndBlue"><hr class="topSection"/>
+<h2>Pink and Blue</h2>
+
+<p>When preparing the illustrations for the article, I puzzled
+       a good bit about whether to use the pink and blue colors you
+       see here. Many people, including me, object to the gender stereotyping
+       of these colors and I don't like to reinforce it. But in the
+       end I felt that using the gender
+       associations of these colors helped the illustrations
+       communicate better (as opposed to using more neutral colors). I
+       also tried using light and dark brown in a similar way (as the
+       alienating atmosphere is true of race too) but pink/blue scheme
+       provides more striking color.</p>
+</div>
+</div>
+
+<div class="acknowledgements">
+<h2>Acknowledgements</h2>
+
+     My thanks to Ashe Dryden, Adria Richards, Adrienne Hisbrook,
+     Andrew Slocum, Chitra Sachdeva, Graham Brooks, Jim Gumbley, Linda
+     Rising, Peter Gillard-Moss, Rebecca Parsons, and Trisha Gee for
+     their feedback on this post.
+   </div>
+
+<p class="shares"><span class="label">Share: </span><a href="https://twitter.com/intent/tweet?url=http://martinfowler.com/bliki/AlienatingAtmosphere.html&amp;text=Bliki: AlienatingAtmosphere" title="Share on Twitter"><img src="/t_mini-a.png"/></a><a href="https://facebook.com/sharer.php?u=http://martinfowler.com/bliki/AlienatingAtmosphere.html" title="Share on Facebook"><img src="/fb-icon-20.png"/></a><a href="https://plus.google.com/share?url=http://martinfowler.com/bliki/AlienatingAtmosphere.html" title="Share on Google Plus"><img src="/gplus-16.png"/></a></p>

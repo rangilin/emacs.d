@@ -1,0 +1,82 @@
+<p>I find the <a href='https://www.google.com/?q=don' t+read+the+comments">Don't Read The Comments</a> movement kind of sad. </p>
+
+<blockquote class="twitter-tweet" lang="en"><p>Comments sections are frequently misogynistic, homophobic, racist, and very often POORLY WRITTEN. Why bother reading them?</p>&mdash; Don&#39;t Read Comments (@AvoidComments) <a href='https://twitter.com/AvoidComments/statuses/442351550217068544' >March 8, 2014</a></blockquote>  
+
+<script async src='http://platform.twitter.com/widgets.js'  charset="utf-8"></script>
+
+<p>In 2006 I said that <a href='http://blog.codinghorror.com/a-blog-without-comments-is-not-a-blog/' >a blog without comments is not a blog</a> and I stand behind that statement. There have been brief periods where my own blog has been <a href='http://blog.codinghorror.com/welcome-back-comments/' >temporarily without comments</a>, but they will always come back as long as I'm in charge here.</p>
+
+<p>I'm a fan of comments, warts and all. They're noisy, sure, but in my experience they reliably produce crowdsourced knowledge in aggregate. I understand being pressed for time, but if you want the complete picture, in the same way that you should follow all those little citation links in Wikipedia articles, <strong>you should read the comments</strong>.</p>
+
+<p>I empathize with the <a href='http://www.salon.com/2012/10/25/im_never_reading_the_comments_again/' >complaint</a>, believe me:</p>
+
+<blockquote>
+  <p>I used to believe that as an online writer, I had an obligation to read the comments. I thought that it was important from a fact-checking perspective, that it somehow would help me grow as a writer. What I’ve learned is that if there’s something wrong or important or even, sometimes, good about a story, someone will let you know. I’ve over the years amassed an amazing community of Salon readers who engage via email, who challenge me, who inspire new stories, who are decent people and treat me like one in return. What I was getting in the comments was a lot of anonymous “You suck, bitch.”</p>
+  
+  <p>I admit it’s depressing for one who’s invested almost her entire career in online community to throw in the towel on it in this way. I want it to be better. But it’s just not. As a colleague once observed, “I just can’t take another letter from Angry Bad Divorce Guy.”</p>
+</blockquote>
+
+<p>But that's so many pesky <em>words</em>, isn't it? TL;DR. Allow me to illustrate with a graph that your brain can absorb in milliseconds:</p>
+
+<p><a href='http://www.smbc-comics.com/?id=2696' ><img src='http://blog.codinghorror.com/content/images/2014/Mar/esteem_for_humanity_comments.png'  alt="comments and esteem for humanity" title="" /></a></p>
+
+<p>What is <em>wrong</em> with people, amirite?</p>
+
+<p>I humbly submit that this is asking the wrong question. </p>
+
+<p><em>What is wrong with us?</em></p>
+
+<p>I agree with Anil Dash. If your website is full of assholes, <a href='http://dashes.com/anil/2011/07/if-your-websites-full-of-assholes-its-your-fault.html' >it's your fault</a>.</p>
+
+<blockquote>
+  <p>As it turns out, we have a way to prevent gangs of humans from acting like savage packs of animals. In fact, we've developed entire disciplines based around this goal over thousands of years. We just ignore most of the lessons that have been learned when we create our communities online. But, by simply learning from disciplines like urban planning, zoning regulations, crowd control, effective and humane policing, and the simple practices it takes to stage an effective public event, we can come up with a set of principles to prevent the overwhelming majority of the worst behaviors on the Internet.</p>
+  
+  <p>If you run a website, you need to follow these steps. if you don't, you're making the web, and the world, a worse place. And it's your fault. Put another way, take some goddamn responsibility for what you unleash on the world.</p>
+</blockquote>
+
+<p>In other words, <strong>if you are unwilling to moderate your online community, you don't deserve to have an online community.</strong> There's no end of websites recreating the glorious "no stupid rules" libertarian paradise documented in the <a href='http://en.wikipedia.org/wiki/Lord_of_the_Flies' >Lord of the Flies</a> in their comment sections, from scratch, each and every day. This ends exactly as you would expect it to.</p>
+
+<p><img src='http://blog.codinghorror.com/content/images/2014/Mar/libertarian_lifeguard.jpg'  alt="Libertarians make bad lifeguards" /></p>
+
+<p>However, demanding that every online community, every comment section, have active moderation is a tough sell:</p>
+
+<ul>
+<li>Skilled moderators are difficult to find. A bad moderator is often <em>worse</em> than no moderator.</li>
+<li>Do you have the budget to pay full time moderators?</li>
+<li>Are your moderators around 24/7?</li>
+<li>If you have a single moderator making unilateral decisions, who appeals their decisions? If you have multiple moderators, how do they resolve disagreements?</li>
+<li>What happens when your moderators inevitably burn out or move on?</li>
+</ul>
+
+<p>One of the reasons I <a href='http://www.discourse.org/about/' >launched the Discourse project</a> was due to the utter lack of understanding of how you build software to help online discussion communities moderate themselves. Their survival depends on it.</p>
+
+<p>What I learned building Stack Overflow, more than anything else, is this: <strong>the only form of moderation that scales with the community is the community itself.</strong> We became quite skilled at building <a href='http://blog.stackoverflow.com/2011/01/trilogy-2011-elections-begin/' >systems</a> for self governance of online communities, and one of the things I'm proudest of is that &ndash; if we did our jobs well &ndash; decades from now <a href='http://www.stackexchange.com/' >Stack Exchange</a> will still be a network of viable, functioning, entirely self-governing communities.</p>
+
+<p><a href='http://blog.codinghorror.com/no-matter-what-they-tell-you-its-a-people-problem/' >It's always a people problem</a>. This is absolutely true. But it's also true that software can <em>profoundly</em> affect people's behavior, and provide tools for <a href='http://blog.codinghorror.com/training-your-users/' >encouraging positive behaviors</a> while modifying and mitigating negative behaviors. All that stuff Anil Dash described as <a href='http://dashes.com/anil/2011/07/if-your-websites-full-of-assholes-its-your-fault.html' >your responsibility?</a> Discourse handles it automatically, even if the owner installs and then walks away forever.</p>
+
+<p>These are <a href='http://blog.discourse.org/2013/03/the-universal-rules-of-civilized-discourse/' >the principles of civilized discourse</a> that Discourse is founded on, that our discussion software is designed around. Civilization begins with software that actively works to help you create safe environments for having reasonable conversations with other human beings. On the <em>Internet</em>, even!</p>
+
+<p><a href='http://www.discourse.org/' ><img src='http://blog.codinghorror.com/content/images/2014/Mar/logo_smaller.png'  alt="discourse" title="" /></a></p>
+
+<p>This is all a very long winded way of saying that effective immediately, <strong>Coding Horror is using <a href='http://www.discourse.org/' >Discourse</a> to power its discussions.</strong></p>
+
+<p>You may have questions, so I will attempt to answer them:</p>
+
+<ul>
+<li><p>This blog is <a href='http://blog.codinghorror.com/10-years-of-coding-horror/' >now hosted on Ghost</a>, which doesn't natively support comments. All previous TypePad comments were converted into Discourse. To the best of our ability, nothing was lost.</p></li>
+<li><p>Discourse is still beta, but <a href='http://blog.discourse.org/2014/01/the-road-to-discourse-1-0-2/' >late beta</a>. Expect changes and improvements as we make our way to 1.0.</p></li>
+<li><p>Discourse is a <em>companion</em> area to this blog, a clubhouse for the community. You can visit there directly at <a href='http://discourse.codinghorror.com/' >discourse.codinghorror.com</a></p></li>
+<li><p>Every new blog post here results in a corresponding topic being automatically created in the Discourse discussion area.</p></li>
+<li><p>I do not, and will not, offer in-page commenting here. If you want to reply with a comment, you go <a href='http://blog.discourse.org/2013/05/your-online-clubhouse/' >next door to the community clubhouse</a>. There's a fairly strong, but permeable, membrane between the editorial area <em>here</em> and the community area <em>there</em>. This is intentional.</p></li>
+<li><p>At the bottom of each blog entry here you will find read only versions of all replies to the Discourse topic associated with this blog entry. I might eventually switch that to a "best of" algorithm so readers see the best comments without having to wade through dozens or hundreds of replies.</p></li>
+</ul>
+
+<p>If you like what you see, Discourse is <a href='http://github.com/discourse/discourse' >100% free open source software</a>, so you can easily <a href='http://eviltrout.com/2014/01/22/embedding-discourse.html' >set up the same system</a> for your own blog. We even have a <a href='https://github.com/discourse/wp-discourse' >WordPress plugin</a> to assist.</p>
+
+<p>Now who's <a href='http://blog.codinghorror.com/the-ultimate-dogfooding-story/' >ready for some dogfooding?</a></p>
+
+<table>  
+<tr><td class="welovecodinghorror">  
+[advertisement] <a href='http://careers.stackoverflow.com/'  rel="nofollow">Stack Overflow Careers</a> matches the best developers (you!) with the best employers. You can search our <a href='http://careers.stackoverflow.com/jobs'  rel="nofollow">job listings</a> or <a href='http://careers.stackoverflow.com/cv'  rel="nofollow">create a profile</a> and even let employers find you.
+</td></tr>  
+</table>

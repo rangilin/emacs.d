@@ -1,0 +1,103 @@
+<p>When I am running my website, something troubles me.  While there is a bug in the production server, I need to modify code and restart them.  Sounds fine, right? Yes, for most of web servers, they are stateless,  it is not a big deal to restart them whenever you want, but it is not true for me, they are realtime audio streaming servers. When you restart a realtime streaming server, it means audience connected to the server will be interrupted.  Here is a diagram shows the problem:</p>
+
+<p><img src="http://user-image.logdown.io/user/822/blog/819/post/142557/EThLFqcEQPqWpfmUaAVk_server_diagram.png" alt="server_diagram.png"></p>
+
+<p>You can see there are some gaps in the plot, that’s caused by server restarting.  Of course, for users, that would definitely be a bad experience.  Therefore, I’m thinking how to solve this problem recently.  Before we go into the design, let’s look the reasons for restarting server first.</p>
+
+<ul>
+<li>To deploy new version of program</li>
+<li>To fix bugs</li>
+<li>The process is using to much memory</li>
+<li>To reload environment, ulimit -n for example (the limit count of file descriptor under unix-like environment)</li>
+<li>To migrate from host A to host B</li>
+</ul><p>For simply deploying new version of program, we can use reload function of Python to reload modules.  But there are some problems, reload function only rerun the module, those created instances are still there (if they are copied into some namespaces), it might work if the change is minor.  On the other hand,  reloading can’t solve memory usage problem, process environment change problem.  And here comes the final reason, to migrate service from host A to B.  Indeed, it is difficult not to make any down time for such migration, we only focus on migration in same host.</p>
+<h3>The solution</h3>
+<p>The biggest challenge is - how to migrate those existing connections? I did some research and have an idea in my mind. Create a new process, and transfer those connections (socket file descriptors) to the new process, and shut the old one down. Following diagrams illustrate my solution.</p>
+
+<p><img src="http://user-image.logdown.io/user/822/blog/819/post/142557/Hr6ZatJhTJaU79rmWCyA_mig_011.png" alt="mig_011.png"></p>
+
+<p>The Master is a process which is in charge of managing migration and receiving commands.  And the process A is for running the service.</p>
+
+<p><img src="http://user-image.logdown.io/user/822/blog/819/post/142557/AxjUk5ZNRBCCrszT2g0J_mig_02.png" alt="mig_02.png"></p>
+
+<p>Before we perform the migration, the Manager spawns process B, and wait it says "i'm ready".</p>
+
+<p><img src="http://user-image.logdown.io/user/822/blog/819/post/142557/kAyvPeHQDeIDjfsR5jJd_mig_03.png" alt="mig_03.png"></p>
+
+<p>When process B says “Hey! I’m ready”, then the manager tells process A to send the connection state descriptor to process B.  Process B receives the state, and takes over the responsibility of running service.</p>
+
+<p><img src="http://user-image.logdown.io/user/822/blog/819/post/142557/vZrB9ZZZThaAnuhTGERJ_mig_04.png" alt="mig_04.png"></p>
+
+<p>Finally, process B took over the service, then master tells process A “You are done.” and the process A kills himself.</p>
+
+<p>That’s it, the service was migrated from one process to the other, and there is no any down time.</p>
+<h3>The problem – socket transfer</h3>
+<p>The idea sounds good, right? But still, we have some technical problem to solve. It is “How to transfer socket (file descriptor) from one process to another?”. To solve this problem, I did study, and eventually found solutions.</p>
+<h3>Child process</h3>
+<p>For most of unix-like OS, child processes inherit file descriptors from their parent. Of course we can use this feature to migrate our service, but however, it got its limitation. You can only transfer file descriptors from parent to child process.</p>
+<h4>Sendmsg</h4>
+<p>Another way to achieve same goal is, to use sendmsg through a unix domain socket to send the file descriptors. With sendmsg, you can transfer file descriptors to almost any processes you like, that’s much flexible.</p>
+<h4>A simple demonstration</h4>
+<p>To simplify the example, we only implement process A and process B here, it is quite enough for two processes to complete the migration. Before we go into the details, there is another problem to solve, sendmsg is not a standard function in Python. Fortunately, there is a third-party package sendmsg provides this function. To install sendmsg, just type</p>
+
+<figure class="figure-code code"><div class="highlight"><pre>easy_install sendmsg
+</pre></div>
+</figure><p>And here you are. Okay, following are the two programs.</p>
+
+<p>a.py</p>
+
+<figure class="figure-code code"><figcaption><span>
+</span></figcaption><div class="highlight"><pre>import os
+import socket
+import sendmsg
+import struct
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('', 5566))
+s.listen(1)
+conn, addr = s.accept()
+conn.send('Hello, process %d is serving' % os.getpid())
+print 'Accept inet connection', conn
+us = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+us.bind(('mig.sock'))
+us.listen(1)
+uconn, addr = us.accept()
+print 'Accept unix connection', uconn
+payload = struct.pack('i', conn.fileno())
+sendmsg.sendmsg(
+    uconn.fileno(), '', 0, (socket.SOL_SOCKET, sendmsg.SCM_RIGHTS, payload))
+print 'Sent socket', conn.fileno()
+print 'Done.'
+</pre></div>
+</figure><p>b.py</p>
+
+<figure class="figure-code code"><figcaption><span>
+</span></figcaption><div class="highlight"><pre>import os
+import socket
+import sendmsg
+import struct
+
+us = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+us.connect(('mig.sock'))
+print 'Make unix connection', us
+
+result = sendmsg.recvmsg(us.fileno())
+identifier, flags, [(level, type, data)] = result
+print identifier, flags, [(level, type, data)]
+fd = struct.unpack('i', data)[0]
+print 'Get fd', fd
+
+conn = socket.fromfd(fd, socket.AF_INET, socket.SOCK_STREAM)
+os.close(fd)
+conn.send('Hello, process %d is serving' % os.getpid())
+raw_input()
+</pre></div>
+</figure><p>The a.py accepts an inet socket and opens an unix domain socket, waits b.py to take over the service.  And here we run b.py, it connects to a.py and receives the fd of socket and takes it over and run the service.</p>
+<h3>The result</h3>
+<p><img src="http://user-image.logdown.io/user/822/blog/819/post/142557/pIJKAWjtRpaTYlxhrOAD_%E8%9E%A2%E5%B9%95%E5%BF%AB%E7%85%A7-2011-02-04-%E4%B8%8B%E5%8D%884.07.07.png" alt="螢幕快照-2011-02-04-下午4.07.07.png"></p>
+
+<p>As the result shows, there is no down time between two Internet service processes migration in the same host.</p>
+
+<p>It can be very useful to employ this trick in Internet programs which need to keep active connections. You can even migrate connections from a Python program to a C/C++ program, or vice versa. Also, to keep the memory usage low, you can migrate the service to the same program in different process periodically.</p>
+
+<p>However, although it works in our demo program, but for real life complex server programs, it would be very difficult to implement migration mechanism like this. You need to dump connection state completely in one process and restore them in the other process. Due to the fact internal state of connections can be very complex, it could be impractical.</p>

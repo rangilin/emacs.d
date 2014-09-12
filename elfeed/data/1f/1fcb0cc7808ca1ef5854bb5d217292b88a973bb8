@@ -1,0 +1,70 @@
+<p>We have to start with a picture. Or hey, <strong>just go <a href="http://www.lighttable.com">download</a> it</strong> and see for yourself.</p>
+
+<p><img src="/images/020/code.png" alt="The new Light Table"></p>
+
+<p>This is the new <a href="http://www.chris-granger.com/2012/04/12/light-table---a-new-ide-concept/">Light Table</a> - rewritten from the ground up after having learned a ton about what it&#39;s going to take to make a truly extensible and connected environment. There are a lot of interesting ideas under the hood that make up the core of this new implementation, but the important part is that it is a solid foundation for us to continue forward on. The new code is not only smaller, but far more robust, and allows us to iterate incredibly quickly.</p>
+
+<p>But the changes aren&#39;t just all under the hood. What we have here is far more useable and useful than what we had before. As a matter of fact, I realized the other day that the only time I actually open vim now is when I manage to hose my instance of Light Table. The environment is entirely bootstrapped with all of our work happening by modifying Light Table at runtime. Even I&#39;m amazed at the difference that this has made and it&#39;s something I think you just have to experience to really appreciate - writing whole features <a href="https://twitter.com/ibdknox/status/260563787214626817">without refreshing the screen once</a> is a truly gratifying experience, one we intend to bring to everyone.</p>
+
+<h2>Yeah, yeah, what&#39;s new?</h2>
+
+<p>Well, let&#39;s see it in action.</p>
+
+<iframe width="600" height="338" src="http://www.youtube.com/embed/PsVJJp1XnzQ?rel=0" frameborder="0" allowfullscreen></iframe>
+
+<h3>A real app</h3>
+
+<p>First and foremost, Light Table is now a real app, not some weird concotion of a clojure server and a browser. It has an executable that you double click to run. Simple as that.</p>
+
+<p><img src="/images/020/app.jpg" alt="Light Table app"></p>
+
+<h3>General editing</h3>
+
+<p><img src="/images/020/tabs.jpg" alt="tabs"></p>
+
+<p>The 0.2.0 release has more of the general editing features you&#39;d expect in a programming environment. You can open any kind of file, it doesn&#39;t have to be valid/compilable, simple things like incremental find and multiple tabs are there.</p>
+
+<p><img src="/images/020/command.jpg" alt="command bar"></p>
+
+<p>This also includes a command bar, which is the source of most of the non-text-in-buffer actions you can do in Light Table. It&#39;s how you spawn an instarepl (the instant evaluation environment I showed in the first video), open files, and connect to projects.</p>
+
+<h3>Eval from any file</h3>
+
+<p>Unlike the stricter table mode that existed in 0.1.0, you now have the freedom to simply eval from any file you&#39;re working on. While this only supports Clojure and ClojureScript in this initial iteration, we&#39;ll be seeing this used in a lot more places soon.</p>
+
+<p><img src="/images/020/results.jpg" alt="results"></p>
+
+<p>Eval results show up on the right-hand side of the environment in a little list that you can hover over to make larger. All the results are also saved for you there, so you can simply scrollback through them if you want. Evaling doesn&#39;t block the editor in any way, so keep on keeping on while your process toils away in the background.</p>
+
+<h3>Connect to multiple projects</h3>
+
+<p>Working with multiple projects with different kinds of files is a non-issue in Light Table. If you try to eval something where no client can currently handle it, it will prompt you to use the <code>connect</code> command to spin up a client for that project.</p>
+
+<p><img src="/images/020/loader.jpg" alt="loader"></p>
+
+<p>It&#39;ll do that in the background and show you the result once everything is ready to go. So if you&#39;re working on some <a href="https://github.com/overtone/overtone">crazy computer generated music</a>, with <a href="https://github.com/quil/quil">intense graphics</a>, while <a href="https://github.com/clojure/core.logic">having your computer write programs for you</a>, you won&#39;t have to skip a beat.</p>
+
+<h2>A new, beautiful brand</h2>
+
+<p>We really love what the guys at <a href="http://modevisual.com/">MODE</a> did for the Light Table logo. They&#39;re some of the best in the business. And it shows.</p>
+
+<p><img src="/images/020/ltlogo.png" alt="Light Table Logo"></p>
+
+<p>This also translated into tshirts that look awesome:</p>
+
+<p><img src="/images/020/tshirts.jpg" alt="Light Table T-Shirts"></p>
+
+<h2>The plan</h2>
+
+<p>Two months ago we walked into YC demo day having just launched 0.1.0 and since then we&#39;ve been toiling away at the standard tribulations that startups face - from fundraising to fundamental technology shifts. Now that we&#39;ve waded through the bulk of that, it&#39;s about getting back to what we do best: exploring the future of programming environments. This release was a huge step forward in our ability to deliver to more people and to iterate faster. It is the first move toward supporting more languages and that is where our focus is headed for the next couple of months. We&#39;ll be starting with Javascript first and tackling the problem of both client side JS as well as Node.js itself. To do that, we&#39;ll need to do some research in the way you guys use your tools already, which we&#39;ll be talking about more soon - hopefully you&#39;re up for a visit!</p>
+
+<h2>Issues, comments, concerns?</h2>
+
+<p>We&#39;re continuing to use <a href="https://github.com/Kodowa/Light-Table-Playground/">our github</a> to track issues and there are a <a href="https://github.com/Kodowa/Light-Table-Playground/blob/master/README.md">few we know of already</a> with the release of 0.2.0. There&#39;s also an <a href="https://groups.google.com/forum/?fromgroups#!forum/light-table">announcements mailing list</a> which we&#39;ll be making much better use of and the <a href="https://groups.google.com/forum/?fromgroups#!forum/light-table-discussion">discussion list</a> that we&#39;ll breathe some life into.</p>
+
+<h2>Want to see more?</h2>
+
+<p>We&#39;ll be doing the <a href="http://nodeknockout.com/">node knockout</a> this weekend and to give people a taste of what Light Table can really do, we&#39;ll be live streaming the entire event. We&#39;re going to be building a game in ClojureScript and it&#39;s going to be awesome. Once the feed is live, I&#39;ll put up another post and tweet about it. I hope you&#39;ll tune in!</p>
+
+<p>Now get out of here and <a href="http://www.lighttable.com">go play with it</a>.</p>
+<img src="http://feeds.feedburner.com/~r/ChrisGranger/~4/Jj5o6aTn4xM" height="1" width="1"/>

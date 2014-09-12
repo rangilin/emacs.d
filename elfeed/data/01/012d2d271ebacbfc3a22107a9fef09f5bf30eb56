@@ -1,0 +1,29 @@
+<p>I recently discovered an extremely cool package called
+<a href="https://github.com/pidu/git-timemachine">git-timemachine</a> that allows
+you to step though the git history of the file you&#8217;re currently
+editing in Emacs.</p>
+
+<p>Using it is pretty simple:</p>
+
+<ul>
+<li>visit a git-controlled file and issue <code>M-x git-timemachine</code> (or bind it to a keybinding of your choice)</li>
+<li>use the following keys to navigate historic version of the file:
+
+<ul>
+<li><code>p</code> visit previous historic version</li>
+<li><code>n</code> visit next historic version</li>
+<li><code>w</code> copy the hash of the current historic version</li>
+<li><code>q</code> exit the time machine buffer</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Here you can see <code>git-timemachine</code> in action:</p>
+
+<p><img src="http://emacsredux.com/images/articles/timemachine.gif"></p>
+
+<p><strong>P.S.</strong></p>
+
+<p>This package is bundled with
+<a href="https://github.com/bbatsov/prelude">Prelude</a>.</p>

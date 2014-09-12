@@ -1,0 +1,265 @@
+<p>Test Driving an algorithm is a tricky thing. Developers tend to get stuck in one of two ways:</p>
+
+<ul>
+<li>They see that they have the algorithm from Wikipedia, Stack Overflow, or a book, and don’t understand why they would write tests.</li>
+<li>Once they see the algorithm, they lose the ability to break it down. Commonly they’ll write the entire algorithm on the first or second test.</li>
+</ul>
+
+<p>In case you haven’t already guessed, I don’t think it’s a good idea to skip the tests even when you know the algorithm, and I thought I’d demonstrate by test-driving a game loop.</p>
+
+<h3>The Game Loop</h3>
+
+<p>This isn’t an article on the Game Loop<sup><a href="#references-1">1</a></sup>, so I will try to be brief. Unlike many applications, video games don’t wait for user input to execute. Instead, they typically run in a loop, updating the state of the objects in the system and then drawing them to the screen. A very simple, and broken, game loop might look like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">while (true)
+{
+  processInput();
+  update();
+  render();
+}
+</code></pre></div>
+<p>The problem with the one up there is that it will run as fast as the machine it’s running on, which means that if your video game has a spinning hedgehog, that hedgehog will go faster on fast machines and slower on slow machines. Suddenly you’ll need to buy a crummy computer to get past the boss levels.  The Game Loop we’ll be implementing looks like this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">double previous = getCurrentTime();
+double lag = 0.0;
+while (true)
+{
+  double current = getCurrentTime();
+  double elapsed = current - previous;
+  previous = current;
+  lag += elapsed;
+
+  processInput();
+
+  while (lag &gt;= MS_PER_UPDATE)
+  {
+    update();
+    lag -= MS_PER_UPDATE;
+  }
+
+  render();
+}
+</code></pre></div>
+<p>This loop<sup><a href="#references-2">2</a></sup> fixes the updates at a given rate (<code>MS_PER_UPDATE</code>) while allowing the render to occur as fast as possible. In the event that an update takes too long, we’ll catch up by running extra updates. This style of loop is common in many games, and will work well enough for our purposes.</p>
+
+<h3>Test Driving It</h3>
+
+<p>When Test Driving an algorithm you already know, the temptation is to copy-paste the algorithm into your code and then try to write tests around it. Doing so removes the design feedback that tests provide, and is likely to produce subtle holes in your tests. Instead, you’ll want to break it down into the various test cases. When looking at the above loop, the first thing I notice is this:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">double previous = getCurrentTime();
+double lag = 0.0;
+while (true)
+</code></pre></div>
+<p>Ignore the setting of the time for the moment&mdash;that’s just there for context&mdash;and let’s focus on the <code>while(true)</code>. The pseudocode uses that to emphasize that the loop is infinite, but it’s really not. We really want to quit the game when it’s over. So with that in mind, I wrote my first test:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">NUnit.Framework</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">MyGame</span>
+<span class="p">{</span>
+<span class="na">  [TestFixture]</span>
+  <span class="k">public</span> <span class="k">class</span> <span class="nc">GameLoopTest</span>
+  <span class="p">{</span>
+<span class="na">    [Test]</span>
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">ItDoesNothingWhenTheGameIsStopped</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="kt">var</span> <span class="n">game</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TestGame</span><span class="p">();</span>
+      <span class="n">game</span><span class="p">.</span><span class="n">Running</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+
+      <span class="kt">var</span> <span class="n">gameLoop</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GameLoop</span><span class="p">(</span><span class="n">game</span><span class="p">);</span>
+
+      <span class="n">gameLoop</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span>
+
+      <span class="n">Assert</span><span class="p">.</span><span class="n">IsFalse</span><span class="p">(</span><span class="n">game</span><span class="p">.</span><span class="n">Updated</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>I’m using C# for this example because I think its syntax should be recognizable by pretty much any developer without too much explanation, and because it should annoy most of my Mac-loving co-workers. I wrote it in Xamarin on OSX because I don’t like using Visual Studio or Windows, which should annoy everybody else. Trolling complete.</p>
+
+<p>I’ve called this my first failing test, but that’s not entirely accurate. Remember rule two of TDD:</p>
+
+<blockquote>
+<p><em>“You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.”</em><sup><a href="#references-3">3</a></sup></p>
+</blockquote>
+
+<p>One of the advantages of using a compiled language is that you can see compiler errors the instant you type them in the IDE. When writing C# I use that to my advantage by creating each class/property/method/etc. the instant my IDE identifies them as a failure, rather than waiting until my test is complete. Since I know the algorithm and will be tempted to write the whole thing to pass one test, I follow my rules more pedantically than I might otherwise. After writing this test I have this code:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">namespace</span> <span class="nn">MyGame</span>
+<span class="p">{</span>
+  <span class="k">public</span> <span class="k">class</span> <span class="nc">GameLoop</span>
+  <span class="p">{</span>
+    <span class="k">public</span> <span class="nf">GameLoop</span><span class="p">(</span><span class="n">Game</span> <span class="n">game</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+    <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">NotImplementedException</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Upon review, and in spite of my desire to be pedantic, I realize that I’ve passed in the <code>Game</code><sup><a href="#references-4">4</a></sup> object to the constructor even though I don’t need it yet. Let’s see what it takes to make this test pass:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="p">...</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="p">}</span>
+<span class="p">...</span>
+</code></pre></div>
+<p>Oh hell. I’ve written an awful lot of code to make sure I do...nothing. I’m not reproducing it here, but I’ve also written an interface and a <code>TestGame</code> class that the <code>GameLoop</code> operates on. That <code>TestGame</code> has to have a <code>Running</code> property. Why write that much code to do nothing? Because I’ve already done some <em>design</em>. I’ve separated out the Game&mdash;which could be anything from <em>Asteroids</em> to <em>Assassin’s Creed 92: Still Stuck in The Tube</em>. In addition, I like writing the do-nothing cases first, because I can make sure those continue to pass as I write more tests. </p>
+
+<p>Now we need a test that passes, so I suppose we should write one that forces us to do something:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="na">[Test]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">ItRunsUpdateOnceBeforeTheGameIsStopped</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">var</span> <span class="n">game</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TestGame</span> <span class="p">{</span>
+    <span class="n">Running</span> <span class="p">=</span> <span class="k">true</span>
+  <span class="p">};</span>
+
+  <span class="kt">var</span> <span class="n">gameLoop</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GameLoop</span><span class="p">(</span><span class="n">game</span><span class="p">);</span>
+
+  <span class="n">gameLoop</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span>
+
+  <span class="n">Assert</span><span class="p">.</span><span class="n">IsTrue</span><span class="p">(</span><span class="n">game</span><span class="p">.</span><span class="n">Updated</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The only real difference is that this game is running.  Getting the test to pass is really simple:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">public</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">Game</span><span class="p">.</span><span class="n">Running</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Game</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If you compare our loop so far to the one in the pseudocode, you’ll see that we are far away from complete, but we are also diverging already. The described algorithm is written using a structured style, and as such would be extremely difficult to test or decouple from our actual game. By beginning with tests, we are pushed to start with an object-oriented solution.</p>
+
+<p>At this point I should point out that I wrote this algorithm in one try. It’s not rehearsed or perfect, and you’ll see it as the tests change. With that said let’s see the next test:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="na">[Test]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">ItUpdatesUntilTheGameIsStopped</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">var</span> <span class="n">game</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TestGame</span><span class="p">();</span>
+  <span class="kt">var</span> <span class="n">queue</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Queue</span><span class="p">&lt;</span><span class="kt">bool</span><span class="p">&gt;();</span>
+  <span class="n">queue</span><span class="p">.</span><span class="n">Enqueue</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+  <span class="n">queue</span><span class="p">.</span><span class="n">Enqueue</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+  <span class="n">queue</span><span class="p">.</span><span class="n">Enqueue</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+  <span class="n">game</span><span class="p">.</span><span class="n">RunningDelegate</span> <span class="p">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">queue</span><span class="p">.</span><span class="n">Dequeue</span><span class="p">();</span>
+  <span class="p">};</span>
+
+  <span class="kt">var</span> <span class="n">gameLoop</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GameLoop</span><span class="p">(</span><span class="n">game</span><span class="p">);</span>
+
+  <span class="n">gameLoop</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span>
+
+  <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="n">game</span><span class="p">.</span><span class="n">UpdateCount</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>As you probably already realized, our game loop doesn’t do any looping yet. This means our <code>TestGame</code> is gonna need to be able to return a list of values for <code>Running</code>. The first times through we’ll want to say we are running, then end with a false. Before you say there’s no test that does “true, false” for the running value, let’s look at an updated version of the second test:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="na">[Test]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">ItRunsUpdateOnceBeforeTheGameIsStopped</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">var</span> <span class="n">game</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TestGame</span><span class="p">();</span>
+  <span class="kt">var</span> <span class="n">queue</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Queue</span><span class="p">&lt;</span><span class="kt">bool</span><span class="p">&gt;();</span>
+  <span class="n">queue</span><span class="p">.</span><span class="n">Enqueue</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+  <span class="n">queue</span><span class="p">.</span><span class="n">Enqueue</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+  <span class="n">game</span><span class="p">.</span><span class="n">RunningDelegate</span> <span class="p">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">queue</span><span class="p">.</span><span class="n">Dequeue</span><span class="p">();</span>
+  <span class="p">};</span>
+
+  <span class="kt">var</span> <span class="n">gameLoop</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GameLoop</span><span class="p">(</span><span class="n">game</span><span class="p">);</span>
+
+  <span class="n">gameLoop</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span>
+
+  <span class="n">Assert</span><span class="p">.</span><span class="n">IsTrue</span><span class="p">(</span><span class="n">game</span><span class="p">.</span><span class="n">Updated</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Simply returning <code>true</code> isn’t suitable anymore, I have to queue up the answers so that I eventually return <code>false</code>. It’s important to note that I changed all three tests to queue up the running “state” before modifying the production code. In this way I saw two passing tests and a third that failed, as I should, without running into an infinite loop.</p>
+
+<p>Before I continue showing the test passing, it’s probably worth explaining what <code>TestGame</code> is. It’s easy to get confused here, we’re testing the game loop but the game itself is an abstraction. Any class can be a game if it implements <code>Update</code> and <code>Running</code>. Here is the interface (thus far):</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">public</span> <span class="k">interface</span> <span class="n">Game</span> <span class="p">{</span>
+  <span class="kt">bool</span> <span class="n">Running</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">void</span> <span class="nf">Update</span><span class="p">();</span> 
+<span class="p">}</span>
+</code></pre></div>
+<p>The <code>Test</code> class looks like this:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">public</span> <span class="k">class</span> <span class="nc">TestGame</span> <span class="p">:</span> <span class="n">Game</span>  <span class="p">{</span> 
+  <span class="k">public</span> <span class="nf">TestGame</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">UpdateCount</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">public</span> <span class="kt">bool</span> <span class="n">Running</span> <span class="p">{</span> <span class="k">get</span> <span class="p">{</span> <span class="k">return</span> <span class="n">RunningDelegate</span><span class="p">();</span> <span class="p">}</span> <span class="p">}</span> 
+  <span class="k">public</span> <span class="n">Func</span><span class="p">&lt;</span><span class="kt">bool</span><span class="p">&gt;</span> <span class="n">RunningDelegate</span> <span class="p">{</span> <span class="k">private</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span> 
+  <span class="k">public</span> <span class="kt">int</span> <span class="n">UpdateCount</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">public</span> <span class="kt">bool</span> <span class="n">Updated</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="k">public</span> <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Updated</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="n">UpdateCount</span><span class="p">++;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>As you can see, <code>TestGame</code> is pretty dumb. It returns the count of <code>Updates</code> and will return the return value from its <code>RunningDelegate</code> when you ask if it’s <code>Running</code>. Experienced TDD folks might be wondering why I’m not using a mocking framework like NSubstitue or Rhino Mocks or Moq or MSFakes... The point is that there are so many frameworks and syntaxes for those frameworks that for this example, it’s simpler to roll my own mock objects. In many cases it’s truly easier for me to do this in code that isn’t for teaching as well, as I’m now creating a template for what an example <code>Game</code> class might look like.</p>
+
+<p>Returning to our architecture, we are testing a <code>Game Loop</code>, not a <code>Game</code> object, and we’ve decoupled the two things. This will pay huge benefits later when we can test our game objects outside the context of a game loop. Let’s finally make our third test pass:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">public</span> <span class="k">void</span> <span class="nf">Run</span><span class="p">()</span>  <span class="p">{</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">Game</span><span class="p">.</span><span class="n">Running</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Game</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Wow. We have written a lot of code to get to a while loop that doesn’t draw. It’s a fair criticism, but it’s code that will enhance my understanding of the game loop. Imagine you are using a game loop from a framework&mdash;you would probably write a little code to see how it works. I&#39;ve already written something very much like the <code>TestGame</code> class.</p>
+
+<p>Speaking of there not being a draw, let’s add draw:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="na">[Test]</span>
+<span class="k">public</span> <span class="k">void</span> <span class="nf">ItRunsADrawAfterUpdate</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">var</span> <span class="n">game</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TestGame</span><span class="p">();</span>
+  <span class="kt">var</span> <span class="n">queue</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Queue</span><span class="p">&lt;</span><span class="kt">bool</span><span class="p">&gt;();</span>
+  <span class="n">queue</span><span class="p">.</span><span class="n">Enqueue</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+    <span class="n">queue</span><span class="p">.</span><span class="n">Enqueue</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+    <span class="n">game</span><span class="p">.</span><span class="n">RunningDelegate</span> <span class="p">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">queue</span><span class="p">.</span><span class="n">Dequeue</span><span class="p">();</span>
+  <span class="p">};</span>
+
+  <span class="kt">var</span> <span class="n">gameLoop</span> <span class="p">=</span> <span class="k">new</span> <span class="n">GameLoop</span><span class="p">(</span><span class="n">game</span><span class="p">);</span>
+
+  <span class="n">gameLoop</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span>
+
+  <span class="n">Assert</span><span class="p">.</span><span class="n">AreEqual</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">game</span><span class="p">.</span><span class="n">DrawCount</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Interestingly, this test doesn’t address order, and order is important here. If we look back at the original pseudocode, we know that <code>Update</code> comes before <code>Draw</code>, and we know that happens so that the player isn’t seeing everything one frame too late. This case is rare enough that sometimes mocking frameworks don’t even support this order test, but I can embed it into my test game.</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">public</span> <span class="k">void</span> <span class="nf">Draw</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">DrawCount</span> <span class="p">!=</span> <span class="p">(</span><span class="n">UpdateCount</span> <span class="p">-</span> <span class="m">1</span><span class="p">))</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvalidDrawException</span><span class="p">();</span>
+
+<span class="n">DrawCount</span><span class="p">++;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The <code>InvalidDrawException</code> inherits from <code>Exception</code>, so we’ll get a clean error in the event that a draw came too early.  This means this passes:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">while</span> <span class="p">(</span><span class="n">Game</span><span class="p">.</span><span class="n">Running</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Game</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+<span class="n">Game</span><span class="p">.</span><span class="n">Draw</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>but this fails:</p>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">while</span> <span class="p">(</span><span class="n">Game</span><span class="p">.</span><span class="n">Running</span><span class="p">)</span> <span class="p">{</span>
+<span class="n">Game</span><span class="p">.</span><span class="n">Draw</span><span class="p">();</span>                            
+  <span class="n">Game</span><span class="p">.</span><span class="n">Update</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This means we now have a functioning game loop, provided we don’t want any input. That doesn’t sound like a fun game. In the next post, we’ll add input and fixed-step updates to the loop, then evaluate our solution. If you want to cheat ahead and see the code, take a look at it on <a href="https://github.com/paytonrules/test-driven-game-loop">github</a>.</p>
+
+<hr>
+
+<p><span id="references-1">
+  <sup>1</sup> For an excellent article on Game Loops, see <a href="http://gameprogrammingpatterns.com/game-loop.html">http://gameprogrammingpatterns.com/game-loop.html</a>.
+</span></p>
+
+<p><span id="references-2">
+  <sup>2</sup> This loop is also taken from <a href="http://gameprogrammingpatterns.com/game-loop.html">http://gameprogrammingpatterns.com/game-loop.html</a>.
+</span></p>
+
+<p><span id="references-3">
+  <sup>3</sup> <a href="http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd">http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd</a>.
+</span></p>
+
+<p><span id="references-3">
+  <sup>4</sup><code>Game</code> is an interface. I don’t prefix my interfaces with “I” because an interface is an abstraction, and the naming should be more generic than the implementation, so you won’t see <code>GameImpl</code> either.
+</span></p>

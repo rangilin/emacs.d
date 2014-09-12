@@ -1,0 +1,8 @@
+<p>Yesterday we <a href="http://app.kodowa.com/playground">released the playground</a> to the world. It has been a ridiculous past 24 hours, so ridiculous in fact that I felt I had to share some of the numbers. Within the first 5 hours over 500,000 lines of code had been eval&#39;d by folks using the Light Table Playground. By this morning, exactly 24 hours after the launch, it looked like this:</p>
+
+<p><img src="/images/lightable/onemillion.png" alt="The first 24 hours"></p>
+
+<p>More than 1.1 million lines of code have been executed! Crazier, however, is the number of <strong>active</strong> minutes spent using it to do exactly that. In a 24 hour period over 755 active person hours were spent having fun with Clojure. That&#39;s more than 31 days - you guys fit an entire month in a day.</p>
+
+<p>The community has consistently surprised us at every step of this project and once again your enthusiasm, support, and feedback have been nothing short of awe inspiring. We wanted you to see how amazing it really is and thank you for joining the ride with us.</p>
+<img src="http://feeds.feedburner.com/~r/ChrisGranger/~4/3IWRIToWKFs" height="1" width="1"/>

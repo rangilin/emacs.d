@@ -1,0 +1,42 @@
+
+<p>Today is VCD fun! So what is VCD? It's something that the Chinese have
+invented as a substitute to DVD. Why is it so interesting?  You can
+burn your movies on a regular CD-ROM and watch them on your DVD
+player.</p>
+
+<p>So, let's get the tool:</p>
+
+<p><code>apt-get install vcdtools</code></p>
+
+<p>I used an MPEG1 movie of dimension 384x288 with a bitrate of 1152
+KBit/sec and an audiostream with a sample rate of 44100 Hz, stereo and
+a bitrate of 224 KBit/sec. Let's call this file <code>movie.mpg</code>.</p>
+
+<p>Next I create the VCD file with the following command:</p>
+
+<p><code>mkvcdfs movie.mpg</code></p>
+
+<p>Next you will need to burn the file with <code>cdrdao</code>. I had a bit of a
+headache here because the version that comes with Debian testing
+doesn't yet support the new IDE interface that comes with Linux 2.6. I
+grabbed and manually installed version 1.1.7-5 in unstable and it
+works fine.</p>
+
+<p>Now i am blanking my CD-RW:</p>
+
+<p><code>cdrdao blank --save --driver generic-mmc --device /dev/hdb</code></p>
+
+<p>Note that adding the <code>--save</code> parameter will save the options in a file
+called <code>.cdrdao</code> in your home directory. In effect, you don't need to
+specify the driver and the device on the command line.</p>
+
+<p>Next I burn my movie:</p>
+
+<p><code>cdrdao write vcd.toc</code></p>
+
+<p>I pop that CD in my DVD player and the movie looks great.  I am
+pleased!</p>
+
+<p>I if use a movie encoded in NTSC, it plays back in black and white and
+I am not sure why</p>
+

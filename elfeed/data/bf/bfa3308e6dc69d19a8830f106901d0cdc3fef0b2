@@ -1,0 +1,30 @@
+
+<p>Here's how to obliterate files from the repository. Note that using
+the subversion <code>remove</code> command will not remove it from your
+repository. I had to use it as I noticed I put friends' e-mail
+addresses in by accident.</p>
+
+
+<p>The following commands move the repository to a backup location, dumps
+the database in a file. Finally I remove the file <code>.nobunce</code> from the
+repository. You can specify multiple files to remove.</p>
+
+<pre class="example">
+mv subversion subversion.bak
+svnadmin dump subversion.bak &gt; dump
+svndumpfilter exclude trunk/ivan/.nobounce &lt; dump &gt; dump.filter
+</pre>
+
+
+<p>Now I recreate a fresh repository and load the new new dump file minus
+the offending file. You can delete <code>subversion.bak</code> when you feel
+confident that your new repository is working.</p>
+
+<pre class="example">
+svnadmin create --fs-type fsfs subversion
+svnadmin load subversion &lt; dump.filter
+</pre>
+
+<p>According to the subversion documentation, there will be a command
+called <code>obliterate</code> that will do the above without the hassle.</p>
+

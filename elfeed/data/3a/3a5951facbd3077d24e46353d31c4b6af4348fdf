@@ -1,0 +1,95 @@
+<p>
+Frabjous day - I have a new laptop. I'd been waiting for ages for the
+next model of MacBook Air to be released, so I pounced at the
+weekend. And I think that makes it time for the geekblogger's
+favourite: the "OSX Apps I Install First" list. I'll avoid the obvious
+ones like Chrome, Spotify, Dropbox &amp; XCode, and skip straight to the
+meat. Hopefully there's something here you haven't heard of before
+that you can try&#x2026;
+</p>
+
+<ol class="org-ol">
+<li><a href="http://www.alfredapp.com/">Alfred</a>
+
+<p>
+Do you like Terminal, Spotlight or Chrome's universal search feature?
+Then Alfred is for you. It's a fast app-launcher, file-finder &amp;
+web-searcher that's absolutely the first thing I put on every
+Mac. More flexible than Spotlight, faster than QSB and currently
+thriving (unlike the almost-zombie Quicksilver), I can't recommend it
+enough.
+</p>
+
+<p>
+<div class="thumbnail"><img src="/files/alfred-logo-small.png" alt="Alfred Logo"/></div>
+</p>
+</li>
+
+<li><a href="http://www.backblaze.com/partner/af4609">Backblaze</a>
+
+<p>
+We were burgled last year. My laptop - my working life - was taken. I
+had Time Machine backups, and I got lucky (they didn't steal my
+external hard drive) so I got it all back. But never again will I risk
+my music &amp; my photos<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> on the laziness of thieves.
+</p>
+
+<p>
+In the weeks following the burglary I tried several off-site backup
+solutions<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>. BackBlaze is the bee's knees. It's written by ex-Apple
+employees, and it shows. Actually, it hides. It just sits quietly in
+the background ensuring that my data's always backed up to a second
+country. It also does second duty as a poor man's version control
+system, and third duty as a find-if-stolen service. But it's
+absolutely, 100% worth the price of a latte a month. Get it.
+</p>
+
+<p>
+<div class="thumbnail"><img src="/files/backblaze-logo-small.jpg" alt="Backblaze Logo"/></div>
+</p>
+</li>
+
+<li><a href="http://www.pixelmator.com/">Pixelmator</a>
+
+<p>
+I'm not a graphic designer. I'll never be a graphic designer. So I
+can't tell you exactly how Pixelmator compares to Photoshop. I can
+tell you that it does more than everything I need, it's about 95%
+cheaper than Photoshop, and it's one of the most polished pieces of
+software I've ever used.
+</p>
+
+<p>
+<div class="thumbnail"><img src="/files/pixelmator-logo-small.png" alt="Pixelmator Logo"/></div>
+</p>
+
+<p>
+My 'hobby' iPad app, <a href="http://itunes.jenkster.com/time-for-tea">Time for Tea</a>, was
+designed in Pixelmator and I think the result is pretty good (for a
+non-graphic designer):
+</p>
+
+<p>
+<div class="thumbnail"><img src="/files/time_for_tea_ipad.png" alt="Time for Tea"/></div>
+</p>
+
+<p>
+(That's the current peak of my design skills. Any shortcomings are mine, not Pixelmator's.)
+</p>
+</li>
+</ol>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+Of course all my work is backed up again to remote git repositories, but you guessed that, right?
+</p></div>
+
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara">
+Mozy sucks, by the way.
+</p></div>
+
+
+</div>
+</div><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/sRrVzEH7WHQ" height="1" width="1"/>

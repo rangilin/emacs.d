@@ -1,0 +1,55 @@
+<h2 id="toc_0">Qualities of Tests</h2>
+
+<p>When I talk to people about a test suite, I often say that they should satisfy the 3 F&#39;s:</p>
+
+<ul>
+<li><strong>Fast</strong> - They should be fast as possible to minimize the amount of time to get your feedback.</li>
+<li><strong>Focused</strong> - They should be focused and provide you with specific, immediate details on where the failure is.</li>
+<li><strong>Full</strong> - They should fully cover your system.</li>
+</ul>
+
+<p>When people ask me how fast their test suite should be, my general answer is &quot;faster.&quot; Whether you do TDD, test-first, test-while or test-after, being able to change your code and quickly see whether you&#39;ve broken anything is very important from a workflow perspective. Whenever you have to sit and wait to find out the results of your change, your flow is broken.</p>
+
+<p>One way to achieve the &quot;Fast&quot; requirement is by using certain isolation techniques. In Rails, the greatest way to achieve a first level of isolation is simply by removing the dependency your domain logic has on the underlying Rails framework. There are many benefits of isolation, but I want to talk about the obvious benefit of a major side-effect, fast tests: your workflow isn&#39;t interrupted.</p>
+
+<p>In DHH&#39;s post, <a href="http://david.heinemeierhansson.com/2014/slow-database-test-fallacy.html">Slow Database Test Fallacy</a>, he talks proudly about their use of the spring application loader and how that allows him to run a specific model&#39;s tests in &quot;just under 4 seconds from start to finish.&quot; He then follows up with the statement &quot;Plenty fast for a great feedback cycle!&quot; This definitely seems like a reasonable perspective. But is it? Whenever I hear claims about time and its effects, I like to do what I call the <em>Yellow Submarine Test</em>: see the time and see exactly how it feels.</p>
+
+<p>I pulled down an application I&#39;ve worked on and decided to run my tests.
+<aside class='callout highlight'>
+<em>Note</em> This specific model doesn&#39;t need 52 cases and 111 assertions. To keep a like-like comparison, though, I duplicated my tests to have around the same number.
+</aside></p>
+
+<p>To show 4 seconds, I had to alter my tests to add a sleep to increase the time for the tests (this is why there is a pause at the end). Here is what 4 seconds looks like.</p>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/rQOsJEzxuZo" frameborder="0" allowfullscreen></iframe>
+
+<p>For me, this pause is too much, especially when running it frequently. For every change I make, I like to run the tests to make sure I haven&#39;t broken any previous functionality. Waiting 4 seconds each time, with this sort of pause, can be frustrating. However, some people may be concerned that the techniques for speeding this up would add complexity to the code base that would negate any speed gains we&#39;d get. Let&#39;s see if we can get faster without adding complexity to the codebase.</p>
+
+<p>Let&#39;s take a look at using my very simple <a href="/posts/active-record-spec-helper/">&quot;only load active record&quot; technique</a>, which doesn&#39;t require any changes to your design, and, thus, no added complexity. In fact, it can help minimize complexity by highlighting unnecessary or too many dependencies.</p>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/00OSP-5LrVs" frameborder="0" allowfullscreen></iframe>
+
+<p>When recording with Quicktime, it adds half a second to the run, so it actually takes around 2 seconds. This is still a bit slow, though. For me, even the 2 or 2.5 second run is still quite a pause when I&#39;m working. When in a good process that includes writing unit tests, it can definitely pull me out of my flow.</p>
+
+<p>By doing very small changes to my design, though, I can improve this. When writing my domain code, it generally doesn&#39;t actually need to load up my database. By writing my business logic in pure Ruby, without a dependency on the Rails framework, the flow looks something like this.</p>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/vV0GEE7pd1g" frameborder="0" allowfullscreen></iframe>
+
+<p><aside class='callout highlight'>
+<em>Reminder</em> this is about half a second slower because Quicktime adds that when doing recording on my laptop.
+</aside>
+By emphasizing the separation of concerns between my business logic and the underlying persistence-layer or whole web framework, I can keep myself much more in flow with even faster feedback cycles that don&#39;t make me feel like I&#39;m waiting.</p>
+
+<p>Whether you write your tests first or your tests last, the feedback time is important. Let&#39;s look again at the &quot;Plenty fast for a great feedback cycle!&quot; run.</p>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/rQOsJEzxuZo" frameborder="0" allowfullscreen></iframe>
+
+<p>Now let&#39;s look again at the feedback cycle I have when I am working on business logic.</p>
+
+<iframe width="420" height="315" src="//www.youtube.com/embed/vV0GEE7pd1g" frameborder="0" allowfullscreen></iframe>
+
+<p>The four-second test run is obviously okay for some people, but I prefer to keep my flow uninterrupted and my feedback loop very small. And, the changes I&#39;m making add very little complexity, and in fact emphasize when I&#39;m doing the wrong thing from a design perspective. As with everything, the choice is yours and highly dependent on your style.</p>
+
+<p>The original code for this can be seen at <a href="https://github.com/coreyhaines/bawch">my video series&#39; repository</a>.</p>
+
+<p>Thanks to <a href="https://twitter.com/cory_foy">Cory Foy</a> for proof-reading this post.</p>

@@ -1,0 +1,2 @@
+<p><a class="reference external" href="http://yuilibrary.com/projects/yui3/ticket/2529324">http://yuilibrary.com/projects/yui3/ticket/2529324</a></p>
+<p>You just add a &quot;headers&quot;: { &quot;YOUR_PARAM&quot;: &quot;disabled&quot;} in the request.</p>

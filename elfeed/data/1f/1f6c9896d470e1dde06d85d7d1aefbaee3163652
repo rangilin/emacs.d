@@ -1,0 +1,13 @@
+<p>I&rsquo;m happy to report that now you can use permalinks to the rules listed in the
+community <a href="https://github.com/bbatsov/ruby-style-guide">Ruby</a> and <a href="https://github.com/bbatsov/rails-style-guide">Rails</a> style guides.</p>
+
+<p>Here&rsquo;s an
+<a href="https://github.com/bbatsov/ruby-style-guide#indent-when-to-case">example</a>.
+Now you can easily refer to rules in heated style debates with your
+friends and co-workers. :&ndash;)</p>
+
+<p>This is an addition that was way overdue (for which I take all the
+blame). I&rsquo;d like to say a big <code>THANKS!!!</code> to <a href="https://github.com/todb">Tod Beardsley</a> who
+found the time I never did and got the job done (in style).</p>
+
+<p><strong>P.S.</strong> Hopefully soon the permalinks will be leveraged by RuboCop.</p>

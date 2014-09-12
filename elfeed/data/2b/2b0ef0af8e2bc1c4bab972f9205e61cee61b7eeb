@@ -1,0 +1,1 @@
+After releasing Velocity.js, a highly performant web animation engine, I wanted to leverage that power for typographic manipulation. The question soon arose, How could I animate one letter, one word, or one sentence at a time without bloating my HTML with wrapper elements? If I could figure this out, I could create beautiful typographic animation [&#8230;]

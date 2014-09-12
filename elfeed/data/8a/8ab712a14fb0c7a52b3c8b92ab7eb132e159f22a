@@ -1,0 +1,104 @@
+<p>
+Here's a quick little Clojure<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup> macro I've started using.
+</p>
+
+<p>
+<a href="http://www.thebookfeed.com/">The Book Feed</a> is a new website I've put together where you can write
+short book reviews, and optionally post them to Facebook. When
+testing, I don't want the post-to-Facebook code to run while I'm
+developing, or my Facebook account would fill up with test-data. It
+should really only run in production.
+</p>
+
+<p>
+That's straightforward to code in any language. I write some kind of
+<code>isLive()</code> function, then wrap the relevant code in
+<code>if ( isLive() ) {.... }</code>. Easy, right?
+</p>
+
+<p>
+Well, in Clojure we can go one better. Take a look at this code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #f92672;">defn</span> <span style="color: #a6e22e;">is-live?</span> [] ...)
+(<span style="color: #f92672;">defmacro</span> <span style="color: #a6e22e;">if-live</span> [function &amp; args]
+  `(<span style="color: #f92672;">if</span> (is-live?)
+     (~function ~@args)
+     (<span style="color: #ae81ff;">println</span> <span style="color: #e6db74;">"DEVELOPMENT Skipping:"</span> '~function ~@args)))
+</pre>
+</div>
+
+<p>
+&#x2026;then later in my code I replace:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(post-to-facebook data1 data2 ...)
+</pre>
+</div>
+
+<p>
+&#x2026;with:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(if-live post-to-facebook data1 data2 ...)
+</pre>
+</div>
+
+<p>
+At first glance this looks like syntactic sugar. It's super-short, but
+is it really any better than what we'd say in something like Java?
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #f92672;">if</span> (isLive()) {
+    postToFacebook(data1, data2, ...);
+} <span style="color: #f92672;">else</span> {
+    log.debug(<span style="color: #e6db74;">"DEVT Skipping: "</span> + data1 + <span style="color: #e6db74;">" "</span> + data2 ...);
+}
+</pre>
+</div>
+
+<p>
+Well, yes. This macro is significantly better, and not just because of
+all the typing it saves. The <code>if-live</code> macro has a magic property we'd
+struggle to get in other languages: Instead of just skipping the code,
+or printing a generic debugging message, it prints the exact code and
+arguments it would execute were we in production. In other languages
+we're stuck with the tedious problem of keeping the log message &amp; the
+call in sync with each other<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>.
+</p>
+
+<p>
+But because Clojure code can be treated as regular data, it's trivial
+to print the call instead of executing it. With no effort, I can see
+exactly what the call would send to Facebook, without worrying about
+keeping the debug message in sync with the function call.
+</p>
+
+<p>
+Yay macros.
+</p>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+Everything in this post is applicable to LISPs in general.
+</p></div>
+
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara">
+I can think of a few workarounds for a couple of languages, but
+nothing that comes close to the elegance of this macro. Nothing that
+says, "Add these 8 characters to any function and it just works."
+</p></div>
+
+
+</div>
+</div><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/aJ7oYZTxwV0" height="1" width="1"/>

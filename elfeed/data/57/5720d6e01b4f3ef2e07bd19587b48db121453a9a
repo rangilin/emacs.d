@@ -1,0 +1,36 @@
+<p>While streamlining my mode line, I wrote another little mode-line feature that I thought of ages ago — using the background of the mode-line to indicate the current position in the buffer. I didn’t like this enough to use it, but I thought I’d post it since it was a fun hack.</p>
+<p>First, make sure the current mode line is kept:</p>
+<pre>(defvar tromey-real-mode-line-format mode-line-format)</pre>
+<p>Now, make a little function that format the mode line using the standard rules and then applies a property depending on the current position in the buffer:</p>
+<pre>(defun tromey-compute-mode-line ()
+  (let* ((width (frame-width))
+     (line (substring 
+        (concat (format-mode-line tromey-real-mode-line-format)
+            (make-string width ? ))
+        0 width)))
+    ;; Quote "%"s.
+    (setq line
+      (mapconcat (lambda (c)
+               (if (eq c ?%)
+               "%%"
+             ;; It's absurd that we must wrap this.
+             (make-string 1 c)))
+             line ""))
+
+    (let ((start (window-start))
+      (end (or (window-end) (point))))
+      (add-face-text-property (round (* (/ (float start)
+                       (point-max))
+                    (length line)))
+                  (round (* (/ (float end)
+                       (point-max))
+                    (length line)))
+                  'region nil line))
+    line))</pre>
+<p>We have to do this funny wrapping and “%”-quoting business here because the <code>:eval</code> form returns a mode line format — not just text — and because the otherwise appealing <code>:propertize</code> form doesn’t allow computations.</p>
+<p>Also, I’ve never understood why <code>mapconcat</code> can’t handle a character result from the map function.  Anybody?</p>
+<p>Now set this to be the mode line:</p>
+<pre>(setq-default mode-line-format '((:eval (tromey-compute-mode-line))))</pre>
+<p>The function above changes the background of the mode line corresponding to the current window’s start and end positions.  So, for example, here we are in the middle of a buffer that is bigger than the window:</p>
+<p><a href="http://tromey.com/blog/wp-content/uploads/2014/08/Screenshot-08222014-125219-PM.png"><img alt="Screenshot - 08222014 - 12:52:19 PM" class="alignnone wp-image-874 size-full" height="17" src="http://tromey.com/blog/wp-content/uploads/2014/08/Screenshot-08222014-125219-PM.png" width="725" /></a></p>
+<p>I left this on for a bit but found it too distracting.  If you like it, use it. You might like to remove the <code>mode-line-position</code> stuff from the mode line, as it seems redundant with the visual display.</p>

@@ -1,0 +1,94 @@
+<p>As of this posting, Python has been my main programming language for
+over three years. Although I definitely feel that Python is not a good
+fit for all programming projects, the speed and efficiency with which I
+can code in it has made it my go-to language whenever possible.</p>
+<p>As such, I've seen a lot of Python code, and have had ample time to
+think about some of the more nuanced issues regarding coding standards.
+Here's a few of my pet peeves, and opinions about them:</p>
+<div class="section" id="from-module-import">
+<h2>from module import *</h2>
+</p><p>When I first started python, I used this particular import for a lot of
+things. I'm using so many methods from this module, why not just import
+the whole thing? It was definitely a pain in the neck fixing those
+include issues.</p>
+<p>Well, time in the industry has made me realize the error of my ways.
+This isn't just python related, this is related to any programming
+language. <strong>Includes/Import should always be as obvious as possible</strong>.
+The correct import methodology, is to do as such:</p>
+<p><pre class="literal-block">
+from module import w,x,y,z
+</pre>
+</p><p>or, if you want to be even nicer:</p>
+<p><pre class="literal-block">
+import modulemodule.x()
+</pre>
+ </p>
+
+
+But what if we're using ten methods from that module?<p>still gotta do it.</p>
+<blockquote>
+<p>What about 20 methods? still gotta do it.</p>
+<p>What about 100 methods?</p>
+</blockquote>
+<p>don't know how there's 100 methods in a single module, but <em>you still gotta do it</em>.</p>
+<p>The reasoning is simple: you're providing a very helpful hint that
+future coders can use to debug your code years from now. That hint is :
+where the method is actually found.</p>
+<p>While you yourself don't save any time off of doing this, you're saving
+hours of development time for future coders, giving them a roadmap to
+exactly what your function's stack actually is. Although this can be
+given by any IDE that has an understanding of the language and it's
+dependencies, one shouldn't assume that this is so. In my experience,
+when debugging, I have spent anywhere between a good ten to twenty
+minutes looking for methods, especially in python files with twenty
+lines of imports. To know exactly where a particular method or module
+comes from goes a long way to making one's code maintainable.</p>
+<p>For example, suppose I was a programmer who had to debug, and was able
+to pinpoint the bug to a method that had been previously written, called
+a_func. The file calling it looks like:</p>
+<p><pre class="literal-block">
+from foo import *from bar import *def b_func():    ...    a_func()    ...    return
+</pre>
+</p><p>Now if I had no knowledge of the modules foo and bar, I would have to
+look through BOTH foo and bar, and see if either of those had the
+function a_func. This is only a minor inconvenience if your code only
+has two of these imports, but the larger a script gets, and the more
+includes it brings in over the years, could result in one having to look
+through several files in various locations, to debug one call. Precious
+time that could have been saved, had the original code just written:</p>
+<p><pre class="literal-block">
+from bar import a_func
+</pre>
+</p></div>
+<div class="section" id="use-ternary-s-but-only-where-it-makes-sense">
+<h2>Use ternary's, but only where it makes sense</h2>
+</p><p>If you're not familiar with tenary operators, I'd suggest acquainting
+yourself now. After all, ternary operators only exist because the
+problem they solve is so prevalent in coding everywhere. Specifically,
+the strict point where you want a variable to be one of two things. In
+Python, ternary operators are represented differently than other
+programming languages (the typical ( condition ? do_this_if_true :
+do_this_if_false ) operation). Python has:</p>
+<p><pre class="literal-block">
+do_this_if_true if condition else do_this_if_false
+</pre>
+</p><p>Ternary's in general have several uses. The big one is providing a
+default value:</p>
+<p><pre class="literal-block">
+var = (value if value else default_value)
+</pre>
+</p><p>Basically, in any situation where you have:</p>
+<p><pre class="literal-block">
+if this:  just_one_procedure()else: just_one_other_procedure()
+</pre>
+</p><p>One should consider using a ternary. You can also nested ternarys,
+although I wouldn't suggest doing so for more than one level deep. This
+is especially useful when you have a variable assignment with four
+different possible outcomes:</p>
+<p><pre class="literal-block">
+x = ( (1 if a else 0) if belse (2 if c else 3))
+</pre>
+</p><p>To do so with regular if else statements, one would need ten lines of
+logic. Ternarys are a lesser known function within Python, and it
+belongs in any programmer's set of tools.</p>
+</div>

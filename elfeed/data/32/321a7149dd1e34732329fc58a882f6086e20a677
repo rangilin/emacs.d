@@ -1,0 +1,75 @@
+<p>
+When I decided to share my limited wisdom, I realized I'd
+need something better than a 4-year-old, thrown together,
+init file. The words <i>“init dot org”</i> had crossed my ears
+through one of <a href="http://sachachua.com/blog/emacs-chat/">Sacha Chua's previous videos</a>; however, due to
+63m of water above my head, internet searches weren't quite
+operating at top efficiency.
+</p>
+
+<p>
+Without a second thought, and armed with nothing but its
+name (init.org), I took to writing &#x2014;I thought at the
+moment&#x2014; the simplest way of implementing such a feature.
+</p>
+
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="c1">;;; init.el</span>
+<span class="p">(</span><span class="nb">defvar</span> <span class="nv">endless/init.org-message-depth</span> <span class="mi">3</span>
+  <span class="s">&quot;What depth of init.org headers to message at startup.&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">with-temp-buffer</span>
+  <span class="p">(</span><span class="nv">insert-file</span> <span class="s">&quot;~/.emacs.d/init.org&quot;</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">goto-char</span> <span class="p">(</span><span class="nv">point-min</span><span class="p">))</span>
+  <span class="p">(</span><span class="nv">search-forward</span> <span class="s">&quot;\n* init.el&quot;</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">while</span> <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nv">eobp</span><span class="p">))</span>
+    <span class="p">(</span><span class="nv">forward-line</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">cond</span>
+     <span class="c1">;; Report Headers</span>
+     <span class="p">((</span><span class="nv">looking-at</span>
+       <span class="p">(</span><span class="nb">format</span> <span class="s">&quot;\\*\\{2,%s\\} +.*$&quot;</span> 
+               <span class="nv">endless/init.org-message-depth</span><span class="p">))</span>
+      <span class="p">(</span><span class="nv">message</span> <span class="s">&quot;%s&quot;</span> <span class="p">(</span><span class="nv">match-string</span> <span class="mi">0</span><span class="p">)))</span>
+     <span class="c1">;; Evaluate Code Blocks</span>
+     <span class="p">((</span><span class="nv">looking-at</span> <span class="s">&quot;^#\\+BEGIN_SRC +emacs-lisp.*$&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">l</span> <span class="p">(</span><span class="nv">match-end</span> <span class="mi">0</span><span class="p">)))</span>
+        <span class="p">(</span><span class="nv">search-forward</span> <span class="s">&quot;\n#+END_SRC&quot;</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">eval-region</span> <span class="nv">l</span> <span class="p">(</span><span class="nv">match-beginning</span> <span class="mi">0</span><span class="p">))))</span>
+     <span class="c1">;; Finish on the next level-1 header</span>
+     <span class="p">((</span><span class="nv">looking-at</span> <span class="s">&quot;^\\* &quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">goto-char</span> <span class="p">(</span><span class="nv">point-max</span><span class="p">))))))</span></code></pre></div>
+<p>
+Once back within the range of cell towers, a quick search
+revealed it could have been <a href="https://github.com/seth/my-emacs-dot-d/blob/master/emacs-init.org">slightly shorter</a>.
+</p>
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;org</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">org-babel-load-file</span>
+ <span class="p">(</span><span class="nv">expand-file-name</span> <span class="s">&quot;emacs-init.org&quot;</span>
+                   <span class="nv">user-emacs-directory</span><span class="p">))</span></code></pre></div>
+
+<p>
+Nonetheless, I stuck with my guns and kept the first version.
+Primarily for stubbornness, but also a few other reasons:
+</p>
+
+<dl class="org-dl">
+<dt> Fine grained control </dt><dd>I can choose exactly what gets
+evaluated. In this case, anything inside the
+<code>init.el</code> header. This is important because this blog
+<b>is</b> my init file, and I don't want to evaluate everything
+I post.
+</dd>
+<dt> Lots of messaging </dt><dd>It calls <a href="http://doc.endlessparentheses.com/Fun/message"><code>message</code></a> on each header it
+finds (up to a configurable level). Whenever something goes
+wrong, forget about restarting with <code>--debug-init</code>, the
+messages buffer tells me exactly where it happened.
+</dd>
+<dt> It doesn't <code>(require 'org)</code> </dt><dd>This might sound silly, but
+that inconspicuous line forms one of the most
+time-consuming statements you could possibly write. I'd
+challenge anyone to find a 14-character statement that
+takes longer than that (other than an empty loop or a
+sleep command, of course).
+</dd>
+</dl>
+
+   <p><a href="http://endlessparentheses.com/init-org-Without-org-mode.html?source=rss#disqus_thread">Comment on this.</a></p>

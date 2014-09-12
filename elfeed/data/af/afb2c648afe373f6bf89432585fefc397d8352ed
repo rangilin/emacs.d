@@ -1,0 +1,82 @@
+<p>Today, I&#39;m proud to announce the 0.4 release of Light Table - <strong><a href="http://www.lighttable.com/">go download it!</a></strong></p>
+
+<p><img src="/images/040/lt.png" alt="Light Table 0.4"></p>
+
+<h3>A bit of the future.</h3>
+
+<p>With this release our goal was to bring more people into the fold, to increase the number of languages we can eval, and to smooth out some of the core experience. After 0.3, we finally had a chance to move the ball forward some - from live modifying websites directly inside of LT to injecting code into NodeJS and showing matplotlib graphs inline. This is a huge release in virtually every way and I think there&#39;s something for everyone, whether you&#39;re just starting out programming or you&#39;ve been writing python since it was released. Let&#39;s take a look.</p>
+
+<h3>Next-gen web dev</h3>
+
+<p>One of the things I originally showed in the Light Table videos was the ability to embed your work directly into Light Table itself. Well...</p>
+
+<iframe width="600" height="450" src="http://www.youtube.com/embed/gtXpOD6jFls?rel=0" frameborder="0" allowfullscreen></iframe>
+
+<p>You can now stick a browser in a tab, navigate to any page you want and start live modifying it. The neat thing is that you don&#39;t have to own the page or do any setup. It just works. Cmd/Ctrl+R will refresh the page anytime you need to do so. Here&#39;s the obligatory meta screenshot of me writing this post in Light Table:</p>
+
+<p><img src="/images/040/blog.png" alt="meta Light Table"></p>
+
+<p>The most requested language from our survey was Javascript by a fair margin and a lot of people were hoping for deeper JS integration. As soon as we started to see that, we shifted gears and made it happen. Thanks to some serious intergration with the Chrome-DevTools, we can do some pretty impressive stuff - like inspect Javascript objects inline and through the console:</p>
+
+<p><img src="/images/040/inspector.png" alt="Inline inspectors in Light Table"></p>
+
+<p>But the most powerful thing to me is the level of eval we now have. Thanks to the devtools integration, we aren&#39;t just making calls to <code>eval()</code>, we&#39;re patching the running VM. This means that all the things that should be &quot;impossible&quot; to change at runtime, are a single Cmd+Enter from being updated. It magically fixes event handlers, anonymous functions, and a host of other things. No, it&#39;s not perfect, but you sure won&#39;t have to refresh much anymore.</p>
+
+<p><img src="/images/040/cube.png" alt="JS eval Light Table"></p>
+
+<p>Oh and speaking of Javascript.. you can eval into a NodeJS process now too.</p>
+
+<p><img src="/images/040/node.png" alt="NodeJS in Light Table"></p>
+
+<h3>Speaking snake: Python support</h3>
+
+<p><a href="http://bash.org/?400459">SSssssss.</a> Light Table now supports Python eval. It works for both Python 2 and Python 3 and utilizes IPython for a better overall experience if it&#39;s available.</p>
+
+<iframe width="600" height="338" src="http://www.youtube.com/embed/V2rOTrnqqtg?rel=0" frameborder="0" allowfullscreen></iframe>
+
+<p>Python support comes complete with inline results/exceptions and integration with the console.</p>
+
+<p><img src="/images/040/pyinline.png" alt="Python in Light Table"></p>
+
+<p>With the IPython integration we were also able to do inline matplotlib/pylab graphs, which is pretty neat:</p>
+
+<p><img src="/images/040/ipygraphs.png" alt="IPython in Light Table"></p>
+
+<h3>Documentation</h3>
+
+<p>There&#39;s finally a nice set of <a href="http://docs.lighttable.com">documentation</a>! Up until this point, we&#39;ve been hesitant to spend much time writing documentation on how to use Light Table, because things were still changing pretty drastically. We&#39;re happy with the general workflow we&#39;ve put together now, though, and so it was time to get some content out there. You can access the docs within Light Table itself from the welcome tab or the <code>Docs: Open Light Table&#39;s documentation</code> command.</p>
+
+<h3>And then literally everything else</h3>
+
+<p>As I said before, this is a huge release - just look at the <a href="https://github.com/Kodowa/Light-Table-Playground/blob/master/README.md">changelog</a>! Basically every aspect of LT got some love, but here are some of the big ones:</p>
+
+<ul>
+<li>You can now have multiple windows</li>
+<li>You can have multiple tabsets! (splits)</li>
+<li>The <code>workspace</code> tree-view now tracks the file system and lets you do the standard file operations</li>
+<li>You can explicitly create a connection through the <code>connect</code> tab</li>
+<li>A greatly improved console</li>
+<li>Intra-file token-based Auto-complete!</li>
+<li>Dramatic performance improvements (rendering is 4-10x faster)</li>
+</ul>
+
+<p>We fixed a lot of the little things that were missing or slightly off that took away from the overall experience of Light Table. I think you&#39;ll find this release just feels better in every way.</p>
+
+<h3>Do you teach programming?</h3>
+
+<p>Our goal has always been to provide an environment that helps you get started, but also grows up with you to be a powerful working environment. As of this release, Light Table has a lot to offer as a platform for new programmers - from a dramatically shortened feedback loop to a clean, simple workflow. If you work with a teaching organization of some kind, we&#39;d really love to hear how we can help get your students using Light Table. Shoot us an email at learn@kodowa.com.</p>
+
+<h3>The plan</h3>
+
+<p>With 0.4 we now see a taste of all three of the original languages we set out to include in Light Table. The plan is for there to be one more public release before we then move into the private beta for our Kickstarter folks. The 0.5 release will be focused on picking up a couple of things that didn&#39;t quite make it into 0.4 and deeper language support, while the beta will be all about opening Light Table up to plugins - the most exciting aspect of this whole thing. We&#39;re proud of this launch, but trust me, there&#39;s even more amazing stuff on the way.</p>
+
+<h3>Links</h3>
+
+<ul>
+<li><a href="http://www.lighttable.com/">Download it!</a></li>
+<li><a href="http://docs.lighttable.com">Documentation</a></li>
+<li><a href="https://github.com/Kodowa/Light-Table-Playground/blob/master/README.md">Change log</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups#!forum/light-table">Announcements List</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups#!forum/light-table-discussion">Discussion List</a></li>
+</ul>
+<img src="http://feeds.feedburner.com/~r/ChrisGranger/~4/WR2uWq_lan4" height="1" width="1"/>

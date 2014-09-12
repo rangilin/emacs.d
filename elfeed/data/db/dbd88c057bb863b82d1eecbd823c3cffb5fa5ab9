@@ -1,0 +1,26 @@
+
+<p>While catching up on news with newsticker Emacs was flickering and it
+was driving me mad. It dawned on me that it was a timer event
+overdoing display refresh. It's easy to find out the culprit. First
+look at the variable timer-list.</p>
+
+<p>You will get a list looking like this:</p>
+
+<pre class="src">
+([nil 20478 31448 437738 60 ac-clear-variables-every-minute nil nil]
+ [nil 20478 31452 0 60 display-time-event-handler nil nil]
+ [nil 20478 31452 0 60 appt-check nil nil])
+</pre>
+
+<p>Now all you need to do is define each timer functions to do nothing by
+evaluating:</p>
+
+<pre class="src">
+(<span style="color: #8b008b; background-color: #b9babd;">defun</span> <span style="color: #00008b; background-color: #b9babd;">ac-clear-variables-every-minute</span> ())
+</pre>
+
+<p>Do this for each functions listed in the timer variable list and
+you'll find the function that causes the flicker. Now you can fix it
+by either removing the function, improving it or calling it less
+often.</p>
+

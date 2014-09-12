@@ -1,0 +1,1 @@
+SSH 有個功能是可以沿用已經存在的 host 連線，如果再連一次就會比較快。首先編輯 ~/.ssh/config 加上： ControlMaster auto ControlPath /tmp/ssh_mux_%h_%p_%r 接著讓我們一直掛著 GitHub 的 SSH 連線&#8230;&#8230; ssh -N git@github.com 讓我們實驗看看效果如何： 使用前： > time git pull real 0m3.117s user 0m0.055s sys 0m0.045s 使用後： > time git pull real 0m0.765s user 0m0.037s sys 0m0.042s 嗯，效果非常好。 出處：GitHub hack: speed up git push and git pull

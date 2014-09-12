@@ -1,0 +1,16 @@
+
+<p>My friend told me I should write about how I deal with spam. He said
+he knew no one else doing what I do, so it's worth an explanation.</p>
+
+<p>I receive little spam because I run my own e-mail server. I can create as
+many e-mail address as I want that ends in kanis.fr.</p>
+
+<p>If I receive spam I know who got infected and remove the address. For
+instance it happened for LinkedIn when they got hacked. I just had to
+remove <a href="mailto:linkedin@kanis.fr">linkedin@kanis.fr</a> and create a new address.</p>
+
+<p>All that is needed is a domain name and a Unix server. A domain name
+is a once a year fee. The server is $10 a month. I recommend ARP
+Networks if you live near the USA. I switched to Tilaa because they
+are closer to me geographically.</p>
+

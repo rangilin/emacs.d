@@ -1,0 +1,6 @@
+
+<p>I want to remove dangling symbolic links and couldn't find a tool to
+do it quickly. Here is <a href="rmbadlinks.sh">rmbadlink.sh</a> which is a bastard child of
+<code>cleanlinks</code>. Not much to be said about it; I just erased the line that
+removes empty directory.</p>
+

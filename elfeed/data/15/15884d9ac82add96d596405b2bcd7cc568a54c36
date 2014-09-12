@@ -1,0 +1,258 @@
+<p>Elixir&rsquo;s pattern matching means we can extend the parsing of streams
+by abstracting out type information.</p>
+
+<p>A couple of days ago I wrote about using pattern matching to
+<a href="http://pragdave.me/blog/2014/02/12/pattern-matching-and-parsing/">parse a stream of tokens</a>.</p>
+
+<p>Today I came across an extension of this technique.</p>
+
+<p>I spend some time this evening playing with the Markdown parser.</p>
+
+<p>First, I created a pattern that looked at my token stream for
+consecutive lines of indented code. I wanted to merge these into a
+single <code>code</code> token containing all the lines. That is, I wanted to
+make the following test pass.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'>  <span class="n">test</span> <span class="s2">&quot;concatenates multiple code lines into one&quot;</span> <span class="k">do</span>
+</span><span class='line'><span class="k">    </span><span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">,</span>
+</span><span class='line'>             <span class="s2">&quot;    code1&quot;</span><span class="p">,</span>
+</span><span class='line'>             <span class="s2">&quot;    code2&quot;</span><span class="p">,</span>
+</span><span class='line'>             <span class="s2">&quot;    code3&quot;</span><span class="p">,</span>
+</span><span class='line'>             <span class="s2">&quot;p2&quot;</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">assert</span> <span class="n">categorize</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span>
+</span><span class='line'>       <span class="err">%</span><span class="p">{</span> <span class="ss">type:</span> <span class="ss">:textline</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">&quot;p1&quot;</span> <span class="p">},</span>
+</span><span class='line'>       <span class="err">%</span><span class="p">{</span> <span class="ss">type:</span> <span class="ss">:code</span><span class="p">,</span>     <span class="ss">text:</span> <span class="p">[</span><span class="s2">&quot;code1&quot;</span><span class="p">,</span> <span class="s2">&quot;code2&quot;</span><span class="p">,</span> <span class="s2">&quot;code3&quot;</span><span class="p">]</span> <span class="p">},</span>
+</span><span class='line'>       <span class="err">%</span><span class="p">{</span> <span class="ss">type:</span> <span class="ss">:textline</span><span class="p">,</span> <span class="ss">text:</span> <span class="s2">&quot;p2&quot;</span><span class="p">}</span>
+</span><span class='line'>    <span class="p">]</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using the same matching strategy I described in the previous post, the code was easy:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="k">def</span> <span class="n">merge_compound</span><span class="p">([</span> <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="ss">:code</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t1</span><span class="p">},</span>
+</span><span class='line'>                     <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="ss">:code</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t2</span><span class="p">}</span>
+</span><span class='line'>                   <span class="o">|</span>
+</span><span class='line'>                      <span class="n">rest</span>
+</span><span class='line'>                   <span class="p">],</span> <span class="n">result</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'><span class="k">  </span><span class="n">merge_compound</span><span class="p">(</span> <span class="p">[</span> <span class="err">%</span><span class="p">{</span> <span class="ss">type:</span> <span class="ss">:code</span><span class="p">,</span> <span class="ss">text:</span> <span class="p">[</span> <span class="n">t2</span> <span class="o">|</span> <span class="no">List</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="p">]</span> <span class="p">}</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span>
+</span><span class='line'>                  <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then I looked a blockquotes. I had the same requirement—multiple
+consecutive lines of blockquote should get merged into one blockquote
+token. Here&rsquo;s the code for that:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="k">def</span> <span class="n">merge_compound</span><span class="p">([</span> <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="ss">:blockquote</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t1</span><span class="p">},</span>
+</span><span class='line'>                     <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="ss">:blockquote</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t2</span><span class="p">}</span>
+</span><span class='line'>                   <span class="o">|</span>
+</span><span class='line'>                      <span class="n">rest</span>
+</span><span class='line'>                   <span class="p">],</span> <span class="n">result</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'><span class="k">  </span><span class="n">merge_compound</span><span class="p">(</span> <span class="p">[</span> <span class="err">%</span><span class="p">{</span> <span class="ss">type:</span> <span class="ss">:blockquote</span><span class="p">,</span> <span class="ss">text:</span> <span class="p">[</span> <span class="n">t2</span> <span class="o">|</span> <span class="no">List</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="p">]</span> <span class="p">}</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span>
+</span><span class='line'>                  <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Eerily similar to the function that handles code lines, eh? Can we
+remove the duplication? Sure thing—we can make the type (<code>:code</code> or
+<code>:blockquote</code>) a variable in the pattern. The fact we use the same
+variable for both tokens means it has to be the same for each, so we&rsquo;ll
+match two code lines, or two blockquotes lines, but not a code line
+followed by a blockquote.</p>
+
+<p>We can then use a <em>guard clause</em> to ensure that we only match when
+this type is one of the two.</p>
+
+<p>In the body of the function, we can use that same variable to generate
+a new token of the correct type. The result looks something like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="k">def</span> <span class="n">merge_compound</span><span class="p">([</span> <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="n">type</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t1</span><span class="p">},</span>
+</span><span class='line'>                     <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="n">type</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t2</span><span class="p">}</span>
+</span><span class='line'>                   <span class="o">|</span>
+</span><span class='line'>                      <span class="n">rest</span>
+</span><span class='line'>                   <span class="p">],</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="ow">when</span> <span class="n">type</span> <span class="ow">in</span> <span class="p">[</span><span class="ss">:code</span><span class="p">,</span> <span class="ss">:blockquote</span><span class="p">]</span> <span class="k">do</span>
+</span><span class='line'><span class="k">  </span><span class="n">merge_compound</span><span class="p">(</span> <span class="p">[</span> <span class="err">%</span><span class="p">{</span> <span class="ss">type:</span> <span class="n">type</span><span class="p">,</span> <span class="ss">text:</span> <span class="p">[</span> <span class="n">t2</span> <span class="o">|</span> <span class="no">List</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="p">]</span> <span class="p">}</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span>
+</span><span class='line'>                  <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This made me very happy. But it gets even better.</p>
+
+<p>Blockquotes have another behavior. After a blockquote line, you can be
+lazy—immediately adjacent plain text lines are merged into the
+blockquote. That is, you can write</p>
+
+<table>
+<tr>
+<td>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="o">&gt;</span> <span class="n">now</span> <span class="n">is</span> <span class="n">the</span> <span class="n">time</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">for</span> <span class="n">all</span> <span class="n">good</span> <span class="n">coders</span>
+</span><span class='line'><span class="o">&gt;</span> <span class="n">to</span> <span class="k">try</span> <span class="n">a</span> <span class="n">functional</span> <span class="n">language</span>
+</span></code></pre></td></tr></table></div></figure>
+</td>
+<td style="padding: 0em 1em"> 
+as
+</td>
+<td>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="o">&gt;</span> <span class="n">now</span> <span class="n">is</span> <span class="n">the</span> <span class="n">time</span>
+</span><span class='line'><span class="n">for</span> <span class="n">all</span> <span class="n">good</span> <span class="n">coders</span>
+</span><span class='line'><span class="n">to</span> <span class="k">try</span> <span class="n">a</span> <span class="n">functional</span> <span class="n">language</span>
+</span></code></pre></td></tr></table></div></figure>
+</td></tr></table>
+
+
+<p>Clearly, code lines do not have this behavior. So, do we have to split
+apart the function we just wrote? After all, code and blockquotes are
+no longer identical.</p>
+
+<p>No we don&rsquo;t. Because we&rsquo;re parsing a stream of tokens, and because we
+can reinject tokens back into the stream, we can handle the extra
+blockquote behavior using an additional pattern match. Our function
+now looks like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="k">def</span> <span class="n">merge_compound</span><span class="p">([</span> <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="n">type</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t1</span><span class="p">},</span>
+</span><span class='line'>                     <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="n">type</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t2</span><span class="p">}</span>
+</span><span class='line'>                   <span class="o">|</span>
+</span><span class='line'>                      <span class="n">rest</span>
+</span><span class='line'>                   <span class="p">],</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="ow">when</span> <span class="n">type</span> <span class="ow">in</span> <span class="p">[</span><span class="ss">:code</span><span class="p">,</span> <span class="ss">:blockquote</span><span class="p">]</span> <span class="k">do</span>
+</span><span class='line'><span class="k">  </span><span class="n">merge_compound</span><span class="p">(</span> <span class="p">[</span> <span class="err">%</span><span class="p">{</span> <span class="ss">type:</span> <span class="n">type</span><span class="p">,</span> <span class="ss">text:</span> <span class="p">[</span> <span class="n">t2</span> <span class="o">|</span> <span class="no">List</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="p">]</span> <span class="p">}</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span>
+</span><span class='line'>                  <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># merge textlines after a blockquote into the quote</span>
+</span><span class='line'><span class="k">def</span> <span class="n">merge_compound</span><span class="p">([</span> <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="ss">:blockquote</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t1</span><span class="p">},</span>
+</span><span class='line'>                     <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="ss">:textline</span><span class="p">,</span>   <span class="ss">text:</span> <span class="n">t2</span><span class="p">}</span>
+</span><span class='line'>                   <span class="o">|</span>
+</span><span class='line'>                      <span class="n">rest</span>
+</span><span class='line'>                   <span class="p">],</span> <span class="n">result</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'><span class="k">  </span><span class="n">merge_compound</span><span class="p">(</span> <span class="p">[</span> <span class="err">%</span><span class="p">{</span> <span class="ss">type:</span> <span class="ss">:blockquote</span><span class="p">,</span> <span class="ss">text:</span> <span class="p">[</span> <span class="n">t2</span> <span class="o">|</span> <span class="no">List</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="p">]</span> <span class="p">}</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span>
+</span><span class='line'>                  <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This makes me even happier.</p>
+
+<h3>But you can take this too far…</h3>
+
+<p>You probably noticed we still have some duplication—the bodies of the two
+functions are pretty much identical. Can we use guards to merge them? You bet:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='elixir'><span class='line'><span class="k">def</span> <span class="n">merge_compound</span><span class="p">([</span> <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="n">type1</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t1</span><span class="p">},</span>
+</span><span class='line'>                     <span class="err">%</span><span class="p">{</span><span class="ss">type:</span> <span class="n">type2</span><span class="p">,</span> <span class="ss">text:</span> <span class="n">t2</span><span class="p">}</span>
+</span><span class='line'>                   <span class="o">|</span>
+</span><span class='line'>                      <span class="n">rest</span>
+</span><span class='line'>                   <span class="p">],</span> <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="ow">when</span> <span class="p">(</span><span class="n">type1</span> <span class="o">==</span> <span class="n">type2</span> <span class="ow">and</span> <span class="n">type1</span> <span class="ow">in</span> <span class="p">[</span><span class="ss">:code</span><span class="p">,</span> <span class="ss">:blockquote</span><span class="p">])</span>
+</span><span class='line'>  <span class="ow">or</span> <span class="p">(</span><span class="n">type1</span> <span class="o">==</span> <span class="ss">:blockquote</span> <span class="ow">and</span> <span class="n">type2</span> <span class="o">==</span> <span class="ss">:textline</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'><span class="k">  </span><span class="n">merge_compound</span><span class="p">(</span> <span class="p">[</span> <span class="err">%</span><span class="p">{</span> <span class="ss">type:</span> <span class="n">type1</span><span class="p">,</span> <span class="ss">text:</span> <span class="p">[</span> <span class="n">t2</span> <span class="o">|</span> <span class="no">List</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="p">]</span> <span class="p">}</span> <span class="o">|</span> <span class="n">rest</span><span class="p">],</span>
+</span><span class='line'>                  <span class="n">result</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>However, I think that this is taking things too far, simply because
+there&rsquo;s a lot of logic in the guard clause. So I backed this change out
+and went back to the simpler form with two separate functions.</p>
+
+<h3>Streams and Filters</h3>
+
+<p>One of the reasons I&rsquo;m enjoying this coding exercise so much is that this
+style of using streams and functions reminds me of two
+very elegant techniques from our past.</p>
+
+<p>First, we&rsquo;re processing streams of stuff using a succession of
+functions, each of which maps the stream into something else. This is
+very similar to the Unix shell <em>pipeline</em> facility, where you pipe the
+output of one command into the input of another. This let&rsquo;s you use
+small, focused filters (count words, sort lines, look for a pattern)
+and then combine them in ways that the original writers never imagined.</p>
+
+<p>Second, our use of pattern matching and guards really is a simple form
+of parsing. And I&rsquo;m attracted to programming solutions that
+incorporate parsers, because parsers are a great way of separating
+<em>what to do</em> from <em>what to do it to</em>. This kind of structure leads to
+highly decoupled (and easily tested) code.</p>
+
+<p>So, I&rsquo;m just a few days into the experiment, but I&rsquo;ve already learned
+a lot. And I suspect this knowledge will dramatically impact my
+programming style going forward.</p>

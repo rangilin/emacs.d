@@ -1,0 +1,543 @@
+<p>Legacy code imposes an unbounded, inexact tax on the cost of all future features. This explains why I run events like Legacy Code Retreat and why I write about improving the design of software systems. This further explains why I’m willing to accept the risk of people labeling me as an “over-engineerer”. What they label “over-engineering”, I consider <em>managing risk</em>. As part of managing risk, I like to test-drive changes to legacy code, and implicit dependencies almost always get in the way of starting. I’m going through this right now, working with Octopress, the blogging software that I use here.</p>
+
+<p>Let me state this clearly: I really like Octopress. If you intend to interpret what follows as me attacking Octopress, then stop reading and go away. Thank you.</p>
+
+<!-- more -->
+
+<h2 id="the-task">The Task</h2>
+
+<p>Some time ago, gists started looking bad on this blog. I apologise for that. Gists looked (or still look, depending on when you read this) like this:</p>
+
+<p><img src="http://blog.thecodewhisperer.com/images/PainOfImplicitDependencies/example-gist-formatting-problem.png" alt="Gists behaving badly" /></p>
+
+<p>After a few hours of looking around for solutions, I decided that Github’s gist stylesheet had caused me the most misery, so I decided to sidestep it, which means no longer embedded the gists using Javascript. This concidentally solved some other problems, so I went with it. After some more time exploring <em>how</em> to do this, I settled on a simple-sounding approach: create a new Octopress tag that downloads the raw gist and displays it using the <code>codeblock</code> tag, which Octopress already ships.</p>
+
+<p>How hard could this possibly be?</p>
+
+<h2 id="heres-how-hard-this-could-possibly-be">Here’s How Hard This Could Possibly Be</h2>
+
+<p>In order to test-drive my changes, I need to move as quickly as possible outside Octopress’s runtime environment, because otherwise my tests will forever remain big, brittle, and a ticking time bomb. I need to understand more about the contract of <code>CodeBlock</code> so that I can invoke it correctly from my custom <code>Liquid::Block</code> implementation. In the process of running some end-to-end tests—these help me discover the boundaries between “my stuff” and “their stuff”—I find what looks like a mistake in <code>CodeBlock</code>: when I specify only the URL for a code block (not a title nor link text), <code>CodeBlock</code> interprets the URL as a filename and tries to extract a file type for syntax highlighting, and so it thinks that the link’s top-level domain is the type of the code block. Oops. Naturally I want to verify that this class doesn’t <em>intend</em> to behave this way, and so I try writing some tests, since that will force me to think about this issue more deeply and, if I have things wrong, notice my own mistake.</p>
+
+<h3 id="is-this-thing-on">Is This Thing On?</h3>
+
+<p>I try writing a dead-simple test that instantiates the class I want to check. I’ve learned to get this running before I try to do anything more complicated, because legacy environments often surprise me.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>A simple test </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="nb">require</span> <span class="s2">&quot;rspec&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="n">describe</span> <span class="s2">&quot;Parsing parameters for codeblock&quot;</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">example</span> <span class="s2">&quot;Am I requiring everything correctly?&quot;</span> <span class="k">do</span>
+</span><span class="line">    <span class="ss">Jekyll</span><span class="p">:</span><span class="ss">:CodeBlock</span><span class="o">.</span><span class="n">new</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Predictably, this fails with <code>uninitialized constant Jekyll</code>. Of course, I need to <code>require</code> the production code I want to check, so I do that.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Tests need production code </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="nb">require</span> <span class="s2">&quot;rspec&quot;</span>
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;./plugins/code_block&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="n">describe</span> <span class="s2">&quot;Parsing parameters for codeblock&quot;</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">example</span> <span class="s2">&quot;Am I requiring everything correctly?&quot;</span> <span class="k">do</span>
+</span><span class="line">    <span class="ss">Jekyll</span><span class="p">:</span><span class="ss">:CodeBlock</span><span class="o">.</span><span class="n">new</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>I hate the relative <code>require</code> path, because that encodes knowledge of where I’ve put my <code>spec</code> directory, and <em>that creates context dependence</em>. Quickly, I change the <code>require</code> path and when I run my specs, I run them with <code>-I .</code> so that ruby finds the production code.</p>
+
+<blockquote>
+  <p>I moved the decision up the call stack! Instead of the <code>ruby</code> code saying “look for <code>require</code> files in the current working directory”, I’ve moved that decision up to its immediate caller: the shell command that launches the <code>ruby</code> code. This illustrates what I meant in <a href="http://blog.thecodewhisperer.com/2013/01/29/consequences-of-dependency-inversion-principle/#move-implementation-choices-up-the-call-stack">“Move Implementation Choices Up the Call Stack”</a></p>
+</blockquote>
+
+<p>Of course, I don’t want to forget this important detail, and it seems like the kind of thing I will forget easily, so I capture it in a script, which I can eventually take into a <code>rake</code> task.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>I don&#8217;t care where to find production code </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="nb">require</span> <span class="s2">&quot;rspec&quot;</span>
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;plugins/code_block&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="n">describe</span> <span class="s2">&quot;Parsing parameters for codeblock&quot;</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">example</span> <span class="s2">&quot;Am I requiring everything correctly?&quot;</span> <span class="k">do</span>
+</span><span class="line">    <span class="ss">Jekyll</span><span class="p">:</span><span class="ss">:CodeBlock</span><span class="o">.</span><span class="n">new</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Remembering how to run the specs $ROOT/run_plugin_specs.sh </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="c">#!/bin/bash</span>
+</span><span class="line">
+</span><span class="line"><span class="c">## I don&#39;t know how better to specify &quot;the root of this project&quot;</span>
+</span><span class="line"><span class="nv">PLUGIN_PRODUCTION_CODE_ROOT</span><span class="o">=</span><span class="s2">&quot;.&quot;</span>
+</span><span class="line">bundle <span class="nb">exec </span>rspec -I <span class="nv">$PLUGIN_PRODUCTION_CODE_ROOT</span> spec
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Now I believe that my tests <code>require</code> the right things, but when I run them, I see that the legacy environment has thrown me a curveball.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>I can&#8217;t run my tests just yet </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">/Users/jbrains/Workspaces/octopress/plugins/raw.rb:22:in `&lt;module:Jekyll&gt;': uninitialized constant Jekyll::Liquid (NameError)
+</span><span class="line">	from /Users/jbrains/Workspaces/octopress/plugins/raw.rb:21:in `&lt;top (required)&gt;'
+</span><span class="line">	from /Users/jbrains/Workspaces/octopress/plugins/code_block.rb:45:in `require'
+</span><span class="line">	from /Users/jbrains/Workspaces/octopress/plugins/code_block.rb:45:in `&lt;top (required)&gt;'
+</span><span class="line">	from /Users/jbrains/Workspaces/octopress/spec/learn_code_block_spec.rb:2:in `require'</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>My tests <code>require</code> files correctly, but the <em>production code</em> does not. <em>Yet more context dependence</em>, because <code>CodeBlock</code> needs <code>Jekyll</code>, but doesn’t <code>require</code> it. Now I might simply not know about some standard ruby idiom for requiring files, but my simple, first-principles analysis of the situation tells me that files that <code>require</code> other files should just <code>require</code> those files. I suppose I would prefer it if <code>plugins/code_block.rb</code> could <code>require</code> only the small parts of <code>Jekyll</code> that it needs, but at a minimum, it ought not to force every client to <code>require</code> the parts of <code>Jekyll</code> that it needs. It ought not even to force clients to <em>know</em> which parts of <code>Jekyll</code> it needs. This sounds like a job for <a href="http://www.twitter.com/raganwald">Reg</a>’s article on <a href="http://link.jbrains.ca/1653RlF">defactoring</a>.</p>
+
+<p>What about injecting dependencies and moving collaborators up the call stack? Didn’t I make <a href="http://link.jbrains.ca/119E8jy">a big freaking deal</a> about that recently? Why yes, I did. As Reg points out in his article, when we need flexibility we factor, and when we don’t, we defactor. When I test-drive tiny pieces of a system, I want maximum flexibility in connecting those pieces together, so I factor, which in that case involves moving collaborators up the call stack. When I package those pieces together as a ready-made system for you to use, I introduce something at the root of all my little pieces that puts them together in a cohesive manner that solves a specific problem, which you might interpret as defactoring, but which I interpret as mere politeness: giving you a bicycle, rather than an enterprise-caliber personal locomotion device toolkit. Therefore:</p>
+
+<blockquote>
+  <p>If your code needs something, then either provide it yourself (defactor) or make it clear to me that I need to provide it (factor explicitly). <strong>When we introduce implicit dependencies, we don’t factor, we create legacy code.</strong></p>
+</blockquote>
+
+<p>Of course, I don’t want to mess with <code>CodeBlock</code> yet, because I don’t understand enough about how it works, and I <em>certainly</em> don’t intend to tell all those Octopress plugin authors that “they’re doing it wrong”, so I <code>require</code> what I need along with a <code>SMELL</code> comment to remind me that I don’t want to have to do this.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Compensating for the production code&#8217;s context dependence </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># SMELL Production code needs Jekyll, but doesn&#39;t require it, so this file has to.</span>
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;jekyll&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;rspec&quot;</span>
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;plugins/code_block&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="n">describe</span> <span class="s2">&quot;Parsing parameters for codeblock&quot;</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">example</span> <span class="s2">&quot;Am I requiring everything correctly?&quot;</span> <span class="k">do</span>
+</span><span class="line">    <span class="ss">Jekyll</span><span class="p">:</span><span class="ss">:CodeBlock</span><span class="o">.</span><span class="n">new</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>At least now, when I run my tests, I see a coding error, rather than an environment error.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Time to fix the test </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Failures:
+</span><span class="line">
+</span><span class="line">  1) Parsing parameters for codeblock Am I requiring everything correctly?
+</span><span class="line">     Failure/Error: Jekyll::CodeBlock.new
+</span><span class="line">     ArgumentError:
+</span><span class="line">       wrong number of arguments (0 for 3)
+</span><span class="line">     # ./plugins/code_block.rb:54:in `initialize'
+</span><span class="line">     # ./spec/learn_code_block_spec.rb:9:in `new'
+</span><span class="line">     # ./spec/learn_code_block_spec.rb:9:in `block (2 levels) in &lt;top (required)&gt;'</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="enough-legacy-environment-now-legacy-code">Enough Legacy Environment; Now Legacy Code</h2>
+
+<p>I can now start writing tests for what I truly want to check: what happens when I specify a URL, but neither a title nor link text. Although I normally start my tests with the assertion, when working with legacy code, I prefer to run the action first, because that will probably introduce more hurdles to overcome. Unsurprisingly, that happened this time, too.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>I just want to make a code block </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># SMELL Production code needs Jekyll, but doesn&#39;t require it, so this file has to.</span>
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;jekyll&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;rspec&quot;</span>
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;plugins/code_block&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="n">describe</span> <span class="s2">&quot;Parsing parameters for codeblock&quot;</span> <span class="k">do</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">code_block_with_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</span><span class="line">    <span class="n">irrelevant_tokens</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class="line">    <span class="ss">Jekyll</span><span class="p">:</span><span class="ss">:CodeBlock</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;irrelevant tag name&quot;</span><span class="p">,</span> <span class="s2">&quot;https://gist.github.com/1234&quot;</span><span class="p">,</span> <span class="n">irrelevant_tokens</span><span class="p">)</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line">
+</span><span class="line">  <span class="n">example</span> <span class="s2">&quot;only a URL&quot;</span> <span class="k">do</span>
+</span><span class="line">    <span class="n">code_block_with_url</span><span class="p">(</span><span class="s2">&quot;https://gist.github.com/1234&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Here&#8217;s what I get for my trouble </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">Failures:
+</span><span class="line">
+</span><span class="line">  1) Parsing parameters for codeblock only a URL
+</span><span class="line">     Failure/Error: Jekyll::CodeBlock.new("irrelevant tag name", "https://gist.github.com/1234", irrelevant_tokens)
+</span><span class="line">     Liquid::SyntaxError:
+</span><span class="line">       irrelevant tag name tag was never closed
+</span><span class="line">     # ./plugins/code_block.rb:73:in `initialize'
+</span><span class="line">     # ./spec/learn_code_block_spec.rb:10:in `new'
+</span><span class="line">     # ./spec/learn_code_block_spec.rb:10:in `code_block_with_url'
+</span><span class="line">     # ./spec/learn_code_block_spec.rb:14:in `block (2 levels) in &lt;top (required)&gt;'</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>I don’t care about closing tags; I only care about parsing text. <em>Yet more context dependence.</em> In this case, <code>CodeBlock</code>’s constructor invokes <code>super</code>, which invokes the <code>Liquid</code> framework. This defeats the purpose of a framework. This particular example typifies two problems: a framework extension point invoking the framework directly and inheriting implementation. I prefer not to do either.</p>
+
+<blockquote>
+  <p>Framework invokes you; you invoke libraries. Never invoke a framework directly.</p>
+</blockquote>
+
+<blockquote>
+  <p>Inheriting implementation (subclassing) hardwires you to depend on potentially untested and untrusted code, so inherit interface (protocol) instead.</p>
+</blockquote>
+
+<p>How do I escape the annoying context of <code>Liquid</code> with minimal change to the production code? I use a trick that I teach in <a href="http://www.legacycoderetreat.com">Legacy Code Retreat</a>: I extract a pure function that parses the parameters. <strong>I have to do this carefully</strong>, because I don’t have tests to shield me from my own mistakes. I hate doing this kind of surgery, but I can’t think of a better way to do this. I perform these steps:</p>
+
+<ol>
+  <li>Copy the parsing code to a new function. (<strong>Never cut; always copy, then fix, then delete.</strong>)</li>
+  <li>Add the input parameters that the function needs.</li>
+  <li>Return a <code>Hash</code> containing the values of the fields that the function sets.</li>
+  <li>Change the fields to local variables.</li>
+</ol>
+
+<p>This last step stops the function from writing to its surrounding context, but the function still reads from its surrounding context: it uses two constants. I won’t let that stop me from my next step, but I do need to remember to fix that.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>CodeBlock constructor before </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+<span class="line-number">24</span>
+<span class="line-number">25</span>
+<span class="line-number">26</span>
+<span class="line-number">27</span>
+<span class="line-number">28</span>
+<span class="line-number">29</span>
+<span class="line-number">30</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">module</span> <span class="nn">Jekyll</span>
+</span><span class="line">  <span class="k">class</span> <span class="nc">CodeBlock</span> <span class="o">&lt;</span> <span class="ss">Liquid</span><span class="p">:</span><span class="ss">:Block</span>
+</span><span class="line">    <span class="kp">include</span> <span class="no">HighlightCode</span>
+</span><span class="line">    <span class="kp">include</span> <span class="no">TemplateWrapper</span>
+</span><span class="line">    <span class="no">CaptionUrlTitle</span> <span class="o">=</span> <span class="sr">/(\S[\S\s]*)\s+(https?:\/\/\S+|\/\S+)\s*(.+)?/i</span>
+</span><span class="line">    <span class="no">Caption</span> <span class="o">=</span> <span class="sr">/(\S[\S\s]*)/</span>
+</span><span class="line">
+</span><span class="line">    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">tag_name</span><span class="p">,</span> <span class="n">markup</span><span class="p">,</span> <span class="n">tokens</span><span class="p">)</span>
+</span><span class="line">      <span class="vi">@title</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class="line">      <span class="vi">@caption</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class="line">      <span class="vi">@filetype</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class="line">      <span class="vi">@highlight</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class="line">      <span class="k">if</span> <span class="n">markup</span> <span class="o">=~</span> <span class="sr">/\s*lang:(\S+)/i</span>
+</span><span class="line">        <span class="vi">@filetype</span> <span class="o">=</span> <span class="vg">$1</span>
+</span><span class="line">        <span class="n">markup</span> <span class="o">=</span> <span class="n">markup</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sr">/\s*lang:(\S+)/i</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">      <span class="k">if</span> <span class="n">markup</span> <span class="o">=~</span> <span class="no">CaptionUrlTitle</span>
+</span><span class="line">        <span class="vi">@file</span> <span class="o">=</span> <span class="vg">$1</span>
+</span><span class="line">        <span class="vi">@caption</span> <span class="o">=</span> <span class="s2">&quot;&lt;figcaption&gt;&lt;span&gt;</span><span class="si">#{</span><span class="vg">$1</span><span class="si">}</span><span class="s2">&lt;/span&gt;&lt;a href=&#39;</span><span class="si">#{</span><span class="vg">$2</span><span class="si">}</span><span class="s2">&#39;&gt;</span><span class="si">#{</span><span class="vg">$3</span> <span class="o">||</span> <span class="s1">&#39;link&#39;</span><span class="si">}</span><span class="s2">&lt;/a&gt;&lt;/figcaption&gt;&quot;</span>
+</span><span class="line">      <span class="k">elsif</span> <span class="n">markup</span> <span class="o">=~</span> <span class="no">Caption</span>
+</span><span class="line">        <span class="vi">@file</span> <span class="o">=</span> <span class="vg">$1</span>
+</span><span class="line">        <span class="vi">@caption</span> <span class="o">=</span> <span class="s2">&quot;&lt;figcaption&gt;&lt;span&gt;</span><span class="si">#{</span><span class="vg">$1</span><span class="si">}</span><span class="s2">&lt;/span&gt;&lt;/figcaption&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">      <span class="k">if</span> <span class="vi">@file</span> <span class="o">=~</span> <span class="sr">/\S[\S\s]*\w+\.(\w+)/</span> <span class="o">&amp;&amp;</span> <span class="vi">@filetype</span><span class="o">.</span><span class="n">nil?</span>
+</span><span class="line">        <span class="vi">@filetype</span> <span class="o">=</span> <span class="vg">$1</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">      <span class="k">super</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>The newly-copied parsing code in its own function </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">module</span> <span class="nn">Jekyll</span>
+</span><span class="line">  <span class="k">class</span> <span class="nc">CodeBlock</span> <span class="o">&lt;</span> <span class="ss">Liquid</span><span class="p">:</span><span class="ss">:CodeBlock</span>
+</span><span class="line">    <span class="c1"># unimportant stuff elided</span>
+</span><span class="line">    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">parse_tag_parameters</span><span class="p">(</span><span class="n">markup</span><span class="p">)</span>
+</span><span class="line">      <span class="k">if</span> <span class="n">markup</span> <span class="o">=~</span> <span class="sr">/\s*lang:(\S+)/i</span>
+</span><span class="line">        <span class="n">filetype</span> <span class="o">=</span> <span class="vg">$1</span>
+</span><span class="line">        <span class="n">markup</span> <span class="o">=</span> <span class="n">markup</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sr">/\s*lang:(\S+)/i</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">      <span class="k">if</span> <span class="n">markup</span> <span class="o">=~</span> <span class="no">CaptionUrlTitle</span>
+</span><span class="line">        <span class="n">file</span> <span class="o">=</span> <span class="vg">$1</span>
+</span><span class="line">        <span class="n">caption</span> <span class="o">=</span> <span class="s2">&quot;&lt;figcaption&gt;&lt;span&gt;</span><span class="si">#{</span><span class="vg">$1</span><span class="si">}</span><span class="s2">&lt;/span&gt;&lt;a href=&#39;</span><span class="si">#{</span><span class="vg">$2</span><span class="si">}</span><span class="s2">&#39;&gt;</span><span class="si">#{</span><span class="vg">$3</span> <span class="o">||</span> <span class="s1">&#39;link&#39;</span><span class="si">}</span><span class="s2">&lt;/a&gt;&lt;/figcaption&gt;&quot;</span>
+</span><span class="line">      <span class="k">elsif</span> <span class="n">markup</span> <span class="o">=~</span> <span class="no">Caption</span>
+</span><span class="line">        <span class="n">file</span> <span class="o">=</span> <span class="vg">$1</span>
+</span><span class="line">        <span class="n">caption</span> <span class="o">=</span> <span class="s2">&quot;&lt;figcaption&gt;&lt;span&gt;</span><span class="si">#{</span><span class="vg">$1</span><span class="si">}</span><span class="s2">&lt;/span&gt;&lt;/figcaption&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">      <span class="k">if</span> <span class="n">file</span> <span class="o">=~</span> <span class="sr">/\S[\S\s]*\w+\.(\w+)/</span> <span class="o">&amp;&amp;</span> <span class="n">filetype</span><span class="o">.</span><span class="n">nil?</span>
+</span><span class="line">        <span class="n">filetype</span> <span class="o">=</span> <span class="vg">$1</span>
+</span><span class="line">      <span class="k">end</span>
+</span><span class="line">      <span class="k">return</span> <span class="p">{</span><span class="ss">filetype</span><span class="p">:</span> <span class="n">filetype</span><span class="p">,</span> <span class="ss">file</span><span class="p">:</span> <span class="n">file</span><span class="p">,</span> <span class="ss">caption</span><span class="p">:</span> <span class="n">caption</span><span class="p">}</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>I have not yet changed the constructor to use this newly-extracted function out of a desire to do this <strong>safely</strong>.  </p>
+
+<p>Now, at least, I can greatly simplify the test.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>An action that gets to the point </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="c1"># SMELL Production code needs Jekyll, but doesn&#39;t require it, so this file has to.</span>
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;jekyll&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;rspec&quot;</span>
+</span><span class="line"><span class="nb">require</span> <span class="s2">&quot;plugins/code_block&quot;</span>
+</span><span class="line">
+</span><span class="line"><span class="n">describe</span> <span class="s2">&quot;Parsing parameters for codeblock&quot;</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">example</span> <span class="s2">&quot;only a URL&quot;</span> <span class="k">do</span>
+</span><span class="line">    <span class="ss">Jekyll</span><span class="p">:</span><span class="ss">:CodeBlock</span><span class="o">.</span><span class="n">parse_tag_parameters</span><span class="p">(</span><span class="s2">&quot;https://gist.github.com/1234&quot;</span><span class="p">)</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>I can even run this test and it does nothing. With legacy code, this represents progress.</p>
+
+<h3 id="how-about-we-check-something-now">How about we check something now?</h3>
+
+<p>Now to the actual mistake—or at least what seems like a mistake. When I don’t provide any clue about the “type” of the code snippet—whether to interpret it as Java code, Ruby code, or something else—then perhaps the <code>filetype</code> should be <code>nil</code>. At a minimum, it shouldn’t be what it is now.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>A test that, you know, checks something </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">describe "Parsing parameters for codeblock" do
+</span><span class="line">  example "only a URL" do
+</span><span class="line">    results = Jekyll::CodeBlock.parse_tag_parameters("https://gist.github.com/1234")
+</span><span class="line">    results[:filetype].should be_nil
+</span><span class="line">  end
+</span><span class="line">end</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>An unexpected result </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">1) Parsing parameters for codeblock only a URL
+</span><span class="line">     Failure/Error: results[:filetype].should be_nil
+</span><span class="line">       expected: nil
+</span><span class="line">            got: "com"
+</span><span class="line">     # ./spec/learn_code_block_spec.rb:10:in `block (2 levels) in &lt;top (required)&gt;'</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>My code snippet certainly doesn’t contain code of type “com”, whatever <em>that</em> means, so I interpret this as a mistake and change my test accordingly.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Wake me when someone fixes the mistake </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="n">describe</span> <span class="s2">&quot;Parsing parameters for codeblock&quot;</span> <span class="k">do</span>
+</span><span class="line">  <span class="n">example</span> <span class="s2">&quot;only a URL&quot;</span> <span class="k">do</span>
+</span><span class="line">    <span class="n">results</span> <span class="o">=</span> <span class="ss">Jekyll</span><span class="p">:</span><span class="ss">:CodeBlock</span><span class="o">.</span><span class="n">parse_tag_parameters</span><span class="p">(</span><span class="s2">&quot;https://gist.github.com/1234&quot;</span><span class="p">)</span>
+</span><span class="line">    <span class="n">pending</span><span class="p">(</span><span class="s2">&quot;Filetype appears to be interpreted incorrectly&quot;</span><span class="p">)</span> <span class="k">do</span>
+</span><span class="line">      <span class="n">results</span><span class="o">[</span><span class="ss">:filetype</span><span class="o">].</span><span class="n">should</span> <span class="n">be_nil</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Now I should remove the duplication in <code>CodeBlock</code> to avoid future mistakes. This involves wiring its constructor, <strong>very carefully</strong> to the code I’ve just extracted.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>CodeBlock&#8217;s constructor uses the new parsing function </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">module</span> <span class="nn">Jekyll</span>
+</span><span class="line">  <span class="k">class</span> <span class="nc">CodeBlock</span> <span class="o">&lt;</span> <span class="ss">Liquid</span><span class="p">:</span><span class="ss">:Block</span>
+</span><span class="line">    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">tag_name</span><span class="p">,</span> <span class="n">markup</span><span class="p">,</span> <span class="n">tokens</span><span class="p">)</span>
+</span><span class="line">      <span class="vi">@title</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class="line">      <span class="vi">@caption</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class="line">      <span class="vi">@filetype</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class="line">      <span class="vi">@highlight</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class="line">
+</span><span class="line">      <span class="n">parsed_tag_parameters</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">parse_tag_parameters</span><span class="p">(</span><span class="n">markup</span><span class="p">)</span>
+</span><span class="line">      <span class="vi">@filetype</span> <span class="o">=</span> <span class="n">parsed_tag_parameters</span><span class="o">[</span><span class="ss">:filetype</span><span class="o">]</span>
+</span><span class="line">      <span class="vi">@file</span> <span class="o">=</span> <span class="n">parsed_tag_parameters</span><span class="o">[</span><span class="ss">:file</span><span class="o">]</span>
+</span><span class="line">      <span class="vi">@caption</span> <span class="o">=</span> <span class="n">parsed_tag_parameters</span><span class="o">[</span><span class="ss">:caption</span><span class="o">]</span>
+</span><span class="line">
+</span><span class="line">      <span class="k">super</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Some rudimentary manual checking convinced me that this change hasn’t broken anything. With legacy code, sometimes we can’t do any better than that, which explains why I go to such pains to avoid writing more of it.</p>
+
+<p>Of course, now I see some silly-looking duplication in the constructor, so I remove it. I also see some possibly-obsolete code, so I mark it as such. I’ll need to explore more whether I can safely delete that code.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>A clearer and simpler constructor for CodeBlock </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+</pre></td><td class="code"><pre><code class="ruby"><span class="line"><span class="k">module</span> <span class="nn">Jekyll</span>
+</span><span class="line">  <span class="k">class</span> <span class="nc">CodeBlock</span> <span class="o">&lt;</span> <span class="ss">Liquid</span><span class="p">:</span><span class="ss">:Block</span>
+</span><span class="line">    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">tag_name</span><span class="p">,</span> <span class="n">markup</span><span class="p">,</span> <span class="n">tokens</span><span class="p">)</span>
+</span><span class="line">      <span class="c1"># SMELL This appears to be completely unused.</span>
+</span><span class="line">      <span class="vi">@title</span> <span class="o">=</span> <span class="kp">nil</span>
+</span><span class="line">      <span class="vi">@highlight</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class="line">
+</span><span class="line">      <span class="n">parsed_tag_parameters</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">parse_tag_parameters</span><span class="p">(</span><span class="n">markup</span><span class="p">)</span>
+</span><span class="line">      <span class="vi">@filetype</span> <span class="o">=</span> <span class="n">parsed_tag_parameters</span><span class="o">[</span><span class="ss">:filetype</span><span class="o">]</span>
+</span><span class="line">      <span class="c1"># SMELL This appears to be completely unused.</span>
+</span><span class="line">      <span class="vi">@file</span> <span class="o">=</span> <span class="n">parsed_tag_parameters</span><span class="o">[</span><span class="ss">:file</span><span class="o">]</span>
+</span><span class="line">      <span class="vi">@caption</span> <span class="o">=</span> <span class="n">parsed_tag_parameters</span><span class="o">[</span><span class="ss">:caption</span><span class="o">]</span>
+</span><span class="line">
+</span><span class="line">      <span class="k">super</span>
+</span><span class="line">    <span class="k">end</span>
+</span><span class="line">  <span class="k">end</span>
+</span><span class="line"><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="what-now">What now?</h2>
+
+<p>Now I can explore more fully and more safely the behavior of parsing the <code>CodeBlock</code>’s tag parameters, and I won’t bore you with the details. I can do all this with tests that depend only on the existence of the module <code>Jekyll</code>, but on none of its behavior. Not perfect, but much better. I don’t yet need to factor out the <code>parse_tag_parameters()</code> behavior any more, but I feel much more comfortable doing that when the time comes, because I know it will cost me much less than it cost me to get to this point.</p>
+
+<p>The lesson?</p>
+
+<blockquote>
+  <p>Don’t depend on your clients. If you have to depend on your clients, depend on as little as possible, and remove that dependency as soon as you can.</p>
+</blockquote>
+
+<p>All legacy code started with “I’ll just cut this little corner, and it won’t be so bad….”</p>
+
+<h2 id="an-annoying-epilogue">An annoying epilogue</h2>
+
+<p>By the way, in the process of exploring how to contribute these changes back to Octopress, I discovered that a new major release is coming and everything will have changed. No good deed goes unpunished.</p>
+

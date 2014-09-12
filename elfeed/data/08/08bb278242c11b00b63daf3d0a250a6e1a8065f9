@@ -1,0 +1,44 @@
+<p>I&#8217;ve started &#8220;Season&#8221; 2 of the series with a screencast on <a href="http://www.gnu.org/s/emacs/manual/html_node/emacs/Dired.html">dired</a>. It&#8217;s Emacs&#8217; &#8220;file browser&#8221; and can be used to manage files. Performing operations on a large number of them at once and also providing such facilities to other modes.</p>
+
+<p>I apologise for the hiatus but I&#8217;ve been very busy in my real life. I expect more delays till the end of January but I&#8217;ll do what I can.</p>
+
+<iframe src="http://archive.org/embed/EmacsMovies/11-episode-dired.webm" width="640" height="480" frameborder="0"></iframe>
+
+
+<p>.</p>
+
+<p>Other formats are available on the <a href="http://archive.org/details/EmacsMovies">Archive.org page</a>.</p>
+
+<p>Comments welcome.</p>
+
+<h2>Keys mentioned</h2>
+
+<ol>
+<li><code>C-x d</code> to start dired with a directory. <code>find-name-dired</code> and <code>find-dired</code> can be used to select different files for the initial dired buffer.</li>
+<li><code>s</code> to toggle sorting order (by date or normal).</li>
+<li><code>i</code> to insert a directory into the current dired buffer.</li>
+<li><code>&lt;</code> and <code>&gt;</code> to navigate directories in the buffer.</li>
+<li><code>C-M-n</code> and <code>C-M-p</code> to navigate dirlines.</li>
+<li><code>RET</code> to visit the current item in a new buffer. <code>o</code> does the same thing but does so after splitting the current window into two so that the dired buffer is still visible.</li>
+<li><code>^</code> Goes one directory up. It&#8217;s the opposite of <code>RET</code>. If the parent directory has a dired buffer visiting it, it will be reused. Otherwise, a new one will be created.</li>
+<li><code>$</code> toggles the visibility of the file list under a dirline. <code>M-$</code> does so for all the dirlines in the current buffer.</li>
+<li><code>T</code> touches the current or all the marked files. <code>R</code> is to rename files. <code>S</code> to symblink. <code>Z</code> is to compress or decompress.</li>
+<li><code>D</code> marks for deletion and <code>X</code> expunges.</li>
+<li><code>m</code> marks files and <code>u</code> unmarks. <code>U</code> unmarks all files.</li>
+<li><code>M-s a C-s</code> searches incrementally through all marked files.</li>
+<li><code>C-t C-t</code> displays image thumbnails. <code>C-t i</code> displays a scaled version of the image in a new window.</li>
+<li><code>% g</code> marks files based on whether they contain a provided regular expression. Other <code>%</code> commands are available under the <em>Regexp</em> menu.</li>
+<li><code>* /</code> marks all directories and <code>t</code> toggles marked/unmarked files. The <em>Mark</em> menu has other such commands to make marking easy.</li>
+<li><code>+</code> creates new directories and <code>w</code> copies marked (or current) items into the kill ring.</li>
+<li>If you&#8217;re using <code>gnus</code>, you can run <code>turn-on-gnus-dired-mode</code> and get keybindings like <code>C-c C-m C-a</code> to attach marked files into a new email and go to the composer.</li>
+<li><code>C-x</code> <code>C-q</code> to enter wdired which makes the file names in the buffer editable. You can make changes and then hit <code>C-c</code> <code>C-c</code> to save them.</li>
+</ol>
+
+
+<h2>Further reading</h2>
+
+<ol>
+<li>The <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html">Dired manual page</a> along with <a href="http://www.gnu.org/software/emacs/manual/html_node/dired-x/index.html#Top">Dired-X</a> (which I might cover later in a future screencast).</li>
+<li><a href="http://ergoemacs.org/emacs/file_management.html">Xah Lee&#8217;s dired tutorial</a>.</li>
+</ol>
+

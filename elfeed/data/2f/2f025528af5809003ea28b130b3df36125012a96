@@ -1,0 +1,3 @@
+<p>I’m proud to release Flycheck 0.20. Highlights are new support for Ada and Fortran, improved Rust crate support, better key bindings in the error list and customizable mode line indicators.</p>
+<p>Please read the <a href="http://flycheck.readthedocs.org/en/0.20/news/flycheck-0.20-released.html">release announcement</a> and take a look at the <a href="http://flycheck.readthedocs.org/en/0.20/changes.html#aug-12-2014">changelog</a>, and enjoy the new features.</p>
+<p>Thanks for your support</p>

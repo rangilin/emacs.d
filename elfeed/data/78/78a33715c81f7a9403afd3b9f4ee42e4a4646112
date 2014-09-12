@@ -1,0 +1,74 @@
+<p>In a <a href="http://blog.8thlight.com/alex-hill/2014/07/10/useful-clojure-macros-for-the-object-oriented-programmer.html">recent Apprentice Blog of the Week</a>, Alex Hill detailed one way that we can apply common Ruby patterns to our Clojure code. I’ve noticed a similar effect while making the opposite transition, too. Having spent a few months writing mostly Clojure and then transitioning back into writing mostly Ruby, it was interesting to see the way my experience with common patterns in Clojure influenced the way I approached writing Ruby. </p>
+
+<p>Specifically, a couple of patterns I really enjoy using in Clojure are <code>with</code> and <code>when</code> macros. Usually, a macro starting with <code>with-</code> means that something is happening around the code you pass to it, and a macro starting with <code>when-</code> means that your code will be executed if a certain condition is met. For instance, we could write a macro called <code>with-timing</code> that times our code by setting a start time, evaluating the code, then logging the difference between the start and end times before returning our return value.</p>
+<div class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defmacro </span><span class="nv">with-timing</span> <span class="p">[</span><span class="nv">body</span><span class="p">]</span>
+  <span class="o">`</span><span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">start#</span> <span class="p">(</span><span class="nf">now</span><span class="p">)</span>
+         <span class="nv">ret#</span> <span class="o">~</span><span class="nv">body</span><span class="p">]</span>
+     <span class="p">(</span><span class="nf">logger/log</span> <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nf">now</span><span class="p">)</span> <span class="nv">start#</span><span class="p">))</span>
+     <span class="nv">ret#</span><span class="p">))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">timed-operation</span> <span class="p">[</span><span class="nv">x</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">with-timing</span>
+    <span class="p">(</span><span class="nf">calculate-some-things</span> <span class="nv">x</span><span class="p">)))</span>
+</code></pre></div>
+<p>We might also write a macro called <code>when-valid</code>, which takes a record that we created from some user input, and then only evaluates our code if the record is valid, otherwise using the generic handler for invalid records.</p>
+<div class="highlight"><pre><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defmacro </span><span class="nv">when-valid</span> <span class="p">[</span><span class="nv">record</span> <span class="o">&amp;</span> <span class="nv">body</span><span class="p">]</span>
+  <span class="o">`</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">valid?</span> <span class="o">~</span><span class="nv">record</span><span class="p">)</span>
+     <span class="p">(</span><span class="nf">render-invalid</span> <span class="o">~</span><span class="nv">record</span><span class="p">)</span>
+     <span class="o">~@</span><span class="nv">body</span><span class="p">))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">response-for</span> <span class="p">[</span><span class="nv">thing</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">when-valid</span> <span class="nv">thing</span>
+    <span class="p">(</span><span class="nf">render-created</span> <span class="nv">thing</span><span class="p">)))</span>
+</code></pre></div>
+<p>We can implement our timing macro similarly in Ruby, by simply writing a method that takes a block to be called and timed.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">with_timing</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="n">start_time</span> <span class="o">=</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span>
+  <span class="n">return_value</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="n">call</span>
+  <span class="n">log</span><span class="p">(</span><span class="no">Time</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span>
+  <span class="n">return_value</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">timed_operation</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="n">with_timing</span> <span class="k">do</span>
+    <span class="n">calculate_some_stuff</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>We can also reduce the duplication of a common Rails controller pattern by writing something similar to our <code>when-valid</code> macro in Ruby.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">when_valid</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">valid?</span>
+    <span class="n">block</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+  <span class="k">else</span>
+    <span class="n">flash</span><span class="o">[</span><span class="ss">:error</span><span class="o">]</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">messages</span>
+    <span class="n">render</span> <span class="ss">:new</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">create</span>
+  <span class="n">when_valid</span><span class="p">(</span><span class="no">Thing</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">thing_params</span><span class="p">))</span> <span class="k">do</span> <span class="o">|</span><span class="n">thing</span><span class="o">|</span>
+    <span class="n">redirect_to</span> <span class="n">thing</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Here’s another useful <code>when</code> method for handling HTTP responses in Ruby that <a href="http://www.8thlight.com/team/myles-megyesi">Myles Megyesi</a> shared with me.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">when_status</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">responders</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">responder</span> <span class="o">=</span> <span class="n">responders</span><span class="o">[</span><span class="n">response</span><span class="o">[</span><span class="ss">:status</span><span class="o">]]</span>
+    <span class="n">responder</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+  <span class="k">else</span>
+    <span class="n">handle_generically</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">get_all_the_things</span>
+  <span class="n">when_status</span> <span class="n">get</span><span class="p">(</span><span class="s2">&quot;/things&quot;</span><span class="p">),</span> <span class="p">{</span>
+    <span class="mi">200</span> <span class="o">=&gt;</span> <span class="nb">lambda</span> <span class="k">do</span> <span class="o">|</span><span class="n">response</span><span class="o">|</span>
+      <span class="n">load_things</span><span class="p">(</span><span class="n">response</span><span class="o">[</span><span class="ss">:body</span><span class="o">]</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">,</span>
+    <span class="mi">404</span> <span class="o">=&gt;</span> <span class="nb">lambda</span> <span class="k">do</span>
+      <span class="s2">&quot;Whoops&quot;</span>
+    <span class="k">end</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>After transitioning back to writing Ruby after Clojure, I found myself naturally thinking of ways to use blocks and lambdas, among other functional-ish idioms, much more than before writing Clojure—and usually with positive results. It’s interesting to see how learning new languages expands the way you write the languages you already know. Perhaps there are patterns from certain languages you know just waiting to be applied somewhere else.</p>

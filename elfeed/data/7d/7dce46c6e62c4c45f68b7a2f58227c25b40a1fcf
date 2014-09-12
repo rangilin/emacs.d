@@ -1,0 +1,20 @@
+
+<p class = 'original'><a href = 'http://martinfowler.com/bliki/Retread.html'>Retread</a> of post orginally made on 26 Dec 2003</p>
+
+<p><i>Published Interface</i> is a term I used (first in <a href="http://martinfowler.com/books/refactoring.html">Refactoring</a>)
+to refer to a class interface that's used outside the code base that
+it's defined in. As such it means more than public in Java and indeed
+even more than a non-internal public in C#. In my column for IEEE
+Software I argued
+that <a href="http://martinfowler.com/ieeeSoftware/published.pdf">the distinction between published and public is actually more
+important than that between public and private.</a></p>
+
+<p>The reason is that with a non-published interface you can change
+it and update the calling code since it is all within a single code
+base. Such things as renames can be done, and done easily with modern
+refactoring tools. But anything published so you can't reach the
+calling code needs more complicated treatment.</p>
+
+<p class="repost">reposted on 03 May 2012</p>
+
+<p class="shares"><span class="label">Share: </span><a href="https://twitter.com/intent/tweet?url=http://martinfowler.com/bliki/PublishedInterface.html&amp;text=Bliki: PublishedInterface" title="Share on Twitter"><img src="/t_mini-a.png"/></a><a href="https://facebook.com/sharer.php?u=http://martinfowler.com/bliki/PublishedInterface.html" title="Share on Facebook"><img src="/fb-icon-20.png"/></a><a href="https://plus.google.com/share?url=http://martinfowler.com/bliki/PublishedInterface.html" title="Share on Google Plus"><img src="/gplus-16.png"/></a></p>

@@ -1,0 +1,59 @@
+<p>When you buy a house, you raise a mortgage. When you buy a car, you raise an auto loan. Maybe you are rich enoguh to clear all the debts at once, but anyway, we all live with debts, more or less. Infact, for software developers, we all live with debts as well. They're so called <a href="http://en.wikipedia.org/wiki/Technical_debt"><strong>technical debts</strong></a>. I really like the debt analog, technical debts are similiar to debts in real life. Funny enough, most of people know how real debts work, but technical debts are not well known by developers. However, it makes sense. People live with the idea of debts maybe for thousands years, but there are only few decades history of computer. </p>
+<h3>Financial debts</h3>
+<p>That's really nice to have an accurate analog. It allows me to explain things by borrowing some mature experience from financial world. I am not an expert in finance, however, when I see a cash flow diagram, I realized this is exactly the same diagram for explaining technical debts. Let's see what the cash flow diagram looks like when you rase a loan from bank.</p>
+
+<div style="text-align: center">
+    <img src="http://user-image.logdown.io/user/822/blog/819/post/144757/6vbm1wcRvGWihRcYqbXO_financial_debit.png">
+</div>
+
+<p>As the name implies, it's all about flow of cash. Green arrows above the axis are the income, red arrows below the axis are the cost. When you raise a loan, you have an immediate income at the begining, but it doens't come for free. You need to pay interest to the bank periodically. And eventually, you need to refund the initial debt (not shown in the diagram). There are various different situations, for example, you may can rent the house to others, then you have recurring income, sell the house when the prise raised and refund the mortgage eventually. Nevertheless, we are not teaching finance here, the point here is that we can borrow the diagram for visualizing technical debts.</p>
+<h3>Raise a technical debt</h3>
+<p>For software development, I see production as the income, production reduced or extra time spend as the cost. So, how to raise technical debts you may ask, well, the fact is, you don't have to, there are many build-in debts during the software development process. </p>
+
+<p>Let's see an example, say, you are developing a system. At first, there is only one feature in it, everytime you modify the code, you have to check that is this feature working correctly. The code you write is the income, and the time for testing is the cost. Overtime, you fix bugs, you improve the code, you always need to make sure does the feature work correctly. This is actually a very common build-in techincal debt in software development. Not to write automated testing is the debt itself, by doing that, you save some development time, it is an immediate income (production gain), however, you need to pay interest everytime you modify the code. The diagram would look like this</p>
+
+<div style="text-align: center">
+    <img src="http://user-image.logdown.io/user/822/blog/819/post/144757/bTkvWhFOSzytYHIURv8w_technical_debt01.png">
+</div>
+
+<p>Things could even get worser when there are new features added to the system, you have more features to test each time you modify the code. The diagram for a scale-growing system looks like this</p>
+
+<div style="text-align: center">
+    <img src="http://user-image.logdown.io/user/822/blog/819/post/144757/DRsxis7IR56JDcQww9uK_technical_debt02.png">
+</div>
+
+<p>You said, hey, why not just ignore them, I believe they will not be broken so easily. Well, this could be true, however, saving time by not to do test, the cost for testing will become risk, your customers or end-users are going to test those undetected issues for you.</p>
+
+<p>Moreover, when the system came to a really big scale, you may found yourself are always testing for countless functions, and there will also be endless bugs to fix. That's simply the debt is too high, your productivity is all eaten by the interest, you are never going to deiliver the product unless you refund the debt.</p>
+
+<p>For the same case, you have more and more features in the system, but you spend your time on autmoated testing at begining. It just like you refund the debt at very first, this makes the interest in control. When you added a new feature, all you have to do is to write corresponding tests for it. In this way, You can make some real progress.</p>
+
+<p><img src="http://user-image.logdown.io/user/822/blog/819/post/144757/OXJl32k0Qvm7uaDmx0Yq_technical_debt03.png" alt="technical_debt03.png"></p>
+<h3>Source of debts</h3>
+<p>Unlike real debts, you don't have a sheet tells you how much they are. Technical debts sometimes just aren't obvious. Nevertheless, we know some certain source of debts. Such as</p>
+
+<ul>
+<li>Bad coding style</li>
+<li>Bad design</li>
+<li>No automated testing</li>
+<li>No documents</li>
+<li>No proper comments in code</li>
+<li>No version control system</li>
+<li>Dirty hacks</li>
+</ul><p>Maybe there are other debts not listed above, however, the point is, these debts all have similiar effect - you or team members need to pay the interest when developing on these code. For example, a badly written function, everytime developers read it, they all need extra time to understand it, that is the interest. Interestingly, although you have to pay the interest, not all debts gain you a big boost in development, some debts can be avoided easily. Experienced developers can usually produce code with good style and design.</p>
+<h3>Debts are not all that bad</h3>
+<p>So far, we talked like debts are all evil, they are demons, you should never deal with them. But the truh is raising debts can be a good thing sometimes. As raising debts buy you some time, even for real life finance world, raising debts could be a key to success. When a company has no debts, investors actually see the company must be inefficient. So this is about trade off, experienced developers not only produce code with lower debts than inexperienced ones, they also know when to raise debts, how much to raise.</p>
+
+<p>For example, you are running a startup, you even don't know is your product going to work. At this moment, you can do some dirty hack to make things work, refund the technical debts later after you survive.</p>
+<h3>Nice, I am not the one who pays bill</h3>
+<p>People love free lunch, it is really nice you don't have to pay the bill, isn't it? Developers also like it. There are many situations that you are not the one paying interest for technical debts. For example, you accept a software development contract, you are pretty sure once you deliever the project, you are never going to see it again. In thise case, many developers just don't care, they are not the one who pays bill, why should they? </p>
+
+<p>This is an actual <a href="http://en.wikipedia.org/wiki/Moral_hazard">moral hazard</a>. Funny enough, it also happens in real finance world, like Wall Street bankers, they know taxpayers are going to pay the bill, why should they care risk? Unfortunately, unlike bankers, ignoring moral hazard won't earn you billion dollars. It only earns curse from the next developer. And sometimes, you just have no choice, the deadline is right ahead, all you can say is</p>
+
+<blockquote>
+<p>screw it!</p>
+</blockquote>
+
+<p>Despite the situation you have no choice, sometimes you can raise as much technical debts as possible without worrying about it. For instance, you are writing a run once and throw alway script, then do your best to raise debts.</p>
+<h3>Summary</h3>
+<p>For software development, it is important to understand technical debts, there is no easy or accurate way to measure them, but you can tell from your experience. My debt analog here may not be 100% precise, but surely it gives you a feeling about it. To build a successful software, you should keep the idea of technical debts in mind, you should also control them rather than letting them control you. </p>

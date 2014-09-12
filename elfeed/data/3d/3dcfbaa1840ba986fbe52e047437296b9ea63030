@@ -1,0 +1,11 @@
+<p>Now here's an interesting problem:</p>
+<p>I wanted to do a recursive search and replace in unix, AND I wanted to
+do an expression that spans multiple lines. Here's what I came up with:</p>
+<p><pre class="literal-block">
+find ./ -type f | xargs sed -E -i -n'1h;1!H;${;g;s/&lt;\/fileSet&gt;.*&lt;fileSet&gt;.*RevisionVersion.*&lt;\/fileSet&gt;.*&lt;\/fileSets&gt;/&lt;\/fileSet&gt;\n&lt;\/fileSets&gt;/g;p}'
+</pre>
+</p><p>There a lot of examples showing you how to do this.</p>
+<p>The first argument lists all files recursively. These are the piped to
+sed, which uses an inline search and replace (-i or --in-line), then
+using the expression '{}' which is then modified for multi-line
+expressions (1h;1!H;).</p>

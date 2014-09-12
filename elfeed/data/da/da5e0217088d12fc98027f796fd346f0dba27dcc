@@ -1,0 +1,15 @@
+<p><a href="https://www.kickstarter.com/projects/1751759988/sicp-distilled">SICP Distilled</a>
+is one of the most interesting Kickstarter projects I&rsquo;ve seen in a
+while.</p>
+
+<p>Its creator <a href="http://www.thattommyhall.com/">Tom Hall</a> is
+planning to create some nice companion resources for <a href="http://sicpebook.wordpress.com/">SICP</a> with code
+examples in Clojure. In his own words:</p>
+
+<blockquote><p>It’s a long book, with lots<br/>of exercises and lots of people I know have started, loved it, but<br/>somehow not finished.</p><p>Abelson and Sussman themselves highlight the important lessons of SICP<br/>in their paper `Lisp: A Language For Stratified Design` and I have my<br/>own favourite bits.</p><p>As the book itself is available online for free I want to make the<br/>perfect accompaniment to it - an ebook summarising the key ideas,<br/>short videos describing them, screencasts of solving some of the<br/>exercises, translation of the examples into Clojure, example projects,<br/>partial solutions for you to complete (similar to `4clojure` and `Clojure<br/>koans`) and a place to discuss solving them with people and hopefully<br/>keep momentum and get it finished!</p><p>Something to be enjoyed alongside SICP, rather than completely replace it.</p><p>Maybe some ideas come out a little different in Clojure, or I take a<br/>slightly novel approach (hence idiosyncratic), maybe I miss something<br/>out (hence tour, sorry), but I hope we can have some fun along the<br/>way.</p><footer><strong>Tom Hall</strong> <cite>SICP Distilled</cite></footer></blockquote>
+
+
+<p>I&rsquo;m one of those many people who never did finish SICP (although I
+hope to do that some day), so I can totally relate to Tom&rsquo;s
+words. I&rsquo;ve already backed his campaign and I hope more of you will do
+the same!</p>

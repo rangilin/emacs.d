@@ -1,0 +1,36 @@
+<p>We all know and love the
+<a href="http://melpa.milkbox.net/#/">MELPA package repository</a>. At least we
+all know it, but not everyone loves the idea of using package
+snapshots.  Some people would rather use only <em>stable</em> package
+releases and that&#8217;s understandable. Unfortunately the major community
+repository for stable packages <a href="http://marmalade-repo.org/">Marmalade</a>
+is often plagued by technical issues (that should be fixed once its
+<code>elnode</code>-powered rewrite is ready) and stale packages (due to the fact
+the sometimes people upload packages they don&#8217;t own there and stop
+updating them after a while).</p>
+
+<p>Now there&#8217;s an alternative to Marmalade, which offers a MELPA-like
+experience - <a href="http://melpa-stable.milkbox.net/#/">MELPA stable</a>. It
+offers stable packages built automatically from <code>git</code> tags, meaning
+the only thing you have to do to release a new version of a package
+(assuming there&#8217;s a MELPA recipe for it, of course) is to tag the release in
+<code>git</code>. No more stale packages! No more manual package uploads!</p>
+
+<p>To use the new repo add this to your Emacs config:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;package-archives</span>
+</span><span class='line'><span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;melpa-stable&quot;</span> <span class="o">.</span> <span class="s">&quot;http://melpa-stable.milkbox.net/packages/&quot;</span><span class="p">)</span> <span class="no">t</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Currently more than 500 packages are available for installation there.
+That number is bound to grow (a lot).</p>
+
+<p>By the way, the maintainers of <code>MELPA</code> are looking for help to update
+the home page of the stable package archive.  Currently it&#8217;s the same
+as the one of the snapshot archive, which is a bit confusing
+(especially regarding installation instructions). If you&#8217;d like to
+help fork and improve the
+<a href="https://github.com/milkypostman/melpa/tree/master/html">page&#8217;s code on GitHub</a>.</p>

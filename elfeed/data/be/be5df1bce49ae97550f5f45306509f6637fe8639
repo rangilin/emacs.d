@@ -1,0 +1,37 @@
+<p>I really love and enjoy programming in Python, as it is one of my favorite programming languages, I also love to recommend Python to other developers or people who is about to learn their very first programming language. However, there will always be an awkward thing - when they ask you which of Python 2 or Python 3 to use. My answer could be:</p>
+
+<blockquote>
+<p>Ah..., you should lean Python 2 first, major libraries support Python 2 only. It will takes about one or two years before these third-party resource catch up Python 3.</p>
+</blockquote>
+
+<p>Sadly, five years has been passed since Python 3 was released, but there is still <a href="http://alexgaynor.net/2014/jan/03/pypi-download-statistics/">only 3% of Python developers are using version 3</a>. If people ask me the same question now, I really don't know how to answer. And I even start thinking is this the end of the programming language I like so much? These days, I read a lots of articles talking about Python 2 and Python 3 crisis:</p>
+
+<p><a href="http://alexgaynor.net/2013/dec/30/about-python-3/">About Python 3</a></p>
+
+<p><a href="http://nuitka.net/posts/re-about-python-3.html">Re: About Python 3</a></p>
+
+<p><a href="https://plus.google.com/+IanBicking/posts/iEVXdcfXkz7">Google+ Post by Ian Bicking</a></p>
+
+<p><a href="http://blog.startifact.com/posts/python-2-gravity.html">the Gravity of Python 2</a></p>
+
+<p><a href="http://lucumr.pocoo.org/2014/1/5/unicode-in-2-and-3/">More About Unicode in Python 2 and 3</a></p>
+
+<p>There are many different opinions, some of them said you should kick people harder, so that they will start using Python 3. Some of them said you should build Python 3 even better, so people will start using it. For me? I don't believe you can kick people harder to make them jump to the moon, I also don't believe people can jump to the moon just simply because you put treasure on it and say come and get it if you can, it has been 5 years passed, why we are still not on the moon? </p>
+
+<p>I think the problem there is simple, the goal is too far, the community is too eager. I recall a story I hear when I was a child. </p>
+
+<blockquote>
+<p>There was a young person carring all kind of goods on him, a ship is about to leave. He asked an local elder man. </p>
+
+<p>Can I make it in time? </p>
+
+<p>The elder man took a glance on him, and say, </p>
+
+<p>If you walk slowly, take it easy, you can make it. </p>
+
+<p>The young guy didn't take the advice, he ran to the port as fast as he can. Unfortunately, he fell on the road, and all his goods dropped around, he didn't make it in time.</p>
+</blockquote>
+
+<p>Python community is a little bit like the eager young person in the story. Urgent to build so many fancy advanced features, but what is the point if no body is using it? I think maybe it is the time to slow it down, then we can go far. </p>
+
+<p>Interestingly, there are calls for Python 2.8 in these discussions, and personally, I also believe Python 2.8 could be the missing bridge from Python 2 to Python 3. And if it is necessary, maybe there should be Python 2.9 and Python 2.10. I know it is the nature of a developer to discard old stuff, to eager to build and embrace awesome new widgets. But in real software world, you don't get to awesome suddenly, instead, you keep getting better gradually. So, let's stop blaming anyone and build Python 2.8 :)</p>

@@ -1,0 +1,13 @@
+<p>If you like <code>ido</code>, but don&#8217;t like the way it displays the available
+completion candidates you might want to have a look at
+<a href="https://github.com/gempesaw/ido-vertical-mode.el">ido-vertical-mode</a>.</p>
+
+<p>I won&#8217;t duplicate here the installation instructions, but I&#8217;ll show you
+how <code>ido-vertical-mode</code> displays the completion candidates:</p>
+
+<p><img src="https://raw.github.com/gempesaw/ido-vertical-mode.el/master/screenshot.gif"></p>
+
+<p>Is this better than the regular <code>ido</code>? Depends on your personal
+preference I guess. But it&#8217;s good to have options, right?</p>
+
+<p>That&#8217;s all for today, folks! Until next time.</p>

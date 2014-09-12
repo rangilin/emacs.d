@@ -1,0 +1,67 @@
+<p>其實之前剛換MBA時，就想來作個如何建構目前工作環境的筆記，以便日後如果有要重新設定時可以省去一些查資料的時間。結果沒想到被OSX內建的轉移工具陰到，時間都花在試著把專題code找回來，雖說最後還是功敗垂成……</p>
+
+<p>直到前幾天在COSCUP上，遇到一位朋友剛買了新款MBA，問到要怎麼使用時，才想到積了這篇文章還沒寫，擇期不如撞日，就來寫吧。XD</p>
+<h4>XCode Command-line tools</h4>
+<p>首先，當然要先來裝包含了LLVM、Make等開發工具的command-line tools了。</p>
+
+<p>有兩個方法：</p>
+
+<ol>
+<li>於Mac App Store(MAS)安裝XCode，再開啟XCode，進入Preferences→Downloads，在Components tab中按下Command Line Tools該行的Install按鈕便會自動下載安裝。（當然，會詢問root密碼）</li>
+<li>直接到 <a href="https://developer.apple.com/downloads">Apple Developer</a> 下載安裝。</li>
+</ol><h4>iTerm 2</h4>
+<p>就直接到 <a href="http://code.google.com/p/iterm2/downloads/list">這裡</a> 下載即可。</p>
+<h4>Oh-my-zsh</h4>
+<p>自從看了 <a href="http://www.plurk.com/p/380h9m">vgod大神的推薦</a> 之後，就全面改用zsh作為shell的首選。</p>
+
+<p>而在oh-my-zsh這個包了許多功能的project出現之後，更是不用花時間去找.zshrc以及怎麼自行設定、擴充zsh，只要安裝之後就有內建許多功能可用，像是git、homebrew、rvm……等。</p>
+
+<p>安裝也算簡單，只要一行指令即可：</p>
+
+<figure class="figure-code code"><div class="highlight"><pre>curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh</pre></div>
+</figure><p>完成之後，就可以來編輯~/.zshrc來符合自己的使用習慣了，以下是我的一些設定：</p>
+
+<figure class="figure-code code"><figcaption><span>
+</span></figcaption><div class="highlight"><pre>#使用bira主題，更多的主題可參考 https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="bira" 
+
+#使用哪些plugins，可到~/.oh-my-zsh/custom/plugins/查看目前有安裝的plugins
+plugins=(git brew rake ruby rvm gem osx github textmate) </pre></div>
+</figure><p>最後別忘到iTerm 2的Preferences中，去更改Profile的預設shell為/bin/zsh。</p>
+<h4>homebrew</h4>
+<p>homebrew是OSX上的套件管理系統，不同於另外一套MacPorts，homebrew並沒有將環境分離開，而是直接裝於/usr/local/Cellar，並連結至/usr/local/bin中。</p>
+
+<p>安裝homebrew與oh-my-zsh相同，一樣只要一行搞定：</p>
+
+<figure class="figure-code code"><figcaption><span>
+</span></figcaption><div class="highlight"><pre>ruby &lt;(curl -fsSkL raw.github.com/mxcl/homebrew/go)</pre></div>
+</figure><p>使用方法也不難，以下是幾個常用指令：</p>
+
+<figure class="figure-code code"><figcaption><span>
+</span></figcaption><div class="highlight"><pre>brew doctor #檢查目前系統環境可能會有問題的地方
+brew update #升級homebrew本身以及套件庫
+brew search #搜尋套件
+brew install [name] #安裝套件
+brew remove [name] #移除套件
+brew outdated #列出有新版的套件
+brew upgrade [name] #升級上步所列出的套件，或是指定的套件</pre></div>
+</figure><h4>rvm</h4>
+<p>Ruby developer必備的環境管理工具。</p>
+
+<p>安裝…… 同樣地簡單，現在真的很難找到不好安裝的工具的，至少在OSX上 :p</p>
+
+<figure class="figure-code code"><div class="highlight"><pre>curl -L https://get.rvm.io | bash -s stable</pre></div>
+</figure><p>接著在~/.zshrc下加入這幾行：</p>
+
+<figure class="figure-code code"><figcaption><span>
+</span></figcaption><div class="highlight"><pre>[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm"  # This loads RVM
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting</pre></div>
+</figure><p>其餘的用法，可以參考高見龍前輩的 <a href="http://blog.eddie.com.tw/2011/04/08/rvm-and-gemsets/">RVM and Gemsets</a> 一文。</p>
+<h4>Related Issues</h4>
+<p>這邊列出的是我之前遇到問題時所寫的解決文章，供大家參考 :D</p>
+
+<ol>
+<li>
+<a href="http://brucehsu.org/blog/2012/01/17/failed-to-build-gem-native-extension-using-rvm-on-lion/">Failed to Build Gem Native Extension Using Rvm on Lion</a> ，這邊我比較懶，是直接link llvm-gcc到gcc，還沒有遇到過問題。如果打算用真正的gcc，請參考 <a href="https://github.com/Homebrew/homebrew-dupes">homebrew-dupes</a> 。</li>
+<li><a href="http://brucehsu.org/blog/2012/08/02/x11-on-osx-10-dot-8-mountain-lion/">X11 on OSX 10.8 Mountain Lion</a></li>
+</ol><p>本文『可能』會不定期更新，如果有任何疑問或內文有錯誤，還請提醒。 :p</p>

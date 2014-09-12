@@ -1,0 +1,112 @@
+
+<p>In the early part of this century, I worked on my book <a href="/books/eaa.html">Patterns
+  of Enterprise Application Architecture</a>. One of the problems I
+  had when writing the book was how to title it, or rather what to
+  call the kinds of software systems that I was writing about. I've
+  always been conscious that my experience of software development has
+  always been focused on one particular form of software - things like
+  health care records, foreign exchange trading, payroll, and lease
+  accounting. These are very different to embedded software inside
+  printers, games, flight control software, or telephone switches. I
+  needed a name to describe these kinds of systems and settled on the
+  term "enterprise application".</p>
+<img src="http://martinfowler.com/bliki/images/enterpriseApplication/sketch.png"/>
+<p>As I so often have to say, there is no formal definition for this
+  term. However there are some characteristics that enterprise
+  applications have in common.</p>
+
+<p>Enterprise applications usually have <b>a lot of persistent data</b>,
+  usually managed by some kind of database management system. Usually
+  this database is relational, but increasingly we're seeing NoSQL
+  alternatives. This data will usually be longer lasting and more
+  valuable than the applications that process it.</p>
+
+<p>This <b>data is accessed and manipulated concurrently</b>. The
+  numbers vary a lot, in-house applications may have a few tens of
+  users, but customer-facing web applications can easily have tens of
+  thousands. Despite high levels of concurrency, many enterprise
+  application developers don't think much about critical regions, race
+  conditions and other elements of classic concurrent programming.
+  Instead they build their thinking on top of transactions managed by
+  databases or specialized transaction management tools.</p>
+
+<p>With so much data, enterprise applications have <b>a lot of user
+  interface screens</b> to handle it. Usually the same data is
+  manipulated in different ways in different contexts. Users vary from
+  regular to occasional users, so the interfaces need to match
+  different levels of familiarity. There is also a significant amount
+  of offline (batch) processing that is easily forgotten.</p>
+
+<p>Even if you are building a brand new enterprise application, you
+  don't do so in isolation. Instead you'll need to <b>integrate with
+  other enterprise applications</b>. These systems are built by a wide
+  range of teams, some from vendors who sell to many customers, others
+  built internally just for your organization. These applications will have been written over many
+  decades in a host of different technologies, some of which you'll
+  have to ask your mother about. There are many
+  integration mechanisms to deal with - file exchange, shared
+  databases, messaging middleware. Every so often there will be an
+  attempt to rationalize all this communication technology, but they
+  never entirely succeed leaving behind more complexity in
+  their wake.</p>
+
+<p>Even when different applications access the same data there is
+  considerable <b>conceptual dissonance</b> between them, a customer may mean
+  something quite different to the sales organization than it does to
+  technical support. The same sounding entity has different fields in
+  different contexts, or worse have fields with the same name yet
+  different meanings.</p>
+
+<p>And then there's so-called "business logic". When you are writing
+  an operating system you strive to keep the whole thing logical and
+  stive to discover and implement simplifications to keep the software
+  straightforward and reliable. But business rules are given to you as
+  they stand, and if you want to change them you need sixty-seven meetings and three
+  vice-presidents retiring. They are usually a haphazard array of strange
+  conditions that interact in surprising ways. Their insanity derives
+  from a good reason, each one is a case where salesman could close a
+  particular deal by offerring some special one-off condition. Do this
+  a thousand times and you have the <b>complex business "illogic"</b> that lies
+  in the heart of many enterprise applications.</p>
+
+<p>Enterprise applications can be large or small. Often discussion
+  focuses on large, complex applications, but there is also a
+  challenge for smaller applications that need to be built quickly.
+  Big systems make a lot of noise when they go wrong, yet the
+  cumulative effect of small systems can have a surprising effect on
+  an enterprises's health.</p>
+
+<p>Coming up with names for things is always tricky. You need to use
+  a minimum number of words, and want them to trigger the right
+  connotations in the readers' minds, so that you don't have to
+  constantly remind them what the definition means. On the whole I've
+  been reasonably happy with my choice, but since I finished the book
+  the word enterprise has taken on connotations which don't quite fit
+  my usage.</p>
+
+<p>One problem that's emerged since the book is that "enterprise"
+  now usually means a large, well-established company. People think of
+  G.E. or Siemens rather than Facebook, Etsy, or a company of a
+  hundred people producing custom T-shirts. But according to my
+  definition above, even small start-ups rely on software that I would
+  call an enterprise application. So even though the Ruby on Rails
+  community has ended up using enterprise as an insult, I would call
+  Ruby on Rails a framework for building enterprise applications and
+  <a href="https://basecamp.com">BaseCamp</a> a classic example of
+  an enterprise application. (Just don't tell DHH I said so or he'll
+  turn me into a hood ornament.)</p>
+
+<p>These connotations around "enterprise" have made me muse about
+  whether we need a different term. When I was writing P of EAA my
+  working title was "Information Systems Architecture", but we felt
+  that "information systems" had its own undesirable connotations of
+  elder technologies. I guess I could go really retro and use "data
+  processing", but on the whole "enterprise application" still seems a
+  better term than anything else I could come up with.</p>
+
+<div class="appendix">
+<p>This post is adapted from the definition of Enterprise
+    Application in the introduction of <a href="/books/eaa.html">P of EAA.</a></p>
+</div>
+
+<p class="shares"><span class="label">Share: </span><a href="https://twitter.com/intent/tweet?url=http://martinfowler.com/bliki/EnterpriseApplication.html&amp;text=Bliki: EnterpriseApplication" title="Share on Twitter"><img src="/t_mini-a.png"/></a><a href="https://facebook.com/sharer.php?u=http://martinfowler.com/bliki/EnterpriseApplication.html" title="Share on Facebook"><img src="/fb-icon-20.png"/></a><a href="https://plus.google.com/share?url=http://martinfowler.com/bliki/EnterpriseApplication.html" title="Share on Google Plus"><img src="/gplus-16.png"/></a></p>

@@ -1,0 +1,21 @@
+<p>I’ve been thinking about cohesion, coupling, and the Single Responsibility Principle quite a bit recently. The other day I realized that cohesion is harder to explain or understand than coupling. I figured I’d put that thought out into the world via twitter (not realizing that Glenn Vanderburg had said <a href="http://www.vanderburg.org/blog/Software/Development/cohesion.rdoc">essentially the same thing</a> about four years ago).</p>
+
+<p>In my response to my tweet, Richard Dalton (@ricardadalton) replied “Figuring out if two people are married is easy. Figuring out if they should be is hard.”  That definitely identifies the character of the problem We can look at all sorts of evidence of cohesion from the past but what does it mean about the present and the future?</p>
+
+<p>Oddly, enough I was tweeting about this just as I’d finished writing up some scripts that are helping me detect cohesion and the technique I’m using is - looking at the past.</p>
+
+<p>For a long time, I’ve felt that we underuse our source code repositories. They contain, literally, the history of our projects. We should be mining them for clues about whether our lofty ideas of good design are sound.</p>
+
+<p>Nice thought, but how do we bring that back to cohesion? One of the hallmarks of a good cohesive class is that all of the methods are “about” the same thing - if you make changes to a class like that, you’re likely changing all of the methods, not just one or two. This aligns with the definition of the Single Responsibility Principle - that a class that adheres to it has a single reason to change.</p>
+
+<p>Can we detect this using today’s source code repositories - yes, to a certain degree. Whenever developers check in code we can figure out what methods they’ve added or changed. If we have that information we can use it to see if subsets of a class’s methods are changing with high frequency. If they are, we’ve likely found an SRP violation.</p>
+
+<p>I have some tooling around this in Ruby. One of my scripts rips a git repository and creates a CSV file of information about every method addition, change, or deletion. With that, I can aggregate information and find clusters of methods that should be examined.</p>
+
+<p>The detector works on a couple of assumptions. One is that the set of methods changed on a class during any one day is likely only work in response to one story or feature. Yes, multiple developers may work on the same class in a day or the same developer may be working on multiple features in the same class on the same day, but I’m hoping that those two cases are less likely, and that they “come out in the wash.” Another assumption is that this sort of coincident change is significant and detects responsibilities.</p>
+
+<p>What I’ve found is that it works pretty well. If I tune the detector to give me class method groups of size more than 2 with frequencies of more than 3, I can see clusters of responsibility that seem to make sense based upon the names of the methods. Whether new classes should be extracted is another issue. Sometimes coincidental change is due to deep coupling that should be detangled.</p>
+
+<p>In any case, I’m happy to find a different way of viewing code that uncovers responsibilities. Detectors I’ve heard about so far take only a static view of the code - usually the present. Our world is much bigger than that.</p>
+
+<p><em>Join the conversation on Hacker News:</em> <a href="https://news.ycombinator.com/item?id=8223732">https://news.ycombinator.com/item?id=8223732</a></p>

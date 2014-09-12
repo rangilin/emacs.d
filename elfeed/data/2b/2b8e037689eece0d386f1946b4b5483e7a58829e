@@ -1,0 +1,408 @@
+<p style="font-size: 80%">I have improved the code samples to make them closer to valid, working Python.&mdash;jbrains</p>
+
+<p>At some point, you know I had to write this article. Let me state something clearly from the beginning.</p>
+
+<blockquote>
+  <p>In spite of the title, <strong>I use mocks freely and happily</strong>.</p>
+</blockquote>
+
+<p>I do not intend with this article to join those who either shun mocks or appear to shun mocks only to praise them. I plan to share a simple example of using mocks as a stepping stone towards a potentially more suitable design, but <strong>you must not interpret this as a message against mock objects</strong>.</p>
+
+<p>There. I feel better now. I trust you to carry my message the way I intended it. Do not betray that trust.</p>
+
+<!-- more -->
+
+<p>First, let’s assume that you agree to the general principle that <strong>increasing testability tends to improve design, and in particular, helps us deliver features less expensively and with more predictable cost</strong>. If you don’t believe that, then what follows will likely not interest you.<sup id="fnref:eternal-struggle"><a href="#fn:eternal-struggle" rel="footnote">1</a></sup> Now that we agree on that basic principle, I tend to get better results by writing <strong>repeatable</strong> tests, meaning that <strong>running the same test several times without any code changes gives the same result (pass or fail)</strong>. This repeatability property helps me trust my tests more, and also helps me trust my production code more, as I have fewer unexpected, nasty surprises. This leads me to follow the simple guideline:</p>
+
+<blockquote>
+  <p>Write more repeatable tests. (Tests with more repeatability <em>and</em> more of them.)</p>
+</blockquote>
+
+<h2 id="threats-to-repeatability">Threats to Repeatability</h2>
+
+<p>Certain design decisions threaten the repeatability of tests. Depending on configuration data, databases, web services, the location of certain files with certain content—even the layout of the file system (Windows or Unix). All these external dependencies threaten to <strong>change the results of a test run even though the underlying production code has not changed</strong>. These choices make it more difficult to reason about the code, to find the source of a mistake, or to assess the impact of a change, because the behavior of the system can change without warning. <strong>While <a href="http://blog.thecodewhisperer.com/2013/10/14/the-pain-of-implicit-dependencies">implicit dependencies</a> hurt, implicit dependencies on unstable resources hurt more</strong>. In order to write more repeatable tests, I limit the amount of code that depends on unstable resources.</p>
+
+<blockquote>
+  <p>Unstable dependencies threaten repeatability. Implicit dependencies threaten our reasoning about the code. Unstable, implicit dependencies threaten our sanity.</p>
+</blockquote>
+
+<h2 id="our-favorite-unstable-dependency">Our Favorite Unstable Dependency</h2>
+
+<p>We work quite frequently with one common unstable dependency: the system clock. We do this whenever we write code that depends on a timestamp or on a random-number generator.<sup id="fnref:fn1"><a href="#fn:fn1" rel="footnote">2</a></sup> Even when our code depends only a single timestamp, it probably does so by invoking the <code>now()</code> function, whatever you call it in your language of choice. I can remember writing <a href="#peaa">Transaction Scripts</a> in web applications that retrieve, for example, all the customers with orders placed in the preceding seven days, a straightforward version of which looks like the following Python-like code. (<em>Not intended to be working nor optimised code, but lovingly improved with the help of George Paci.</em>)</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>A straight-forward implementation; you&#8217;ve probably also written this before</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">CustomersWithRecentOpenOrdersController</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+</span><span class="line">    <span class="n">now</span> <span class="o">=</span> <span class="n">Date</span><span class="p">()</span>
+</span><span class="line">    <span class="n">seven_days_ago</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span>
+</span><span class="line">    <span class="n">recent_open_orders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span><span class="o">.</span><span class="n">find_all_open_orders</span><span class="p">(</span><span class="s">&quot;created_at &gt;= date(</span><span class="si">%d</span><span class="s">) and created_at &lt;= date(</span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">seven_days_ago</span><span class="p">,</span> <span class="n">now</span><span class="p">))</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&quot;customers_with_recent_open_orders&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recent_open_orders</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">order</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">customer</span><span class="p">)</span><span class="o">.</span><span class="n">uniq</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="s">&quot;RecentOpenOrdersReport&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>As soon as this code invokes <code>Date()</code> it not only obscures the way to compute <code>now</code>, but it also creates a <em>direct, hardwired dependency on an unstable, global resource</em>: the system clock. <strong>We can almost never run this code twice and get the same result</strong>, at least not without considerable effort. (I’m waiting for the day that someone includes “set the time to 14:30” in their <code>puppet</code> instructions.)</p>
+
+<p>“No problem!”, you shout with delight. <a href="http://link.jbrains.ca/1i3ts3H">Dependency Injection</a> to the rescue! We shall use the Virtual Clock pattern! Yes, we absolutely can, and I still think fondly of Paolo Perrotta’s delightful article on the topic—an article which appears to have disappeared from the web in the intervening years. What a shame! Let me summarise the Virtual Clock pattern for you.</p>
+
+<h2 id="the-virtual-clock">The Virtual Clock</h2>
+
+<p>In order to more easily test code that depends on the system clock, inject an interface <code>Clock</code> that allows your code to work with either a “frozen” clock or the system clock. By “frozen” clock, we mean a clock whose time never changes, and whose time you can set from your test. It sounds simple enough, and if we do this, then our code changes to something like the following.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Using the Virtual Clock</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">CustomersWithRecentOpenOrdersController</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">orders_repository</span><span class="p">,</span> <span class="n">clock</span><span class="p">):</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span> <span class="o">=</span> <span class="n">orders_repository</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">clock</span> <span class="o">=</span> <span class="n">clock</span> <span class="ow">or</span> <span class="n">SystemClock</span><span class="o">.</span><span class="n">new</span> <span class="c"># in case clock is None</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+</span><span class="line">    <span class="n">now</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clock</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+</span><span class="line">    <span class="n">seven_days_ago</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span>
+</span><span class="line">    <span class="n">recent_open_orders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span><span class="o">.</span><span class="n">find_all_open_orders</span><span class="p">(</span><span class="s">&quot;created_at &gt;= </span><span class="si">%d</span><span class="s"> and created_at &lt;= </span><span class="si">%d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">seven_days_ago</span><span class="p">,</span> <span class="n">now</span><span class="p">))</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&quot;customers_with_recent_open_orders&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recent_open_orders</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">order</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">customer</span><span class="p">)</span><span class="o">.</span><span class="n">uniq</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="s">&quot;RecentOpenOrdersReport&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Here we introduce an interface (or protocol, in the case of languages without explicit interfaces, like Python) representing a clock with the appropriate methods.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>The Clock protocol</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">FrozenClock</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">current_time_millis</span><span class="p">):</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">current_time_millis</span> <span class="o">=</span> <span class="n">current_time_millis</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">now</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="line">    <span class="n">Date</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_time_millis</span><span class="p">)</span>
+</span><span class="line">
+</span><span class="line"><span class="k">class</span> <span class="nc">SystemClock</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">():</span>
+</span><span class="line">    <span class="k">pass</span>  <span class="c"># I&#39;ll just talk to the system clock directly as a global resource, if you don&#39;t mind</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">now</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="line">    <span class="n">Date</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>With this new protocol, we can easily freeze the clock to any time that our various tests find convenient. <em>You could stub the <code>Clock</code> interface with your favorite test double library, if you prefer.</em> The Virtual Clock solves the repeatability problem.</p>
+
+<h2 id="something-smells">Something Smells</h2>
+
+<p>In spite of this, something feels wrong about the design. The code has become more flexible, but also more complicated, and I don’t feel<sup id="fnref:intuition-mechanics"><a href="#fn:intuition-mechanics" rel="footnote">3</a></sup> particularly good about the dependency that we’ve introduced. We’ve made an implicit dependency more explicit, and I value that a lot, but <code>Clock</code> somehow feels like <strong>indirection without abstraction</strong>. By this I mean that we’ve introduced a <em>seam</em><sup id="fnref:welc"><a href="#fn:welc" rel="footnote">4</a></sup> to improve testability, but that the resulting code exposes details rather than hiding them, and <strong>abstractions, by definition, hide details</strong>. This looks like the kind of indirection that makes experienced designers look at testability nuts like us with suspicion. Rightly so, I have begun to conclude.</p>
+
+<p>I used to think that “they” had it wrong. I even felt really confident about that. Now I see their point better.</p>
+
+<blockquote>
+  <p>If we want to introduce indirection, then we ought to introduce the smallest indirection possible. And we <strong>absolutely must</strong> introduce proper abstraction.</p>
+</blockquote>
+
+<p>Indirection costs: it adds code, it adds cognitive load, it adds complications, and <a href="http://blog.thecodewhisperer.com/2013/11/11/the-eternal-struggle-between-business-and-programmers/">complications kill</a>. I prefer to keep those costs low. In this example, <code>Clock</code> feels to me like an artificial “abstraction”, and as a result, I’d rather do something else.</p>
+
+<p>Imagine that I want to hand you my keys. Imagine that you stand only a half-meter from me. Imagine now that I walk across a ten-meter-wide room, put my keys on the table, walk back, then tell you, “You’ll find my keys over there.” How happy will that make you? But we do exactly this when we introduce <code>Clock</code>. Instead of giving you <code>now</code>, I’m giving you the instructions on how to find <code>now</code>. Sometimes we need that. This does not feel like one of those times.</p>
+
+<blockquote>
+  <p>Wait a second… this dude has written about dependency injection in the past. We <em>know</em> that he’s a TDD nut. He can’t possibly be telling us to <a href="http://link.jbrains.ca/1653RlF">defactor</a> and write <a href="http://blog.thecodewhisperer.com/blog/categories/integrated-tests-are-a-scam">integrated tests</a>!</p>
+</blockquote>
+
+<p>Indeed no. Instead, I want you to consider another alternative.</p>
+
+<h2 id="dont-inject-what-you-can-avoid">Don’t Inject What You Can Avoid</h2>
+
+<p>You’ve probably heard this before: don’t automate what you can eliminate. Similarly:</p>
+
+<blockquote>
+  <p>Don’t inject what you can avoid</p>
+</blockquote>
+
+<p>Why inject <code>Clock</code>? We really only want <code>now</code>. We could take a page from our functional programming friends and inject, you know, a function.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Don&#8217;t send a protocol to do a function&#8217;s job</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">CustomersWithRecentOpenOrdersController</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">orders_repository</span><span class="p">,</span> <span class="n">now</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">Date</span><span class="p">()):</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span> <span class="o">=</span> <span class="n">orders_repository</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">now</span> <span class="o">=</span> <span class="n">now</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+</span><span class="line">    <span class="n">now</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+</span><span class="line">    <span class="n">seven_days_ago</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span>
+</span><span class="line">    <span class="n">recent_open_orders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span><span class="o">.</span><span class="n">find_all_open_orders</span><span class="p">(</span><span class="s">&quot;created_at &gt;= date(</span><span class="si">%d</span><span class="s">) and created_at &lt;= date(</span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">seven_days_ago</span><span class="p">,</span> <span class="n">now</span><span class="p">))</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&quot;customers_with_recent_open_orders&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recent_open_orders</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">order</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">customer</span><span class="p">)</span><span class="o">.</span><span class="n">uniq</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="s">&quot;RecentOpenOrdersReport&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Now our test can create the controller with <code>lambda: Date(whatever_timestamp_we_want)</code>. If you program in C# then you already had to control your laughter at seeing a one-method interface where <em>obviously</em> a delegate would do the job. If you program in Java 8, then you <em>just knew</em> that this code needed a <code>lambda</code> all along. Even so, we can do even better.</p>
+
+<h2 id="a-minor-problem">A Minor Problem</h2>
+
+<p>This code respects the <a href="http://link.jbrains.ca/1i3zxx7">Interface Segregation Principle</a> better, but it still suffers from a serious design problem that could trip you up during a heated, future refactoring session. Imagine what happens if you try to inline the temporary variable <code>now</code>.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>That&#8217;s a mistake</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">CustomersWithRecentOpenOrdersController</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">orders_repository</span><span class="p">,</span> <span class="n">now</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">Date</span><span class="p">()):</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span> <span class="o">=</span> <span class="n">orders_repository</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">now</span> <span class="o">=</span> <span class="n">now</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+</span><span class="line">    <span class="n">seven_days_ago</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span>
+</span><span class="line">    <span class="n">recent_open_orders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span><span class="o">.</span><span class="n">find_all_open_orders</span><span class="p">(</span><span class="s">&quot;created_at &gt;= date(</span><span class="si">%d</span><span class="s">) and created_at &lt;= date(</span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">seven_days_ago</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">()))</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&quot;customers_with_recent_open_orders&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recent_open_orders</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">order</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">customer</span><span class="p">)</span><span class="o">.</span><span class="n">uniq</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="s">&quot;RecentOpenOrdersReport&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Before you label this an artificial problem, consider how frequently we extract and inline code when we refactor, and that because we do this so often, we sometimes forget that inlining a temporary variable introduces mistakes when the operation that we assign to that variable doesn’t behave with referential transparency<sup id="fnref:define-referential-transparency"><a href="#fn:define-referential-transparency" rel="footnote">5</a></sup>. This particular code will almost always work correctly, but as soon as those two invocations of <code>self.now()</code> straddle midnight, we risk having <em>eight</em> days of orders rather than seven. We don’t know that this represents a bug, but it definitely represents an issue.<sup id="fnref:bolton-definitions-bug-issue"><a href="#fn:bolton-definitions-bug-issue" rel="footnote">6</a></sup> Even if the risk remains low, we don’t need to have introduced this risk at all. We can do better.</p>
+
+<h2 id="dont-inject-what-you-can-avoid-redux">Don’t Inject What You Can Avoid Redux</h2>
+
+<p>Why inject a function returning <code>12</code> when we can inject <code>12</code>? Yes, in the future, we might need to inject something that computes <code>12</code>, but for now, we just need the <code>12</code>, so we owe it to ourselves to try injecting <code>12</code> and seeing how that changes our perception of the design.</p>
+
+<p><code>12</code>. (Annoyed yet?)</p>
+
+<p>I’ll <em>defactor</em> this code just a little more and you’ll probably find it strange.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Don&#8217;t send a function to do a value&#8217;s job</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">CustomersWithRecentOpenOrdersController</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">orders_repository</span><span class="p">,</span> <span class="n">now</span><span class="p">):</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span> <span class="o">=</span> <span class="n">orders_repository</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">now</span> <span class="o">=</span> <span class="n">now</span> <span class="ow">or</span> <span class="n">Date</span><span class="p">()</span> <span class="c"># in case now is None</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+</span><span class="line">    <span class="n">seven_days_ago</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">now</span> <span class="o">-</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span>
+</span><span class="line">    <span class="n">recent_open_orders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span><span class="o">.</span><span class="n">find_all_open_orders</span><span class="p">(</span><span class="s">&quot;created_at &gt;= date(</span><span class="si">%d</span><span class="s">) and created_at &lt;= date(</span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">seven_days_ago</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">now</span><span class="p">))</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&quot;customers_with_recent_open_orders&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recent_open_orders</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">order</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">customer</span><span class="p">)</span><span class="o">.</span><span class="n">uniq</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="s">&quot;RecentOpenOrdersReport&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>I find it strange, too. I’ve simplified the dependency in one respect, and complicated it in another: clients have to instantiate a new controller on each request, or said differently, the controller has <em>request scope</em>. This sounds wrong.</p>
+
+<p>Moreover, one typically doesn’t talk about “injecting” values; one simply passes them as parameters.<sup id="fnref:ten-dollar-phrase"><a href="#fn:ten-dollar-phrase" rel="footnote">7</a></sup> It should pose no problem, then, to reduce the scope of <code>now</code> to the method… except that we live in a framework—didn’t I mention that?—where we have to implement the method <code>handle_request(self, request, response)</code> in order to register our controller to receive requests for the URI <code>/customers/recent_orders</code>. This limitation creates tension: I want <code>now</code> as a parameter to the request handler, but the framework doesn’t want to (and couldn’t possibly) know this domain-level detail. (Or could it? Think about it.) This encourages me to extract a new method as a compromise.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">CustomersWithRecentOpenOrdersController</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">orders_repository</span><span class="p">):</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span> <span class="o">=</span> <span class="n">orders_repository</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+</span><span class="line">    <span class="k">return</span> <span class="n">handle_request_as_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">Date</span><span class="p">())</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request_as_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">now</span><span class="p">):</span>
+</span><span class="line">    <span class="n">seven_days_ago</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span>
+</span><span class="line">    <span class="n">recent_open_orders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span><span class="o">.</span><span class="n">find_all_open_orders</span><span class="p">(</span><span class="s">&quot;created_at &gt;= date(</span><span class="si">%d</span><span class="s">) and created_at &lt;= date(</span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">seven_days_ago</span><span class="p">,</span> <span class="n">now</span><span class="p">))</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&quot;customers_with_recent_open_orders&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recent_open_orders</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">order</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">customer</span><span class="p">)</span><span class="o">.</span><span class="n">uniq</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="s">&quot;RecentOpenOrdersReport&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Now steel yourself for a shock: <strong>I don’t intend to test <code>handle_request()</code></strong>. <a href="http://link.jbrains.ca/mZwHzi">Don’t panic</a>. I will test <code>handle_request_as_of()</code> with great care and attention and trust that I typed <code>Date()</code> correctly. This improves the design in one obvious way: I can test <code>handle_request_as_of()</code> quite easily, by passing a variety of values for <code>now</code>. Moreover, we can reconsider the name <code>now</code>, replacing it with something less context dependent, and call it <code>instant</code> (my current favorite default name for a timestamp).</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>We can name this parameter with an eye towards reuse</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">CustomersWithRecentOpenOrdersController</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">orders_repository</span><span class="p">):</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span> <span class="o">=</span> <span class="n">orders_repository</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+</span><span class="line">    <span class="k">return</span> <span class="n">handle_request_as_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">Date</span><span class="p">())</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request_as_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">instant</span><span class="p">):</span>
+</span><span class="line">    <span class="n">seven_days_ago</span> <span class="o">=</span> <span class="n">instant</span> <span class="o">-</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span>
+</span><span class="line">    <span class="n">recent_open_orders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span><span class="o">.</span><span class="n">find_all_open_orders</span><span class="p">(</span><span class="s">&quot;created_at &gt;= date(</span><span class="si">%d</span><span class="s">) and created_at &lt;= date(</span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">seven_days_ago</span><span class="p">,</span> <span class="n">instant</span><span class="p">))</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&quot;customers_with_recent_open_orders&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recent_open_orders</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">order</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">customer</span><span class="p">)</span><span class="o">.</span><span class="n">uniq</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="s">&quot;RecentOpenOrdersReport&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>I choose to ignore for the moment the issue with assuming that <code>instant</code> is a number representing time in milliseconds. If you and I paired on this for a real client, we’d have fixed that by now, so that the code could read something more like <code>instant.minus(Days(7))</code>.</p>
+
+<p>I like that this new method now finds “customers with recent open orders, relative to any date you choose”, rather than specifically relative to <strong>now</strong>. Come to think of it, “recent” now feels a little out of place, but I don’t want to go too far down that rabbit hole, so write down that we should consider improving the name of “recent” and we’ll come back to that.</p>
+
+<h2 id="the-instantaneous-request">The Instantaneous Request</h2>
+
+<p>We have given birth to a new abstraction in our web application framework: <strong>the instantaneous request</strong>. This object represents a request that we handle by pretending that it happens all at once (instantaneously). We will probably find this abstraction useful in other parts of the system. We might even extract it into a request handler decoration that we can use. Of course, we will probably wait until we have three requests before we bother extracting the duplication. When we do, we’ll have something like this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="c"># Reuse me anywhere</span>
+</span><span class="line"><span class="k">class</span> <span class="nc">InstantaneousRequestController</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">instantaneous_request</span><span class="p">):</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">instantaneous_request</span> <span class="o">=</span> <span class="n">instantaneous_request</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">instantaneous_request</span><span class="o">.</span><span class="n">handle_request_as_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">Date</span><span class="p">())</span>
+</span><span class="line">
+</span><span class="line"><span class="c"># I belong to the domain</span>
+</span><span class="line"><span class="k">class</span> <span class="nc">CustomersWithOpenOrdersAsOfInstantController</span><span class="p">:</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">orders_repository</span><span class="p">):</span>
+</span><span class="line">    <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span> <span class="o">=</span> <span class="n">orders_repository</span>
+</span><span class="line">
+</span><span class="line">  <span class="k">def</span> <span class="nf">handle_request_as_of</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">instant</span><span class="p">):</span>
+</span><span class="line">    <span class="n">seven_days_ago</span> <span class="o">=</span> <span class="n">instant</span> <span class="o">-</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">1000</span>
+</span><span class="line">    <span class="n">recent_open_orders</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">orders_repository</span><span class="o">.</span><span class="n">find_all_open_orders</span><span class="p">(</span><span class="s">&quot;created_at &gt;= date(</span><span class="si">%d</span><span class="s">) and created_at &lt;= date(</span><span class="si">%d</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">seven_days_ago</span><span class="p">,</span> <span class="n">instant</span><span class="p">))</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s">&quot;customers_with_recent_open_orders&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">recent_open_orders</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">order</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">customer</span><span class="p">)</span><span class="o">.</span><span class="n">uniq</span>
+</span><span class="line">    <span class="n">response</span><span class="o">.</span><span class="n">view</span> <span class="o">=</span> <span class="s">&quot;RecentOpenOrdersReport&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>When it comes time to register this controller to respond to the appropriate request URI, register this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="n">InstantaneousRequestController</span><span class="p">(</span>
+</span><span class="line">  <span class="n">CustomersWithOpenOrdersAsOfInstantController</span><span class="p">(</span>
+</span><span class="line">    <span class="n">ProductionCaliberOrdersRepository</span><span class="p">()))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>If you’d feel more comfortable giving this a name, then feel free.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span>Giving a name to our newest creation</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class="python"><span class="line"><span class="k">class</span> <span class="nc">CustomersWithRecentOpenOrdersController</span><span class="p">(</span><span class="n">InstantaneousRequestController</span><span class="p">):</span>
+</span><span class="line">  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">orders_repository</span><span class="p">):</span>
+</span><span class="line">    <span class="nb">super</span><span class="p">(</span><span class="n">CustomersWithOpenOrdersAsOfInstantController</span><span class="p">(</span><span class="n">orders_repository</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<h2 id="the-whole-point">The Whole Point</h2>
+
+<p>Did you notice the comment <code>Reuse me anywhere</code>? Did you notice the key word in there?</p>
+
+<p><strong>Reuse</strong>.</p>
+
+<p>When we build modules (functions, objects, whatever) with less knowledge of their surroundings, we naturally build modules more fit for reuse. <strong>No more excuses</strong>. If you want more reuse, you have to make it happen, and building modules with <strong>context independence</strong> in mind achieves that aim. We got there by <strong>noticing indirection without abstraction</strong>, then <strong>inverting the dependency</strong> (which happened to remove a mock object), then <strong>spotting duplication</strong>, then extracting that duplication into a <strong>context-independent, reusable module</strong>.</p>
+
+<p><em>We did that</em>. No magic. “Objects” didn’t even matter here. We could have done the same thing in Haskell with functions.</p>
+
+<p>So please stop telling me that <em>object-oriented programming hasn’t fulfilled its promise of increasing code reuse</em>. <strong>Programmers haven’t fulfilled their promise of increasing code reuse.</strong></p>
+
+<blockquote>
+  <p>Write code more independent of its context. I find this code easier to test, easier to understand, easier to maintain, more stable, and easier to reuse.</p>
+</blockquote>
+
+<p>Try it!</p>
+
+<h2 id="references">References</h2>
+
+<p>Martin Fowler, <a href="http://link.jbrains.ca/19QhAba">“Transaction Script”</a>. I often implement my controllers as Transaction Scripts, then as I notice duplication, I start to separate application logic from business logic, moving the application logic up the call stack into “filters” and moving the business logic down the call stack into a Domain Model.</p>
+
+<p><a name="peaa"></a>Martin Fowler, <a href="http://link.jbrains.ca/TEkD2M"><em>Patterns of Enterprise Application Architecture</em></a>. A catalog of fundamental patterns in enterprise applications that you likely take for granted by now.</p>
+
+<p>J. B. Rainsberger, <a href="http://link.jbrains.ca/vN1IiF">“Injecting Testability Into Your Designs”</a>. An older article in which I describe a simple example of injecting dependencies new to the concept.</p>
+
+<p>Michael Feathers, <a href="http://link.jbrains.ca/1bZXmRc"><em>Working Effectively with Legacy Code</em></a>. This remains the standard reference for maintaining and living with legacy code.</p>
+
+<h2 id="reactions">Reactions</h2>
+
+<blockquote class="twitter-tweet" lang="en"><p>Mocks in tests are good, but even better is thinking about what you are trying to accomplish <a href="http://t.co/RFSF8rpabj">http://t.co/RFSF8rpabj</a> /via <a href="https://twitter.com/jbrains">@jbrains</a></p>&mdash; Chris Hartjes (@grmpyprogrammer) <a href="https://twitter.com/grmpyprogrammer/statuses/404263296083062784">November 23, 2013</a></blockquote>
+<script async="" src="http://blog.thecodewhisperer.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:eternal-struggle">
+      <p>If you feel open to learning more about this point, please take a few minutes to read <a href="http://blog.thecodewhisperer.com/2013/11/11/the-eternal-struggle-between-business-and-programmers">“The Eternal Struggle Between the Business and Programmers”</a>.<a href="#fnref:eternal-struggle" rel="reference">&#8617;</a></p>
+    </li>
+    <li id="fn:fn1">
+      <p>I assume that pseudo-random number generators still usually depend on the system clock to generate a seed. If that has changed, then please point me to an article or two on the topic. I’m getting old.<a href="#fnref:fn1" rel="reference">&#8617;</a></p>
+    </li>
+    <li id="fn:intuition-mechanics">
+      <p>I have learned to pay attention to my intuition as a software designer, but mostly because <a href="http://bit.ly/gmeMhh">I’ve developed that intuition through over a decade of constant, careful practice</a>.<a href="#fnref:intuition-mechanics" rel="reference">&#8617;</a></p>
+    </li>
+    <li id="fn:welc">
+      <p>I learned the term <em>seam</em> from Michael Feathers’ work on legacy code. A seam provides a place to plug alternative implementations of functions that initially make testing more convenient, but almost always end up improving the design of the system, too.<a href="#fnref:welc" rel="reference">&#8617;</a></p>
+    </li>
+    <li id="fn:define-referential-transparency">
+      <p>We call an operation <em>referentially transparent</em> if it evaluates to the same value every time. Functionally-minded programmers make a big deal out of this for good reason, as it contributes to repeatability.<a href="#fnref:define-referential-transparency" rel="reference">&#8617;</a></p>
+    </li>
+    <li id="fn:bolton-definitions-bug-issue">
+      <p>My good friend Michael Bolton defines “bug” as “something that bugs someone” and “issue” as “something that threatens the value of the system”.<a href="#fnref:bolton-definitions-bug-issue" rel="reference">&#8617;</a></p>
+    </li>
+    <li id="fn:ten-dollar-phrase">
+      <p>This illustrates why some people pompously label dependency injection as an overblown consultant-driven marketing phrase. “Real programmers just pass parameters”, they say. Indeed, but I find some value in differentiating passing values to a function and passing collaborating services to a service. I pass values, but I inject collaborators. I don’t see the problem.<a href="#fnref:ten-dollar-phrase" rel="reference">&#8617;</a></p>
+    </li>
+  </ol>
+</div>

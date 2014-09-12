@@ -1,0 +1,34 @@
+<p>
+This isn't an original recipe, but this is how I kick off my .emacs
+settings to ensure that <code>my-packages</code> are auto-installed.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #465457; font-style: italic;">;;; </span><span style="color: #e6db74; font-style: italic;">Package magic.</span>
+(<span style="color: #66D9EF;">require</span> '<span style="color: #AE81FF;">package</span>)
+(package-initialize)
+
+(add-to-list 'package-archives '(<span style="color: #E6DB74;">"melpa"</span> . <span style="color: #E6DB74;">"http://melpa.milkbox.net/packages/"</span>))
+
+(<span style="color: #66D9EF;">defvar</span> <span style="color: #F92672;">my-packages</span> '(evil key-chord helm elscreen ace-jump-mode
+                           surround recentf magit)
+  <span style="color: #E6DB74;">"A list of packages to check for and install at launch."</span>)
+
+(<span style="color: #66D9EF;">defun</span> <span style="color: #F92672; font-style: italic;">my-missing-packages</span> ()
+  (<span style="color: #66D9EF;">let</span> (missing-packages)
+    (<span style="color: #66D9EF;">dolist</span> (package my-packages missing-packages)
+      (or (package-installed-p package)
+          (push package missing-packages)))))
+
+(<span style="color: #66D9EF;">let</span> ((missing (my-missing-packages)))
+  (<span style="color: #66D9EF;">when</span> missing
+    <span style="color: #465457; font-style: italic;">;; </span><span style="color: #e6db74; font-style: italic;">Check for new packages (package versions)</span>
+    (package-refresh-contents)
+    <span style="color: #465457; font-style: italic;">;; </span><span style="color: #e6db74; font-style: italic;">Install the missing packages</span>
+    (mapc (<span style="color: #66D9EF;">lambda</span> (package)
+            (<span style="color: #66D9EF;">when</span> (not (package-installed-p package))
+              (package-install package)))
+          missing)))
+</pre>
+</div><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/KNVX8p6dNOQ" height="1" width="1"/>

@@ -1,0 +1,163 @@
+<p>I just wanted an HTTP client.</p>
+
+<p>I asked my Twitter community which HTTP client to use. Certainly not <a href="https://github.com/jnunemaker/httparty">HTTParty</a>, because cool people don’t use <a href="https://github.com/jnunemaker/httparty">HTTParty</a> anymore. One takes these risks when one falls out of the loop with the latest and greatest tools.</p>
+
+<p>“Use <a href="https://github.com/lostisland/faraday">Faraday</a>”, they said. “It’s the best”, they said.</p>
+
+<p>Everything went fine until I needed to follow a redirect. What happened from that point forward could form the basis of a solid one-act play. I’ll spare you the horror and send you directly to the punch line.</p>
+
+<blockquote>
+  <p><code>connection.adapter Faraday.default_adapter</code></p>
+</blockquote>
+
+<!-- more -->
+
+<h2 id="when-is-a-default-not-really-a-default">When Is A Default Not Really A Default?</h2>
+
+<p>When you use middleware with Faraday. Specifically when you use <code>FaradayMiddleware::FollowRedirects</code> to follow redirects with Faraday.</p>
+
+<p>I tried to read the documentation. Honestly. I read <a href="http://stackoverflow.com/questions/13258068/work-around-rubys-broken-uri-parse-follow-redirects">Stack Overflow</a>. I read the <a href="https://github.com/lostisland/faraday_middleware/wiki">Faraday Middleware wiki</a>. I even read the <a href="https://github.com/lostisland/faraday_middleware/blob/master/lib/faraday_middleware/response/follow_redirects.rb">source</a>. Nothing seemed to warn me about this “default adapter” business, and given the name “default”, shouldn’t it—you know—be the default?!</p>
+
+<blockquote>
+  <p>Remember: <a href="http://link.jbrains.ca/qVNty9">ask why, but never answer</a></p>
+</blockquote>
+
+<p>I looked through <a href="https://github.com/lostisland/faraday_middleware/issues">Faraday Middleware’s issues</a> and found evidence that other people had successfully followed redirects with <code>FaradayMiddleware::FollowRedirects</code>, and so I concluded that I’d done something wrong. I looked for any issue that related to redirects for a clue. I ended up reading <a href="https://github.com/lostisland/faraday_middleware/issues/75">an issue</a> that suggested the possibility of following redirects depending on more details in the original request: follow redirects for this path info, but not that path info, for example.</p>
+
+<p>Something caught my eye.</p>
+
+<blockquote>
+<p>Consider the following code slightly adapted from the readme:</p>
+
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">connection = Faraday.new 'http://example.com/api' do |conn|
+</span><span class="line">  conn.use FaradayMiddleware::FollowRedirects, limit: 5
+</span><span class="line">  conn.adapter Faraday.default_adapter
+</span><span class="line">end</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p>Every request will follow redirects based on the configuration above.</p>
+
+<p style="text-align: right">&ndash;<a href="https://github.com/Zorbash">Dimitrios Zorbas</a></p>
+</blockquote>
+
+<p><em>What the hell is this default adapter business?!</em> I wondered.</p>
+
+<p>Then I tried it.</p>
+
+<p>Then it worked.</p>
+
+<p>Then I tweeted something.</p>
+
+<p>Then my wife found some calming Dylan Moran comedy<sup id="fnref:calming-dylan-moran-comedy"><a href="#fn:calming-dylan-moran-comedy" rel="footnote">1</a></sup> and I felt better.</p>
+
+<p>Of course, <em>now that I know what to look for</em>, I find <a href="https://github.com/lostisland/faraday_middleware/issues/32">the exact issue that I’ve just run into</a>—and it’s <strong>TWO YEARS OLD</strong> as of the time I write these words.</p>
+
+<p>In that issue, <a href="https://github.com/mislav">Mislav Marohnić</a> helpfully points the problem out and suggests following an issue that no longer exists to receive notification when this curious behavior changes. Fortunately, I could easily track down the issue he <em>means</em>, as the project has since moved. He means <a href="https://github.com/lostisland/faraday/issues/121">this issue</a>. I’ve started following it, and now so can you, in case you want to know when you can safely ignore the dreaded <code>default_adapter</code>.</p>
+
+<h2 id="what-does-this-all-mean">What Does This All Mean?!</h2>
+
+<p>It means that if you have this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">def http_get(base, uri)
+</span><span class="line">  Faraday.get(base + uri)
+</span><span class="line">end</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>and you want to refactor it to add middleware, <strong>you absolutely positively must write this</strong>:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">def http_get(base, uri)
+</span><span class="line">  Faraday.new(base) { | connection |
+</span><span class="line">    # IMPORTANT Without this line, nothing will happen.
+</span><span class="line">    connection.adapter Faraday.default_adapter
+</span><span class="line">  }.get(uri)
+</span><span class="line">end</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>If you forget to specify the <code>adapter</code>, then you have not refactored. I hope this helps.</p>
+
+<h2 id="but-wait-theres-more">But Wait! There’s More!</h2>
+
+<p>I really loved <a href="http://link.jbrains.ca/WNg8Se"><em>The Pragmatic Programmer</em></a>, and will probably always remember its section on “programming by coincidence” or, as I like to call it, <em>programming by accident</em>. One brand of programming by accident involves moving statements around until they work. This relates to <em>temporal coupling</em>, the extent to which statements depend not just on each other, but on the sequence in which they occur. Some temporal coupling makes perfect sense:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">list = []
+</span><span class="line">list &lt;&lt; "hello"
+</span><span class="line">list.empty? =&gt; false</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Rearrange these statements and they say something fundamentally different. This temporal coupling seems quite reasonable to me.</p>
+
+<p>Accidental<sup id="fnref:essential-accidental"><a href="#fn:essential-accidental" rel="footnote">2</a></sup> temporal coupling, however, creates problems for everyone, except possibly the programmer who created the accidental temporal coupling. <em>Of course</em>, I had to find out whether this code exhibits accidental temporal coupling. It does.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">def http_get(base, uri)
+</span><span class="line">  Faraday.new(base) { | connection |
+</span><span class="line">    # IMPORTANT Without this line AT THE END OF THIS BLOCK, nothing will happen.
+</span><span class="line">    connection.adapter Faraday.default_adapter
+</span><span class="line">  }.get(uri)
+</span><span class="line">end</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>It behooves me, the programmer, to introduce this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">def faraday_with_default_adapter(base, &amp;block)
+</span><span class="line">  Faraday.new(base) { | connection |
+</span><span class="line">    yield connection
+</span><span class="line">
+</span><span class="line">    # IMPORTANT Without this line, nothing will happen.
+</span><span class="line">    connection.adapter Faraday.default_adapter
+</span><span class="line">  }
+</span><span class="line">end</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>which I can use like this:</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+</pre></td><td class="code"><pre><code class=""><span class="line">def http_get(base, uri)
+</span><span class="line">  faraday_with_default_adapter(base) { | connection |
+</span><span class="line">    connection.use FaradayMiddleware::FollowRedirects, limit: 1
+</span><span class="line">  }.get(uri)
+</span><span class="line">end</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>Thus I program <em>deliberately</em>.</p>
+
+<p>It behooves me more, even, to contribute this back to <a href="https://github.com/lostisland/faraday">Faraday</a>. I’m tired. I’ll do it later.</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:calming-dylan-moran-comedy">
+      <p>You don’t know Dylan Moran?! <a href="http://www.youtube.com/watch?v=wDIiPIJmXcE">Start here</a>.<a href="#fnref:calming-dylan-moran-comedy" rel="reference">&#8617;</a></p>
+    </li>
+    <li id="fn:essential-accidental">
+      <p>As in Fred Brooks and his distinction between essential complication and accidental complication in his classic essay, “No Silver Bullet”. Read more about this distinction in <a href="http://link.jbrains.ca/1hQeBcG">“The Eternal Struggle Between Business and Programmers”</a>.<a href="#fnref:essential-accidental" rel="reference">&#8617;</a></p>
+    </li>
+  </ol>
+</div>

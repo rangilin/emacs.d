@@ -1,0 +1,44 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #28. A couple of interesting events have happened since the last issue: Gocon in Japan, and the first Docker conference. You'll find links to talks and code from these events below. Also, Go 1.3rc1 has been released, and rc2 is not far away.</p>
+<p>Compiled by <a href="https://twitter.com/mattrco">Matt Cottingham</a> and <a href="https://twitter.com/kelseyhightower">Kelsey Hightower</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="https://groups.google.com/d/msg/golang-nuts/4acL7hVuepA/CgLN3O_bDDwJ">Go 1.3 Release Candidate 1 released</a></p>
+<p><a href="http://dave.cheney.net/2014/06/07/five-things-that-make-go-fast">Five things that make Go fast</a><br />Dave Cheney's talk given at Gocon, covering five features that contribute to Go's performance</p>
+<p><a href="https://speakerdeck.com/stanaka/go-in-production-at-mackerel-dot-io">Go in Production at Mackerel.io</a><br />Another great talk from Gocon</p>
+<p><a href="http://talks.golang.org/2014/gocon-tokyo.slide#1">Go: 90% Perfect, 100% of the time</a><br />Brad Fitzpatrick's talk at Gocon</p>
+<p><a href="http://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2014/From-Parallel-to-Concurrent">From Parallel to Concurrent</a><br />Rob Pike's talk at Lang.NEXT</p>
+<p><a href="http://andlabs.lostsig.com/blog/category/go">Go templating</a><br />Discussion of basic and advanced usage of templates</p>
+<p><a href="http://spf13.com/post/is-go-object-oriented">Is Go an object oriented language?</a><br />A discussion of subtyping and composition</p>
+<p><a href="http://da-data.blogspot.co.uk/2013/02/teaching-distributed-systems-in-go.html">Teaching Distributed Systems in Go</a><br />Interesting report on using Go as the implementation language in an undergraduate course.</p>
+<p><a href="https://willnorris.com/2014/05/go-rest-apis-and-pointers">Go, REST APIs, and Pointers</a><br />Lessons from implementing a REST client in Go</p>
+<p><a href="http://manuel.kiessling.net/2012/09/28/applying-the-clean-architecture-to-go-applications/">Applying "The Clean Architecture" to Go applications</a></p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="http://reshnesh.github.io/pixlserv/">Pixlserv</a><br />Image processing server</p>
+<p><a href="https://code.google.com/p/gopacket/">gopacket</a><br />Packet decoding for Go</p>
+<p><a href="https://github.com/docker">Docker repositories</a><br />Various newly open-sourced tools from the docker team</p>
+<p><a href="https://github.com/GoogleCloudPlatform/kubernetes">GoogleCloudPlatform/kubernetes</a><br />Kubernetes is an open source implementation of (docker) container cluster management</p>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.sendgrid.com/"><img src="https://s3.amazonaws.com/golangweekly/sendgrid.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.sendgrid.com/">SendGrid</a> powers your app's outgoing &amp; incoming email capabilities, through a super-scalable cloud-based infrastructure. SMTP &amp; API integration options let developers build more faster and focus on the important stuff. One of the early companies to use Go in a large scale production environment, SendGrid will reliably and at scale deliver your critical application email.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator and provider of Continuum, the secure, hybrid cloud platform that provides cross-cutting control over all service layers, resources, and connections. Built in Go, Continuum enables perimeter-less network security over large-scale distributed systems, uses policy to unify dev and ops, and blends legacy and new technologies. With Continuum, you can use the tools you want, focus on what you do best, and go faster, safely. At enterprise scale.</p>
+</td>
+</tr>
+</tbody>
+</table>

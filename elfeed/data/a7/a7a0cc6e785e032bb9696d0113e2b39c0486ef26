@@ -1,0 +1,3 @@
+<p>You may not be totally sure why, but you will immediately feel like you ought to install the following two packages for Emacs:</p>
+<blockquote><p>[<a href="https://github.com/zk-phi/indent-guide">indent-guide</a>] show vertical lines to guide indentation</p></blockquote>
+<blockquote><p>[<a href="https://github.com/zk-phi/highlight-stages">highlight-stages</a>] highlight staged (quasi-quoted) expressions</p></blockquote>

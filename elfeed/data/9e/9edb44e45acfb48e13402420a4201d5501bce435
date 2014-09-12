@@ -1,0 +1,80 @@
+<p>Customizing Emacs Mode Line was always some kind of black magic to me. The default mode line setup never worked quite well, but I never dared to customize it. Instead, I have been using packages such as Powerline or, more recently, <a href="https://github.com/Bruce-Connor/smart-mode-line">Smart Mode Line</a>. These are an improvement over the default mode line, but never quite worked as I wished.</p>
+<p>Recently, when I couldn’t get Smart Mode Line to display battery info at the place where I wanted it to be, I finally got rid of it, and decided to settle down, read the manual, and work my way towards my own mode line setup. Turns out, that this is not at all difficult, and the result—even though far from finished—is already quite pleasing:</p>
+<p><a href="/images/my-mode-line.png"> <img class="img-responsive img-thumbnail" src="/images/my-mode-line.png"> </a></p>
+<p>As usual, the Emacs Lisp reference helped greatly: The Mode Line customization is thoroughly documented in the section <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Format.html#Mode-Line-Format">Mode Line Format</a>.</p>
+<p>This post goes through my new mode line setup, and explains the details.</p>
+<h1 id="customizing-the-entire-mode-line">Customizing the entire mode line</h1>
+<p>The overall appearance of the mode line is set up in the <a href="http://doc.endlessparentheses.com/Var/mode-line-format">mode-line-format</a> option. After some digging and fiddling, mine now looks as follows, which corresponds to the screenshot above:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nv">setq-default</span> <span class="nv">mode-line-format</span>
+              <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot;%e&quot;</span> <span class="nv">mode-line-front-space</span>
+                <span class="c1">;; Standard info about the current buffer</span>
+                <span class="nv">mode-line-mule-info</span>
+                <span class="nv">mode-line-client</span>
+                <span class="nv">mode-line-modified</span>
+                <span class="nv">mode-line-remote</span>
+                <span class="nv">mode-line-frame-identification</span>
+                <span class="nv">mode-line-buffer-identification</span> <span class="s">&quot; &quot;</span> <span class="nv">mode-line-position</span>
+                <span class="c1">;; Some specific information about the current buffer:</span>
+                <span class="nv">lunaryorn-projectile-mode-line</span> <span class="c1">; Project information</span>
+                <span class="p">(</span><span class="nv">vc-mode</span> <span class="nv">lunaryorn-vc-mode-line</span><span class="p">)</span> <span class="c1">; VC information</span>
+                <span class="p">(</span><span class="nv">flycheck-mode</span> <span class="nv">flycheck-mode-line</span><span class="p">)</span> <span class="c1">; Flycheck status</span>
+                <span class="p">(</span><span class="nv">multiple-cursors-mode</span> <span class="nv">mc/mode-line</span><span class="p">)</span> <span class="c1">; Number of cursors</span>
+                <span class="c1">;; Misc information, notably battery state and function name</span>
+                <span class="s">&quot; &quot;</span>
+                <span class="nv">mode-line-misc-info</span>
+                <span class="c1">;; And the modes, which I don&#39;t really care for anyway</span>
+                <span class="s">&quot; &quot;</span> <span class="nv">mode-line-modes</span> <span class="nv">mode-line-end-spaces</span><span class="p">))</span>
+</pre></div>
+
+<h1 id="understanding-mode-line-format">Understanding <code>mode-line-format</code></h1>
+<p><code>mode-line-format</code> is a list of “mode line constructs” which put specific content into the mode line. It is buffer-local by default, hence <code>setq-default</code>.</p>
+<p>A construct can be as simple as a string literal, like the whitespace strings I’m using for spacing. Strings can also contain special format strings, such as the <code>%e</code> right at the beginning of the list. These format strings are substituted with various data, e.g. the position in the buffer, the current column number, the name of the current buffer, or the currently visited file, or in this case, a warning about low Lisp memory. A list of all format strings is available in the <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/_0025_002dConstructs.html#g_t_0025_002dConstructs">%-Constructs</a> section of the Emacs Lisp reference.</p>
+<p>A construct can also be a symbol, in which case the variable value of that symbol is used as mode line construct in place of the symbol. This let’s you nicely break a complex mode line into manageable small pieces. In fact, that’s how the default mode line is constructed: All the different <code>mode-line-*</code> variables in the above example are built into Emacs, and describe various parts of the mode line. It also lets special modes such as EShell or Dired hook into parts of the mode line, in case the standard format doesn’t make much sense in a specific mode.</p>
+<p>The first part with standard information about the current buffer is just copied from the default definition. It shows the coding system, the modification state, the buffer name and the position in the buffer, just like the default mode line does. That’s just standard stuff, which should be in every mode line, and the default order isn’t too bad.</p>
+<p>The individual elements are taken from various <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Variables.html#Mode-Line-Variables">Mode Line Variables</a>, which you can customize individually, of course. For instance, I’m using a more compact design for the current position:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nv">setq-default</span> <span class="nv">mode-line-position</span>
+              <span class="o">&#39;</span><span class="p">((</span><span class="mi">-3</span> <span class="s">&quot;%p&quot;</span><span class="p">)</span> <span class="p">(</span><span class="nv">size-indication-mode</span> <span class="p">(</span><span class="s">&quot;/&quot;</span> <span class="p">(</span><span class="mi">-4</span> <span class="s">&quot;%I&quot;</span><span class="p">)))</span>
+                <span class="s">&quot; &quot;</span>
+                <span class="p">(</span><span class="nv">line-number-mode</span>
+                 <span class="p">(</span><span class="s">&quot;%l&quot;</span> <span class="p">(</span><span class="nv">column-number-mode</span> <span class="s">&quot;:%c&quot;</span><span class="p">)))))</span>
+</pre></div>
+
+<p>But after that it gets really interesting.</p>
+<h1 id="adding-custom-mode-line-content">Adding custom mode line content</h1>
+<p>Normally, Emacs just displays the major mode and the list of minor modes after the standard information, with <code>mode-line-modes</code>. In my heavily customized Emacs that’s a really <em>long</em> list, which I’m not at all interested in. I usually know which modes are active: I enabled them in my <code>init.el</code> after all.</p>
+<p>What I’m interested in is specific information about the current buffer from various minor modes. That’s where more advanced mode line constructs join the game.</p>
+<p>The first thing I’d like to see is some information about the current project. I’m using the great <a href="https://github.com/bbatsov/projectile">Projectile</a> extension, which identifies projects automatically from certain files, and provides various commands and a useful API to work with a project.</p>
+<p>I define my own variable <code>lunaryorn-projectile-mode-line</code> which holds a construct that puts the name of the current project into the mode line:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nb">defvar</span> <span class="nv">lunaryorn-projectile-mode-line</span>
+  <span class="o">&#39;</span><span class="p">(</span><span class="ss">:propertize</span>
+    <span class="p">(</span><span class="ss">:eval</span> <span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nb">ignore-errors</span> <span class="p">(</span><span class="nv">projectile-project-root</span><span class="p">))</span>
+             <span class="p">(</span><span class="nv">concat</span> <span class="s">&quot; &quot;</span> <span class="p">(</span><span class="nv">projectile-project-name</span><span class="p">))))</span>
+    <span class="nv">face</span> <span class="nv">font-lock-constant-face</span><span class="p">)</span>
+  <span class="s">&quot;Mode line format for Projectile.&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">put</span> <span class="ss">&#39;lunaryorn-projectile-mode-line</span> <span class="ss">&#39;risky-local-variable</span> <span class="no">t</span><span class="p">)</span>
+</pre></div>
+
+<p>The mode line construct uses an <code>(:eval FORM)</code> construct to call out to the Projectile API to get the name of the project the current buffer is part of.</p>
+<p>The <code>(:eval FORM)</code> construct is a list that starts with the keyword <code>:eval</code>, followed by a single Emacs Lisp form. Whenever the mode line is updated, Emacs evaluates the <code>FORM</code> and shows its results as a string in the mode line. If the result is <code>nil</code> the construct is ignored.</p>
+<p>Around the <code>:eval</code> I wrapped a <code>(:propertize ELT PROPS…)</code> construct. This construct sets text properties on the string resulting from recursively interpreting <code>ELT</code> as mode line construct. I’m setting the most important property of all: <code>face</code>. That tells Emacs what face to use for the text. I’m using <code>font-lock-constant-face</code> which looks nicely in the colour theme I’m using (<a href="https://github.com/bbatsov/solarized-emacs">Solarized Light</a>).</p>
+<p>Finally, I mark the variable as risky. Otherwise, Emacs refuses to interpret <code>:eval</code> and <code>:propertize</code> constructs for security reasons.</p>
+<h1 id="showing-specific-minor-modes">Showing specific minor modes</h1>
+<p>After the project name I added some important minor modes, with <code>(SYMBOL WHEN ELSE)</code> constructs. These constructs describe conditional mode line content:</p>
+<p>Emacs looks at the value of <code>SYMBOL</code>. If it’s non-nil, it recursively interprets <code>WHEN</code> as mode line construct, otherwise it goes on with <code>ELSE</code>. If <code>ELSE</code> is omitted, the entire construct is ignored, if <code>SYMBOL</code> is nil.</p>
+<p>This construct lets me show version control information, but only if <code>vc-mode</code> is enabled, that is, if the current buffer is under version control. Likewise, I show the <a href="http://flycheck.readthedocs.org/en/latest/">Flycheck</a> state, but only if Flycheck is enabled, and the number of active cursors, but only if <a href="https://github.com/magnars/multiple-cursors.el">Multiple Cursors</a> is active.</p>
+<p>The latter two just show the lighter of the corresponding minor mode, which is a valid mode line construct by itself. For VC Mode, I’m using my own mode line construct that strips the backend name from the status. I’m almost exclusively using Git, and if I’m not doing so, I’m usually absolutely aware of that, if only because Magit doesn’t work in this case:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nb">defvar</span> <span class="nv">lunaryorn-vc-mode-line</span>
+  <span class="o">&#39;</span><span class="p">(</span><span class="s">&quot; &quot;</span> <span class="p">(</span><span class="ss">:propertize</span>
+         <span class="c1">;; Strip the backend name from the VC status information</span>
+         <span class="p">(</span><span class="ss">:eval</span> <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">backend</span> <span class="p">(</span><span class="nb">symbol-name</span> <span class="p">(</span><span class="nv">vc-backend</span> <span class="p">(</span><span class="nv">buffer-file-name</span><span class="p">)))))</span>
+                  <span class="p">(</span><span class="nv">substring</span> <span class="nv">vc-mode</span> <span class="p">(</span><span class="nb">+</span> <span class="p">(</span><span class="nb">length</span> <span class="nv">backend</span><span class="p">)</span> <span class="mi">2</span><span class="p">))))</span>
+         <span class="nv">face</span> <span class="nv">font-lock-variable-name-face</span><span class="p">))</span>
+  <span class="s">&quot;Mode line format for VC Mode.&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">put</span> <span class="ss">&#39;lunaryorn-vc-mode-line</span> <span class="ss">&#39;risky-local-variable</span> <span class="no">t</span><span class="p">)</span>
+</pre></div>
+
+<h1 id="miscellaneous-information">Miscellaneous information</h1>
+<p>The mode line sometimes also shows miscellaneous information about the current buffer. This information is stored in <code>mode-line-misc-info</code>. In the default mode line, this is almost the <em>last</em> element in <code>mode-line-format</code>, and pushed so far to the right end of the mode line, that it’s mostly not even visible, because the list of minor modes takes too much space.</p>
+<p>I’m putting it before the list of modes, because it’s much more relevant to me than the list of modes. Notably, it shows the name of the function the point is in with <code>which-func-mode</code>, and the state of my laptop’s battery with <code>display-battery-mode</code>. You can also show the current date and time with <code>display-time-mode</code>, but I’m not doing so, because I typically carry a watch, or look on my phone or a wall clock if I need to know the current time.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>My mode line setup is still far from perfect, notably I’d like to find some better presentation for the list of minor modes (any help on that is appreciated), probably in some kind of popup menu. But it’s already far better than anything I had before, and against demonstrated to me the unrivalled customizability of Emacs.</p>

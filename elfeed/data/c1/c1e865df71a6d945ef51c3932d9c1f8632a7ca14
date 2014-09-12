@@ -1,0 +1,36 @@
+<p>Recently I need to migrate my infrastructure from Tokyo to Singapore. According to the information I gathered from AWS 201 course, it&rsquo;s a little troublesome to migrate AWS AMI between regions.</p>
+
+<p>As <a href="http://alestic.com/2010/10/ec2-ami-copy">Copying EBS Boot AMIs Between EC2 Regions</a> demostrated, we need to mount ebs for each regions and rsync them, than we register the ebs as AMI; Also there&rsquo;s <a href="https://cloudyscripts.com/tool/show/5">CloudyScript</a>, it&rsquo;s a online tool that does these steps for you.</p>
+
+<p>After some study, I found that it&rsquo;s not necessary now. Amazon announced <a href="http://aws.typepad.com/aws/2012/12/ebs-snapshot-copy.html">EBS Snapshot Copy</a> last December. Although you can&rsquo;t migrate AMI but we could do so just for some more steps.</p>
+
+<!--more-->
+
+
+<p>It&rsquo;s really simple:</p>
+
+<p>Find the snapshot or your AMI, click <code>Copy Snapshot</code> to copy snapshot to your destinated region.</p>
+
+<p><a href="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_1.png"><img src="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_1.png" alt="1" /></a></p>
+
+<p>Check the <code>Kernel ID</code> field of your AMI.</p>
+
+<p><a href="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_2.png"><img src="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_2.png" alt="2" /></a></p>
+
+<p>Visit <a href="http://thecloudmarket.com/image/aki-ee5df7ef">the cloud market</a> to check AKI&rsquo;s description to see which manifest.xml it belongs. For instance: <code>pv-grub-hd0_1.02-x86_64.gz.manifest.xml</code></p>
+
+<p><a href="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_3.png"><img src="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_3.png" alt="3" /></a></p>
+
+<p>Search for <code>pv-grub-hd0_1.02-x86_64.gz.manifest.xml</code> and find the AKI for your destinated region.</p>
+
+<p><a href="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_4.png"><img src="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_4.png" alt="4" /></a></p>
+
+<p>Perform <code>Create Image from Snapshot</code> on your cloned snapshot.</p>
+
+<p><a href="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_5.png"><img src="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_5.png" alt="5" /></a></p>
+
+<p>Select the AKI you just got.</p>
+
+<p><a href="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_6.png"><img src="http://blog.hsatac.net/images/ami_migrate/migrate_aws_ami_across_region_painlessly_6.png" alt="6" /></a></p>
+
+<p>You don&rsquo;t need to rsync anything. It&rsquo;s just that easy!</p>

@@ -1,0 +1,7 @@
+<p><strong>傳送影像到 Chromecast 與 Roku 串流裝置中播放</strong><br />
+我們努力開發 Firefox for Android 測試版 (Beta) 中的多重畫面功能。現在只要是你瀏覽中網頁的影片內容，就能透過新的「傳送到裝置 (Send to device)」的影片傳送功能，傳送到第二個畫面並供你欣賞。現在就來協助我們測試此功能。<br />
+使用者現能更進一步掌握 Web 經驗，並將自己想要欣賞的影片內容送到較大的螢幕播放。任何影片在傳送到其他裝置上，仍同樣可透過 Firefox for Android 畫面底部的「媒體控制列 (Media Control Bar)」而直接播放、暫停、關閉影片。且影片播放期間均會持續顯示媒體控制列，即使切換分頁或瀏覽新網頁，該功能列也不會突然消失。<br />
+Firefox for Android 測試版的「媒體控制列」(圖為 Roku 串流媒體)<br />
+為了讓使用者知道「目前在 Firefox for Android 上觀看的影片，也能傳送到連線的媒體串流裝置上」，影片的播放控制列將 (在任何廣告結束之後) 顯示「傳送至」指示圖。<br />
+網址列於右側顯示的「傳送至」指示圖</p>
+<p><a href="http://news.oss.tw/node/17182" target="_blank">閱讀全文</a></p>

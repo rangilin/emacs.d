@@ -1,0 +1,52 @@
+<p>
+I'm a Vim user. But more &amp; more these days I find that one of my
+favourite versions of Vim is Emacs. Specifically, its <code>evil-mode</code>
+package, which is a very good Vim emulator<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>.
+</p>
+
+<p>
+If you get started with <code>evil-mode</code>, one of the first questions you
+might ask is, "How do I remap ESC to something more finger-friendly?"
+Some people like to map <code>jj</code>. Personally I like <code>jk</code>, because it rolls
+off the fingers a little more easily.
+</p>
+
+<p>
+Anyway, there are a couple of ways to do it in Emacs. The simplest &amp;
+cleanest I've found is to install the <code>key-chord</code> package:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">M-x package-install
+key-chord
+</pre>
+</div>
+
+<p>
+&#x2026;then add this to your <code>.emacs</code> file:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #f92672;">require</span> '<span style="color: #fd971f;">key-chord</span>)
+(key-chord-mode 1)
+(key-chord-define evil-insert-state-map  <span style="color: #e6db74;">"jk"</span> 'evil-normal-state)
+</pre>
+</div>
+
+<p>
+Easy.
+</p>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+Actually, it's the <i>only</i> good Vim emulator/plugin I've ever
+encountered.
+</p></div>
+
+
+</div>
+</div><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/iHtTjny2HXM" height="1" width="1"/>

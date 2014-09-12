@@ -1,0 +1,127 @@
+<p>(The title references Shanley Kane's <a href='https://medium.com/tech-culture-briefs/a1e93d985af0' >post by the same name</a>. This post represents my views on what men can do.)</p>
+
+<p>It's no secret that programming is an <a href='http://en.wikipedia.org/wiki/Women_in_computing' #The_Gender_Gap">incredibly male dominated field</a>.</p>
+
+<ul>
+<li><p>Figures vary, but somewhere from 20% to 29% of currently working programmers are female.</p></li>
+<li><p>Less than 12% of Computer Science bachelor's degrees were awarded to women at US PhD-granting institutions in 2010.</p></li>
+</ul>
+
+<p>So, on average, only about 1 out of every 5 working programmers you'll encounter will be female. You could say <a href='http://www.nytimes.com/2014/04/06/technology/technologys-man-problem.html?_r=0' >technology has a man problem</a>.</p>
+
+<p>In an earlier post I noted that <a href='http://blog.codinghorror.com/software-developers-and-aspergers-syndrome/' >many software developers I've known have traits of Aspergers</a>. Aspergers is a spectrum disorder; the more severe the symptoms, the closer it is to autism. And did you know that autism <a href='http://en.wikipedia.org/wiki/Epidemiology_of_autism' >skews heavily towards males at a 4:1 ratio</a>?</p>
+
+<p>Interesting. I might even go so far as to say some of those traits are <a href='http://www.amazon.com/dp/046500556X?tag=codihorr-20' >what makes one good at programming</a>. </p>
+
+<p>That's the way it currently is. But is that the way it <em>should be?</em> I remember noticing that the workforce of the maternity ward at the hospital where our children were born was incredibly female dominated. Is there something inherently wrong with professions that naturally skew heavily male or female?</p>
+
+<p><a href='http://www.cbs.nl/en-GB/menu/themas/arbeid-sociale-zekerheid/publicaties/artikelen/archief/2005/2005-1825-wm.htm' ><img src='http://blog.codinghorror.com/content/images/2014/Apr/male-vs-female-dominated-fields-2004.png'  alt="" title="" /></a></p>
+
+<p>Consider <a href='http://www.cbs.nl/en-GB/menu/themas/arbeid-sociale-zekerheid/publicaties/artikelen/archief/2005/2005-1825-wm.htm' >this list</a> of the most male and female dominated occupations in the Netherlands from 2004. It notes that:</p>
+
+<blockquote>
+  <p>In higher and academic level positions, men and women are more often represented equally. This pattern of employment has hardly changed over the last years.</p>
+</blockquote>
+
+<p>Is programming a higher and academic level occupation? I'm not so sure, given that <a href='http://blog.codinghorror.com/please-dont-learn-to-code/' >I've compared programmers to auto mechanics and plumbers in the past</a>. And you'll notice squarely where those occupations are on the above graphs. There's nothing wrong with being an auto mechanic or a plumber (or a programmer, for that matter), but is there anything about those particular professions that demands, in the name of social justice, that there must be 50% male plumbers and 50% female plumbers?</p>
+
+<p>For a counterpoint, here's a blog post from Sara J. Chipps. When I've e-mailed her in the past with my stupid questions on topics like this, she tries her best to educate me with empathy and compassion. That's why I love her. </p>
+
+<p>This is an <a href='http://sarajchipps.com/post/55986333661/in-which-i-answer-all-of-the-questions' >excerpt from a blog post she wrote in 2012</a> which answered my question:</p>
+
+<blockquote>
+  <p>Many people I meet ask me a variant of the question “I understand we want more women in technology, but why?” It’s a great question, and not at all something we should be offended by. Often men are afraid to ask questions like this for fear there will be backlash, and I think that fear can lead to stifling an important conversation.</p>
+  
+  <p>Frankly, the Internet is thriving without women building it, why should that change? Three reasons:</p>
+  
+  <p><strong>1) Diversity leads to better products and results</strong></p>
+  
+  <p>As illustrated in <a href='http://web.mit.edu/cortiz/www/Diversity/PDFs/Jehn%20et%20al%201999.pdf' >this Cornell study</a> along with many others, diversity improves performance, morale, and end product. More women engineers means building a better internet, and improving software that can service society as a whole. Building a better Internet is why I started doing software development in the first place. I think we can all agree this is of utmost importance.</p>
+  
+  <p><strong>2) The Internet is the largest recording of human history ever built</strong></p>
+  
+  <p>Right now the architecture for that platform is being built disproportionally by white and asian males. You’ve heard the phrase “he who writes history makes history”? We don’t yet know how this will affect future generations. </p>
+  
+  <p>How can architecture be decidedly male? I like to refer to the anecdotal story of the Apple Store glass stairs. While visually appealing, there was one unforeseen consequence to their design: the large groups of strange men that spend hours each day standing under them looking up. As a woman, the first time I saw them I thought “thank god I’m not wearing a skirt today.” Such considerations were not taken in designing these stairs. I think it’s probable, if not easily predictable, that in a few years we will see such holes in the design of the web. </p>
+  
+  <p><strong>3) Women in 10 years need to be able to provide for themselves, and their families</strong></p>
+  
+  <p>Now, this reason is purely selfish on the part of women, but we all have mothers, and sisters, so I hope we can relate. </p>
+  
+  <p>This year there are 6 million information technology jobs in the US, up from 628,600 in 1987 and 1.34 million in 1997. Right now jobs in technology have half the unemployment rate of the rest of the workforce. There is no sign this will change anytime soon. If growth continues at the current rate, it will not be long until women will not be able to sustain themselves if not involved in a technical field. </p>
+  
+  <p>We have to start educating young girls about this now, or they may ultimately become the poorest demographic among us. </p>
+</blockquote>
+
+<p>These are good reasons. I'm particularly fond of #1. Diversity in social perspectives is hugely valuable when building social software intended for, y'know, human beings of all genders, like <a href='http://www.discourse.org/' >Discourse</a> and <a href='http://www.stackexchange.com/' >Stack Exchange</a>. Also, I get really, really tired of all the aggressive mansplaining in software development. Yes, even my own. Sometimes it would be good to get some ladysplaining all mixed up in there for variety.</p>
+
+<p>I suppose any effort to encourage more women to become software engineers should ideally start in childhood.</p>
+
+<p><a href='http://www.smbc-comics.com/?id=1883' ><img src='http://blog.codinghorror.com/content/images/2014/Apr/boy-toys-vs-girl-toys.png'  alt="boy toys vs girl toys" title="" /></a></p>
+
+<p>Dolls? Pshaw. In our household, every child, male or female, is issued a regulation iPad at birth. You know, the best, most complex toy there is: a computer. And, shocker, I'm kind of weird about it &ndash; I <em>religiously</em> refer to it as <strong>a computer</strong>, never as an iPad. Never. Not once. Not gonna happen in my house. Branding is for marketing weasels.  So the twin girls will run around, frantically calling out for their so-called "'puter". It puts a grin on my face every time. And when anything isn't here, Maisie has gotten in the habit of saying "dada chargin'". Where's the milk, Maisie? "dada chargin'".</p>
+
+<p>But not everyone has the luxury of spawning their own processes and starting from boot. (You really should, though. It will <a href='http://blog.codinghorror.com/on-parenthood/' >kick your ass</a>.)</p>
+
+<h3 id="whatcanyoudo">What can you do?</h3>
+
+<p>If you're reading this, there's about an 80% chance that you're a man. So after you give me the secret man club handshake, let's talk about what we men can do, right now, today, to make programming a more welcoming profession for women.</p>
+
+<ol>
+<li><p><strong>Abide by the Hacker School Rules</strong></p>
+
+<p>Let's start with the <a href='https://www.hackerschool.com/manual' #sec-environment">freaking brilliant Hacker School rules</a>. This cuts directly to the unfortunate but oh-so-common Aspergers tendencies in programmers I mentioned earlier:</p>
+
+<ul><li>No feigning surprise. "I can't believe you don't know what the <em>stack</em> is!"</li>
+<li>No <a href='http://tirania.org/blog/archive/2011/Feb-17.html' >well-actuallys</a>. "Well, actually, you can do that without a regular expression."</li>
+<li>No back seat driving. Don't intermittently lob advice across the room.</li>
+<li>No subtle sexism via public debate. </li></ul>
+
+<p>Does any of this sound familiar? Because it should. Oh <em>God</em> does this sound familar. Just read the whole set of Hacker School guidelines and recognize your natural tendencies, and try to rein them in. That's all I'm proposing.</p>
+
+<p>Well, actually, I'll be proposing a few more things.</p></li>
+<li><p><strong>Really listen. What? I SAID LISTEN.</strong> </p>
+
+<p>Remember <a href='https://www.youtube.com/watch?v=UHJdCO6Aa6s' >this scene</a> in Fight Club?</p>
+
+<blockquote>
+  <p>This is why I loved the support groups so much, if people thought you were dying, they gave you their full attention. If this might be the last time they saw you, they really saw you. Everything else about their checkbook balance and radio songs and messy hair went out the window. You had their full attention. <strong>People listened instead of just waiting for their turn to speak.</strong> And when they spoke, they weren't just telling you a story. When the two of you talked, you were building something, and afterward you were both different than before.</p>
+</blockquote>
+
+<p>Guilty as charged.</p>
+
+<p>My wife is a scientist, and she complains about this happening a lot at her work. I don't even think this one is about sexism, it's about basic respect. What does respect mean? Well, a bunch of things, but let's start with openly listening to people and giving them our full attention when they talk to us &ndash; rather than just waiting for our turn to speak.</p>
+
+<p>Let's shut up and listen quietly with the same thoughtfulness that we wish others would listen to us. We'll get our turn. We always do, don't we?</p></li>
+<li><p><strong>If you see bad behavior from other men, speak up.</strong></p>
+
+<p>It's not other people's job to make sure that everyone enjoys a safe, respectful, civil environment at work and online.</p>
+
+<p>It's my job. It's your job. It is <em>our job</em>.</p>
+
+<p>There is no mythical men's club where it is OK to be a jerk to women. If you see any behavior that gives you pause, behavior that makes you wonder "is that OK?", behavior that you'd be uncomfortable with directed toward your sister, your wife, your daughter &ndash; speak up. Honestly, as one man to another. And if that doesn't work for whatever reason, escalate.</p></li>
+<li><p><strong>Don't attempt romantic relationships at work.</strong></p>
+
+<p>Do you run a company? Institute a no-dating rule as policy. Yeah, I know, you can't truly enforce it, but it should still be the official company policy.   And whether the place where you work has this policy or not, <em>you</em> should have it on a personal level.</p>
+
+<p>I'm sorry I have to be that guy who dumps on true love, but let's be honest: the odds of any random office romance working out are pretty slim. And when it doesn't, how will you handle showing up to work every day and seeing this person? Will there be Capulet vs Montague drama? The women usually get the rough end of this deal, too, because men aren't good at handling the inevitable rejection.</p>
+
+<p>Just don't do it. Have all the romantic relationships you want outside work, but do not bring it to work.</p></li>
+<li><p><strong>No drinking at work events.</strong></p>
+
+<p>I think it is very, very unwise for companies to have a culture associated with drinking and the lowered inhibitions that come with drinking. I've heard some terrifyingly awful stories that I don't even want to link to here. Men, plus women, plus alcohol is a great recipe for college. That's about all I remember from college, in fact. But as a safe work environment for women? Not so much.</p>
+
+<p>If you want to drink, be my guest. Drink. You're a grown up. I'm not the boss of you. But don't drink in a situation or event that is officially connected with work in <em>any</em> way. That should absolutely be your personal <em>and</em> company policy &ndash; no exceptions.</p></li>
+</ol>
+
+<p>There you have it. Five relatively simple things you, I, and all other working male programmers can do to help encourage a better environment for men <em>and</em> women in software plumbing. I mean engineering.</p>
+
+<p>So let's get to it.</p>
+
+<p>(I haven't listed anything here about mentoring. That's because <a href='https://twitter.com/codinghorror/status/25955094175' >I am an awful mentor</a>. But please <em>do</em> feel free to mention good resources, like <a href='http://www.girldevelopit.com/' >Girl Develop It</a>, that encourage mentoring of female software engineers by people that <em>are</em> actually good at it, in the comments.)</p>
+
+<table>  
+<tr><td class="welovecodinghorror">  
+[advertisement] How are you showing off your awesome? Create a <a href='http://careers.stackoverflow.com/cv'  rel="nofollow">Stack Overflow Careers profile</a> and show off all of your hard work from Stack Overflow, Github, and virtually every other coding site. Who knows, you might even get recruited for a great <a href='http://careers.stackoverflow.com/jobs'  rel="nofollow">new position</a>!
+</td></tr>  
+</table>

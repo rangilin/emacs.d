@@ -1,0 +1,78 @@
+<p><a href='http://www.amazon.com/exec/obidos/ASIN/0812972155/codihorr-20' >Masters of Doom</a> is the story of John Carmack and John Romero creating the seminal games Wolfenstein 3D, Doom, and Quake.</p>
+
+<p><a href='http://www.amazon.com/exec/obidos/ASIN/0812972155/codihorr-20' ><img title="Masters-of-doom-book-cover" src='http://blog.codinghorror.com/content/images/uploads/2013/10/6a0120a85dcdae970b019b001c3833970b-800wi.jpg'  width="300" height="461" alt="Masters-of-doom-book-cover" /></a></p>
+
+<p>It's an amazing work on so many levels &ndash; but primarily because of the exhaustive research the author undertook to tell this story.</p>
+
+<blockquote>
+
+To re-create the story of the Two Johns, I conducted hundreds of interviews over six years, often with each person on multiple occasions. After moving to Dallas in the fall of 2000 for research, I became known in offices, barbecue joints, and bars around town as “the guy writing the Book.” John Romero and John Carmack each spent dozens of hours in person answering my most picayune questions: how they were feeling, what they were thinking, what they were saying, hearing, seeing, playing. What they and others couldn’t recall, I unearthed from websites, newsgroups, e-mails, chat transcripts, and magazines (though I drew from some of these articles, I made a point of getting the gamers’ own versions of what happened as well). I also played a delirious amount of games: at home, online, and at a couple tournaments (yeah, I lost).
+
+
+I spent six months transcribing all my taped interviews. From this material, I assembled a narrative of dialogue and description that re-creates the events as faithfully and accurately as possible. As often as appropriate, I told the story from each person’s point of view to give readers the different perspectives.
+
+</blockquote>
+
+<p>It's unusual to find a book about a contentious, complex friendship and business relationship that both parties sign off on &ndash; and even a decade later, regularly recommend to people interested in their personal back stories. But it is a testament to just how <i>right</i> Kushner got this story that both Romero and Carmack do. This is <b>exactly the sort of meticulously researched, multiple viewpoint biography that you'd want to read about important people in your industry</b>. In that sense, it's kind of the opposite of the <a href='http://www.amazon.com/exec/obidos/ASIN/B004W2UBYW/codihorr-20' >Jobs biography</a>, which I liked well enough, but it presented one viewpoint, and often in a very incomplete, sloppily researched way. I would <i>kill</i> to read a book this good about Jobs.</p>
+
+<p>In a way, I grew up with these guys. I am almost exactly the same age they are. I missed the Wolfenstein 3D release because I was still in college, but come December 1993, there I was, bursting with anticipation waiting for the release of Doom along with every other early PC gamer. And who gave Doom its name? Oddly enough, Tom Cruise did.</p>
+
+<iframe width="640" height="360" src='http://www.youtube.com/embed/xa2OAhf0R_g'  frameborder="0" allowfullscreen></iframe>
+
+<p>I've had a lifelong love affair with first person shooters since encountering Wolf3D and Doom. I played about every Doom engine game there was to death. I even had a brief encounter with Romero himself on the modem based multiplayer hub DWANGO where I proverbially "sucked it down". And after the Internet hit around '95, I continued to follow Quake development obsessively online, poring over every .plan file update, and living the drama of the inevitable breakup, the emergence of GLQuake and 3D accelerators, and the road to Quake 3.</p>
+
+<p>It is also an incredibly inspiring story. Here's a stereotypical group of geeky programmers from sketchy home backgrounds who went on to &hellip; basically create an entire industry from scratch on their own terms.</p>
+
+<blockquote>  
+Shareware. Romero was familiar with the concept. It dated back to a guy named Andrew Fluegelman, founding editor of PC World magazine. In 1980, Fluegelman wrote a program called PC-Talk and released it online with a note saying that anyone who liked the wares should feel free to send him some “appreciation” money. Soon enough he had to hire a staff to count all the checks. Fluegelman called the practice “shareware,” “an experiment in economics.” Over the eighties other hackers picked up the ball, making their programs for Apples, PCs, and other computers available in the same honor code: Try it, if you like it, pay me. The payment would entitle the customer to receive technical support and updates.
+
+
+The Association of Shareware Professionals put the business, largely domestic, between $10 and $20 million annually—even with only an estimated 10 percent of customers paying to register a shareware title. Forbes magazine marveled at the trend, writing in 1988 that “if this doesn’t sound like a very sound way to build a business, think again.” Shareware, it argued, relied not on expensive advertising but on word of mouth or, as one practitioner put it, “word of disk.” Robert Wallace, a top programmer at Microsoft, turned a shareware program of his called PC-Write into a multimillion-dollar empire. Most authors, however, were happy to break six figures and often made little more than $25,000 per year. Selling a thousand copies of a title in one year was a great success. Shareware was still a radical conceit, one that, furthermore, had been used only for utility programs, like check-balancing programs and word-processing wares. [Shareware] had never been exploited for games.
+
+</blockquote>
+
+<p><b>Does anyone even remember what shareware is?</b> What is the equivalent to shareware today? Distributing software yourself on the Internet? Sort of. I'd say it's more analogous to the various app stores: Google Play, Apple App Store, Windows Store. Going directly to the users. But they found shareware games didn't work, at least initially:</p>
+
+<blockquote>
+
+When it came time to distribute the games, Scott took a long, hard look at the shareware market. He liked what he saw: the fact that he could run everything himself without having to deal with retailers or publishers. So he followed suit, putting out two text-based games in their entirety and waiting for the cash to roll in. But the cash didn’t roll; it didn’t even trickle. Gamers, he realized, might be a different breed from those consumers who actually paid for utility shareware. They were more apt simply to take what they could get for free. Scott did some research and realized he wasn’t alone; other programmers who had released games in their entirety as shareware were broke too. People may be honest, he thought, but they’re also generally lazy. They need an incentive.
+
+
+Then he got an idea. <i>Instead of giving away the entire game, why not give out only the first portion, then make the player buy the rest of the game directly from him?</i> No one had tried it before, but there was no reason it couldn’t work. The games Scott was making were perfectly suited to such a plan because they were broken up into short episodes or “levels” of play. He could simply put out, say, fifteen levels of a game, then tell players that if they sent him a check he would send them the remaining thirty.
+
+</blockquote>
+
+<p>You know how game companies spent the last 5 years figuring out that <b>free games with 100% in-app purchases</b> are the optimum (and maybe, only) business model for games today? The guys at id had figured that all out <i>twenty seven years ago</i>. Those sounds you hear in the distance are a <a href='http://www.youtube.com/watch?v=bE_1tCasi_Q' >little bit of history repeating</a>.</p>
+
+<p>Id Software was more than a unique business model that gave almost all the power to the programmers. It was the explosive combination of shareware delivery with a particular genius programmer inventing new techniques for PC games that nobody had seen before: <a href='http://en.wikipedia.org/wiki/John_D._Carmack' >John Carmack</a>. It may sound prosaic and banal now, but smooth scrolling platforming, texture mapped walls, lighting models, and high speed software 3D rendering on a PC were all virtually unheard of at the time Carmack created the engines that made them commonplace.</p>
+
+<p><img alt="Carmack_Headshot_PR_660" title="Carmack_Headshot_PR_660" src='http://blog.codinghorror.com/content/images/uploads/2013/10/6a0120a85dcdae970b019b001ca1e5970c-800wi.jpg'  width="660" height="566" /></p>
+
+<p>Carmack, <a href='http://www.codinghorror.com/blog/2009/04/i-happen-to-like-heroic-coding.html' >like Abrash</a>, is a legend in programming circles, and for good reason. The stories in this book about him are, frankly, a little scary. His devotion to the machine borders on fanatical; he regularly worked 80 hour weeks and he'd take "vacations" where it was just him and a computer alone in a hotel room for a whole week &ndash; just for <i>fun</i>, to <i>relax</i>. His output is herculean. But he also realizes that all his hard work is made possible by a long line of other programmers who came before him.</p>
+
+<blockquote>  
+Al had never seen a side scrolling like this for the PC. “Wow,” he told Carmack, “you should patent this technology.
+
+Carmack turned red. “If you ever ask me to patent anything,” he snapped, “I’ll quit.” Al assumed Carmack was trying to protect his own financial interests, but in reality he had struck what was growing into an increasingly raw nerve for the young, idealistic programmer. It was one of the few things that could truly make him angry. It was ingrained in his bones since his first reading of the Hacker Ethic. All of science and technology and culture and learning and academics is built upon using the work that others have done before, Carmack thought. But to take a patenting approach and say it’s like, well, this idea is my idea, you cannot extend this idea in any way, because I own this idea—it just seems so fundamentally wrong. Patents were jeopardizing the very thing that was central to his life: writing code to solve problems. If the world became a place in which he couldn’t solve a problem without infringing on someone’s patents, he would be very unhappy living there.
+
+</blockquote>
+
+<p>In that spirit, Carmack regularly <a href='https://github.com/id-Software' >releases his old engines under GPL</a> for other programmers to learn from. Don't miss Fabien Sanglard's <a href='http://fabiensanglard.net/doom3/' >epic deconstruction of the Doom 3 codebase</a>, for example. That's only one iteration behind <a href='http://en.wikipedia.org/wiki/Id_Tech_5' >the current id engine</a> which was used for Rage and (apparently) will be used for the upcoming Doom 4.</p>
+
+<p>One of my very favorite quotes of all time comes at the end of the book.</p>
+
+<blockquote>
+  <p>Carmack disdained talk of highfalutin things like legacies but when pressed would allow at least one thought on his own. “In the information age, the barriers just aren’t there,” he said. “The barriers are self-imposed. If you want to set off and go develop some grand new thing, you don’t need millions of dollars of capitalization. You need enough pizza and Diet Coke to stick in your refrigerator, a cheap PC to work on, and the dedication to go through with it. We slept on floors. We waded across rivers.”</p>
+</blockquote>
+
+<p>And indeed they did, as the book will attest. Both <a href='https://twitter.com/ID_AA_Carmack' >@ID<em>AA</em>Carmack</a> and <a href='https://twitter.com/romero' >@romero</a> are still lifelong, influential, inspiring members of the game and programming communities. They are here for the long haul because they love this stuff and always have.</p>
+
+<p>The ultimate point of <a href='http://www.amazon.com/exec/obidos/ASIN/0812972155/codihorr-20' >Masters of Doom</a> is that <b>today you no longer <i>need</i> to be as brilliant as John Carmack to achieve success</b>, and John Carmack himself will be the first to tell you that.  Where John was sitting in a cubicle by himself in Mesquite, Texas for 80 hours a week painstakingly inventing all this stuff from first principles, on hardware that was barely capable, you have a supercomputer in your pocket, another supercomputer on your desk, and two dozen open source frameworks and libraries that can do 90% of the work for you. You have GitHub, Wikipedia, Stack Overflow, and the whole of the Internet.</p>
+
+<p>All you have to do is get <a href='http://www.codinghorror.com/blog/2004/11/good-programmers-get-off-their-butts.html' >off your butt</a> and <a href='http://www.codinghorror.com/blog/2007/07/yes-but-what-have-you-done.html' >use them</a>.</p>
+
+<table>  
+<tr><td class="welovecodinghorror">  
+[advertisement] Hiring developers? Post your open positions with <a href='http://careers.stackoverflow.com/'  rel="nofollow">Stack Overflow Careers</a> and reach over 20MM awesome devs already on Stack Overflow. Create <a href='http://careers.stackoverflow.com/jobs/post'  rel="nofollow"> your satisfaction-guaranteed job listing</a> today!
+</td></tr>  
+</table>

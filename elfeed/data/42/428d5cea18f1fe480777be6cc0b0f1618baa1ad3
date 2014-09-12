@@ -1,0 +1,39 @@
+<p>
+Last week, Bin Chen shared his workflow for <a href="http://blog.binchen.org/posts/how-to-accept-the-github-pull-request-efficiently.html">merging github pull
+requests</a>. Other than the use of Firefox instead of Conkeror, it was
+identical to mine. Now I gadly come to admit that <a href="https://github.com/alexander-yakushev">Alexander Yakushev</a>
+has outsmarted us both by fixing up <a href="https://github.com/sigma/magit-gh-pulls">magit-gh-pulls-mode</a>, a package
+originally written by <a href="https://github.com/sigma">Yann Hodique</a> which does it all from within
+Magit.
+</p>
+
+<p>
+You can find the keybinds on the <a href="https://github.com/sigma/magit-gh-pulls#usage">Readme</a> page.
+</p>
+
+<p>
+It bothers me very slightly that it immediately queries for
+pull-requests when I first call <code>magit-status</code>, even if I'm not
+interested in pull-requests at the moment. So we change the suggested
+setup in order to fix that.
+</p>
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nb">fboundp</span> <span class="ss">&#39;magit-gh-pulls-mode</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">package-install</span> <span class="ss">&#39;magit-gh-pulls</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">eval-after-load</span> <span class="ss">&#39;magit</span>
+  <span class="o">&#39;</span><span class="p">(</span><span class="nv">define-key</span> <span class="nv">magit-mode-map</span> <span class="s">&quot;#gg&quot;</span>
+     <span class="ss">&#39;endless/load-gh-pulls-mode</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">endless/load-gh-pulls-mode</span> <span class="p">()</span>
+  <span class="s">&quot;Start `magit-gh-pulls-mode&#39; only after a manual request.&quot;</span>
+  <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;magit-gh-pulls</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">&#39;magit-mode-hook</span> <span class="ss">&#39;turn-on-magit-gh-pulls</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">magit-gh-pulls-mode</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">magit-gh-pulls-reload</span><span class="p">))</span></code></pre></div>
+<p>
+With this setup it'll only activate <code>magit-gh-pulls-mode</code> after you
+try to update the list of pull-requests.
+</p>
+
+   <p><a href="http://endlessparentheses.com/merging-github-pull-requests-from-emacs.html?source=rss#disqus_thread">Comment on this.</a></p>

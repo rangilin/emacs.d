@@ -1,0 +1,12 @@
+
+<p>Weird error message with LaTeX:</p>
+
+<pre class="example">
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `French'
+</pre>
+
+<p>The folloing command fixes hyphenation in Latex:</p>
+
+<p><code>texconfig hyphen latex</code></p>
+

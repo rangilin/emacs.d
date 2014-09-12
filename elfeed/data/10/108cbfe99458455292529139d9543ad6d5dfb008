@@ -1,0 +1,51 @@
+
+<p>Emacs Gnus uses synchronous network connection. That means Emacs will
+wait for Gnus to finish. It will also freeze on the slightest hitch.
+It didn't bother me much as I only checked news and mail once a day. I
+viewed them as a distraction.</p>
+
+<p>Now that I have setup a timer function that checks for interesting
+e-mail every minute, it's not peachy anymore. I have experienced emacs
+freezing. That is not a crash as timers and display would still work.
+However Emacs was unusable because I couldn't input keys anymore.</p>
+
+<p>Stefan Monnier suggested I wrap my mail fetching function around
+with-local-quit. That helped, but I still had to hit C-g from time to
+time when the network operation took too long.</p>
+
+<p>I had already offloaded e-mail fetching with getmail. Clearly I had to
+do the same thing with news. Finding the right software was not easy.
+Someone on #emacs in IRC suggested leafnode and that was just what I
+was looking for.</p>
+
+<p>One nice feature of leafnode is that it can handle multiple news server.
+Here is my basic configuration:</p>
+
+<pre class="example">
+expire = 20
+server = news.gmane.org
+server = nntp.aioe.org
+server = news.gwene.org
+initialfetch = 500
+</pre>
+
+<p>The server needs to run on an inetd wrapper. Debian sets that up
+nicely. The only bother is that I had to setup a fully qualified name
+on my home computer. I put tao.kanis.fr in the file /etc/hostname and
+I was good to go.</p>
+
+<p>I just need to run fetchnews every minute. I tried to put it in
+/etc/crontab but it didn't work. I finally added it to my getmail.sh
+script. As its name implies it fetches mail every minute.</p>
+
+<p>Now I just need to tell Gnus to fetch news from my computer instead of
+over the network:</p>
+
+<pre class="example">
+(setq gnus-secondary-select-methods '((nntp &quot;tao.kanis.fr&quot;)))
+</pre>
+
+<p>Now that Gnus does not interact with the network anymore, I have a
+blazing fast retrieval time. Emacs does not stop or freeze anymore.
+It's great!</p>
+

@@ -1,0 +1,6 @@
+<p>In conversations with project teams, I’ve heard a lot about problems
+with flaky, unreliable tests. These non-deterministic tests are a
+serious problem with testing efforts. So I’ve written an article that
+talks about how to deal with these non-determinisms, discussing how to
+cope with some common causes: lack of isolation, asynchronous
+behavior, remote services, time, and resource leaks.</p>

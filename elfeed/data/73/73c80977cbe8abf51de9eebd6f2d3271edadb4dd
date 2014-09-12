@@ -1,0 +1,47 @@
+<p>Pretty much every Emacs user knows of the <code>*scratch*</code> buffer - after
+all it&#8217;s always present when you start your Emacs. If you&#8217;ve set
+<code>inhibit-startup-screen</code> to <code>t</code> (which I recommend) it will even be
+the very first buffer see each time you fire up your beloved editor
+(unless you alter <code>initial-buffer-choice</code>, that is).</p>
+
+<p>The scratch buffer was conceived a scratchpad for notes and Emacs Lisp
+experiments and a lot of Emacs users find it quite handy.  On the
+other hand - even more users don&#8217;t really write Emacs Lisp and
+probably find little value in this buffer.</p>
+
+<p>One little know fact about the <code>*scratch*</code> buffer is that its initial
+major mode (by default it&#8217;s <code>lisp-interaction-mode</code>) is not hardcoded
+and you can alter it.  If you&#8217;re a Ruby developer you might opt to
+make it use <code>ruby-mode</code> by default:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="k">setq</span> <span class="nv">initial-major-mode</span> <span class="ss">&#39;ruby-mode</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you do this I&#8217;d also advise you to change the buffer&#8217;s initial
+contents. By default they are:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="c1">;; This buffer is for notes you don&#39;t want to save, and for Lisp evaluation.</span>
+</span><span class='line'><span class="c1">;; If you want to create a file, visit that file with C-x C-f,</span>
+</span><span class='line'><span class="c1">;; then enter the text in that file&#39;s own buffer.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For Ruby something like this might be better:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="k">setq</span> <span class="nv">initial-scratch-message</span> <span class="s">&quot;\</span>
+</span><span class='line'><span class="s"># This buffer is for notes you don&#39;t want to save, and for Ruby code.</span>
+</span><span class='line'><span class="s"># If you want to create a file, visit that file with C-x C-f,</span>
+</span><span class='line'><span class="s"># then enter the text in that file&#39;s own buffer.&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Or you can simply set <code>initial-scratch-message</code> to <code>nil</code> and be done with it.</p>

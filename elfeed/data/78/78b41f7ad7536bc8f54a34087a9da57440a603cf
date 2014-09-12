@@ -1,0 +1,34 @@
+
+<p>I think org mode is a good enough reason to use emacs. Of course there
+are many others but I won't delve into it for this article. For those
+who don't know org mode is an outliner on steroids. It's using plain
+text file so you can view you're data with any text editor. GTD is an
+acronym for Getting Things Done by David Allen.</p>
+
+<p>When I started with org mode I was using tags, workflows, priorities,
+checklists, etc... It's wonderful stuff however I have stopped using
+them as I don't I feel it's needed for my use of GTD. Some may feel
+the tags are important to give context. I am almost always in front of
+a computer so this information is not very important for me.</p>
+
+<p>I am currently using six org files:</p>
+
+<ul>
+<li>work.org for work actions</li>
+<li>perso.org for personal actions</li>
+<li>kb.org for knowledge base</li>
+<li>calendar.org self explanatory, I put habits in there too</li>
+<li>keyring.gpg crypted org for passwords and what not</li>
+<li>drill.org implements org-drill for studying Japanese, etc..</li>
+</ul>
+
+<p>I use to have all my action in one file. I was following David Allen's
+idea that all actions are work. I am lucky to work four days out of
+five and so I picked my 'off' day to do my weekly review. As I said
+before it didn't feel right to do work stuff at home so I am doing two
+weekly review: a personal one on Thursday and professional on Friday.</p>
+
+<p>My action org file are outlined as such:</p>
+
+&lt;example&gt;
+

@@ -1,0 +1,1 @@
+<p><a href="http://blog.thepete.net/">Pete Hodgson</a> expands his article on testing asynchronous javascript by explaining how promises - together with tools like Q,  mocha-as-promised, and chai-as-promised - can make clearer to write tests of asynchronous behavior.</p>

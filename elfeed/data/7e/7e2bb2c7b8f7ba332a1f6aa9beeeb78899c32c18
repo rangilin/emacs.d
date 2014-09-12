@@ -1,0 +1,7 @@
+
+<p>This looks like a silly bug, just run the following command:</p>
+
+<pre class="example">
+apt-get install network-manager-pptp network-manager-pptp-gnome
+</pre>
+

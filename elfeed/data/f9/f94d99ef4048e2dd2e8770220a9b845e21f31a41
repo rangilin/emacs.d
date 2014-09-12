@@ -1,0 +1,20 @@
+
+<p>This little known utilities grabs package on demand. Set up the
+following alias on your shell:</p>
+
+<pre class="example">
+alias auto='auto-apt -y run'
+</pre>
+
+<p>You'll need to have <code>sudo</code> to give you root access without a
+password. Next time you compile a package from source just do the
+following:</p>
+
+<pre class="example">
+auto
+./configure
+</pre>
+
+<p>All the dependencies will be downloaded automatically. Wonderful!  It
+just make me grin every time I do it.</p>
+

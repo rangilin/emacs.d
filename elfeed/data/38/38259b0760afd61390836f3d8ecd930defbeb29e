@@ -1,0 +1,66 @@
+<p>Let me open with an apology to John Gruber for <a href='http://blog.codinghorror.com/standard-flavored-markdown/' >my previous blog post</a>.</p>
+
+<p>We've been working on the Standard Markdown project for about two years now. We invited John Gruber, the original creator of Markdown, to join the project via email in November 2012, but never heard back. As we got closer to being ready for public feedback, we emailed John on August 19th with a link to the Standard Markdown spec, asking him for his feedback. Since John MacFarlane was the primary author of most of the work, we suggested that he be the one to reach out.</p>
+
+<p>We then waited two weeks for a response.</p>
+
+<p>There was no response, so we assumed that John Gruber was either OK with the project (and its name), or didn't care. So we proceeded.</p>
+
+<p>There was lots of internal discussion about what to name our project. Strict Markdown? XMarkdown? Markdown Pro? Markdown Super Hyper Turbo Pro Alpha Diamond Edition? </p>
+
+<p>As we were finalizing the name, we noticed on this podcast, at 1:15 &hellip;</p>
+
+<iframe width="100%" height="450" scrolling="no" frameborder="no" src='https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/159439009&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true' ></iframe>
+
+<p>&hellip; that John seemed OK with the name "GitHub Flavored Markdown". So I originally wrote the blog post and the homepage using that terminology &ndash; "Standard Flavored Markdown" &ndash; and even kept that as the title of the blog post to signify our intent. We were building Yet Another Flavor of Markdown, one designed to remove ambiguity by specifying a standard, while preserving as much as possible the spirit of Markdown and compatibility with existing documents.</p>
+
+<p>Before we went live, I asked for feedback internally, and one of the bits of feedback I got was that it was inconsistent to say Standard Flavored Markdown on the homepage and blog when the spec says Standard Markdown throughout. So I changed them to match Standard Markdown, and that's what we launched with.</p>
+
+<p>It was a bit of a surprise to get an email last night, addressed to both me and John MacFarlane, from John Gruber indicating that the name Standard Markdown was "infuriating". </p>
+
+<p>I'm sorry the name is so infuriating. <strong>I assure you that we did <em>not</em> choose the name to make you, or anyone else, angry.</strong> We were simply trying to pick a name that correctly and accurately reflected our goal &ndash; to build an unambiguous flavor of Markdown. If the name we chose made inappropriate overtures about Standard Markdown being anything more than a highly specified flavor of Markdown, I apologize. Standard does have certain particular computer science meanings, as in IETF Standard, ECMA Standard. That was not our intent, it was more of an aspirational element of "what if, together, we could eventually..". What can I say? We're programmers. We name things literally. And <a href='http://blog.codinghorror.com/i-shall-call-it-somethingmanager/' >naming is hard</a>.</p>
+
+<p>John Gruber was also very upset, and I think rightfully so, that the word Markdown was not capitalized throughout the spec. This was an oversight on our part &ndash; and also my fault because I <em>did</em> notice Markdown wasn't capitalized as I copied snippets of the spec to the homepage and blog post, and I definitely thought it was odd, too. You'll note that I took care to manually capitalize Markdown in the parts of the spec I copied to the blog post and home page &ndash; but I neglected to mention this to John MacFarlane as I should have. We corrected this immediately when it was brought to our attention. </p>
+
+<p>John then made three requests:</p>
+
+<ol>
+<li><p>Rename the project.</p></li>
+<li><p>Shut down the standardmarkdown.com domain, and don't redirect it.</p></li>
+<li><p>Apologize.</p></li>
+</ol>
+
+<p>All fair. Happy to do all of those things.</p>
+
+<p>Starting with the name. In his email John graciously indicated that he would "probably" approve a name like "Strict Markdown" or "Pedantic Markdown". Given the very public earlier miscommunication about naming, that consideration is appreciated.</p>
+
+<p>We replied with the following suggestions:</p>
+
+<ul>
+<li>Compatible Markdown</li>
+<li>Regular Markdown</li>
+<li>Community Markdown</li>
+<li>Common Markdown</li>
+<li>Uniform Markdown</li>
+<li>Vanilla Markdown</li>
+</ul>
+
+<p>We haven't heard back after replying last night, and I'm not sure we ever will, so in the interest of moving ahead and avoiding conflict, we're immediately renaming the project to <strong>Common Markdown</strong>.</p>
+
+<p>We hope that is an acceptable name; it was independently suggested to us several times in several different feedback areas. The intention is to avoid any unwanted overtones of ownership; we have only ever wanted to be Yet Another Flavor of Markdown.</p>
+
+<ol>
+<li><p>The project name change is already in progress.</p></li>
+<li><p>This is our public apology.</p></li>
+<li><p>I'll shut down the standardmarkdown.com domain as soon as I can, probably by tomorrow.</p></li>
+</ol>
+
+<p>John, we deeply apologize for the miscommunication. It's our fault, and we want to fix it. But even though we made mistakes, I hope it is clear that everything we've done, we did solely out of a shared love of Markdown (and its simple, unencumbered old-school ASCII origins), and the desire to ensure the success of Markdown as a stable format for future generations.</p>
+
+<p>Edit: after a long and thoughtful email from John Gruber &ndash; which is greatly appreciated &ndash; he indicated that no form of the word "Markdown" is acceptable to him in this case. We are now using the name <a href='http://commonmark.org/' ><strong>CommonMark</strong></a>.</p>
+
+<table>  
+<tr><td class="welovecodinghorror">  
+[advertisement] <a href='http://careers.stackoverflow.com/'  rel="nofollow">Stack Overflow Careers</a> matches the best developers (you!) with the best employers. You can search our <a href='http://careers.stackoverflow.com/jobs'  rel="nofollow">job listings</a> or <a href='http://careers.stackoverflow.com/cv'  rel="nofollow">create a profile</a> and even let employers find you.
+</td></tr>  
+</table>

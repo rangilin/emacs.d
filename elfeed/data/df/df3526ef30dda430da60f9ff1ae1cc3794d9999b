@@ -1,0 +1,39 @@
+
+<p>If you run automatic Debian security update with a crontab it might
+cause your web server to stop. It happens because I edited the
+default and default-ssl files. I saw the following on my log:</p>
+
+<pre class="example">
+Configuration file `/etc/apache2/sites-available/default-ssl'
+ ==&gt; Modified (by you or by a script) since installation.
+ ==&gt; Package distributor has shipped an updated version.
+   What would you like to do about it ?  Your options are:
+    Y or I  : install the package maintainer's version
+    N or O  : keep your currently-installed version
+      D     : show the differences between the versions
+      Z     : start a shell to examine the situation
+ The default action is to keep your current version.
+ default-ssl (Y/I/N/O/D/Z) [default=N] ? dpkg: error processing apache2.2-common (--configure):
+ EOF on stdin at conffile prompt
+</pre>
+
+<p>To fix apache you will need to run the following command:</p>
+
+<pre class="example">
+apt-get install apache2.2-common
+</pre>
+
+<p>Next, if you can, avoid using default and default-ssl so that the next
+update will work smoothly. Here are the commands I ran:</p>
+
+<pre class="example">
+cd /etc/apache2/sites/availabe
+mv default french
+mv default-ssl ssl
+mv default-ssl.dpkg-dist default-ssl
+mv default.dpkg-dist default
+a2dissite default default-ssl
+a2ensite french ssl
+/etc/init.d/apache2 restart
+</pre>
+

@@ -1,0 +1,1 @@
+The mozjpeg project recently released version 2.1. It aims to improve the efficiency of JPEG encoding over existing encoders while maintaining compatibility with the vast majority of existing decoders. I’d like to explain how you can use this software to reduce the size of your JPEGs. Specifically, I’m going to go over usage of mozjpeg’s [&#8230;]

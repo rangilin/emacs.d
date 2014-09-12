@@ -1,0 +1,92 @@
+<style type="text/css">
+span.keep-together { white-space: nowrap; }
+</style>
+
+<p>I really like Octopress, which is built on Jekyll. You can read a lot of articles about the advantages and disadvantages of pre-baked blogs, so I won’t bore you with those details. Instead, I’ll bore you on the subject of the one feature I miss with pre-baked blogs: scheduling posts for later publication.</p>
+
+<p>When I switched to a pre-baked blogging tool like Octopress, I gave up the ability to upload a post, but publish it later. Well, I didn’t really give it up entirely, but pre-baking my blog means thinking of my blog as a static web site, rather than a dynamic one, which implies having to re-deploy every time I wanted to change its content. This makes scheduling posts in the future a bit more tricky. </p>
+
+<p>Using Heroku and its read-only file system make it even trickier, since I can’t regenerate the blog in production.</p>
+
+<p>I just wanted to share my solution with you, in case it interests you.
+<!-- more -->
+First, I added to Octopress the ability to generate the blog without future-dated posts. This looked difficult, especially with Octopress’s existing “preview mode” feature, but I discovered that Jekyll supports omitting future-dated posts directly with <span class="keep-together"><code>jekyll --no-future</code></span>, so I augmented Octopress to use this feature. If you’d like to explore the details, <a href="http://link.jbrains.ca/11rxWGB">click here</a>.<sup id="fnref:pull-request"><a href="#fn:pull-request" rel="footnote">1</a></sup></p>
+
+<p>Next, I needed a way to republish my Octopress site regularly in order to include new posts as their publication instant arrives. I asked my tweeps for ideas, and we agreed that we couldn’t get around having a machine Out There Somewhere that’s always on that would poll a <code>git</code> repository for changes, then regenerate and publish to Heroku. I settled on the following architecture.</p>
+
+<p><img src="http://blog.thecodewhisperer.com/images/PublishLater-Octopress-Heroku/blog-architecture.png" alt="You can smell the Architecture!" /></p>
+
+<p>I followed these basic steps:</p>
+
+<ol>
+  <li>Added an SSH public key from “Monitor/Staging” to “Production”, so that the former could <code>push</code> to the latter.</li>
+  <li>Installed a script into “Monitor/Staging” to, well, monitor, stage, then <code>push</code>.</li>
+  <li>Cloned my local <code>git</code> repository to “Integration” so that it will always be available to “Monitor/Staging”.</li>
+</ol>
+
+<p>Complicated, sure, but–and you’ll tell me if you disagree–just barely sufficiently complicated, and no worse. I can handle that.</p>
+
+<p>My workflow hasn’t changed much. I compose posts, preview, and <code>push</code> to “Integration” when I finish. “Monitor/Staging” runs the following script every 10 minutes.</p>
+
+<div class="bogus-wrapper"><notextile><figure class="code"><figcaption><span> (deploy-blog.thecodewhisperer.com.sh)</span> <a href="http://blog.thecodewhisperer.com/_code//deploy-blog.thecodewhisperer.com.sh">download</a></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class="line-number">1</span>
+<span class="line-number">2</span>
+<span class="line-number">3</span>
+<span class="line-number">4</span>
+<span class="line-number">5</span>
+<span class="line-number">6</span>
+<span class="line-number">7</span>
+<span class="line-number">8</span>
+<span class="line-number">9</span>
+<span class="line-number">10</span>
+<span class="line-number">11</span>
+<span class="line-number">12</span>
+<span class="line-number">13</span>
+<span class="line-number">14</span>
+<span class="line-number">15</span>
+<span class="line-number">16</span>
+<span class="line-number">17</span>
+<span class="line-number">18</span>
+<span class="line-number">19</span>
+<span class="line-number">20</span>
+<span class="line-number">21</span>
+<span class="line-number">22</span>
+<span class="line-number">23</span>
+</pre></td><td class="code"><pre><code class="sh"><span class="line"><span class="c">#! /bin/bash</span>
+</span><span class="line"><span class="nb">pushd</span> <span class="nv">$HOME</span>/Workspaces/blog.thecodewhisperer.com
+</span><span class="line"><span class="c"># I have to do this by hand, apparently.</span>
+</span><span class="line">. .rvmrc
+</span><span class="line">
+</span><span class="line"><span class="c"># I can&#39;t assume that I&#39;m on the right branch</span>
+</span><span class="line">git checkout -q master
+</span><span class="line">git pull -q origin master
+</span><span class="line">git checkout -q publish
+</span><span class="line">git merge -q master
+</span><span class="line">
+</span><span class="line"><span class="c"># Check the diff /before/ regenerating, to avoid spurious</span>
+</span><span class="line"><span class="c"># timestamp differences</span>
+</span><span class="line"><span class="nv">DIFF</span><span class="o">=</span><span class="s2">&quot;$(git diff --stat publish heroku/master)&quot;</span>
+</span><span class="line"><span class="nv">NOW</span><span class="o">=</span><span class="sb">`</span>date<span class="sb">`</span>
+</span><span class="line"><span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;$DIFF&quot;</span> <span class="o">]</span>; <span class="k">then</span>
+</span><span class="line"><span class="k">  </span><span class="nb">echo</span> <span class="s2">&quot;Publishing $NOW...&quot;</span>
+</span><span class="line">  bundle <span class="nb">exec </span>rake generate
+</span><span class="line">  git add -A <span class="o">&amp;&amp;</span> git commit -m <span class="s2">&quot;Published $NOW&quot;</span> <span class="o">&amp;&amp;</span> git push heroku publish:master
+</span><span class="line"><span class="k">else</span>
+</span><span class="line"><span class="k">  </span><span class="nb">echo</span> <span class="s2">&quot;No need to publish at $NOW.&quot;</span>;
+</span><span class="line"><span class="k">fi</span>
+</span><span class="line"><span class="nb">popd</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+<p>I write posts to the branch <code>master</code>, and “Monitor/Staging” merges them to the branch <code>publish</code>, then deploys them to “Production”’s branch <code>master</code>.</p>
+
+<p>Of course, I will monitor this closely over the next few days, looking for anomalies. In particular, I worry a little about what happens when “Monitor/Staging” can’t merge <code>master</code> to <code>publish</code> automatically. I suppose in that case I’ll have something to worry about, and in the worst case, no changes will publish to production, which could cause annoyance, but sounds like safe default behavior.</p>
+
+<p>If you see any problems with this setup, please don’t keep them to yourself!</p>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:pull-request">
+      <p>I’ve submitted a <a href="http://link.jbrains.ca/11Hde4E">pull request</a> for this, but I think Octopress’s maintainer has other, more important stuff to do these days.<a href="#fnref:pull-request" rel="reference">&#8617;</a></p>
+    </li>
+  </ol>
+</div>

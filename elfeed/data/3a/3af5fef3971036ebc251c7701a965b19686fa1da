@@ -1,0 +1,236 @@
+
+     <p>
+Ever since I got back into using OrgMode full-time, I've been using Emacs every single minute of using a computer. In fact, these days, I can't even function without Emacs and OrgMode.
+</p>
+
+<p>
+Naturally, it follows, that just like the days when I <a href="http://www.swaroopch.com/notes/vim/">dived deep into Vim</a>, I'm diving into Emacs these days.
+</p>
+
+<p>
+I got interested in Emacs again because of <a href="https://github.com/ghoseb/dotemacs">BG's dotemacs</a>, but to truly become familiar, I had to create my own configuration files. It was a great way to <a href="http://joelmccracken.github.io/entries/why-you-should-learn-elisp/">learn Emacs Lisp</a>. I have breezed through the initial chapters of the <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/">Emacs Lisp Manual</a> and after <a href="http://www.swaroopch.com/tag/clojure/">getting introduced to Clojure recently</a>, Lisp and functional programming doesn't seem that alien any more.
+</p>
+
+<p>
+I bumped into <a href="https://github.com/cask/cask">Cask</a> and <a href="https://github.com/rdallasgray/pallet">Pallet</a> last week (probably via <a href="http://www.reddit.com/r/emacs">Emacs-Reddit</a>) and that gave me impetus to kickstart my own <code>.emacs.d</code> over the weekend.
+</p>
+
+<p>
+This is how I got started - I created the following files under the <code>.emacs.d</code> directory in my home directory, so it looked like this:
+</p>
+
+<pre>
+$HOME
+ |
+ \-&gt; .emacs.d
+      |
+      \-&gt; install.sh
+      \-&gt; Cask
+      \-&gt; init.el</pre>
+</pre>
+
+Contents of the file <code>install.sh</code> :
+
+<div class="highlight"><pre><code class="sh"><span class="c">#!/bin/bash</span>
+
+<span class="k">if</span> <span class="o">[[</span> ! -e ~/.cask <span class="o">]]</span>
+<span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Cloning Cask repo&quot;</span>
+    git clone git@github.com:cask/cask.git ~/.cask
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[[</span> <span class="k">$(</span>grep <span class="s2">&quot;cask/bin&quot;</span> ~/.bash_profile<span class="k">)</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="o">]]</span>
+<span class="k">then</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;Adding \$HOME/.cask/bin to \$PATH in ~/.bash_profile&quot;</span>
+    <span class="nb">echo</span> <span class="s1">&#39;&#39;</span> &gt;&gt; ~/.bash_profile
+    <span class="nb">echo</span> <span class="s2">&quot;# Added by ~/.emacs.d/install.sh&quot;</span> &gt;&gt; ~/.bash_profile
+    <span class="nb">echo</span> <span class="s2">&quot;export PATH=\$HOME/.cask/bin:\$PATH&quot;</span> &gt;&gt; ~/.bash_profile
+<span class="k">fi</span>
+
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.cask/bin:<span class="nv">$PATH</span>
+
+<span class="nb">cd</span> ~/.emacs.d
+cask install
+
+<span class="c"># For Python / ELPY</span>
+<span class="c"># Prerequisite: Install Python as per:</span>
+<span class="c"># http://docs.python-guide.org/en/latest/#getting-started</span>
+pip install --upgrade elpy flake8 rope jedi ipython
+</code></pre></div>
+
+<p>
+Contents of the file <code>Cask</code> initially was (I've added more packages now, but this is the minimal list of packages that I would use, although ELPY is optional if you don't use Python):
+</p>
+
+<div class="highlight"><pre><code class="common-lisp"><span class="p">(</span><span class="nv">source</span> <span class="s">&quot;gnu&quot;</span> <span class="s">&quot;http://elpa.gnu.org/packages/&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">source</span> <span class="s">&quot;melpa&quot;</span> <span class="s">&quot;http://melpa.milkbox.net/packages/&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">source</span> <span class="s">&quot;marmalade&quot;</span> <span class="s">&quot;http://marmalade-repo.org/packages/&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">source</span> <span class="s">&quot;org&quot;</span> <span class="s">&quot;http://orgmode.org/elpa/&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">depends-on</span> <span class="s">&quot;ack-and-a-half&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">depends-on</span> <span class="s">&quot;cask&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">depends-on</span> <span class="s">&quot;elpy&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">depends-on</span> <span class="s">&quot;exec-path-from-shell&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">depends-on</span> <span class="s">&quot;flx-ido&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">depends-on</span> <span class="s">&quot;magit&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">depends-on</span> <span class="s">&quot;pallet&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">depends-on</span> <span class="s">&quot;projectile&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">depends-on</span> <span class="s">&quot;yasnippet&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">depends-on</span> <span class="s">&quot;zenburn-theme&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+A minimal <code>init.el</code> looks like:
+
+<div class="highlight"><pre><code class="common-lisp"><span class="c1">;; /This/ file (~init.el~) that you are reading</span>
+<span class="c1">;; should be in this folder</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">&#39;load-path</span> <span class="s">&quot;~/.emacs.d/&quot;</span><span class="p">)</span>
+
+<span class="c1">;; Package Manager</span>
+<span class="c1">;; See ~Cask~ file for its configuration</span>
+<span class="c1">;; https://github.com/cask/cask</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;cask</span> <span class="s">&quot;~/.cask/cask.el&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">cask-initialize</span><span class="p">)</span>
+
+<span class="c1">;; Keeps ~Cask~ file in sync with the packages</span>
+<span class="c1">;; that you install/uninstall via ~M-x list-packages~</span>
+<span class="c1">;; https://github.com/rdallasgray/pallet</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;pallet</span><span class="p">)</span>
+
+<span class="c1">;; Root directory</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">root-dir</span> <span class="p">(</span><span class="nv">file-name-directory</span>
+                <span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nv">buffer-file-name</span><span class="p">)</span> <span class="nv">load-file-name</span><span class="p">)))</span>
+
+<span class="c1">;; Theme</span>
+<span class="c1">;; https://github.com/bbatsov/zenburn-emacs</span>
+<span class="p">(</span><span class="nv">load-theme</span> <span class="ss">&#39;zenburn</span> <span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">set-cursor-color</span> <span class="s">&quot;firebrick&quot;</span><span class="p">)</span>
+
+<span class="c1">;; Font</span>
+<span class="c1">;; https://www.mozilla.org/en-US/styleguide/products/firefox-os/typeface/#download-primary</span>
+<span class="p">(</span><span class="nv">set-frame-font</span> <span class="s">&quot;Fira Mono OT-14&quot;</span> <span class="no">nil</span> <span class="no">t</span><span class="p">)</span>
+
+<span class="c1">;; Don&#39;t show startup screen</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">inhibit-startup-screen</span> <span class="no">t</span><span class="p">)</span>
+
+<span class="c1">;; Show keystrokes</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">echo-keystrokes</span> <span class="mf">0.02</span><span class="p">)</span>
+
+<span class="c1">;; Path</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;exec-path-from-shell</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">when</span> <span class="p">(</span><span class="nv">memq</span> <span class="nv">window-system</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">mac</span> <span class="nv">ns</span><span class="p">))</span>
+  <span class="p">(</span><span class="nv">exec-path-from-shell-initialize</span><span class="p">))</span>
+
+<span class="c1">;; Git</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;magit</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">eval-after-load</span> <span class="ss">&#39;magit</span>
+  <span class="p">(</span><span class="k">progn</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">&quot;C-x g&quot;</span><span class="p">)</span> <span class="ss">&#39;magit-status</span><span class="p">)))</span>
+
+<span class="c1">;; flx-ido completion system, recommended by Projectile</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;flx-ido</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">flx-ido-mode</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1">;; change it if you have a fast processor.</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">flx-ido-threshhold</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1">;; Project management</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;ack-and-a-half</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;projectile</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">projectile-global-mode</span><span class="p">)</span>
+
+<span class="c1">;; Snippets</span>
+<span class="c1">;; https://github.com/capitaomorte/yasnippet</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;yasnippet</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">yas-load-directory</span> <span class="p">(</span><span class="nv">concat</span> <span class="nv">root-dir</span> <span class="s">&quot;snippets&quot;</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">yas-global-mode</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">;; Python editing</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;elpy</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">elpy-enable</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">elpy-use-ipython</span><span class="p">)</span>
+</code></pre></div>
+
+<p>
+And that's it, a full-fledged Emacs setup is ready.
+</p>
+
+<p>
+The best part is to play around with <code>M-x list-packages</code> and browse around and decide which packages you want to try out and use, when you install a package, it automatically gets added to your <code>Cask</code> file (that's what Pallet does), so you can convert this <code>.emacs.d</code> folder into a Git repository and sync anywhere and have the same configuration available on multiple machines.
+</p>
+
+<p>
+So far, I have resisted many things like <a href="http://bling.github.io/blog/2013/10/16/emacs-as-my-leader-evil-mode/">evil-mode</a> and started really enjoying using packages such as <a href="https://github.com/lolownia/org-pomodoro">org-pomodoro</a> and <a href="https://github.com/winterTTr/ace-jump-mode">ace-jump-mode</a>.
+</p>
+
+<p>
+Getting back to Emacs <a href="http://www.swaroopch.com/notes/python/#revision_history">after a decade</a> has been so much fun.
+</p>
+
+<h3 class="tweet-comments-header">Twitter Comments</h3>
+
+<div class="tweet-comments">
+
+<!-- paste text body here for archival purposes -->
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/arnab_deka/status/390739657665040384">@arnab_deka</a> says:
+</p>
+<blockquote cite="https://twitter.com/arnab_deka/status/390739657665040384">
+@swaroopch did you try prelude or starter kit? I started with that and added customizations on my fork. Lotsa goodies in there.
+</blockquote>
+</div>
+
+
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/vivekbhat9/status/390752175607255041">@vivekbhat9</a> says:
+</p>
+<blockquote cite="https://twitter.com/vivekbhat9/status/390752175607255041">
+@swaroopch all the best :) I tried emacs so many times but failed. Happy with VIM, I hope some day ll write A byte of emacs &amp; I ll emacs den
+</blockquote>
+</div>
+
+
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/vivekbhat9/status/390764982256033792">@vivekbhat9</a> says:
+</p>
+<blockquote cite="https://twitter.com/vivekbhat9/status/390764982256033792">
+@swaroopch i hope u got my thoughts :) will learn emacs when u will write A Byte of Emacs. Missed few words in last tweet ;)
+</blockquote>
+</div>
+
+
+
+</div>
+
+<div class="comments-wrapper">
+<h3 class="comments-section">Comments</h3>
+<div id="comment-4988" class="comment" data-name="[Tech] Eight programming lessons learned in 2013" data-email="" data-date="2013-10-23 10:00:26" data-url="/2013/10/23/programming-lessons/">
+<p class="who">
+  <cite><a href="http://www.swaroopch.com/2013/10/23/programming-lessons/">[Tech] Eight programming lessons learned in 2013</a></cite> says:
+</p>
+<p class="what">
+  [&#8230;] again, I have to make a commitment to throw familiarity away. That is what pushes me to learn to customize Emacs despite already having spent years mastering Vim and spent so much time using PyCharm, [&#8230;]
+</p>
+</div>
+<div id="comment-5027" class="comment" data-name="Syndrome" data-email="None@none.com" data-date="2013-11-04 03:49:30">
+<p class="who">
+  <cite>Syndrome</cite> says:
+</p>
+<p class="what">
+  I'm almost ending my one year(really short) marriage to Vim. Emacs and elisp gets me more excited than Vimscript. As soon as I 'm fully weaned on Emacs, I'm moving. One thing that'll really miss is tabs. Emacs' split window just doesn't cut it. How do you survive without tabs?
+</p>
+</div>
+<div id="comment-5029" class="comment" data-name="swaroop" data-email="swaroop@swaroopch.com" data-date="2013-11-04 09:07:53">
+<p class="who">
+  <cite>swaroop</cite> says:
+</p>
+<p class="what">
+  @Syndrome I can imagine the Elisp > Vimscript situation and I agree with that (although in future, Vim will have more Python integration). I do miss tabs, but I have just replaced with creating new frames (i.e. windows) by using `C-x 5 2`.
+</p>
+</div>
+</div><!-- comments-wrapper -->
+
+  

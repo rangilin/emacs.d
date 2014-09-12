@@ -1,0 +1,35 @@
+<p>This is the first of a two part episode that discusses how to do basic customisation of Emacs.</p>
+
+<p>This episode covers some basic <a href="https://en.wikipedia.org/wiki/Emacs_Lisp">elisp</a> which is the language that you can extend and modify Emacs with.</p>
+
+<p>I do have an entire section dedicated to teaching Emacs lisp. This is a quick intro solely for the purpose of doing basic customisations.</p>
+
+<iframe src="http://archive.org/embed/EmacsMovies/08.1-episode-customisation-1.webm" width="640" height="480" frameborder="0"></iframe>
+
+
+<p>The H.264 version of the video for iOS devices is at <a href="http://archive.org/download/EmacsMovies/08.1-episode-customisation-1.mkv">http://archive.org/download/EmacsMovies/08.1-episode-customisation-1.mkv</a>.</p>
+
+<p>The main things which are covered are</p>
+
+<ol>
+<li>A super fast overview of elisp - <a href="https://en.wikipedia.org/wiki/S-expression">sexp</a>s and prefix notation.</li>
+<li><code>C-x C-e</code> and <code>C-j</code> to evaluate sexps.</li>
+<li>Simple expressions like <code>(+ 2 2 )</code></li>
+<li>The <code>'</code> operator.</li>
+<li>Assigning values to symbols using <code>set</code> and <code>setq</code>.</li>
+<li>Executing simple functions like <code>set-background-color</code>.</li>
+<li>Changing the value of variables like <code>line-spacing</code>.</li>
+<li>Writing simple functions.</li>
+<li>Using <code>C-h f</code> and <code>C-h v</code> to get documentation on functions and variables.</li>
+</ol>
+
+
+<h2>Further reading</h2>
+
+<ul>
+<li>Steve Yegges <a href="http://steve-yegge.blogspot.in/2008/01/emergency-elisp.html">Emergency Elisp</a> is a quick primer for those who want to learn useful basics.</li>
+<li>Xah Lee&#8217;s <a href="http://ergoemacs.org/emacs/elisp.html">Emacs lisp tutorial</a> is another more detailed tutorial for the language.</li>
+<li>The official Gnu <a href="http://www.gnu.org/software/emacs/emacs-lisp-intro/html_node/index.html">An Introduction to Programming in Emacs Lisp</a> is an elisp tutorial for non programmers.</li>
+<li>The official <a href="http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html">Emacs lisp reference</a> is more thorough guide which is not very useful as a tutorial but handy to have around when you&#8217;re actually coding in elisp.</li>
+</ul>
+

@@ -1,0 +1,49 @@
+<p>I spoke before on this blog about <a href="http://5whys.com/blog/the-bus-factor-why-your-best-developer-is-your-biggest-probl.html">BUS FACTORS and how to get rid of them</a>. A bus factor is calculated the the amount of people on your team or project who need to get hit by a bus before the project comes to a halt. There is something that only THEY know how to do.</p>
+<p>I am revisiting this because there are many ways to get rid of it. Today I cover a couple. But first, a true story.</p>
+<h2>The Robot</h2>
+<p>In one of the projects I was consulting for a few years back, we had four teams and many bus factors relating to many things. One of them was related to the search technology the project was using at the time (sharepoint search&hellip;shudder!)</p>
+<p>One day I saw the architect* running around like a headless chicken trying to figure out how to fix a problem. I asked him what&rsquo;s wrong and he said &ldquo;the search guy is out on vacation this week and not answering his phone. I have no idea how to fix this&rdquo;.</p>
+<p>It took a couple of hours until he found an external company that once provided these services to the project, and got them on the phone to ask if they knew how to fix this problem. Of course they did. They coached him on the phone what to type to reset some indexes.</p>
+<p>I was sitting in the next seat listening to him typing word by word into the terminal, pressing enter, and then saying &ldquo;ok now it works thanks&rdquo;.</p>
+<p>Then he hung up.</p>
+<p>What a great loss of knowledge! Instead of using the opportunity to LEARN something about the problem, its causes and WHY what he typed fixed it, he simply made himself a remote controlled robot for the person on the other side of the phone.</p>
+<p>I coached him to do the following next time:</p>
+<p>When you find the situation has been solved, ask the following questions on the phone:</p>
+<ul>
+<li>&nbsp;
+<ul>
+<li><strong>What exactly was the problem?</strong> (tag this type of problem in your mind. like a design patterns, we can have &ldquo;problem patterns&rdquo;)</li>
+<li><strong>What made you realize that was the problem? if you indeed realized it.</strong> (learn their thought process. learn to think like them)</li>
+<li><strong>What did the actions we just took mean? where can I learn the full syntax of those commands? </strong>(learn the solution pattern)</li>
+<li><strong>Who else around me knows what you just told me?</strong> (see how bad the bus factor really is. Maybe you just did not know who to ask? maybe you are the ONLY one who does not know how to do this?)</li>
+</ul>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h2>Pull Based Learning</h2>
+<p>What I coached him to do was what I call &ldquo;PULL Based Learning&rdquo;. Before I discuss that, let&rsquo;s talk about why it is important to learn this pattern.</p>
+<p>One of the best ways to remove bus factors, is by pairing. Pairing is an act of <strong>active learning </strong>where knowledge is constantly back and forth. A person asks a question &ldquo;How did you do that?&rdquo; . that is an act of deliberate learning.</p>
+<p>But pairing is also hard to achieve in a culture where pairing was never a &ldquo;thing&rdquo; people do.&nbsp; If you cannot get enough people to pair, or the bus factor is happening when a person from a DIFFERENT team knows something that your team replies on, it&rsquo;s time to start encouraging active knowledge gathering, or active learning.</p>
+<p>Active learning comes in two forms, or two directions:</p>
+<ul>
+<li>Pull Based Learning: The person who does not know X asks another person who knows X to teach them about X in some way. They initiate a PULL of the information from the other person.</li>
+<li>Push Based Learning: The person who knows about X asks a person who does not know about X to join them to learn about X. They initiate a PUSH of information towards the other person.</li>
+</ul>
+<p>&nbsp;</p>
+<p>So pulling or pushing depends on who initiated the knowledge transfer. If you find that you have many bus factors, it is important that you teach and coach people how to work in BOTH directions:</p>
+<ul>
+<li>When people who need to learn are too shy to ask for help, coach the more experienced people how to PUSH knowledge by asking others to join them in a task that will teach that person something new.</li>
+<li>When the people who are the bus factors do not have many opportunities to share knowledge** coach the people with less experience to jump in when they see the bus factor doing something the less experienced person does not know how to do that affects them, and ask to join in for a few minutes to see how things are done.</li>
+</ul>
+<h2>Get Permission</h2>
+<p>This also means you might need to get an upper level manager to send an email or have a group meeting letting all developers know that &ldquo;it is OK to do pairing,&nbsp; ask for help, request someone to join you to learn new things &ndash; even if it means tasks take longer than estimated. it is OK to estimate tasks longer because you want to build these things into your iterations&rdquo;.</p>
+<p>In cultures where hierarchy matters a lot, this could be the beginning of the breakthrough you might be looking for &ndash; giving people permission to learn and teach is usually the thing most cited (by people I ask) as the reason why they are not doing it.</p>
+<h2>Bi-Directional Knowledge Handshake</h2>
+<p>Having only a single direction knowledge sharing culture is very ineffective.</p>
+<p>In a project full of consultants, who love teaching, but also full of people who hate learning, knowledge will not be shared very often, and if so, with a tea spoon instead of a fire hose (which is usually what you need to start with in extreme cases)</p>
+<p>In a project full of people wanting to learn, but having all the people with the knowledge be in a different building, company or country, mostly unavailable, knowledge will not be shared.</p>
+<p>There has to be a knowledge HANDSHAKE for knowledge to actually flow through. otherwise we are talking about tear drops in the ocean.</p>
+<p>&nbsp;</p>
+<p>Notes:</p>
+<p>* Remember that having a non coaching <a href="http://5whys.com/blog/the-architect-as-a-leader-and-other-specialists.html">architect is having a bottleneck</a></p>
+<p>** Maybe you should think about increasing the amount of opportunities?</p>

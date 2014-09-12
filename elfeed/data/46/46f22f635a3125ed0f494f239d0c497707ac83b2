@@ -1,0 +1,46 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #30, a little later than usual. Lots of interesting articles and packages this time; one emerging and welcome theme is that people are starting to talk more about the higher-level structure of their programs.</p>
+<p>Compiled by <a href="https://twitter.com/mattrco">Matt Cottingham</a> and <a href="https://twitter.com/kelseyhightower">Kelsey Hightower</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="http://elithrar.github.io/article/custom-handlers-avoiding-globals/">Custom handlers and avoiding globals in Go web applications</a></p>
+<p><a href="http://jmoiron.net/blog/crossing-streams-a-love-letter-to-ioreader/">On using the io.Reader interface without ioutil.Readall</a></p>
+<p><a href="https://medium.com/@benbjohnson/structuring-applications-in-go-3b04be4ff091">Structuring applications in Go</a></p>
+<p><a href="http://arslan.io/ten-useful-techniques-in-go">Ten useful techniques in Go</a></p>
+<p><a href="http://dave.cheney.net/2014/07/11/visualising-the-go-garbage-collector">Visualising the Go garbage collector</a></p>
+<p><a href="http://open.blogs.nytimes.com/2014/07/10/emr-streaming-in-go/?_php=true&amp;_type=blogs&amp;_r=0">Map/Reduce at the New York Times</a></p>
+<p><a href="https://inconshreveable.com/07-08-2014/principles-of-designing-go-apis-with-channels/">Principles of designing Go APIs with channels</a></p>
+<p><a href="http://soryy.com/blog/2014/common-mistakes-with-go-lang/">Common mistakes and resources to learn from</a></p>
+<p><a href="https://blog.splice.com/golang-verify-type-implements-interface-compile-time/">How to ensure a type implements an interface</a></p>
+<p><a href="http://andlabs.lostsig.com/blog/2014/06/30/85/an-introduction-to-pointers-for-go-programmers-not-coming-from-c-family-languages">An introduction to pointers in Go</a></p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="https://tech.dropbox.com/2014/07/open-sourcing-our-go-libraries/">Dropbox open-source Go libraries</a><br />Various libraries released by Dropbox</p>
+<p><a href="https://github.com/mattrco/anode.exp">mattrco/anode.exp</a><br />Analyze graphite metrics and other time series data</p>
+<p><a href="https://github.com/bmizerany/pat">bmizerany/pat</a><br />A Sinatra style pattern muxer for net/http</p>
+<p><a href="https://github.com/mozilla-services/heka/releases/tag/v0.6.0">Heka 0.6.0</a><br />New release of Heka, data collection and processing made easy</p>
+<p><a href="https://github.com/bradfitz/latlong">bradfitz/latlong</a><br />Maps a lat/lon to a timezone, built for camlistore.</p>
+<p><a href="https://github.com/cloudflare/cfssl">cloudflare/cfssl</a><br />CloudFlare's PKI toolkit</p>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.sendgrid.com/"><img src="https://s3.amazonaws.com/golangweekly/sendgrid.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.sendgrid.com/">SendGrid</a> powers your app's outgoing &amp; incoming email capabilities, through a super-scalable cloud-based infrastructure. SMTP &amp; API integration options let developers build more faster and focus on the important stuff. One of the early companies to use Go in a large scale production environment, SendGrid will reliably and at scale deliver your critical application email.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator and provider of Continuum, the secure, hybrid cloud platform that provides cross-cutting control over all service layers, resources, and connections. Built in Go, Continuum enables perimeter-less network security over large-scale distributed systems, uses policy to unify dev and ops, and blends legacy and new technologies. With Continuum, you can use the tools you want, focus on what you do best, and go faster, safely. At enterprise scale.</p>
+</td>
+</tr>
+</tbody>
+</table>

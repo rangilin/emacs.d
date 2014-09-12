@@ -1,0 +1,40 @@
+<p>這是我在本次 JSDC 的分享的題目，應該是本次議題裡少數跟 Javascript 比較沒直接關係，而且技術含量也相對較低的一場演講。</p>
+
+<p><a href="https://speakerdeck.com/eddie/createjs-from-flash-to-javascript" target="_blank"><img src="http://blog.eddie.com.tw/images/2013/jsdc-createjs-from-flash-to-javascript.png" alt="image" /></a>
+<a href="https://speakerdeck.com/eddie/createjs-from-flash-to-javascript" target="_blank">View on Speaker Deck</a> | <a href="http://www.slideshare.net/aquarianboy/createjs-from-flash-to-javascript" target="_blank">View on Slideshare</a> | <a href="https://speakerd.s3.amazonaws.com/presentations/37f197f0a28b0130c57922855344e59c/JSDC_2013_-_CreateJS.pdf" target="_blank">Download PDF</a></p>
+
+<p>認識我的朋友可能知道我是靠 Ruby 跟 Rails 在討生活的(目前改靠 iOS app 開發混飯吃)。不過，如果以寫程式的時間來說，佔我目前生命中最久時間的，應該是 Flash/ActionScript了。</p>
+
+<p>接觸 Flash 七、八年以來，看到了它的起起落落，當年在 Marcomedia 時代還因為喜歡那個閃亮小徽章而去考官方的認證，認證考過了，但 Macromedia 也被 Adobe 併購了，然後就沒有再發閃亮小徽章了。</p>
+
+<p>也因為對 Flash 有愛，所以從 2007 年起就厚臉皮的去擔任 PTT Flash 的版奴到現在，去年以及前年也愛現的辦了十幾場的 <a href="https://www.facebook.com/thestudygroup" target="_blank">Flash 聚會</a>。</p>
+
+<p>這期間，有不少自稱或被稱為 Flash 殺手級的應用，例如 N 年前的 Silverlight，以及後期的 HTML5。我個人覺得，真正強大的 Flash 殺手應該是已經先回家的教主 Steve Jobs 吧，他重重的打了 Flash 一巴掌之後，然後大家一起跟上來打。</p>
+
+<p>Flash 真的被殺死了嗎?  其實這是個很嚴肅的話題，特別是像我這種曾經對它有愛而且曾經依賴它過活的人.. 老實說，我覺得就算不死也半條命了..</p>
+
+<p>不過，在台灣有不少的中小企業在做網站的時候，還是喜歡做那種會飛來飛去轉來轉去，首頁還放一個 skip 按鈕的 Flash 動態。所以，我想 Flash 在幾年內在台灣應該還是有它生存的空間的。</p>
+
+<p>我常跟朋友說，大家都在喊 Flash 已死，但對我來說，死的其實是 Flash player 而不是 Flash。Flash 有另一個支線叫做 AIR，不只可以做一般的桌面應用程式，也可以轉成原生的 iOS app 到 App Store 上架。</p>
+
+<p>如果你曾經是個 Flash 程式設計師，或是現在也還靠它在過活，聽到大家都在講什麼 Javascript、HTML5 而對自己的未來感到無助。同時客戶一個一個來跟你說&#8221;No Flash&#8221;，也不管你會不會寫，就說他們的 event site 不要用 Flash 做，因為客戶說手機上看不到..</p>
+
+<p>其實，我都很想回客戶說：「是會有多少人用手機看你的 event site?」。但為了生活，這句話我通常還是選擇吞下去 XD</p>
+
+<p>而 <a href="http://www.createjs.com/#!/CreateJS" target="_blank">CreateJS</a>，也許可以說是目前對 Flasher 來說相對友善的 HTML5 library 了。除了語法熟悉之外，也有方便的 <a href="http://www.adobe.com/tw/products/flash/flash-to-html5.html" target="_blank">toolkit</a> 可以讓設計師從 Flash 直接輸出成 HTML5。</p>
+
+<p>對我這種沒美術細胞，Javascript 功能大概就是比會寫個 Alert 再複雜一點點的人來說，有個這樣的套件或工具讓我可以很快的把東西做出來，我已經相當感恩了 :)</p>
+
+<h3>推薦原因</h3>
+
+<ul>
+<li><p>CreateJS 是由 <a href="http://gskinner.com/" target="_blank">Grant Skinner</a> 他們家開發的，光是這點我就已經足以說服我用它了。記得當年 GS 就是因為跟 Microsoft 的 HTML5 專案合作，在開發的過程中就順手做了 EaselJS (一開始只有這個，其它的是後來才慢慢加進來的)。如果說用這個做出來的東西，連 Microsoft 都能接受的話，相信應該是有一定品質的。重點是這個專案在 IE 上應該可以執行，畢竟是 MS 的專案.. 不過比較舊版本的 IE 就不一定了。</p></li>
+<li><p>其次，GS 大神本來也是寫 Flash/AS 的，所以他開發的這套東西的時候，也許也希望其它 Flash 開發者也可以較無痛轉換，於是在設計 API 的時候有特別讓它長得跟 Flash 的 API 有點像。</p></li>
+<li><p>有文件，有範例可以參考。不要以為這很理所當然，很多開源的專案是沒在寫文件的..</p></li>
+<li><p>最後，它是 MIT 授權的，基本上可以放心大膽用它沒問題。</p></li>
+</ul>
+
+
+<p>以上，大概是這回 JSDC 大概分享的內容，希望對大家有幫助，如果有錯誤的地方，也請前輩先進不吝指教，感謝!</p>
+
+<p>PS: 講到這裡我就想小小埋怨一下，Flash 是 A 公司的產品，是商業軟體沒錯，但寫 Flash 的人不表示就不開放，在 Flash 圈也是有非常多優秀的開源專案，但似乎只要跟 Flash 沾上邊就會被當做不開放..</p>

@@ -1,0 +1,42 @@
+<p>A Twitter conversation about Primitive Obsession caught my eye today. That conversation began with this tweet:</p>
+
+<blockquote class="twitter-tweet"><p>Re. &#8220;primitive obsession,&#8221; I say this poker-scoring program wouldn&#8217;t be bettered avoiding integers for rank and suit. <a href="http://t.co/qfc3Kyc9SD" title="http://www.jsoftware.com/jwiki/TracyHarms/PokerHandsScoring">jsoftware.com/jwiki/TracyHar…</a></p>&mdash; Tracy Harms (@kaleidic) <a href="https://twitter.com/kaleidic/status/308298155869499393">March 3, 2013</a></blockquote>
+<script async="" src="http://blog.thecodewhisperer.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>I can’t read J, so I can’t decide much about the quality of the code Tracy wrote, but I do notice one thing:</p>
+
+<blockquote>
+  <p>There aren’t many functions that operate on the primitive data (card rank, card suit, hand classification), they’re close by each other, and they’re all quite short.</p>
+</blockquote>
+
+<!-- more -->
+
+<p>Regarding this one example, then, Primitive Obsession doesn’t pose much of a problem yet. Using primitives to represent values with special constraints can lead to low cohesion and high duplication. The low cohesion consists of scattering related ideas throughout the code base, where programmers have a hard time finding them. Such scattering can lead to duplicating special processing logic, and worse, duplicating it inaccurately. That leads to mistakes. This makes me ask a question:</p>
+
+<blockquote>
+  <p>When does Primitive Obsession not smell?</p>
+</blockquote>
+
+<p>I suppose it doesn’t smell when we use other means to keep cohesion high and duplication low. We can use primitives safely when we keep the special processing logic for those primitive values close together and use willpower (effectively) to avoid duplicating it.</p>
+
+<p>I still can’t account for Tracy’s observation that Primitive Obsession doesn’t figure prominently in array programming, where it ought to run rampant and create serious problems. Some guesses:</p>
+
+<ul>
+  <li>Teams of programmers working in these languages don’t create large, low-cohesion systems, like they do in Java/C#/C++.</li>
+  <li>Teams of programmers working in these languages name things better in general, and so create fewer opportunities for misunderstanding.</li>
+  <li>Teams of programmers working in these languages work together more closely in general, and so smooth over their misunderstandings more easily and more promptly.</li>
+</ul>
+
+<p>Any ideas?</p>
+
+<h3 id="references">References</h3>
+
+<p>Martin Fowler, <a href="http://link.jbrains.ca/Z2isb3">Refactoring: Improving the Design of Existing Code</a>. This book introduced me to Primitive Obsession as a code smell.</p>
+
+<p>Ward Cunningham, <a href="http://link.jbrains.ca/UJl7q0">“The CHECKS Pattern Language of Information Integrity”</a>. This article includes a section on Whole Value, which counters the effects of Primitive Obsession. Whole Values should become <em>attractive code</em> when you introduce them into a system.</p>
+
+<p>James Shore, <a href="http://link.jbrains.ca/15tt4S8">“Primitive Obsession”</a>. I recommend this article to my students to learn more about Primitive Obsession.</p>
+
+<p>Corey Haines and J. B. Rainsberger, <a href="http://link.jbrains.ca/12F96Ug">“Primitive Obsession”</a>. Corey and I discussed Primitive Obsession while in Bucharest in early 2010. This article includes a 14-minute video of the two of us chatting about the topic.</p>
+
+<p><a href="http://www.coderetreat.org">Code Retreat</a>. We very commonly use the “no primitives” constraint at Code Retreat to encourage programmers to practise introducing Whole Values very early. I don’t <em>always</em> design this way, but I believe that programmers should understand more deeply the differences between design with and without promitives, so I encourage them to practise.</p>

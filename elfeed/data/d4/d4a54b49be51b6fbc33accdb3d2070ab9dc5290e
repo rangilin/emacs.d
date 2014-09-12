@@ -1,0 +1,5 @@
+
+<p>The Sentinel is a game I was very fond of in the 80s. I have started
+reverse engineering the ZX Spectrum version. An old friend of mine has
+helped me find the map generation at 0x6100-0x6ff.</p>
+

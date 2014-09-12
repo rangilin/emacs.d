@@ -1,0 +1,46 @@
+<p>This is the second part of the customisation episode.</p>
+
+<p>This episode covers a little more elisp focusing on common things that people tweak in their init files.</p>
+
+<p>It&#8217;s a little longer than usual. I was feeling tired so I didn&#8217;t time myself like I usually do. Also, due to some screw up with my mic jack, there&#8217;s a crackling sound throughout the recording. It&#8217;s not <em>that</em> bad but it would be nice have gotten it without that. You can also hear me coughing once or twice. My apologies.</p>
+
+<iframe src="http://archive.org/embed/EmacsMovies/08.2-episode-customisation-2.webm" width="640" height="480" frameborder="0"></iframe>
+
+
+<p>The H.264 version of the video for iOS devices is at <a href="http://archive.org/download/EmacsMovies/08.2-episode-customisation-2.mkv">http://archive.org/download/EmacsMovies/08.2-episode-customisation-2.mkv</a>. This one is rather huge (302 MB or so). If it&#8217;s prohibitive, you can visit the <a href="http://archive.org/details/EmacsMovies">archive details page</a> which has links to an mp4 and an ogg version that are much smaller.</p>
+
+<p>Here&#8217;s a summary of what is covered along with a few extras.</p>
+
+<ol>
+<li>Locations of the init files - <code>~/.emacs</code>, <code>~/.emacs.el</code>, <code>~/.emacs.d/init.el</code>.</li>
+<li><code>set-foreground-color</code> and <code>set-background-color</code> to change foreground and background.</li>
+<li><p>The <code>visible-bell</code> variable to control the method in which alarms are displayed. Following are a few extras.    You can get information on these and any other variables using the the <code>describe-variable</code> function.</p>
+
+<ul>
+<li><p><code>global-auto-revert-mode</code> which will watch visited files for
+changes and reload if necessary.</p></li>
+<li><p><code>require-final-newline</code> adds a newline to the end of a file
+automatically if it doesn&#8217;t have one when saving.</p></li>
+<li><p><code>debug-on-error</code> and <code>debug-on-quit</code> when the debugger should
+get invoked.</p></li>
+<li><p><code>inhibit-startup-message</code> will control whether the
+welcome message should be displayed on startup.</p></li>
+</ul>
+</li>
+<li><p>Some functions that are commonly seen in <code>.emacs</code> files are <code>tool-bar-mode</code>, <code>blink-cursor-mode</code> and <code>show-paren-mode</code>.</p></li>
+<li>Some functions which are defined in files that are not parts of Emacs need to be <code>require</code>d before they can be used. An example is <code>bar-cursor</code> which, on Debian, comes in the <code>emacs-goodies</code> package. It provides <code>bar-cursor-mode</code>.</li>
+<li>For files which you&#8217;ve downloaded yourself and not in the default load path, you can use <code>add-to-list</code> and add the directory to the <code>load-path</code> before requiring. We do this with a <code>rect-mark</code> file that we have.</li>
+<li>To associate file name patterns with major modes, you can add a tuple to <code>auto-mode-alist</code> using <code>add-to-list</code>. We do this for <code>markdown-mode</code>.</li>
+<li>We add global keybindings using <code>global-set-key</code>. We make bindings for <code>M-up</code> and <code>M-down</code>. We then create a custom command and bind it to <code>f7</code>.</li>
+<li>We also add mode specific keybindings using <code>define-key</code>.</li>
+<li>We add hooks to a major mode to trigger some actions when that mode is activated. We turn on <code>flyspell-mode</code> when we enter <code>markdown-mode</code> to demonstrate this.</li>
+<li>We talk about the customisation system using <code>M-x customize</code>.</li>
+</ol>
+
+
+<p>One extra thing that I&#8217;d like to mention is the <code>set-face-attribute</code> function which allows you to modify aspects of a &#8220;face&#8221;. A face is a font along with some other settings like colour, weight, size etc. that you can save and reuse. So, for example, there will be a <code>comment-face</code> used to syntax highlight all comments in the buffer. The following command will set the <code>height</code> attribute of the default face to <code>135</code>. This is a setting that essentially controls text size.</p>
+
+<pre><code>(set-face-attribute 'default nil :height 135)
+</code></pre>
+
+<p>That&#8217;s essentially it. Feedback welcome.</p>

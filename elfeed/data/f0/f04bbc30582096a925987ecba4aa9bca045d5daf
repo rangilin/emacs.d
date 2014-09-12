@@ -1,0 +1,223 @@
+<p>This article continues the series about <a href="/2014/03/12/font-locking-in-emacs.html">Font Locking in Emacs</a> with a look at search-based fontification with regular expressions in <a href="http://doc.endlessparentheses.com/Var/font-lock-keywords"><code>font-lock-keywords</code></a>. If you are new, you may want to read the first article on <a href="/2014/03/12/syntactic-fontification-in-emacs.html">Syntactic Fontification in Emacs</a> first.</p>
+<p>Search-based fontification is the main workhorse of font locking. It is used in any major mode to highlight the specific syntax of the target language.</p>
+<p>The concept is quite easy, the difficulty however is in the right choice of the regular expressions, and the matching of target syntax to the generic font lock faces provided by Emacs.</p>
+<p>This article illustrates the basic principles of Search-based fontification.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>Before we can start to add font lock to our major mode, we’ll have to go through some quite essential prerequisites first:</p>
+<ol type="1">
+<li>Obtain a <em>language reference</em>, and read it <em>systematically</em> to extract the relevant language syntax. Don’t try to start with ad-hoc keywords based on your intuitive understanding of the language. You’ll sooner or later fail on corner-cases.</li>
+<li><p>Familiarize yourself with the <a href="http://doc.endlessparentheses.com/Fun/rx"><code>rx</code></a> macro. We’ll use it to turn regexp-monsters like this<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>:</p>
+<div class="highlight"><pre><span class="s">&quot;\\(/\\(?:[^\n/\\]\\|\\\\.\\)*/\\)&quot;</span>
+</pre></div>
+
+<p>into readable and commented sexps like this:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nv">rx</span> <span class="p">(</span><span class="nv">group</span>
+     <span class="c1">;; A regular expression literal is delimited by</span>
+     <span class="c1">;; slashes</span>
+     <span class="s">&quot;/&quot;</span>
+     <span class="p">(</span><span class="nv">zero-or-more</span>
+      <span class="p">(</span><span class="nb">or</span>
+       <span class="c1">;; Inside a regexp, a character is either</span>
+       <span class="c1">;; escaped with a backslash, in which case it</span>
+       <span class="c1">;; looses any special meaning and can&#39;t</span>
+       <span class="c1">;; terminate the regexp anymore,…</span>
+       <span class="p">(</span><span class="nb">and</span> <span class="s">&quot;\\&quot;</span> <span class="nv">not-newline</span><span class="p">)</span>
+       <span class="c1">;; …or any non-special character, namely not a</span>
+       <span class="c1">;; slash (this would end the sexp), not a</span>
+       <span class="c1">;; backslash (which would escape the subsequent</span>
+       <span class="c1">;; character), or a literal new-line (which is</span>
+       <span class="c1">;; illegal in a regexp)</span>
+       <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nv">any</span> <span class="s">&quot;/&quot;</span> <span class="s">&quot;\\&quot;</span> <span class="s">&quot;\n&quot;</span><span class="p">))))</span>
+       <span class="s">&quot;/&quot;</span><span class="p">))</span>
+</pre></div>
+</li>
+<li><p>Familiarize yourself with <a href="http://doc.endlessparentheses.com/Fun/re-builder"><code>re-builder</code></a> command. It’s a great tool to interactively develop regular expressions in a specific buffer. For the purpose of developing font lock keywords with <a href="http://doc.endlessparentheses.com/Fun/rx"><code>rx</code></a>, change it’s syntax, either with <kbd>C-c TAB</kbd> in re-builder, or by adding the following to your <code>init.el</code>:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nv">eval-after-load</span> <span class="ss">&#39;re-builder</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">setq</span> <span class="nv">reb-re-syntax</span> <span class="ss">&#39;rx</span><span class="p">))</span>
+</pre></div>
+</li>
+</ol>
+<h1 id="setup-boilerplate">Setup boilerplate</h1>
+<p>We’ll need a little boilerplate before we can start with the actual keywords. We declare a variable to store the keywords, and tell Emacs to look for keywords in this variable, by setting <a href="http://doc.endlessparentheses.com/Var/font-lock-defaults"><code>font-lock-defaults</code></a> in our major mode definition:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nv">defconst</span> <span class="nv">puppet-font-lock-keywords</span> <span class="no">nil</span>
+  <span class="s">&quot;Font lock keywords for Puppet Mode.&quot;</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">define-derived-mode</span> <span class="nv">puppet-mode</span> <span class="nv">prog-mode</span> <span class="s">&quot;Puppet&quot;</span> <span class="p">()</span>
+  <span class="s">&quot;Major mode for editing Puppet manifests.</span>
+
+<span class="s">\\{puppet-mode-map}&quot;</span>
+  <span class="c1">;; …</span>
+  <span class="c1">;; Font locking</span>
+  <span class="p">(</span><span class="k">setq</span> <span class="nv">font-lock-defaults</span> <span class="o">&#39;</span><span class="p">((</span><span class="nv">puppet-font-lock-keywords</span><span class="p">)</span> <span class="no">nil</span> <span class="no">nil</span><span class="p">))</span>
+  <span class="c1">;; …</span>
+  <span class="p">)</span>
+</pre></div>
+
+<p><a href="http://doc.endlessparentheses.com/Var/font-lock-defaults"><code>font-lock-defaults</code></a> is a list with initial settings for fontification, with the following elements:</p>
+<ol type="1">
+<li>A list of variables holding keywords. Typically this list has just a single element: The name of the variable which holds our keywords<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.</li>
+<li>A boolean indicating whether to <em>disable</em> <a href="/2014/03/12/syntactic-fontification-in-emacs.html">syntactic fontification</a>, and only use keywords for fontification. Since syntactic fontification conveniently handles strings and comments in Puppet Mode, we definitely don’t want to disable it, so we give <code>nil</code> here.</li>
+<li>A boolean indicating whether our keywords are case-insensitive. Since Puppet Mode has case-sensitive identifiers, we give <code>nil</code> to match the case in our keywords.</li>
+</ol>
+<p>These are the most important settings. There are some optional elements for additional settings, such as a special syntax table for fontification, but these are rarely needed, so we’ll not discuss them here. Take a look at the docstring of <a href="http://doc.endlessparentheses.com/Var/font-lock-defaults"><code>font-lock-defaults</code></a> for more information.</p>
+<h1 id="defining-keywords">Defining keywords</h1>
+<p>The contents of our keyword variable <code>puppet-font-lock-keywords</code> is a list, where each item is another list describing a single syntactic construct to highlight.</p>
+<p>The following is a little excerpt of the actual font lock keywords used by Puppet Mode<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nv">defconst</span> <span class="nv">puppet-font-lock-keywords</span>
+  <span class="o">`</span><span class="p">(</span>
+    <span class="c1">;; Regular expression literals</span>
+    <span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">rx</span> <span class="s">&quot;/&quot;</span>
+          <span class="p">(</span><span class="nv">zero-or-more</span>
+           <span class="p">(</span><span class="nb">or</span>
+            <span class="c1">;; Not at the end of the regexp</span>
+            <span class="p">(</span><span class="nb">not</span> <span class="p">(</span><span class="nv">any</span> <span class="s">&quot;/&quot;</span> <span class="s">&quot;\\&quot;</span> <span class="s">&quot;\n&quot;</span><span class="p">))</span>
+            <span class="c1">;; Any escaped character</span>
+            <span class="p">(</span><span class="nb">and</span> <span class="s">&quot;\\&quot;</span> <span class="nv">not-newline</span><span class="p">)))</span>
+          <span class="s">&quot;/&quot;</span><span class="p">)</span>
+     <span class="mi">0</span> <span class="ss">&#39;puppet-regular-expression-literal</span><span class="p">)</span>
+
+    <span class="c1">;; Puppet keywords</span>
+    <span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">rx</span> <span class="nv">symbol-start</span>
+          <span class="p">(</span><span class="nb">or</span> <span class="s">&quot;and&quot;</span> <span class="s">&quot;case&quot;</span> <span class="s">&quot;class&quot;</span> <span class="s">&quot;default&quot;</span> <span class="s">&quot;define&quot;</span>
+              <span class="s">&quot;else&quot;</span> <span class="s">&quot;elsif&quot;</span> <span class="s">&quot;false&quot;</span> <span class="s">&quot;if&quot;</span> <span class="s">&quot;in&quot;</span> <span class="s">&quot;import&quot;</span>
+              <span class="s">&quot;inherits&quot;</span> <span class="s">&quot;node&quot;</span> <span class="s">&quot;or&quot;</span> <span class="s">&quot;true&quot;</span> <span class="s">&quot;undef&quot;</span>
+              <span class="s">&quot;unless&quot;</span><span class="p">)</span>
+          <span class="nv">symbol-end</span><span class="p">)</span>
+     <span class="mi">0</span> <span class="nv">font-lock-keyword-face</span><span class="p">)</span>
+
+    <span class="c1">;; Class and Defined Types</span>
+    <span class="p">(</span><span class="o">,</span><span class="p">(</span><span class="nv">puppet-rx</span> <span class="p">(</span><span class="nv">symbol-start</span>
+                  <span class="p">(</span><span class="nb">or</span> <span class="s">&quot;class&quot;</span> <span class="s">&quot;define&quot;</span><span class="p">)</span>
+                  <span class="nv">symbol-end</span><span class="p">)</span>
+                 <span class="p">(</span><span class="nv">one-or-more</span> <span class="nv">space</span><span class="p">)</span>
+                 <span class="c1">;; The resource name</span>
+                 <span class="p">(</span><span class="nv">group</span> <span class="nv">symbol-start</span>
+                        <span class="c1">;; Optional top-level scope</span>
+                        <span class="p">(</span><span class="nv">optional</span> <span class="s">&quot;::&quot;</span><span class="p">)</span>
+                        <span class="p">(</span><span class="nv">zero-or-more</span>
+                         <span class="p">(</span><span class="nv">any</span> <span class="s">&quot;a-z&quot;</span><span class="p">)</span>
+                         <span class="p">(</span><span class="nv">zero-or-more</span> <span class="p">(</span><span class="nv">any</span> <span class="s">&quot;a-z&quot;</span> <span class="s">&quot;0-9&quot;</span> <span class="s">&quot;_&quot;</span><span class="p">))</span>
+                         <span class="s">&quot;::&quot;</span><span class="p">)</span>
+                         <span class="c1">;; Nested sub-scopes</span>
+                         <span class="p">(</span><span class="nv">any</span> <span class="s">&quot;a-z&quot;</span><span class="p">)</span>
+                         <span class="p">(</span><span class="nv">zero-or-more</span> <span class="p">(</span><span class="nv">any</span> <span class="s">&quot;a-z&quot;</span> <span class="s">&quot;0-9&quot;</span> <span class="s">&quot;_&quot;</span><span class="p">))</span>
+                         <span class="nv">symbol-end</span><span class="p">))</span>
+     <span class="mi">1</span> <span class="nv">font-lock-type-face</span><span class="p">)))</span>
+</pre></div>
+
+<p>We specify three keywords:</p>
+<ol type="1">
+<li><a href="https://docs.puppetlabs.com/puppet/3/reference/lang_datatypes.html#regular-expressions">Regular expression literals</a></li>
+<li><a href="https://docs.puppetlabs.com/puppet/3/reference/lang_reserved.html#reserved-words">Puppet keywords</a></li>
+<li><a href="https://docs.puppetlabs.com/puppet/3/reference/lang_classes.html">Class</a> and <a href="https://docs.puppetlabs.com/puppet/3/reference/lang_defined_types.html">type</a> definitions</li>
+</ol>
+<p>Each keyword is a list on its own, with the following elements:</p>
+<ol type="1">
+<li>A regular expression to match the syntactic construct to fontify.</li>
+<li>A group index, matching a number group in the regular expression. Zero stands for the entire match.</li>
+<li>A Lisp <em>expression</em> whose value is the face to use.</li>
+</ol>
+<h2 id="ordering">Ordering</h2>
+<p>Font lock keywords are processed in order of appearance. Each keyword will <em>not</em> match in text which is already fontified by syntactic fontification or earlier font lock keywords<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>. Hence <strong>the order of keywords matters</strong>.</p>
+<p>For instance, with our example keywords Emacs will highlight all keywords <em>first</em>, before classes and defined types.</p>
+<p>This has a couple of advantages:</p>
+<ol type="1">
+<li>We do not need to take care for strings and comments in our font lock keywords. As these are already fontified by <a href="/2014/03/12/syntactic-fontification-in-emacs.html">syntactic fontification</a>, our expressions will never match inside strings or comments, so a keyword inside a comment will never get fontified.</li>
+<li>We can rely on earlier font lock keywords. In our second expression, we do not need to explicitly highlight <code>class</code> and <code>define</code> anymore, because because the earlier expression for Puppet keywords has already fontified these.</li>
+</ol>
+<p>Consequently the order of keywords must be <em>carefully</em> constructed to avoid matching in the wrong context. Notably, we must specify the font lock keyword for regular expression literals <em>first</em>, before the font lock keyword for Puppet keywords.</p>
+<p>Consider the following example, where the Puppet keyword <code>true</code> appears inside a regular expression literal:</p>
+<div class="highlight"><pre><span class="k">if</span> <span class="nv">$foo</span> <span class="o">=~</span> <span class="o">/</span><span class="err">\</span><span class="na">A</span><span class="p">(</span><span class="o">?</span><span class="na">i</span><span class="p">:</span><span class="k">true</span><span class="o">|</span><span class="na">yes</span><span class="p">)</span><span class="err">\</span><span class="na">z</span><span class="o">/</span> <span class="p">{</span>
+  <span class="k">notice</span><span class="p">(</span><span class="s">&#39;You speak the truth!&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>In this context the keyword is not a keyword, but just literal text in the pattern. If the keyword for regular expression literals didn’t go first, <code>true</code> would be fontified as keyword and not as regular expression literal in this example.</p>
+<h2 id="regular-expressions">Regular expressions</h2>
+<p>Our regular expressions for keywords and definitions are pretty straight-forward translations from the list of <a href="https://docs.puppetlabs.com/puppet/3/reference/lang_reserved.html#reserved-words">Puppet keywords</a>, the description of Classes_ and <a href="https://docs.puppetlabs.com/puppet/3/reference/lang_defined_types.html">Defined Types</a> and the pattern for <a href="https://docs.puppetlabs.com/puppet/3/reference/lang_reserved.html#classes-and-types">valid resource names</a> in the Puppet language references.</p>
+<p>The expression for regular expression literals however are an approximation of <a href="https://docs.puppetlabs.com/puppet/3/reference/lang_datatypes.html#regular-expressions">Regular expression literals</a>, which matches essentially any text between a slash and the next unescaped slash. This pattern is not perfect, and will match regular expressions at inappropriate places, but as far as fontification is considered, this is a reasonable trade-off.</p>
+<p>We could reduce the chance of mismatched regular expressions by limiting the keyword to match only in cases where regular expressions are actually permitted, but this would significantly increase the complexity of our keywords and goes beyond the scope of this article<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a>.</p>
+<h3 id="symbol-boundaries">Symbol boundaries</h3>
+<p>We use the special forms <code>symbol-start</code> and <code>symbol-end</code> to make sure that our expressions only match entire symbols. These special forms match the empty string at the beginning and end of a symbol.</p>
+<p>This prevents our expressions from matching keywords which appear in the middle of another identifier, e.g. in a function name. In the following example code, our patterns will match the <code>define</code> keyword in the type definition, but not “define” in call of the <code>defined</code> function <a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>:</p>
+<div class="highlight"><pre><span class="k">define</span> <span class="na">foo</span><span class="p">(</span><span class="nv">$bar</span> <span class="o">=</span> <span class="nv">$title)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="o">!</span><span class="k">defined</span><span class="p">(</span><span class="k">Package</span><span class="p">[</span><span class="nv">$bar])</span> <span class="p">{</span>
+    <span class="k">package</span> <span class="p">{</span> <span class="nv">$bar:</span> <span class="na">ensure</span> <span class="o">=&gt;</span> <span class="k">installed</span> <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<div class="alert alert-info">
+<p><strong>Note!</strong></p>
+<p>Don’t be confused by the syntax highlighting on this page. It’s provided by a separate tool named <a href="http://pygments.org/">Pygments</a>, which has different rules for highlighting Puppet Code. That’s why you see <code>defined</code> being highlighted here.</p>
+</div>
+<h3 id="grouping">Grouping</h3>
+<p>Our first two expressions for regexp literals and keywords do not have match groups, since in both cases we simply want to highlight the entire construct. Hence we give the match index <code>0</code> to highlight the entire match of the regular expression.</p>
+<p>In the third expression for class and type definitions however we only want to highlight the name of the new class or type, but not the preceding keyword, which was already handled by our previous expression for Puppet keywords. Hence, we put the pattern for the class and type name into a match group, and give its index <code>1</code> to only apply the highlighting to the text matched by this group.</p>
+<h2 id="faces">Faces</h2>
+<p>The face is arguably the most important part in a font lock keyword. It’s what the user will ultimately see when using your mode. Thus, the choice of good faces is crucial for good fontification.</p>
+<h3 id="standard-faces">Standard faces</h3>
+<p>Luckily, Emacs provides a good set of <a href="http://www.gnu.org/software/emacs/manual/html_node/elisp/Faces-for-Font-Lock.html#Faces-for-Font-Lock">standard font lock faces</a> for various common syntax elements. We use two of these faces in our keywords:</p>
+<dl>
+<dt><a href="http://doc.endlessparentheses.com/Var/font-lock-keyword-face"><code>font-lock-keyword-face</code></a></dt>
+<dd>A face for the keywords of programming languages
+</dd>
+<dt><a href="http://doc.endlessparentheses.com/Var/font-lock-type-face"><code>font-lock-type-face</code></a></dt>
+<dd>A face for names of types and classes
+</dd>
+</dl>
+<p>Font lock provides a lot more faces for comments, strings, constants, variable names, function names, builtins, preprocessor instructions, and many more.</p>
+<p>You should use the standard faces whenever possible. It’s not only easier for you to just pick an appropriate standard face, it’s also good for your users if your mode is a good Emacs citizen in this regard:</p>
+<ul>
+<li>Fontification will look the same across different modes. A string, a comment or a keyword always look the same, regardless of whether they are in C++ code, Python code, or Emacs Lisp code.</li>
+<li>Color themes will automatically affect your mode. Color themes just need to set the standard faces to style fontification in any programming language Emacs has a mode for, and users can install new color themes without having to care for whether a theme supports your specific mode or not.</li>
+</ul>
+<h3 id="custom-faces">Custom faces</h3>
+<p>Sometimes the standard faces are just not appropriate, however.</p>
+<p>In our example, we want to fontify regular expression literals, but there’s no <code>font-lock-regexp-face</code>, and none of the existing standard faces are really appropriate. The best fit are still <a href="http://doc.endlessparentheses.com/Var/font-lock-string-face"><code>font-lock-string-face</code></a> or <a href="http://doc.endlessparentheses.com/Var/font-lock-constant-face"><code>font-lock-constant-face</code></a>, but a user may probably want to distinguish regular expressions from strings or constants.</p>
+<p>For this purpose, we define a custom face with the name <code>puppet-regular-expression-literal</code>, using <a href="http://doc.endlessparentheses.com/Fun/defface"><code>defface</code></a>:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nv">defface</span> <span class="nv">puppet-regular-expression-literal</span>
+  <span class="o">&#39;</span><span class="p">((</span><span class="no">t</span> <span class="ss">:inherit</span> <span class="nv">font-lock-constant-face</span><span class="p">))</span>
+  <span class="s">&quot;Face for regular expression literals in Puppet.&quot;</span>
+  <span class="ss">:group</span> <span class="ss">&#39;puppet</span><span class="p">)</span>
+</pre></div>
+
+<p>The second argument to <a href="http://doc.endlessparentheses.com/Fun/defface"><code>defface</code></a> takes our face definition. The syntax of face definitions is fairly intricate, and beyond the scope of this article. The docstring of <a href="http://doc.endlessparentheses.com/Fun/defface"><code>defface</code></a> is a good start for more information.</p>
+<p>Our definition is very simple, however: The new face just inherits all its attributes from the standard <a href="http://doc.endlessparentheses.com/Var/font-lock-constant-face"><code>font-lock-constant-face</code></a>, so by default a regular expression will look like a constant.</p>
+<p>By inheriting from a standard font lock face, we play nicely with color themes which only support the standard font lock faces, and we do not need to come up with a good default style for our new face. For these reasons, you should try hard to find a built-in Emacs face to inherit from whenever you need to define custom faces.</p>
+<p>Nonetheless, users can customize our face <em>independently</em> from <a href="http://doc.endlessparentheses.com/Var/font-lock-constant-face"><code>font-lock-constant-face</code></a> to make regular expressions appear distinct from constants if they desire, since it is a completely separate face.</p>
+<p>The subsequent arguments in the face definition are a docstring, and standard <a href="http://doc.endlessparentheses.com/Fun/defcustom"><code>defcustom</code></a> arguments. We just give <code>:group</code>, to make our custom face appear in <kbd>M-x customize-group RET puppet</kbd>, where all the options of Puppet Mode reside.</p>
+<p>You’ll notice that unlike the standard faces our custom face doesn’t have the suffix <code>-face</code>. The Emacs Lisp reference recommends against this in <a href="http://www.gnu.org/software/emacs/manual/html_node/elisp/Defining-Faces.html">Defining Faces</a>.</p>
+<p>The standard faces however predate this convention, and keep their names for backwards compatibility. With regards to faces, you should <em>not</em> follow Font Lock as a template.</p>
+<h3 id="face-variables-versus-faces">Face variables versus faces</h3>
+<p>When looking closely at our font lock keywords, you’ll notice that we specify standard font lock face <em>without</em> quoting, whereas our custom face is quoted.</p>
+<p>The reason is that font lock additionally defines <em>variables</em> for its faces. A comment in <code>font-lock.el</code> explains the background, and discourages this practice for custom faces<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a>:</p>
+<blockquote>
+<p>Originally these variable values were face names such as <code>bold</code> etc. Now we create our own faces, but we keep these variables for compatibility and they give users another mechanism for changing face appearance. We now allow a <em>facename</em> in <a href="http://doc.endlessparentheses.com/Var/font-lock-keywords"><code>font-lock-keywords</code></a> to be any expression that returns a face. So the easiest thing is to continue using these variables, rather than sometimes evalling <em>facename</em> and sometimes not. sm.</p>
+</blockquote>
+<blockquote>
+<p>Note that in new code, in the vast majority of cases there is no need to create variables that specify face names. Simply using faces directly is enough. Font-lock is not a template to be followed in this area.</p>
+</blockquote>
+<p>Remember that the face part of a font lock keyword is not a face name, but rather an <em>expression returning a face name</em>. Hence, we can use the standard face without quoting: They are expressions, which evaluate to the value of the variable, which in turn gives the face name…which—to make matters even worse—has usually the same name as the variable.</p>
+<p>For our custom faces however we do not define extra variables. Hence we must quote the face name, so that font lock uses it literally instead of trying to evaluate it as variable.</p>
+<p>While developing font lock keywords, you need to be aware of this small, but important difference, lest you introduce subtle bugs into your code.</p>
+<h1 id="limits">Limits</h1>
+<p>We have seen that font lock keywords provide a simple, yet powerful facility to add syntax highlighting for complex syntactic constructs.</p>
+<p>There is a limitation to their power, however: They do not take the syntactic context into account. It is thus impossible to define a keyword which applies only inside a comment, or only inside single-quoted strings. For instance, font lock keywords alone cannot highlight variable expansions inside strings, as in Ruby or Puppet.</p>
+<p>To handle such special syntax, which depends on the surrounding syntactic context, you need to hook into the syntactic analyzer of Emacs, and explicitly identify special constructs, a technique, which I’ll cover in a later post of this series.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>Font lock keywords are <em>the</em> main part of fontification in Emacs. Any mode uses them to highlight the syntax of the corresponding language, and no mode can go without them. Good font lock keywords are crucial for good syntax highlighting in Emacs.</p>
+<p>However, for really stellar and awesome highlighting, which even goes as far as fontifying variables or expressions inside strings, a major mode needs to go beyond them, and use more intricate techniques of syntactic analysis. More on that in a later article.</p>
+<p>So long</p>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This is the expression for regular expression literals in Puppet.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>Further elements may be used to give additional keywords for multiple levels of fontification, a feature which comes from days where fully featured fontification was too slow for most computers. Higher levels contained more complex keywords, and a user would typically customize Emacs to enable the highest possible level their computers could handle.</p>
+<p>Nowadays however even the weakest computers easily cope with fully featured fontification, so most major modes just give a single level of fontification. Most modern Emacs users don’t even know about this feature anymore.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>Puppet Mode has a lot more font lock keywords of course. However, these two are sufficient to illustrate the basic principles of font lock keywords.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p>Technically this is not completely true. Keywords can be specified to override earlier fontification. However, this should be used with care. Notably, it will cause font lock keywords to be applied within comments and strings as well, which is not generally desirable.<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>Puppet Mode will actually use a more intricate handling of regular expression literals, which takes the syntactic context into account, and also improves the behaviour of various navigation commands. See <a href="https://github.com/lunaryorn/puppet-mode/pull/39">issue #39</a> for details.<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>In case you are wondering that <code>defined</code> is nonetheless highlighted in a Puppet buffer: In the real Puppet Mode, we have an additional font lock keyword to highlight all builtin functions of Puppet with <a href="http://doc.endlessparentheses.com/Var/font-lock-builtin-face"><code>font-lock-builtin-face</code></a>.<a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>You can see the original comment in your Emacs by navigating to the definition of the variable <a href="http://doc.endlessparentheses.com/Var/font-lock-comment-face"><code>font-lock-comment-face</code></a> with <kbd>M-x find-variable RET font-lock-comment-face</kbd>, or in your browser in Emacs’ Git web interface, at <a href="http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/font-lock.el?h=trunk&amp;id=b8392964d2735a0ac3230ddfbbfab8a82d02415d#n292">font-lock.el, line 292</a>.<a href="#fnref7">↩</a></p></li>
+</ol>
+</section>

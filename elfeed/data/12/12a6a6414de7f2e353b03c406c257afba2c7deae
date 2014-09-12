@@ -1,0 +1,20 @@
+<blockquote>
+<p>
+"Why are macros so important to Lisp programmers? Not merely for the
+syntactic convenience they provide, but because they are programs that
+manipulate programs, which has always been a central theme in the Lisp
+community. If FORTRAN is the language that pushes numbers around, and
+C is the language that pushes characters and pointers around, then
+Lisp is the language that pushes programs around."
+</p>
+
+<p>
+Gabriel &amp; Steele, The Evolution of Lisp.
+</p>
+</blockquote>
+
+<p>
+An old quote, but still thoroughly relevant. (Though today you'd
+probably pick something in place of Fortran, and add a note about Java
+being the language that pushes objects around.)
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/TXkjRiDyhik" height="1" width="1"/>

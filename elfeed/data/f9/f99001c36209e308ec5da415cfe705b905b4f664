@@ -1,0 +1,28 @@
+
+<p>I just found out by accident that edebug works outside a function.</p>
+
+<p>For example paste the following in the scratch buffer:</p>
+
+<pre class="src">
+(save-excursion
+  (<span style="color: #8b008b; background-color: #b9babd;">let</span> ((buf (find-file <span style="color: #8b5a00; background-color: #b9babd;">"/etc/passwd"</span>))
+        (user (getenv <span style="color: #8b5a00; background-color: #b9babd;">"USER"</span>)) res)
+    (<span style="color: #8b008b; background-color: #b9babd;">when</span> user
+      (goto-char (point-min))
+      (<span style="color: #8b008b; background-color: #b9babd;">when</span> (search-forward-regexp (concat <span style="color: #8b5a00; background-color: #b9babd;">"^"</span> user) nil t)
+        (setq res
+              (nth 6 (split-string
+                      (buffer-substring-no-properties
+                       (line-beginning-position)
+                       (line-end-position)) <span style="color: #8b5a00; background-color: #b9babd;">":"</span>)))))
+    (kill-buffer buf)
+    res))
+</pre>
+
+<p>The code looks in /etc/passwd for the shell belonging to the user. Put
+your cursor at the end of the last parenthesis and type M-x
+debug-defun you will then see the expression being debugged. Press n
+to step and q to quit.</p>
+
+<p>The name of the function edebug-defun is misleading.</p>
+

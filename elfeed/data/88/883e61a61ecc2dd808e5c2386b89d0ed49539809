@@ -1,0 +1,32 @@
+<p>After doing some searching online, it looks like paint.net is a common
+tool people use to create and animate sprites. Here's a small tutorial
+on how to get some basic sprite sheet testing running.</p>
+<div class="section" id="installing-paint-net">
+<h2>Installing paint.net</h2>
+<p>To install it, simply go to&nbsp;<a class="reference external" href="http://www.getpaint.net/">http://www.getpaint.net/</a>&nbsp;(be careful about
+others sites you go to, I end up at a couple of malware sites before I
+arrived at the proper one).</p>
+<p>The direct download URL
+is&nbsp;<a class="reference external" href="http://www.dotpdn.com/files/Paint.NET.3.5.10.Install.zip">http://www.dotpdn.com/files/Paint.NET.3.5.10.Install.zip</a>. If that
+doesn't exist, try to navigate to getpaint.net and click download, and
+then &quot;download paint.net 3.5&quot;. Be careful! There's a lot of adword links
+that look like download pages.</p>
+</div>
+<div class="section" id="downloading-sprite-animation-plugins">
+<h2>Downloading sprite animation plugins</h2>
+<p>Next, you need to download the plugin! There's a couple of sprite sheet
+plugins out there. I chose the spritesheet animation plugin:</p>
+<p><a class="reference external" href="http://forums.getpaint.net/index.php?/topic/14848-spritesheet-animation-plugin/">Spritesheet animation plugin</a></p>
+<p>Just download the &quot;<a class="reference external" href="http://forums.getpaint.net/index.php?app=core&amp;module=attach&amp;section=attach&amp;attach_id=3006">PDNSpriteSheetAnimation.zip</a>&quot;, which will contain
+a dll file. Drag and drop that into C:\Program
+Files\Paint.Net\Effects. C: is of course,&nbsp;interchangeable&nbsp;with
+whatever drive you installed paint.net on.</p>
+<p>After you've installed the plugin, restart paint.net. It is now
+available via:</p>
+<p>Effects &gt; Animations &gt; SpriteSheetAnim :</p>
+<p><a class="reference external" href="http://toumorokoshi.files.wordpress.com/2013/01/animationexample.png"><img alt="Image" src="http://toumorokoshi.files.wordpress.com/2013/01/animationexample.png?w=710" /></a></p>
+<p>And there you go! The plugin opens up and you can test various
+animations with it.</p>
+<p>Credit for the sprite sheet in the picture goes to <a class="reference external" href="http://10firstgames.wordpress.com/2012/02/25/hd-sprite-sheet/">10firstgame's
+wordpress blog</a>.</p>
+</p></div>

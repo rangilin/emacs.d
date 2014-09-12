@@ -1,0 +1,10 @@
+<div class = 'img'><a href = 'http://martinfowler.com/snips/201201261024.html'><img src = 'http://martinfowler.com/snips/rebecca.jpg' width = '150' height = '' alt = '' title = ''/></a></div>
+<p>QCon invited <a href="http://www.thoughtworks.com/rebecca-parsons">Rebecca</a> and I to do a <a href="http://qconlondon.com/london-2012/presentation/The%20Data%20Panorama">keynote at QCon London</a> (March
+7). Over the last year or so we’ve been seeing more and more of a
+change in how organizations think about data, so that seems a natural
+choice to talk about. Our clients are seeing larger volumes of data,
+that they need to analyze more quickly and more cleverly. We’re seeing
+<a href="http://martinfowler.com/bliki/NosqlDefinition.html">different technologies for data storage</a> that have loosened the
+vice-like grip of relational databases. And we find our profession
+needs to start thinking about what our responsibilities are in
+managing all of this information. </p>

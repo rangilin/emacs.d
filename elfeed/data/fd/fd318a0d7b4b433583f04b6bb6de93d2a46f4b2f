@@ -1,0 +1,7 @@
+<div class = 'img'><a href = 'http://martinfowler.com/articles/nosqlKeyPoints.html'><img src = 'http://martinfowler.com/nosql.jpg' width = '100' height = '' alt = '' title = ''/></a></div><p>One the aspects of our design for NoSQL Distilled is that most
+chapters finish with a section of key points - short bullets that
+summarize the content of the chapter. I’ve now turned these into a web
+page that thus provides a summary of the key points of the book -
+which can act is a quick refresher for those that have the book and an
+indication of the content of the book for those who are contemplating
+buying it.</p>

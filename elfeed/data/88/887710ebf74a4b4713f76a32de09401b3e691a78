@@ -1,0 +1,48 @@
+<p>Today Light Table is taking a huge step forward - every bit of its code is now on <a href="https://github.com/LightTable/">Github</a> and along side of that, we&#39;re releasing <a href="http://www.lighttable.com">Light Table 0.6.0</a>, which includes all the infrastructure to write and use plugins. If you haven&#39;t been following the 0.5.* releases, this latest update also brings a tremendous amount of stability, performance, and clean up to the party. All of this together means that Light Table is now the open source developer tool platform that we&#39;ve been working towards. Go <a href="http://www.lighttable.com">download</a> it and if you&#39;re new give our <a href="http://docs.lighttable.com/tutorials/full/">tutorial</a> a shot!</p>
+
+<p><img src="/images/060/intro.png" alt="Light Table 0.6.0"></p>
+
+<p>There&#39;s been a ton of work since the initial release 0.5.0 (about 200 items in the <a href="https://github.com/LightTable/LightTable/blob/master/deploy/core/changelog.md">full changelog</a>), so here&#39;s just a few of the highlights:</p>
+
+<h3>Plugins</h3>
+
+<p>The biggest thing to be released in 0.6.0 is the plugin infrastructure. Given the <a href="http://www.chris-granger.com/2013/01/24/the-ide-as-data/">BOT architecture</a> of Light Table though, &quot;plugin&quot; is a bit of a misnomer - they are capable of fundamentally redefining in or adding anything to Light Table.</p>
+
+<p><img src="/images/060/plugins.png" alt="Light Table plugins"></p>
+
+<p>Realistically the only distinction between the core code and plugins is which things we ship by default. This gives us an enormous opportunity to redefine what development is. To see what some simple plugins look like, check out the <a href="https://github.com/LightTable/Declassifier">declassifier</a> and <a href="https://github.com/LightTable/CSS">CSS</a> plugins. We also added a plugin manager that hooks to a central list of plugins, no need to go hunting all over github.</p>
+
+<h3>Inline docs and doc search</h3>
+
+<p>This was one of the big things from the original Light Table prototype and video. You can now search docs and get documentation for what&#39;s under your cursor, right inline.</p>
+
+<p><img src="/images/060/docs.png" alt="Light Table inline docs"></p>
+
+<h3>Clojure(Script) nrepl, auto-complete, jump to definition, paredit...</h3>
+
+<p>Clojure saw a lot of love in this release from standard editory features like auto-complete and paredit, to reworking the back end to allow for remote nrepl sessions (connect to your server and watch things happen in real time!), all the way to interesting new things like custom watches and eval.</p>
+
+<h3>Performance, stability, and polish</h3>
+
+<p>Because we wanted to go open source there was a big push to clean things up and get Light Table ready for it&#39;s big unveiling. To that end we spent a ton of time trying to make everything smoother, faster, leaner. In many cases we improved performance by orders of magnitude - auto-complete is now wickedly fast, behaviors load faster, the command and navigate panes now scroll buttery smooth.</p>
+
+<p><img src="/images/060/full.png" alt="Light Table new theme"></p>
+
+<p>We made lots of changes and little improvements that also help it feel like LT does what you&#39;d expect. You can now drop files/folders into the workspace tree, for example, or open the current file in a browser with a command. Along with that we put some time into making the default skin for Light Table more professional, less obtuse, and whole lot more versatile.</p>
+
+<p><img src="/images/060/light.png" alt="Light Table 0.6.0"></p>
+
+<h3>On the road again</h3>
+
+<p>Getting both plugins and going open source into a single release was a big undertaking, but it gets us closer to the community supported platform we&#39;ve been working towards over the past year and a half. From here on out, anyone can play the game and what that&#39;ll result in is hard to tell, but it&#39;ll certainly be interesting. By getting the platform out, we can now focus a bit more on rethinking the state of the art. And we have some very interesting (and crazy!) ideas for what we think we can do to programming as an industry. I hope you&#39;ll join along with us in reimagining what it means to program.</p>
+
+<h3>Links</h3>
+
+<ul>
+<li><a href="http://www.lighttable.com">Download it!</a></li>
+<li><a href="http://docs.lighttable.com">Documentation</a></li>
+<li><a href="https://github.com/LightTable/LightTable/blob/master/deploy/core/changelog.md">Change log</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups#!forum/light-table">Announcements List</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups#!forum/light-table-discussion">Discussion List</a></li>
+</ul>
+<img src="http://feeds.feedburner.com/~r/ChrisGranger/~4/7_jOG3izZgw" height="1" width="1"/>

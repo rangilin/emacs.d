@@ -1,0 +1,14 @@
+
+<p>I did some contracting work on a C++ project. I used etags on hundreds
+of classes and I wish I had a tag history listing mode for emacs. With
+bookmark it's dead simple, the following code will stash all etags you
+jumped to in the bookmark file.</p>
+
+<pre class="src">
+<span style="color: #008b00; background-color: #b9babd;">;; </span><span style="color: #008b00; background-color: #b9babd;">put etags information in bookmark
+</span>(<span style="color: #8b008b; background-color: #b9babd;">defun</span> <span style="color: #00008b; background-color: #b9babd;">ivan-etags-bookmark</span> ()
+  (bookmark-set tagname))
+
+(add-hook 'find-tag-hook 'ivan-etags-bookmark)
+</pre>
+

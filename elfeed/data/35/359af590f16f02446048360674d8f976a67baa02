@@ -1,0 +1,1 @@
+<p>In this installment we look at the particular effects of <a href="http://martinfowler.com/articles/microservices.html#DecentralizedDataManagement">decentralization on data storage</a>, leading to polyglot persistance and a much reduced use of transactions to manage updates..</p>

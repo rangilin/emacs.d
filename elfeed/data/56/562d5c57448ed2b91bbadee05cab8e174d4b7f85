@@ -1,0 +1,19 @@
+
+<p>Good day of work. I can finally debug with Tomcat and Netbeans. The
+procedure is poorly documented, on Debian you need to modify the file
+<code>/etc/default/tomcat4like</code> so:</p>
+
+<pre class="example">
+CATALINA_OPTS=&quot;-Djava.awt.headless=true \
+-Xdebug -Xnoagent -Djava.compiler=NONE \
+-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000&quot;
+</pre>
+
+<p>Restart <code>Tomcat</code>, in <code>Netbeans</code> go the menu and select <code>Start Session</code> then
+<code>Attach session</code>. Set an obvious breakpoint and you should be all set!</p>
+
+<table class="image" width="100%">
+  <tr><td align="center"><img src="dbtomcat.png" alt="Snapshot of the Netbeans debugging dialog box"></td></tr>
+  <tr><td align="center" class="image-caption">Snapshot of the Netbeans debugging dialog box</td></tr>
+</table>
+

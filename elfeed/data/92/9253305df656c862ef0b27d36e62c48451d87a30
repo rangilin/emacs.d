@@ -1,0 +1,6 @@
+
+<p>Back from a week-end break in Paris. It's really easy to install the
+Flash Plugin under Debian.</p>
+
+<p><code>apt-get install libflashplugin-nonfree</code></p>
+

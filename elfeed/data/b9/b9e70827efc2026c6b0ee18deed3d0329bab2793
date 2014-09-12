@@ -1,0 +1,25 @@
+
+<p>This script generates two files called server.crt and server.key which
+contain the certificate and the key.</p>
+
+<p>The password is stripped from the private key. This is useful to start
+servers such as Apache without being prompted for the password.</p>
+
+<pre class="src">
+<span style="color: #008b00; background-color: #b9babd;">#</span><span style="color: #008b00; background-color: #b9babd;">!/bin/sh
+</span>
+<span style="color: #008b00; background-color: #b9babd;"># </span><span style="color: #008b00; background-color: #b9babd;">generate key
+</span>openssl genrsa -des3 -out server.key 1024
+
+<span style="color: #008b00; background-color: #b9babd;"># </span><span style="color: #008b00; background-color: #b9babd;">strip password
+</span>mv server.key server.key.pass
+openssl rsa -in server.key.pass -out server.key
+
+<span style="color: #008b00; background-color: #b9babd;"># </span><span style="color: #008b00; background-color: #b9babd;">generate csr
+</span>openssl req -new -key server.key -out server.csr
+
+<span style="color: #008b00; background-color: #b9babd;"># </span><span style="color: #008b00; background-color: #b9babd;">generate self singe certificate with csr
+</span>openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt
+rm server.csr server.key.pass
+</pre>
+

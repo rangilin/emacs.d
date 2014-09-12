@@ -1,0 +1,40 @@
+<p>EDIT: <strong>Light Table is now on <a href="http://www.kickstarter.com/projects/306316578/light-table">kickstarter!</a></strong></p>
+
+<p>EDIT: oh, and I set up a <a href="http://groups.google.com/group/light-table">mailing list</a> to keep informed.</p>
+
+<p>All I can say is &quot;wow&quot;! The response to <a href="/2012/04/12/light-table---a-new-ide-concept/">Light Table</a> has been far more positive and far greater than I could&#39;ve imagined. To put it into perspective, here are some aggregated numbers at the time of this writing:</p>
+
+<p><img src="/images/lightable/trafficgraph.png" alt="zomg traffic"></p>
+
+<ul>
+<li>There were 105,872 unique visits to the post, just shy of 200,000 pageviews and 80,000 video plays.</li>
+<li>It has been viewed in 163 countries (there are only 204 total)</li>
+<li>The post on HN stayed on the front page for more than 48 hours (It&#39;s actually still there now) and has amassed more than 1400 points. I believe that makes it one of the largest &quot;launches&quot; in HN history.</li>
+<li>The post has more than 1500 points and 469 comments on reddit.com/r/programming.</li>
+<li>I&#39;ve gotten hundreds of emails from all sorts of different people, thousands of tweets, and a mountain of comments to go through.</li>
+</ul>
+
+<p>So the big question on most people&#39;s minds is &quot;Now what?&quot;. To be honest, when I put <a href="/2012/04/12/light-table---a-new-ide-concept/">Light Table</a> up, I was mostly just looking to share some revelations I had recently. With that kind of response, however, it&#39;s pretty obvious that the industry needs something here.</p>
+
+<p>I was surprised at the number of people who cried out for a Kickstarter for the project. After some thought and some serious discussions with my best friend (and co-founder), we&#39;ve decided to switch gears from a different project and do exactly that. I&#39;m happy to announce that we submitted our Kickstarter earlier today and are simply waiting for it to be reviewed. In the meantime, I thought I&#39;d post a couple of the FAQ-y type things from our description there:</p>
+
+<h3>What languages will it support?</h3>
+
+<p>The first two languages it will support are Javascript and Clojure, but the application will be written in such a way that adding new languages can happen through plugins.</p>
+
+<h3>Can I script/extend it?</h3>
+
+<p>It will be scriptable in Javascript or anything that can compile down to it :) Ultimately the goal of the platform is to be a highly extensible work surface - even the initial core languages will be written as plugins. This allows us to build development interfaces we haven&#39;t even imagined yet.</p>
+
+<h3>What about key bindings?</h3>
+
+<p>I&#39;m a VIM guy myself, but since we&#39;ll be using the awesome <a href="http://codemirror.net">CodeMirror</a> editor, this is something that is easily adapted. If you&#39;re looking for a way to contribute, help improve CodeMirror and its emacs/vim plugins!</p>
+
+<h3>Will it be open source?</h3>
+
+<p>I&#39;m a firm believer in open source software and open source technologies. I can guarantee you that Light Table will be built on top of the technologies that are freely available to us today. As such, I believe it only fair that the core of Light Table be open sourced once it is launched, while some of the plugins may remained closed source. At some level, this is an experiment in how open source and business can mix - it will be educational for us all.</p>
+
+<h3>How can I help in the meantime?</h3>
+
+<p>Like I said above, help improve <a href="http://codemirror.net">CodeMirror</a>. The better that editor is, the better all editors on the internet can be! Past that, help us spread the word. The more money we get the more people I can involve in the project, the more languages we can support, and the more powerful we can make the entire platform. There&#39;s tremendous potential that we haven&#39;t even scratched the surface of yet!</p>
+<img src="http://feeds.feedburner.com/~r/ChrisGranger/~4/__SKthOxGLo" height="1" width="1"/>

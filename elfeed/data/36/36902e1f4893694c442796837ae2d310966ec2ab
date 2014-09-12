@@ -1,0 +1,852 @@
+
+     <div class="outline-2" id="outline-container-1">
+<h2 id="sec-1"><span class="section-number-2">1</span> Pro Tip</h2>
+<div class="outline-text-2" id="text-1">
+
+Pro Tip: Always set this in your REPL to prevent long data structures or
+infinite loops from hanging your REPL:
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="nf">set!</span> <span class="nv">*print-length*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">set!</span> <span class="nv">*print-level*</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="outline-2" id="outline-container-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Workshop problem</h2>
+<div class="outline-text-2" id="text-2">
+
+Starting the day with this problem:
+<blockquote>Given a text file, let's find the n most common and uncommon
+words. Ignore certain stop words.</blockquote>
+Lesson taught: Data &gt; Code.
+
+<p>
+My solution:
+</p>
+
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">text-file</span>
+  <span class="s">&quot;http://www.gutenberg.org/cache/epub/19033/pg19033.txt&quot;</span>
+  <span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nf">System/getenv</span> <span class="s">&quot;HOME&quot;</span><span class="p">)</span> <span class="s">&quot;/Downloads/pg19033.txt&quot;</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">stop-words</span>
+  <span class="o">#</span><span class="p">{</span><span class="s">&quot;you&quot;</span>
+    <span class="s">&quot;the&quot;</span>
+    <span class="s">&quot;and&quot;</span>
+    <span class="s">&quot;a&quot;</span>
+    <span class="s">&quot;to&quot;</span>
+    <span class="s">&quot;of&quot;</span>
+    <span class="s">&quot;was&quot;</span>
+    <span class="s">&quot;i&quot;</span><span class="p">})</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">get-words</span>
+  <span class="p">[</span><span class="nv">stop-words</span> <span class="nv">text-file</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">remove </span><span class="nv">stop-words</span>
+          <span class="p">(</span><span class="nb">map </span><span class="nv">string/lower-case</span>
+               <span class="p">(</span><span class="nb">re-seq </span><span class="o">#</span><span class="s">&quot;\w+&quot;</span> <span class="p">(</span><span class="nb">slurp </span><span class="nv">text-file</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">count-words</span>
+  <span class="p">[</span><span class="nv">words</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">sort </span><span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nb">vector </span><span class="p">(</span><span class="nb">val </span><span class="nv">%</span><span class="p">)</span> <span class="p">(</span><span class="nb">key </span><span class="nv">%</span><span class="p">))</span>
+             <span class="p">(</span><span class="nf">frequencies</span>
+              <span class="nv">words</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">main</span>
+  <span class="p">[]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">freqs</span> <span class="p">(</span><span class="nf">count-words</span>
+               <span class="p">(</span><span class="nf">get-words</span> <span class="nv">stop-words</span> <span class="nv">text-file</span><span class="p">))]</span>
+    <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="nb">take </span><span class="mi">5</span> <span class="nv">freqs</span><span class="p">))</span>
+    <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="nf">take-last</span> <span class="mi">5</span> <span class="nv">freqs</span><span class="p">))))</span>
+</code></pre></div>
+
+<p>
+Output:
+</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">([</span><span class="mi">1</span> <span class="mi">0</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">000</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">12</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">1500</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">1887</span><span class="p">])</span>
+<span class="p">([</span><span class="mi">144</span> <span class="nv">said</span><span class="p">]</span> <span class="p">[</span><span class="mi">177</span> <span class="nv">alice</span><span class="p">]</span> <span class="p">[</span><span class="mi">203</span> <span class="nv">it</span><span class="p">]</span> <span class="p">[</span><span class="mi">228</span> <span class="nv">in</span><span class="p">]</span> <span class="p">[</span><span class="mi">241</span> <span class="nv">she</span><span class="p">])</span>
+<span class="p">[</span><span class="nv">/clojure</span><span class="p">]</span>
+</code></pre></div>
+
+How to write your own <code>frequencies</code> function and introducing how to use
+<code>reduce</code> and <code>update-in</code>:
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">freqs</span>
+  <span class="p">[</span><span class="nv">words</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">reduce </span><span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">res</span> <span class="nv">w</span><span class="p">]</span>
+            <span class="p">(</span><span class="nf">update-in</span> <span class="nv">res</span> <span class="p">[</span><span class="nv">w</span><span class="p">]</span>
+                       <span class="p">(</span><span class="nf">fnil</span> <span class="nb">inc </span><span class="mi">0</span><span class="p">)))</span>
+          <span class="p">{}</span>
+          <span class="nv">words</span><span class="p">))</span><span class="o">&amp;</span><span class="nv">lt</span><span class="c1">;</span>
+</code></pre></div>
+
+<p>
+Why <code>fnil</code> is better than an <code>if</code> form - telling computer what vs. how.
+</p>
+
+<p>
+A better way to sort was shown by BG:
+</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">top-words</span>
+  <span class="p">[</span><span class="nv">word-counts</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">sort-by </span><span class="p">(</span><span class="nb">comp - </span><span class="nv">val</span><span class="p">)</span> <span class="nv">word-counts</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">top-words</span> <span class="p">(</span><span class="nf">frequencies</span> <span class="p">[</span><span class="s">&quot;a&quot;</span> <span class="s">&quot;a&quot;</span> <span class="s">&quot;b&quot;</span> <span class="s">&quot;c&quot;</span><span class="p">]))</span>
+<span class="o">#</span><span class="nb">= </span><span class="p">([</span><span class="s">&quot;a&quot;</span> <span class="mi">2</span><span class="p">]</span> <span class="p">[</span><span class="s">&quot;b&quot;</span> <span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="s">&quot;c&quot;</span> <span class="mi">1</span><span class="p">])</span>
+</code></pre></div>
+
+<p>
+Introduction to threading macros to simplify series of function
+compositions.
+</p>
+
+<p>
+Amazing how much has been covered and BG hasn't mention the <code>let</code> form
+at all so far (although I'm using it).
+</p>
+
+After seeing BG's code, I realized why I couldn't get <code>juxt</code> working in
+my own <code>main</code> function - I was trying to call <code>map</code> on <code>juxt</code> and
+messing things up, instead I should have just called the result of
+<code>juxt</code>:
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">main*</span>
+  <span class="p">[]</span>
+  <span class="p">((</span><span class="nf">juxt</span> <span class="o">#</span><span class="p">(</span><span class="nb">take </span><span class="mi">5</span> <span class="nv">%</span><span class="p">)</span> <span class="o">#</span><span class="p">(</span><span class="nf">take-last</span> <span class="mi">5</span> <span class="nv">%</span><span class="p">))</span>
+   <span class="p">(</span><span class="nf">count-words</span>
+    <span class="p">(</span><span class="nf">get-words</span> <span class="nv">stop-words</span> <span class="nv">text-file</span><span class="p">))))</span>
+
+<span class="o">#</span><span class="nb">= </span><span class="p">[([</span><span class="mi">1</span> <span class="s">&quot;0&quot;</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="s">&quot;000&quot;</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="s">&quot;12&quot;</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="s">&quot;1500&quot;</span><span class="p">]</span> <span class="p">[</span><span class="mi">1</span> <span class="s">&quot;1887&quot;</span><span class="p">])</span>
+<span class="o">#</span>  <span class="p">([</span><span class="mi">144</span> <span class="s">&quot;said&quot;</span><span class="p">]</span> <span class="p">[</span><span class="mi">177</span> <span class="s">&quot;alice&quot;</span><span class="p">]</span> <span class="p">[</span><span class="mi">203</span> <span class="s">&quot;it&quot;</span><span class="p">]</span> <span class="p">[</span><span class="mi">228</span> <span class="s">&quot;in&quot;</span><span class="p">]</span> <span class="p">[</span><span class="mi">241</span> <span class="s">&quot;she&quot;</span><span class="p">])]</span>
+</code></pre></div>
+
+<p>
+The star at the end of a name is a convention which means it is an
+alternative version or slightly different version.
+</p>
+
+</div>
+</div>
+<div class="outline-2" id="outline-container-3">
+<h2 id="sec-3"><span class="section-number-2">3</span> Multimethods</h2>
+<div class="outline-text-2" id="text-3">
+
+How to have "objects"? Use multi-methods.
+<ul>
+	<li>Dispatch on an arbitrary function</li>
+	<li>Ad-hoc hierarchies</li>
+</ul>
+Java uses static dispatch because method invocation, i.e. method of
+which type to call, is decided by the compiler at compile-time (at least
+for simple cases).
+
+<p>
+Java is also single-dispatch because it can dispatch on only one
+factor - the type (i.e. the class and the arity of the method).
+</p>
+
+<p>
+Hierarchies and type concepts are tied together in Java.
+</p>
+
+<p>
+Example of how to do multimethods in Clojure:
+</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">unix</span>
+  <span class="p">{</span><span class="ss">:os</span> <span class="ss">::unix</span>
+   <span class="ss">:c-compiler</span> <span class="s">&quot;cc&quot;</span>
+   <span class="ss">:home</span> <span class="s">&quot;/home&quot;</span><span class="p">})</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">osx</span>
+  <span class="p">{</span><span class="ss">:os</span> <span class="ss">::osx</span>
+   <span class="ss">:c-compiler</span> <span class="s">&quot;gcc&quot;</span>
+   <span class="ss">:home</span> <span class="s">&quot;/Users&quot;</span><span class="p">})</span>
+
+<span class="p">(</span><span class="kd">defmulti </span><span class="nv">home</span> <span class="ss">:os</span><span class="p">)</span>
+
+<span class="p">(</span><span class="kd">defmethod </span><span class="nv">home</span> <span class="ss">::unix</span>
+  <span class="p">[</span><span class="nv">m</span><span class="p">]</span>
+  <span class="p">(</span><span class="ss">:home</span> <span class="nv">m</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">home</span> <span class="nv">unix</span><span class="p">)</span>
+<span class="c1">;= &quot;/home&quot;</span>
+
+<span class="p">(</span><span class="nf">home</span> <span class="nv">osx</span><span class="p">)</span>
+<span class="c1">;= IllegalArgumentException No method in multimethod</span>
+<span class="c1">;  &#39;home&#39; for dispatch value: :example1.core/osx</span>
+</code></pre></div>
+
+<p>
+The <code>::keyword</code> is used to confine the keyword to the current namespace.
+</p>
+
+<p>
+The argument is a dispatch function which should not have side-effects.
+</p>
+
+<p>
+Since OS X is a derivative of Unix, use <code>derive</code>:
+</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="nf">derive</span> <span class="ss">::osx</span> <span class="ss">::unix</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">home</span> <span class="nv">osx</span><span class="p">)</span>
+<span class="c1">;= &quot;/Users&quot;</span>
+</code></pre></div>
+
+<p>
+So this means that <code>osx</code> "derives the functionality" from <code>unix</code> because
+we are creating a hierarchy.
+</p>
+
+<p>
+This is going to take some time to digest… the dispatch here is on a
+map which is the idiom in Clojure compared to dispatching on the class
+in Java.
+</p>
+
+Introducing multiple dispatch by dispatching on both <code>:os</code> and
+<code>compiler</code>.
+
+<p>
+Use <code>:default</code> to give a default multimethod implementation.
+</p>
+
+<p>
+Introducing <code>ancestors</code> and <code>descendants</code> to introspect the hierarchy.
+</p>
+
+<p>
+Introducing <code>prefers</code> to handle when multiple ancestors match for a
+multimethod call.
+</p>
+
+<p>
+Recommendation to read <a href="http://clojure.org/multimethods">http://clojure.org/multimethods</a>
+</p>
+
+<p>
+Discussion on what is the difference between a class and a type? In
+Java, there is no difference. But they are actually orthogonal concepts.
+</p>
+
+<p>
+So use a type to differentiate / switch behavior and we can use a simple
+map data structure or a keyword or any simple values in Clojure as a
+"type", instead of depending entirely on "classes" in traditional OOP
+languages. A class is a bag of data and behavior.
+</p>
+
+<p>
+Taking duck-typing as an example, as long as a parameter matches some
+"behavior" (type), we can use that parameter regardless of what "class"
+it belongs to.
+</p>
+
+<p>
+On the other side, a class can have many "types", for example, a vector
+can also behave as a collection and can behave as a sequence.
+</p>
+
+Recommendation to read
+<a href="http://thinkrelevance.com/blog/2009/08/12/rifle-oriented-programming-with-clojure-2">http://thinkrelevance.com/blog/2009/08/12/rifle-oriented-programming-with-clojure-2</a>
+
+<p>
+Point is to keep data and functionality separate and not complect it
+into classes.
+</p>
+
+<p>
+Multimethods are extensible, they are global and hence users of the code
+can extend the multimethod to more types.
+</p>
+
+<p>
+Example of built-in <a href="http://clojuredocs.org/clojure_core/clojure.core/print-method">print-method</a>.
+</p>
+
+</div>
+</div>
+<div class="outline-2" id="outline-container-4">
+<h2 id="sec-4"><span class="section-number-2">4</span> Protocols &amp; Types</h2>
+<div class="outline-text-2" id="text-4">
+
+<p>
+Introduction to <a href="http://clojure.org/protocols">protocols &amp; types</a>: How do you extend a third-party
+library without access to it's source code?
+</p>
+
+<p>
+In OOP languages, you can create a new class and subclass existing
+third-party class and interoperate bidirectionally.
+</p>
+
+<p>
+In FP languages, you can create a new method and make it work on
+existing third-party classes.
+</p>
+
+<p>
+You have to choose either one in traditional OOP and FP languages.
+</p>
+
+<p>
+This is called the <a href="http://c2.com/cgi/wiki?ExpressionProblem">Expression Problem</a>.
+</p>
+
+In current languages, the solution is usually monkey-patching (think of
+<code>find_by*</code> methods in Rails ActiveRecord) which can be full of surprises
+and brittleness.
+
+<p>
+Discussion on how you can use visitor pattern in Java to add new
+functionality on top of existing classes, but you lose identity - you
+may expect <code>Student</code> but you get <code>MyStudent</code>.
+</p>
+
+<p>
+In Clojure, you can do both, in a clean manner.
+</p>
+
+<p>
+We can use multimethods but the limitation is that it is global.
+</p>
+
+<p>
+Multimethods have the advantage of multiple dispatch. Protocols are
+single-dispatch on type.
+</p>
+
+<p>
+The separation between types and behaviors in Clojure enables the
+concept of protocols.
+</p>
+
+<p>
+Protocols can be confined to one namespace. Multimethods are global.
+</p>
+
+<p>
+Example uses records - records behave like a map but has a type
+(identity) attached to it.
+</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">defprotocol </span><span class="nv">IPalindrome</span>
+  <span class="p">(</span><span class="nf">palindrome?</span> <span class="p">[</span><span class="nv">o</span><span class="p">]</span>
+    <span class="o">&amp;</span><span class="nv">quot</span><span class="c1">;Check whether o is a palindrome.&amp;quot;))</span>
+
+<span class="p">(</span><span class="kd">defrecord </span><span class="nv">student</span>
+    <span class="p">[</span><span class="nb">name </span><span class="nv">email</span><span class="p">])</span>
+
+<span class="p">(</span><span class="nf">extend-protocol</span> <span class="nv">IPalindrome</span>
+  <span class="nv">java.lang.String</span>
+  <span class="p">(</span><span class="nf">palindrome?</span> <span class="p">[</span><span class="nv">s</span><span class="p">]</span>
+    <span class="p">(</span><span class="nb">= </span><span class="nv">s</span> <span class="p">(</span><span class="nb">apply str </span><span class="p">(</span><span class="nb">reverse </span><span class="nv">s</span><span class="p">))))</span>
+
+  <span class="nv">student</span>
+  <span class="p">(</span><span class="nf">palindrome?</span> <span class="p">[</span><span class="nv">s</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf">palindrome?</span> <span class="p">(</span><span class="ss">:name</span> <span class="nv">s</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nf">palindrome?</span> <span class="s">&quot;malayalam&quot;</span><span class="p">)</span>
+<span class="c1">;= true</span>
+
+<span class="p">(</span><span class="nf">palindrome?</span> <span class="p">(</span><span class="nf">-&gt;student</span> <span class="s">&quot;malayalam&quot;</span> <span class="s">&quot;b@b.com&quot;</span><span class="p">))</span>
+<span class="c1">;= true</span>
+</code></pre></div>
+
+<code>extend-protocol</code> calls <code>extend</code> underneath which is just associating a
+type with a protocol with a map data structure of function names to
+implementations.
+
+<p>
+You can check if a type <code>extends?</code> a protocol or an object <code>satisfies?</code>
+a protocol.
+</p>
+
+<p>
+Introducing <code>reify</code> - reification means given an abstraction, create a
+concretion. It allows you to create anonymous implementations of any
+protocol.
+</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">*anon</span>
+  <span class="p">(</span><span class="nf">reify</span> <span class="nv">IPalindrome</span>
+    <span class="p">(</span><span class="nf">palindrome?</span> <span class="p">[</span><span class="nv">_</span><span class="p">]</span> <span class="nv">true</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nf">palindrome?</span> <span class="nv">*anon</span><span class="p">)</span>
+<span class="c1">;= true</span>
+</code></pre></div>
+
+<p>
+You can use lexical closures inside a function and returns an object of
+anonymous type (a dynamic implementation) that satisfies a protocol.
+</p>
+
+<p>
+Limitation of <code>reify</code> is it cannot instantiate classes, it can only
+instantiate protocols and interfaces. For classes, you can use <code>proxy</code>
+which is mainly used for Java interoperability.
+</p>
+
+<p>
+Advantage of protocol is that you can group functions and check if a
+type extends that protocol. That is the difference from multimethods.
+</p>
+
+Example of how to use protocols to <a href="https://github.com/clojure/clojure/blob/7ac5ad84ea4cae899606a1ea8762db0caaab5b55/src/clj/clojure/java/io.clj#L168">create mixins</a> with example of
+<code>IOFactory</code> implementations in the Clojure source code - data all the
+things!
+
+<p>
+Internally, Clojure uses interfaces and ClojureScript uses protocols. In
+future, Clojure will internally switch to protocols as well.
+</p>
+
+<p>
+Example of <a href="http://docs.python.org/3/library/collections.html#collections.ChainMap">ChainMap data structure in Python</a> and <a href="https://github.com/ghoseb/chainmap">BG's ChainMap implementation in Clojure</a> by <a href="https://github.com/ghoseb/chainmap/blob/master/src/chainmap/core.clj">using protocols</a>.
+</p>
+
+</div>
+</div>
+<div class="outline-2" id="outline-container-5">
+<h2 id="sec-5"><span class="section-number-2">5</span> Concurrency</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>
+Handle state properly and you'll get concurrency for free. Get the
+basics right.
+</p>
+
+<p>
+BG gave example of his experience in Cleartrip.com about state and
+mutability.
+</p>
+
+<p>
+In Clojure, identity and value are separated.
+</p>
+
+<dl><dt>value</dt><dd>immutable data in a persistent structure</dd><dt>identity</dt><dd>series of causally related values over time</dd><dt>state</dt><dd>identity at a point in time</dd></dl>Example: "bank balance" is an identity, it's value changes over time and
+it's current value is it's current state. You can put the "bank balance"
+inside a container which can decide the semantics of how you can change
+it's state.
+
+The "containers" are <a href="http://clojure-doc.org/articles/language/concurrency_and_parallelism.html#clojure_reference_types">refs, atoms, agents and vars</a>.
+<table border="2" frame="hsides" rules="groups" cellspacing="0" cellpadding="6"><colgroup> <col class="left" /> <col class="left" /> <col class="left" /> </colgroup>
+<thead>
+<tr>
+<th class="left" scope="col"></th>
+<th class="left" scope="col">shared</th>
+<th class="left" scope="col">isolated</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">synchronous /</td>
+<td class="left">refs / stm</td>
+<td class="left">-</td>
+</tr>
+<tr>
+<td class="left">coordinated</td>
+<td class="left"></td>
+<td class="left"></td>
+</tr>
+<tr>
+<td class="left">synchronous /</td>
+<td class="left">atoms</td>
+<td class="left">vars</td>
+</tr>
+<tr>
+<td class="left">autonomous</td>
+<td class="left"></td>
+<td class="left"></td>
+</tr>
+<tr>
+<td class="left">asynchronous /</td>
+<td class="left">agents</td>
+<td class="left">-</td>
+</tr>
+<tr>
+<td class="left">autonomous</td>
+<td class="left"></td>
+<td class="left"></td>
+</tr>
+</tbody>
+</table>
+In Clojure, there is optimistic concurrency.
+
+Unified update model:
+<ul>
+	<li><b>update by function application</b></li>
+	<li>readers require no coordination</li>
+	<li>readers never block anybody</li>
+	<li>writers never block readers</li>
+</ul>
+In single-threaded-view languages, you will use locks which prevents
+reading from others as well.
+<table border="2" frame="hsides" rules="groups" cellspacing="0" cellpadding="6"><colgroup> <col class="left" /> <col class="left" /> <col class="left" /> <col class="left" /> <col class="left" /> </colgroup>
+<thead>
+<tr>
+<th class="left" scope="col"></th>
+<th class="left" scope="col">ref</th>
+<th class="left" scope="col">atom</th>
+<th class="left" scope="col">agent</th>
+<th class="left" scope="col">var</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">create</td>
+<td class="left">ref</td>
+<td class="left">atom</td>
+<td class="left">agent</td>
+<td class="left">def</td>
+</tr>
+<tr>
+<td class="left">deref</td>
+<td class="left">deref/@</td>
+<td class="left">deref/@</td>
+<td class="left">deref/@</td>
+<td class="left">deref/@</td>
+</tr>
+<tr>
+<td class="left">update</td>
+<td class="left">alter</td>
+<td class="left">swap!</td>
+<td class="left">send</td>
+<td class="left">alter-var-root</td>
+</tr>
+</tbody>
+</table>
+Use <code>deref</code> function or <code>@</code> reader macro to dereference a reference type
+and get the value behind it.
+
+<p>
+Vars are special because they are deref-ed automatically.
+</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="nv">first</span>
+<span class="c1">;= #&lt;core$first clojure.core$first@2be06d39&gt;</span>
+
+<span class="p">(</span><span class="k">var </span><span class="nv">first</span><span class="p">)</span>
+<span class="c1">;= #&#39;clojure.core/first</span>
+
+<span class="o">#</span><span class="ss">&#39;first</span>
+<span class="c1">;= #&#39;clojure.core/first</span>
+
+<span class="o">@#</span><span class="ss">&#39;first</span>
+<span class="c1">;= #&lt;core$first clojure.core$first@2be06d39&gt;</span>
+</code></pre></div>
+
+STM-related functionality like <code>alter</code> and <code>commute</code> have to be in a
+<code>dosync</code> form (transaction).
+
+vars can be rebound:
+<table border="2" frame="hsides" rules="groups" cellspacing="0" cellpadding="6"><colgroup> <col class="left" /> <col class="left" /> </colgroup>
+<thead>
+<tr>
+<th class="left" scope="col">api</th>
+<th class="left" scope="col">scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">alter-var-root</td>
+<td class="left">root binding</td>
+</tr>
+<tr>
+<td class="left">set!</td>
+<td class="left">thread-local, permanent</td>
+</tr>
+<tr>
+<td class="left">binding</td>
+<td class="left">thread-local, dynamic</td>
+</tr>
+</tbody>
+</table>
+Dynamic scope is imperative, not functional. Looking at the code, you
+cannot know what value it will have.
+
+</div>
+</div>
+<div class="outline-2" id="outline-container-6">
+<h2 id="sec-6"><span class="section-number-2">6</span> Parallelism</h2>
+<div class="outline-text-2" id="text-6">
+
+<a href="http://blog.golang.org/concurrency-is-not-parallelism">Parallelism is not same as concurrency</a>.
+
+<p>
+In concurrency, there is at least one resource being shared.
+</p>
+
+<p>
+All along, we have multiple processes running on a single CPU core
+because we have concurrent processes, i.e. there is
+scheduling. Concurrent code can be sequential or parallel.
+</p>
+
+<p>
+Parallelism is about running multiple processes at the same time across
+multiple CPU cores. Parallelism is highest when there are no shared
+resources.
+</p>
+
+<p>
+If code is written properly w.r.t. concurrency, you will get parallelism
+for free.
+</p>
+
+<p>
+Proper code written can run as fast as possible on a single-core machine
+or a multiple-core machine. But non-concurrent code (use locks, etc.)
+can run as fast as possible on a single-core machine but will not
+increase in performance on a multiple-core machine.
+</p>
+
+<p>
+Example is <a href="http://tweakers.net/reviews/649/7/database-test-sun-ultrasparc-t1-vs-amd-opteron-mysql-vs-postgresql.html">Postgresql vs. MySQL performance comparison on scaling with more CPU cores</a>.
+</p>
+
+See <code>future</code>, <code>pmap</code>, <code>pcalls</code>, <code>pvalues</code> and
+<code>java.lang.concurrent.Executor</code>.
+
+</div>
+</div>
+<div class="outline-2" id="outline-container-7">
+<h2 id="sec-7"><span class="section-number-2">7</span> Macros</h2>
+<div class="outline-text-2" id="text-7">
+
+<p>
+DSLs via Macros
+</p>
+
+Macros are functions that run at compile-time that will generate data
+which will be treated as code at run-time.
+<ul>
+	<li>Syntax quote (back-tick)</li>
+	<li>Unquote (tilde)</li>
+	<li>Unquote splicing (tilde and at-symbol)
+<ul>
+	<li>Use the contents of the list directly</li>
+</ul>
+</li>
+	<li>Variable capture</li>
+	<li>Gensym</li>
+</ul>
+Possible because code and data are same.
+
+<p>
+If you want to create an <code>unless</code> form which is semantically a boolean
+opposite of the <code>when</code> form (an <code>if</code> form with only the <code>then</code> form,
+i.e. no <code>else</code> form), you cannot use a function because the parameters
+will be evaluated before calling the function, so you will need a macro
+here.
+</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">defmacro </span><span class="nv">unless</span>
+  <span class="p">[</span><span class="nb">test </span><span class="o">&amp;</span> <span class="nv">body</span><span class="p">]</span>
+  <span class="o">`</span><span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">not </span><span class="o">~</span><span class="nv">test</span><span class="p">)</span>
+     <span class="o">~@</span><span class="nv">body</span><span class="p">))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">dead?</span> <span class="nv">false</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">unless</span> <span class="nv">dead?</span> <span class="p">(</span><span class="nb">println </span><span class="s">&quot;Alive&quot;</span><span class="p">))</span>
+<span class="c1">;= &quot;Alive&quot;</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">dead?</span> <span class="nv">true</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">unless</span> <span class="nv">dead?</span> <span class="p">(</span><span class="nb">println </span><span class="s">&quot;Alive&quot;</span><span class="p">))</span>
+<span class="c1">;= nil</span>
+</code></pre></div>
+
+<p>
+Using a hash at the end of a new var name inside a macro means a
+universally unique name is generated so that there are no name clashes
+with other code that the macro expansion is part of. It is same as
+calling <code>gensym</code> function manually.
+</p>
+
+<p>
+There is a Clojure built-in that does the same as <code>unless</code> but it is
+given a better name - <code>when-not</code>.
+</p>
+
+<p>
+Example of a recursive macro:
+</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">defmacro </span><span class="nv">do-until</span>
+  <span class="s">&quot;cond&#39;s lost cousin&quot;</span>
+  <span class="p">[</span><span class="o">&amp;</span> <span class="nv">clauses</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">when </span><span class="nv">clauses</span>
+    <span class="o">`</span><span class="p">(</span><span class="nb">when </span><span class="o">~</span><span class="p">(</span><span class="nb">first </span><span class="nv">clauses</span><span class="p">)</span>
+       <span class="o">~</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">next </span><span class="nv">clauses</span><span class="p">)</span>
+          <span class="p">(</span><span class="nb">second </span><span class="nv">clauses</span><span class="p">)</span>
+          <span class="p">(</span><span class="nf">throw</span> <span class="p">(</span><span class="nf">IllegalArgumentException.</span>
+                  <span class="s">&quot;do-until needs an even number of forms.&quot;</span><span class="p">)))</span>
+       <span class="p">(</span><span class="nf">do-until</span> <span class="o">~@</span><span class="p">(</span><span class="nf">nnext</span> <span class="nv">clauses</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="nf">do-until</span> <span class="nv">true</span> <span class="p">(</span><span class="nb">prn </span><span class="mi">1</span><span class="p">)</span> <span class="nv">false</span> <span class="p">(</span><span class="nb">prn </span><span class="mi">2</span><span class="p">))</span>
+<span class="c1">;= 1</span>
+</code></pre></div>
+
+<p>
+Introducing a longer example of using macros and functions to create a
+quite complex DSL. And finally generated XML out of it! Wow.
+</p>
+
+</div>
+</div>
+<div class="outline-2" id="outline-container-8">
+<h2 id="sec-8"><span class="section-number-2">8</span> Not Covered</h2>
+<div class="outline-text-2" id="text-8">
+<ul>
+	<li>ClojureScript</li>
+	<li>Reducers framework</li>
+	<li>core.async</li>
+	<li>core.typed</li>
+	<li>core.logic</li>
+</ul>
+Some Great Libraries:
+<ul>
+	<li>enlive</li>
+	<li>instaparse</li>
+	<li>fluokitten</li>
+	<li>ring</li>
+	<li>carmine</li>
+	<li>http-kit</li>
+	<li>slingshot</li>
+	<li>tools.reader</li>
+	<li>a lot more</li>
+</ul>
+</div>
+</div>
+<div class="outline-2" id="outline-container-9">
+<h2 id="sec-9"><span class="section-number-2">9</span> End Notes</h2>
+<div class="outline-text-2" id="text-9">
+
+Recommendations of books:
+<ul>
+	<li><a href="https://leanpub.com/fp-oo">Functional Programming for the Object-Oriented Programmer</a></li>
+</ul>
+Recommendation to join the Pune Clojure mailing list:
+<ul>
+	<li><a href="https://groups.google.com/group/clj-pune">https://groups.google.com/group/clj-pune</a></li>
+</ul>
+Recommendations to read / watch:
+<ul>
+	<li><a href="http://www.youtube.com/user/ClojureTV">http://www.youtube.com/user/ClojureTV</a></li>
+	<li><a href="http://www.infoq.com/clojure/">http://www.infoq.com/clojure/</a></li>
+	<li><a href="https://clojurefun.wordpress.com/2012/08/06/great-clojure-videos-by-rich-hickey/">Great Clojure Videos by Rich Hickey</a>
+<ul>
+	<li><a href="http://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey">Are We There Yet?</a></li>
+	<li><a href="http://www.infoq.com/presentations/Simple-Made-Easy-QCon-London-2012">Simple Made Easy</a></li>
+	<li><a href="https://www.youtube.com/watch?v=f84n5oFoZBc">Hammock Driven Development</a></li>
+</ul>
+</li>
+</ul>
+Personal note: Read following links to learn more about Clojure:
+<ul>
+	<li><a href="http://clojure-doc.org/">http://clojure-doc.org/</a></li>
+	<li><a href="http://clojure.org/documentation">http://clojure.org/documentation</a></li>
+	<li><a href="http://clojuredocs.org/">http://clojuredocs.org/</a></li>
+	<li><a href="http://planet.clojure.in/">http://planet.clojure.in/</a></li>
+	<li><a href="https://twitter.com/BestClojure">@BestClojure</a></li>
+</ul>
+</div>
+</div>
+
+<h3 class="tweet-comments-header">Twitter Comments</h3>
+
+<div class="tweet-comments">
+
+<!-- @swaroopch Thanks for blogging this. -->
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/pdvyas/status/371647048300249088">@pdvyas</a> says:
+</p>
+<blockquote cite="https://twitter.com/pdvyas/status/371647048300249088">
+@swaroopch Thanks for blogging this.
+</blockquote>
+</div>
+
+
+
+<!-- @swaroopch great post. Missed the clojure class in pune. Sounds amazing. Wishing for a delhi one @ghoseb -->
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/sandgorgon1/status/371652802541785088">@sandgorgon1</a> says:
+</p>
+<blockquote cite="https://twitter.com/sandgorgon1/status/371652802541785088">
+@swaroopch great post. Missed the clojure class in pune. Sounds amazing.  Wishing for a delhi one @ghoseb
+</blockquote>
+</div>
+
+
+
+<!-- @swaroopch Thank you for the posts. And meeting you was a pleasure as always. -->
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/pradeepto/status/371699790561566720">@pradeepto</a> says:
+</p>
+<blockquote cite="https://twitter.com/pradeepto/status/371699790561566720">
+@swaroopch Thank you for the posts. And meeting you was a pleasure as always.
+</blockquote>
+</div>
+
+
+
+<!-- Experienced mind-expanding #clojure immersion thanks to the awesome workshop by @ghoseb. Gr8 wrap-up by @swaroopch: http://swaroopch.com/posts -->
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/protoiyer/status/371719013828538368">@protoiyer</a> says:
+</p>
+<blockquote cite="https://twitter.com/protoiyer/status/371719013828538368">
+Experienced mind-expanding #clojure immersion thanks to the awesome workshop by @ghoseb. Gr8 wrap-up by @swaroopch: http://t.co/QzqEg3eKwA
+</blockquote>
+</div>
+
+
+
+</div>
+
+<div class="comments-wrapper">
+<h3 class="comments-section">Comments</h3>
+<div id="comment-4365" class="comment" data-name="Mayank" data-email="firesofmay@gmail.com" data-date="2013-08-25 21:15:16">
+<p class="who">
+  <cite>Mayank</cite> says:
+</p>
+<p class="what">
+  Might I add the following:
+<br/>
+- <a href="http://defnewsletter.com/">http://defnewsletter.com/</a>
+<br/>
+- <a href="http://www.clojuregazette.com/">http://www.clojuregazette.com/</a>
+<br/>
+
+<br/>
+They are like digested planet.clojure material (not always).
+<br/>
+
+<br/>
+Also there is this course that is about to start which is really helpful in grokking lisp:
+<br/>
+- <a href="https://www.coursera.org/course/programdesign">https://www.coursera.org/course/programdesign</a>
+<br/>
+
+<br/>
+While that course is not actually about lisp but it teaches using a dialect of lisp.
+<br/>
+PS - I took that course and its brilliant! Highly Recommend it.
+</p>
+</div>
+</div><!-- comments-wrapper -->
+
+  

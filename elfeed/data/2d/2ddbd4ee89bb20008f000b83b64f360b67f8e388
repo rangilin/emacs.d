@@ -1,0 +1,9 @@
+
+<p>These are some note on how to integrate Sun's J2SE SDK with Debian
+Testing. First read the <a href="http://www.debian.org/doc/manuals/debian-java-faq/ch11.html#s11.2">FAQ</a>. Next are some faster steps, commands are
+to be typed as root:</p>
+
+&lt;example&gt;
+apt-get install equivs
+cd /tmp
+

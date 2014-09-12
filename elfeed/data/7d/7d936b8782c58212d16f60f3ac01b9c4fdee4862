@@ -1,0 +1,92 @@
+<p>  
+I've become a <a href='http://www.codinghorror.com/blog/2012/11/do-you-wanna-touch.html' >huge fan of touch computing</a>. I believe that most things we think of as "computers" will be <a href='http://www.codinghorror.com/blog/2012/03/welcome-to-the-post-pc-era.html' >de-facto tablets</a>, either in our pocket, in our hands, possibly even mounted on our wrists or forearms.  
+</p>  
+
+<p>  
+I can't wait for the iPad 5 this week (I'll be ordering three), and my Surface Pro 2 should arrive this week too. Because it is a blazingly fast, modern Intel machine, I like to use the Surface Pro to predict where tablet performance <i>ought to be</i> for everyone in 2 to 3 years. I think of it as an iPad 7.  
+<p>  
+My main complaint with the Surface Pro is <b>the incredibly lackluster battery life</b>. Granted, this is a classic Intel x86 box we're talking about, not some efficient ARM system-on-a-chip designed to run on a tiny battery. Still, I was hopeful that the first Surface Pro with Haswell inside would produce giant gains in battery life as Intel promised. Then I saw <a href='http://anandtech.com/show/7440/microsoft-surface-pro-2-review/4' >this graph</a>:  
+</p>  
+
+<p>  
+<img alt="Web browsing battery life, Surface Pro vs Surface Pro 2" title="Web browsing battery life, Surface Pro vs Surface Pro 2" src='http://blog.codinghorror.com/content/images/uploads/2013/10/6a0120a85dcdae970b019b002f13a6970d-800wi.png'  width="600" height="500" />  
+</p>  
+
+<p>  
+So WiFi web browsing battery life, arguably the most common user activity there is on a computer these days, goes from 4.7 hours on the Surface Pro to 6.7 hours on the Surface Pro 2, a 42% increase. That's a decent increase, I suppose, but I was hoping for something more like 8 hours, something closer to doubling of battery life &ndash; to bring the Surface Pro in line with other tablets.  
+</p>  
+
+<p>  
+Nearly 7 whole hours of WiFi web browsing for a real computer in tablet form factor &hellip; that's not bad, right? Let's see <a href='http://www.anandtech.com/show/7180/apple-macbook-air-11-2013-review/2' >how the 2013 MacBook Air does</a>, which spec-wise is about as close as we can get to the Surface Pro 2. The screen is somewhat lower resolution and not touch capable, of course, but under the hood, the i5-4200u CPU and LPDDR3 RAM are nearly the same. It's a real computer, too, using the latest Intel technology.  
+</p>  
+
+<p>  
+<img alt="Macbook-air-2013-web-browsing" title="Macbook-air-2013-web-browsing" src='http://blog.codinghorror.com/content/images/uploads/2013/10/6a0120a85dcdae970b019b002f2524970d-800wi.png'  width="600" height="176" />  
+</p>  
+
+<p>  
+The Surface Pro 2 has a 42 Wh battery, which puts it closer to the 11 inch Air in capacity. Still, over 11 hours of battery life browsing the web on WiFi? That means the Air is somehow producing <b>nearly two times the battery efficiency of the best hardware and software combination Microsoft can muster</b>, for what I consider to be the most common usage pattern on a computer today. That's shocking. Scandalous, even.  
+</p>  
+
+<p>  
+<span style="color:red">UPDATE:</span> Turns out the Surface 2 Pro was shipped with bad firmware. Once updated, the WiFi adapter enters lower idle power states and <a href='http://www.anandtech.com/show/7460/apple-ipad-air-review' >this helps a lot</a>, going from 6.6 hours of browsing time to 8.3 hours, a 25% improvement! That puts it much more in line with the rest of the field, at least, even if it doesn't achieve Mac like runtime.  
+</p>  
+
+<p>  
+It's not exactly news that Windows historically doesn't do as well as OS X on battery life. Way back in 2009, <a href='http://www.anandtech.com/show/2785/the-new-macbook-pro-part-ii-lower-battery-life-under-vista-sata-issues' >AnandTech tested a MacBook Pro with multiple operating systems</a>:  
+</p>  
+
+<p>  
+<table cellpadding=4 width="600px" style="border: 1px solid silver">  
+<tr>  
+<td valign="top" style="border-right: 1px solid silver">2009 15-inch MacBook Pro (73WHr battery)</td>  
+<td valign="top" style="border-right: 1px solid silver">OS X 10.5.7</td>  
+<td valign="top" style="border-right: 1px solid silver">Windows Vista x64 SP1</td>  
+<td valign="top">Windows 7 RC1</td>  
+</tr>  
+<tr>  
+<td style="border-right: 1px solid silver">Wireless Web Browsing (No Flash) Battery Life</td>  
+<td width="100px" style="border-right: 1px solid silver">8.13 hours</td>  
+<td width="100px" style="border-right: 1px solid silver">6.02 hours</td>  
+<td width="100px">5.48 hours</td>  
+</tr>  
+</table>  
+</p>  
+
+<p>  
+That's fine, I knew about this discrepancy, but here's what really bothers me:  
+<ol>  
+<li><b>The Windows light usage battery life situation has not improved at all since 2009.</b> If anything the disparity between OS X and Windows light usage battery life has gotten <i>worse</i>.<br/><br/></li>  
+<li>Microsoft positions Windows 8 as an operating system that's great for tablets, which are designed for casual web browsing and light app use &ndash; but how can that possibly be true when <b>Windows idle power management is so much worse than the competition's <i>desktop</i> operating system in OS X</b> &ndash; much less their tablet and phone operating system, iOS?</li>  
+</ol>  
+</p>  
+
+<p>  
+(It's true that Bay Trail, Intel's new lower power CPU from the Atom family, achieves <a href='http://www.anandtech.com/show/7428/asus-transformer-book-t100-review/5' >8.6 hours of WiFi web browsing</a>. That's solidly in the middle of the tablet pack for battery life. But all the evidence tells me that the very same hardware would do a <i>lot</i> better in OS X, or even iOS. At least Intel has finally produced something that's reasonably competitive with the latest ARM chips.)
+</p>  
+
+<p>  
+Perhaps most damning of all, if you take the latest and greatest 13" MacBook Air, and install Windows 8 on it, <a href='http://www.digitalversus.com/laptop/apple-13-macbook-air-2013-running-windows-8-p16624/test.html' >guess what happens to battery life?</a>  
+</p>  
+
+<blockquote>  
+One of the best things about the standard 2013 MacBook Air 13" is that it has record-breaking battery life of 14 hrs 25 min (with the screen brightness at 100 cd/m², headphones plugged in and the Wi-Fi, Bluetooth and keyboard backlighting turned off). <b>Under Windows 8 the results are more mixed [..] in the same conditions it lasts only 7 hrs 40 min</b>. That's still very high—it's better than the Asus Zenbook Prime UX31A's 6 hours and the Samsung Series 7 Ultra's 5 hours—but it's only half the astronomical 14 hours + that the 13" MacBook Air is capable of.  
+</blockquote>  
+
+<p>  
+Instead of the 26% less battery life in Windows that Anand measured in 2009, <b>we're now seeing <i>50%</i> less battery life.</b> This is an <i>enormous</i> gap between Windows and OS X in what is arguably the most common form of computer usage today, basic WiFi web browsing. That's shameful. Embarrassing, even.  
+</p>  
+
+<p>  
+I had a <a href='https://twitter.com/anandshimpi/status/392158669367803904' >brief Twitter conversation with Anand Shimpi of Anandtech about this</a>, and he was as perplexed as I was. Nobody could explain the technical basis for this vast difference in idle power management on the same hardware. None of the PC vendors he spoke to could justify it, or produce a Windows box that managed similar battery life to OS X. And that battery life gap is worse today &ndash; even when using Microsoft's own hardware, designed in Microsoft's labs, running Microsoft's latest operating system released <i>this week</i>. Microsoft can no longer hand wave this vast difference away based on vague references to "poorly optimized third party drivers".  
+</p>  
+
+<p>  
+Apple is clearly doing a great job here. Kudos. If you want a device that delivers maximum battery life for light web browsing, there's no question that you should get something with an Apple logo on it. <b>I just wish somebody could explain to me and Anand why Windows is so awful at managing idle power.</b> We're at a loss to understand why Windows' terrible &ndash; and worsening! &ndash; idle battery life performance isn't the source of far more industry outrage.  
+</p>  
+
+<table>  
+<tr><td class="welovecodinghorror">  
+[advertisement] How are you showing off your awesome? Create a <a href='http://careers.stackoverflow.com/cv'  rel="nofollow">Stack Overflow Careers profile</a> and show off all of your hard work from Stack Overflow, Github, and virtually every other coding site. Who knows, you might even get recruited for a great <a href='http://careers.stackoverflow.com/jobs'  rel="nofollow">new position</a>!
+</td></tr>  
+</table>

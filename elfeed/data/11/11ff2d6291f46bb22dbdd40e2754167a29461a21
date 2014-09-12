@@ -1,0 +1,42 @@
+<p>
+I love intuitive keymaps. Some are so perfect, you just can't avoid
+mouthing the words every time you hit that blissful combo. A wizard
+murmuring an incantation under his breath as his fingers draw the
+arcane patterns.
+</p>
+
+<p>
+The following keymap toggles some options which tend to be useful
+throughout a session.
+</p>
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="p">(</span><span class="nv">define-prefix-command</span> <span class="ss">&#39;endless/toggle-map</span><span class="p">)</span>
+<span class="c1">;; The manual recommends C-c for user keys, but C-x t is</span>
+<span class="c1">;; always free, whereas C-c t is used by some modes.</span>
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">ctl-x-map</span> <span class="s">&quot;t&quot;</span> <span class="ss">&#39;endless/toggle-map</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">endless/toggle-map</span> <span class="s">&quot;c&quot;</span> <span class="ss">&#39;column-number-mode</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">endless/toggle-map</span> <span class="s">&quot;d&quot;</span> <span class="ss">&#39;toggle-debug-on-error</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">endless/toggle-map</span> <span class="s">&quot;e&quot;</span> <span class="ss">&#39;toggle-debug-on-error</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">endless/toggle-map</span> <span class="s">&quot;f&quot;</span> <span class="ss">&#39;auto-fill-mode</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">endless/toggle-map</span> <span class="s">&quot;l&quot;</span> <span class="ss">&#39;toggle-truncate-lines</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">endless/toggle-map</span> <span class="s">&quot;q&quot;</span> <span class="ss">&#39;toggle-debug-on-quit</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">endless/toggle-map</span> <span class="s">&quot;t&quot;</span> <span class="ss">&#39;endless/toggle-theme</span><span class="p">)</span>
+<span class="c1">;;; Generalized version of `read-only-mode&#39;.</span>
+<span class="p">(</span><span class="nv">define-key</span> <span class="nv">endless/toggle-map</span> <span class="s">&quot;r&quot;</span> <span class="ss">&#39;dired-toggle-read-only</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">autoload</span> <span class="ss">&#39;dired-toggle-read-only</span> <span class="s">&quot;dired&quot;</span> <span class="no">nil</span> <span class="no">t</span><span class="p">)</span></code></pre></div>
+<p>
+There are eight keys being defined there, most of which aren't even
+used every day, but I know I'll never forget a single one. That is the
+beauty of mnemonics.
+</p>
+
+<p>
+Doesn't <i>"Emacs, toggle column"</i> just roll off your tongue as you're
+typing <kbd>C-x t c</kbd>? I feel like I'm commanding the
+strands of reality, but that could just be my D&amp;D past taking the
+better of me. 
+</p>
+
+<p>
+<i>Also note: The manual recommends <kbd>C-c</kbd> for user keys, but I like using <kbd>C-x</kbd> for global keys and using <kbd>C-c</kbd> for mode-specific keys.</i></p>
+
+   <p><a href="http://endlessparentheses.com/the-toggle-map-and-wizardry.html?source=rss#disqus_thread">Comment on this.</a></p>

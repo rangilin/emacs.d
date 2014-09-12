@@ -1,0 +1,23 @@
+<p>
+I've just released version 1.3 of the Emacs Documentation Android app.
+You can
+<ul class="org-ul">
+<li>download it at the <a href="http://doc.endlessparentheses.com/app.html#main_content">Emacs Online Documentation</a> website,
+</li>
+<li>or find it at the <a href="https://play.google.com/store/apps/details?id=com.malabarba.emacsdocumentation">Play Store</a> (donate version).
+</li>
+</ul>
+</p>
+
+<p>
+This version addresses a previous annoyance in which you'd have to
+zoom-in every time you open a page (because the mobile pages aren't
+quite mobile-friendly). This was addressed by implementing a
+(optional) built-in viewer which remembers your zoom level.
+</p>
+
+<p>
+It also implements theme choosing through the settings menu.
+</p>
+
+   <p><a href="http://endlessparentheses.com/emacs-documentation-v1-3-android-app-built-in-viewer-and-theme-choice.html?source=rss#disqus_thread">Comment on this.</a></p>

@@ -1,0 +1,29 @@
+
+<p>Things have changed in bzr that made my compilation of slime fails.
+The error message looked like this:</p>
+
+<pre class="example">
+slime-repl.el:19:13:Error: Don't know how to compile nil
+</pre>
+
+<p>Stefan Monnier gave me the clue:</p>
+
+<p>&quot;Apparently, some of the code in slime-repl.el ends up calling
+(byte-compile &lt;functionname&gt;) where &lt;functionname&gt; is a function
+that's not yet defined. Earlier, Emacs would just silently ignore such
+erroneous situations.&quot;</p>
+
+<p>So I just removed the following chunk in slime.el:</p>
+
+<pre class="src">
+(<span style="color: #8b008b; background-color: #b9babd;">require</span> '<span style="color: #00688b; background-color: #b9babd;">bytecomp</span>)
+(<span style="color: #8b008b; background-color: #b9babd;">let</span> ((byte-compile-warnings '()))
+  (mapc #'byte-compile
+        '(slime-alistify
+          slime-log-event
+          slime-events-buffer etc...
+</pre>
+
+<p>And hey, presto, it compiles again! Thanks Stefan, I would have never
+found the solution on my own.</p>
+

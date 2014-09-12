@@ -1,0 +1,35 @@
+<p> As some of you know, I was trained as a mathematician. It's odd, then, that my posts don't have more mathematics in them. The reason for that is that this blog is mostly about computers and development so there's not a lot of high level mathematics to discuss. What mathematics I do include are usually things like polynomials that are easily handled with sub- and superscripts. </p>
+<p> Still, from time to time I have wanted to include something a bit more complicated but could never figure out how to integrate the math in a visually pleasing way. My two posts on Shamir's Secret Sharing finally motivated me to figure out how to offer typeset mathematics on the blog page. </p>
+<p> I'm abashed that it took me so long. The process is so easy that I really have no excuse for not doing it years ago. Here, for others wishing to have mathematics in their blogs, is what to do. This post is mainly aimed at the Org mode → <code>org2blog</code> → WordPress workflow that I use (see <a href="http://irreal.org/blog/?p=319">here for details</a>) but I've tried to indicate how other workflows can also integrate mathematics into a blog post. </p>
+<p> There are two parts to the problem: </p>
+<ol class="org-ol">
+<li>Getting the mathematics to display on your blog </li>
+<li>Getting the mathematics to display locally so you can easily preview the result </li>
+</ol>
+<p> The easiest way to address both problems is with <a href="http://www.mathjax.org/">MathJax</a>. It's a bit of JavaScript that gets downloaded to the client's computer and takes care of typesetting the mathematics. All this happens transparently so your blog readers don't have to do anything. You don't have to do much of anything either. The folks at the MathJax project maintain the MathJax CDN, a network of computers that will serve the JavaScript for you. Thus there is no need to have your own local copy (although that's possible if you like). </p>
+<p> The easiest way to get this working on WordPress is to install a plugin (although even this isn't strictly necessary). I'm using <a href="http://wordpress.org/plugins/latex/">LaTeX for WordPress</a> but there are several others. The MathJax site has instructions for <a href="http://docs.mathjax.org/en/latest/platforms/index.html">using MathJax with several common blogging platforms</a> or how to add it to your theme file if you'd rather do that. </p>
+<p> In my case, I installed the plugin and everything just worked<sup><a class="footref" href="http://irreal.org/blog/?tag=emacs&amp;feed=rss2#fn.1" id="fnr.1" name="fnr.1">1</a></sup>. To get mathematics you simply mark up your LaTeX with <code><code class="tex2jax_ignore">\(...\)</code></code> for in-line expressions and <code><code class="tex2jax_ignore">\[...\]</code></code> for displayed expressions. For example, </p>
+<div class="center">
+<p> <code class="tex2jax_ignore">\[f(a)= \frac{1}{2\pi i}\oint_{\Gamma} \frac{f(z)}{z-a}dz\]</code> </p>
+<p></p></div>
+<p> yields the beautiful Cauchy Integral Formula </p><p style="text-align: center;"><span class="MathJax_Preview"><img alt="f(a)= \frac{1}{2\pi i}\oint_{\Gamma} \frac{f(z)}{z-a}dz" class="tex" src="http://irreal.org/blog/wp-content/plugins/latex/cache/tex_decf435b32844a935077b95a89fa9865.gif" style="vertical-align: middle; border: none;" /></span></p> <p></p>
+<p> To get the typesetting locally, you have to arrange for the MathJax JavaScript to be loaded. With Org-mode, I simply added </p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #b22222;">#+HTML_HEAD: &lt;script type="text/javascript"</span>
+<span style="color: #b22222;">#+HTML_HEAD:  src="<a href="http://cdn.mathjax.org/mathjax/latest/MathJax.js">http://cdn.mathjax.org/mathjax/latest/MathJax.js</a>"&gt;</span>
+<span style="color: #b22222;">#+HTML_HEAD: &lt;/script&gt;</span>
+</pre>
+<p></p></div>
+<p> near the top of the source file. If you're using a different system (why, for goodness sake?) you have to arrange to get the <code>&lt;script&gt;</code> markup into your generated HTML. Once you've done that the mathematics should appear locally when you preview your post. </p>
+<p> Very simple, no? As I say, I'm abashed that it took me so long. </p>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+<div class="footdef"><sup><a class="footnum" href="http://irreal.org/blog/?tag=emacs&amp;feed=rss2#fnr.1" id="fn.1" name="fn.1">1</a></sup>
+<p class="footpara"> If you're using <code>org2blog</code> to publish your Org mode blog posts, you need to turn off <code>org2blog</code>'s automatic translation of the mathematics markup with </p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">setq</span> org2blog/wp-use-wp-latex nil)
+</pre>
+<p></p></div>
+</div></div>
+<p></p></div>

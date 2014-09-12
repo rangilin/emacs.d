@@ -1,0 +1,88 @@
+<p>For the <a href="http://nodeknockout.com">Node Knockout</a> last month, we wanted to build a game in <a href="http://www.lighttable.com">Light Table</a> using ClojureScript. What we ultimately came up with was a fun little racing platformer called <a href="https://github.com/ibdknox/ChromaShift">ChromaShift</a>. All the <a href="https://github.com/ibdknox/ChromaShift">code and assets</a> were created during the 48 hours of the competition and in the end <a href="http://nodeknockout.com/teams/kodowa">we did pretty well</a>, coming in 7th <a href="http://nodeknockout.com/entries?sort=team">overall</a>. Here&#39;s a video of the game in action:</p>
+
+<iframe width="600" height="338" src="http://www.youtube.com/embed/v09DnU4vQ74" frameborder="0" allowfullscreen></iframe>
+
+<h3>How do you build a game in ClojureScript?</h3>
+
+<p>I&#39;ve built a couple games before in JavaScript that relied on the more standard inheritance based design. But that OOP-centric way of thinking about the entities and logic of the game doesn&#39;t fit very well with ClojureScript. Given how young it is, Clojure(Script) hasn&#39;t been used to create a lot of games and even if you broaden the search to functional languages, you&#39;ll find that it&#39;s still mostly an area of research. After some digging though, I did find a game design theory that actually fits very nicely: the Component-Entity-System engine. Much to my surprise, though, I couldn&#39;t really find a good explanation of the concepts on the internet, which among other things might include an actual example. So, let&#39;s fix that and go through the concepts behind how ChromaShift works.</p>
+
+<h3>The traditional way of thinking</h3>
+
+<p>The traditional way of thinking about games is fairly intuitive. You represent objects in the game as objects in code. So if you have a player, you&#39;d create a player class that contains all the player&#39;s attributes; things like position, health, ammo, etc. Then you create an <code>update()</code> method that calls other methods like <code>shoot()</code> or <code>jump()</code> that read and change those attributes. To keep things DRY, you&#39;ll probably end up creating some base classes because entities in a game often have many different variations with small differences. </p>
+
+<h3>The problem</h3>
+
+<p>The problem with this, however, is that in order to actually reuse code as much as possible, you end up being forced into deep unnatural object hierarchies with lots of overridden methods. With thousands of entities in a game, you lose all sense of where things are defined, how they&#39;re changed deeper in the hierarchy, and where the best place to add something really is. This approach also means new combinations of functionality have to be written by programmers, forcing game designers to ask for different variations.</p>
+
+<h3>A different approach: Component-Entity-System</h3>
+
+<p>A CES engine addresses a number of the problems game devs ran into while trying to build complex games that required a lot of variation in the game objects. As we&#39;ll see, it also ended up being a great way to give content designers a lot more power in shaping the functionality of the game.</p>
+
+<p>A CES engine has 3 parts as the name suggests; components, entities, and systems. I think the best way to go about understanding how it really works is to walk through each of these pieces individually and then see how they fit together.</p>
+
+<h3>Entities</h3>
+
+<p>We&#39;re actually going to start in the middle, because entities are the easiest thing to understand. <strong>They are nothing more than a unique ID.</strong> That&#39;s it. You use this ID to link together all of the state related to something in the game. That state is held in <strong>components</strong>.</p>
+
+<h3>Components</h3>
+
+<p><strong>Components are little single purpose bits of state.</strong> Instead of representing a player as a monolithic object with lots of attributes to cover everything from position to number of lives, you break these different aspects apart into single intentioned objects. For example, a component for position would have an x, y, and maybe an angle of rotation, but nothing else:</p>
+<div class="highlight"><pre><code class="clojure language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">component</span> <span class="nv">position</span> <span class="p">[</span><span class="nv">x</span> <span class="nv">y</span> <span class="nv">a</span><span class="p">]</span>
+           <span class="ss">:x</span> <span class="nv">x</span>
+           <span class="ss">:y</span> <span class="nv">y</span>
+           <span class="ss">:a</span> <span class="p">(</span><span class="nb">or </span><span class="nv">a</span> <span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+<p>All that does is basically create a function that returns a map with those values in it. So what we&#39;re doing is exploding all these monolithic objects apart, and turning <strong>entities in the game into simple groupings of components</strong>. A player for example, might look like this:</p>
+<div class="highlight"><pre><code class="clojure language-clojure" data-lang="clojure"><span class="ss">:player</span> <span class="p">[(</span><span class="nf">position</span> <span class="mi">10</span> <span class="mi">10</span><span class="p">)</span>
+         <span class="p">(</span><span class="nf">walk</span> <span class="mi">20</span><span class="p">)</span> <span class="c1">;; set speed to 20 units</span>
+         <span class="p">(</span><span class="nf">jump</span> <span class="mi">50</span><span class="p">)</span> <span class="c1">;; jump height to 50</span>
+         <span class="p">(</span><span class="nf">renderable</span> <span class="nv">render-player</span><span class="p">)</span> <span class="c1">;; render the player</span>
+         <span class="nv">...</span><span class="p">]</span>
+</code></pre></div>
+<p>Here&#39;s a <a href="https://github.com/ibdknox/ChromaShift/blob/master/cljs/game/levels/first.cljs">real level from ChromaShift</a>, showing you a more complex example. The tremendous advantage you get from this approach is that you gain composition for free - no overriding, no deep hierarchies, just simple groups of components. As an example, let&#39;s say we have two bad guys in our game; one that walks fast and another that is slower but jumps every 3 seconds. That&#39;s just a matter of giving them both a <code>walker</code> component with different speeds and then giving the jumping one a <code>jumper</code> component:</p>
+<div class="highlight"><pre><code class="clojure language-clojure" data-lang="clojure"><span class="p">[</span><span class="ss">:fastguy</span> <span class="p">[(</span><span class="nf">position</span> <span class="mi">10</span> <span class="mi">10</span><span class="p">)</span>
+           <span class="p">(</span><span class="nf">walker</span> <span class="mi">20</span><span class="p">)]</span> <span class="c1">;;really fast</span>
+
+ <span class="ss">:jumpguy</span> <span class="p">[(</span><span class="nf">position</span> <span class="mi">10</span> <span class="mi">10</span><span class="p">)</span>
+           <span class="p">(</span><span class="nf">walker</span> <span class="mi">5</span><span class="p">)</span>
+           <span class="p">(</span><span class="nf">jumper</span> <span class="mi">3</span><span class="p">)]]</span> <span class="c1">;;jump every 3 seconds</span>
+</code></pre></div>
+<p>Since objects are just groupings of components, at the core of the CES engine sits a datastructure that maps these entity IDs to the group of components that make them up. Fortunately, that&#39;s very easy to represent as a hash-map or dictionary in most languages. In ClojureScript you just use a map of integer ID to a vector of components:</p>
+<div class="highlight"><pre><code class="clojure language-clojure" data-lang="clojure"><span class="p">{</span><span class="mi">1</span> <span class="p">[{</span><span class="ss">:name</span> <span class="s">&quot;position&quot;</span> <span class="ss">:x</span> <span class="mi">10</span> <span class="ss">:y</span> <span class="mi">10</span> <span class="ss">:a</span> <span class="mi">0</span><span class="p">}</span> 
+    <span class="p">{</span><span class="ss">:name</span> <span class="s">&quot;health&quot;</span> <span class="ss">:lives</span> <span class="mi">3</span> <span class="ss">:health</span> <span class="mi">5</span><span class="p">}</span>
+    <span class="nv">...</span><span class="p">]</span>
+</code></pre></div>
+<p>What&#39;s particularly interesting here is that <strong>we&#39;ve turned our entire game into a datastructure</strong>. By being data-centric, we gain introspection, composition, runtime modification, and a host of other things for free. As I mentioned before, it&#39;s also really easy to build an editor that allows non-programmers to simply create new groupings of components and as a result create fundamentally new objects for the game.</p>
+
+<p>So far, however, all we&#39;ve talked about is state. There&#39;s been no logic in entities or components, which brings us to the final piece of the puzzle: systems.</p>
+
+<h3>Systems</h3>
+
+<p><strong>Systems are single purpose functions that take in a set of entities which have a specific component (or set of components) and update them.</strong> Let&#39;s look at the concrete example of rendering to see what I mean. First off, we need a component to say that this entity is meant to be rendered. We&#39;ll call it <code>renderable</code>:</p>
+<div class="highlight"><pre><code class="clojure language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">component</span> <span class="nv">renderable</span> <span class="p">[</span><span class="nv">func</span><span class="p">]</span>
+           <span class="ss">:fn</span> <span class="nv">func</span><span class="p">)</span>
+</code></pre></div>
+<p>The component just takes in a function that will be called when we render the object. So what our system needs to do is to iterate through every renderable entity, get its <code>renderable</code> component, and call that render function. Sounds simple enough, and the code ends up being as straightforward as that explanation:</p>
+<div class="highlight"><pre><code class="clojure language-clojure" data-lang="clojure"><span class="c1">;; define a function &#39;renderer&#39; that takes all renderables</span>
+<span class="p">(</span><span class="kd">defn </span><span class="nv">renderer</span> <span class="p">[</span><span class="nv">renderables</span><span class="p">]</span>
+  <span class="c1">;; for each renderable entity</span>
+  <span class="p">(</span><span class="nb">doseq </span><span class="p">[</span><span class="nv">e</span> <span class="nv">renderables</span><span class="p">]</span>
+        <span class="c1">;; get the entity&#39;s renderable component</span>
+        <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">rend</span> <span class="p">(</span><span class="nf">as</span> <span class="nv">e</span> <span class="ss">:renderable</span><span class="p">)]</span>
+          <span class="c1">;; call the stored render function with the entity</span>
+          <span class="p">((</span><span class="nf">rend</span> <span class="ss">:fn</span><span class="p">)</span> <span class="nv">e</span><span class="p">))))</span> 
+</code></pre></div>
+<p>So now that we have a <code>renderer</code> function, we just need to call it in every tick of our game loop with all the entities that have the renderable component:</p>
+<div class="highlight"><pre><code class="clojure language-clojure" data-lang="clojure"><span class="c1">;;... other systems</span>
+<span class="p">(</span><span class="nf">renderer</span> <span class="p">(</span><span class="nf">all-e</span> <span class="ss">:renderable</span><span class="p">))</span> <span class="c1">;; get all entities that are renderable</span>
+</code></pre></div>
+<p>And that&#39;s it. Now any entity that gets the renderable component will start rendering with every tick of the game. By doing your logic this way, you ensure that it&#39;s single purpose, easy to modify, and freely available to any object in the game that may need it.</p>
+
+<h3>Data and simple functions</h3>
+
+<p>This approach turns a game into a data-structure with simple functions that work over it. It allows you to easily combine functionality in interesting and clever ways that you may not initially have realized, and keeps you out of the murky hell that is deep, highly overridden hierarchies. As a bonus, the engine is even quite easy to implement in basically any language. In <a href="https://github.com/ibdknox/ChromaShift">ChromaShift&#39;s case</a> the core structure and caches for <a href="https://github.com/ibdknox/ChromaShift/blob/master/js/game.js">the engine</a> are actually written in JavaScript for performance reasons, while all of the <a href="https://github.com/ibdknox/ChromaShift/tree/master/cljs/game">game CES</a> is written in ClojureScript.</p>
+
+<h3>A twist: CES and Light Table</h3>
+
+<p>The most interesting aspect to all of this, however, is that I haven&#39;t just been telling you how we built ChromaShift for the Node Knockout, but I&#39;ve also been laying the conceptual groundwork to understand how <a href="http://www.lighttable.com">Light Table</a> itself is constructed. In my next post we&#39;ll see that the latest version of <a href="http://www.lighttable.com">Light Table</a> is actually heavily inspired by the concepts of CES engines and takes a novel approach toward applying some of these ideas to an event driven application.</p>
+<img src="http://feeds.feedburner.com/~r/ChrisGranger/~4/fzepzrTl8fo" height="1" width="1"/>

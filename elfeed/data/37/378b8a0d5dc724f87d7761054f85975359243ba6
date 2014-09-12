@@ -1,0 +1,6 @@
+
+<p>Playing around with <a href="http://www.gentoo.org/">Gentoo</a>. It's a pain to setup but I really like
+their compiling tool emerge. I am trying to setup software suspend on
+my laptop with OpenGL support. This apparently works with Xfree86
+4.4. To be continued...</p>
+

@@ -1,0 +1,15 @@
+
+<p>So my server crashed the other day. For the anecdote, my e-mail spam
+filter was going in an infinite loop with Richard Stallman's filter.</p>
+
+<p>A fork bomb is when you are spawning too many process. The easiest way
+to create one is to write a script shell that calls itself. Notice if
+your server becomes unusable.</p>
+
+<p>This is not a good thing. It could lead to a denial of service. It's
+so simple to fix I wonder why it is not done by default on Debian.</p>
+
+<p>Edit /etc/security/limits.conf</p>
+
+&lt;example&gt;
+

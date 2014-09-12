@@ -1,0 +1,29 @@
+<p>
+Have you ever stopped to consider what is the string you type most
+often?
+</p>
+
+<p>
+In my case the answer is two-fold: <code>“~/”</code> and <code>“.emacs.d/”</code>.
+Minibuffer completion helps, but we can always make things better.
+The following snippet intelligently inserts both of these with a
+single key, and it's smart enough to know which one you want.
+</p>
+
+<p>
+Besides its use in writing configurations, it's great for going
+straight to one of these directories inside the <a href="http://doc.endlessparentheses.com/Fun/find-file"><code>find-file</code></a> prompt.
+</p>
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">&quot;M-ç&quot;</span><span class="p">)</span> <span class="nf">#&#39;</span><span class="nv">endless/~-or-emacs.d</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">endless/~-or-emacs.d</span> <span class="p">()</span>
+  <span class="s">&quot;Insert &#39;~/&#39;, then &#39;.emacs.d/&#39;.&quot;</span>
+  <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nv">looking-back</span> <span class="s">&quot;~/&quot;</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">insert</span> <span class="s">&quot;.emacs.d/&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">insert</span> <span class="s">&quot;~/&quot;</span><span class="p">)))</span></code></pre></div>
+<p>
+The <kbd>ç</kbd> key is right under my right pinky, but find
+one that fits your need.
+</p>
+
+   <p><a href="http://endlessparentheses.com/meta-binds-part-3-smart-string-insertion.html?source=rss#disqus_thread">Comment on this.</a></p>

@@ -1,0 +1,64 @@
+<p>While designing the Secret homepage, I decided I wanted to add live footage of the app in action. What I didn’t know is how much of an endeavor it could be if you don’t know all of the tools and their quirks.</p>
+
+<p>I achieved this demo with a few pieces of software on OS X Mavericks:</p>
+
+<ol>
+<li><strong><a href="https://github.com/toddreed/Touchpose">Touchpose</a></strong> to visualize the touches in your iPhone app</li>
+<li><strong><a href="http://www.airsquirrels.com/reflector/">Reflector</a></strong> to capture live output from your iPhone</li>
+<li><strong><a href="https://itunes.apple.com/us/app/imovie/id408981434?mt=12">iMovie</a></strong> to stitch together the clips and add text and special effects</li>
+<li><strong><a href="http://www.apple.com/quicktime/extending/">QuickTime Pro</a></strong> to export with the right dimensions and codec</li>
+</ol>
+
+<p><strong>Total software cost: $58</strong></p>
+
+<h1>1. Capture live output</h1>
+
+<p>Reflector is very easy to use. All you need to do is run the software on your computer and connect your iPhone to your MacBook via AirPlay. Reflector will automatically pick up the connection and start streaming your iPhone’s screen onto your MacBook&rsquo;s display. Simply press Command-R to start recording and again to stop. Voila.</p>
+
+<p>The downside of Reflector for Mac is that it saves video files in .mov format and doesn’t currently offer .mp4 output. It’s also not useful if you want to stitch together multiple recordings to create a montage, like I ended up doing.</p>
+
+<h1>2. Use iMovie for stitching and effects</h1>
+
+<p>I thought I could get iMovie to stitch together multiple clips and export it in the right format. I was only half right. iMovie was great for sequencing the separate iPhone recordings and splicing them together with nice transitions. Unfortunately, it only allows you to export at standard aspect ratios (which doesn’t include iPhone resolution).</p>
+
+<p>When you finish your edits, save the file at 720P resolution and then open it with Quicktime Pro 7.</p>
+
+<h1>3. Use Quicktime Pro 7 to crop</h1>
+
+<p>An engineer at Apple decided it was a good idea to provide an obscure way to crop a video by providing an image mask in an unfriendly settings screen. I commend this engineer for his/her gumption today.</p>
+
+<p>To crop the video to, open the video properties by pressing Command-J. Then choose “Video Track” from the list and then go to the “Visual Settings” tab. On the left-hand side you’ll see a “Mask” section. Create an image that is exactly the same width and height as your video and make a portion of the image as black and the rest as white. The black portion should be centered horizontally and be the width and height of the iPhone recording. The white portion of the video will be cropped out.</p>
+<blockquote class="large"><p><strong>Example image mask (16:9)</strong> </p>
+
+<p><a href="http://img.svbtle.com/vy6eeielruo16q.png"><img src="https://d23f6h5jpj26xu.cloudfront.net/vy6eeielruo16q_small.png" alt="iphone-mask.png"></a></p>
+</blockquote>
+<h1>4. Export for HTML video playback</h1>
+
+<p>Now that you’ve cropped your video to the iPhone screen aspect ratio, File &gt; Export. The right format for HTML5 playback is H.264 MP4. </p>
+
+<p><strong>Next to ‘Export: Movie to MPEG-4’ click ‘Options…’.</strong></p>
+
+<p>*Make sure File Format is MP4
+*Change Video Format to H.264
+*Change Image Size to Custom and choose the resolution of your iPhone video
+*Choose a higher data rate (512 kbits/sec was good enough for me).
+*Click OK and then Save</p>
+
+<p><strong>Get the .ogv version</strong></p>
+
+<p>I found this <a href="http://video.online-convert.com/convert-to-ogg">random site</a> to convert the video. It seemed sketchy, but I was desperate, so I tried it. Surprisingly, it worked.</p>
+
+<h1>5. Embed it on your site</h1>
+
+<p>To embed it on your site using HTML5, just add a video tag with two src tags. The first one will be for the mp4, the second one will be for the ogg format.</p>
+
+<pre><code>&lt;video loop autoplay&gt;
+      &lt;source src=&quot;/path/to/yourvideo.mp4&quot; type=&quot;video/mp4&quot;&gt;
+      &lt;source src=&quot;/path/to/yourvideo.ogv&quot; type=&quot;video/ogg&quot;&gt;
+    Your browser does not support the video tag.
+&lt;/video&gt;
+</code></pre>
+
+<p>And you&rsquo;re done. Hopefully this helps someone, as it took me several hours to find this path.</p>
+
+<p><a href="http://www.twitter.com/chrysb">Follow me on Twitter</a>.</p>

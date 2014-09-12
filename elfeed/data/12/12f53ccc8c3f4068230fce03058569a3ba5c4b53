@@ -1,0 +1,25 @@
+
+<p>There is this new file in emacs bzr called misearch.</p>
+
+<p>It adds more dimensions to the search space. It implements various
+features that extend isearch. One of them is an ability to search
+through multiple buffers.</p>
+
+<p>Sadly it doesn't come with any example. Here a way to extend search to
+buffers with the same major mode:</p>
+
+<pre class="src">
+(<span style="color: #8b008b; background-color: #b9babd;">require</span> '<span style="color: #00688b; background-color: #b9babd;">misearch</span>)
+
+(<span style="color: #8b008b; background-color: #b9babd;">defun</span> <span style="color: #00008b; background-color: #b9babd;">misearch-next-buffer</span> (buffer wrap)
+  (<span style="color: #8b008b; background-color: #b9babd;">catch</span> '<span style="color: #00688b; background-color: #b9babd;">found</span>
+    (<span style="color: #8b008b; background-color: #b9babd;">let</span> ((mode (buffer-local-value 'major-mode buffer)))
+      (<span style="color: #8b008b; background-color: #b9babd;">dolist</span> (next-buffer (<span style="color: #8b008b; background-color: #b9babd;">if</span> isearch-forward
+                               (cdr (buffer-list))
+                             (reverse (cdr (buffer-list)))))
+        (<span style="color: #8b008b; background-color: #b9babd;">when</span> (eq mode (buffer-local-value 'major-mode next-buffer))
+          (<span style="color: #8b008b; background-color: #b9babd;">throw</span> '<span style="color: #00688b; background-color: #b9babd;">found</span> next-buffer))))))
+
+(setq multi-isearch-next-buffer-function 'misearch-next-buffer)
+</pre>
+

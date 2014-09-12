@@ -1,0 +1,63 @@
+<p>Someone asked me about how to get a programming internship from a
+career fair. I've had a bit of experience at career fairs on the
+interviewer side, and I thought I'd outline some of the points for me
+personally.</p>
+<p>If your interested in how to do well on an actual interview, just look up
+resources on how to do well on programming interviews in general: the
+process for interviewing interns is pretty similar to the process for
+interviewing full-time hires.</p>
+<div class="section" id="looking-and-acting-professional-helps">
+<h2>Looking and Acting Professional Helps</h2>
+<p>It's definitely true that once you have a software engineering job,
+your day-to-day attire is not particularly important (I'm often a
+t-shirt and shorts guy myself). However, I definitely add extra points
+to someone who dresses well, and also represents themselves
+professionally as well. My suggestion for all genders would be a nice
+dress shirt. Anything beyond that is fine as well, as long as it looks
+like you care.</p>
+</div>
+<div class="section" id="side-projects">
+<h2>Side Projects</h2>
+<p>If you stick to only coding for classes, you'll end up with the exact
+same body of work as everyone else. What really sets people aside for
+me is if you're passionate enough about programming to do side projects.</p>
+<p>It could be something small like you wrote a game for a hackathon, or
+something large like a multi-month research project crafting machine
+learning systems. Either way, it shows coding is more than just a future 9-5
+for you: it's a passion, or a medium that you use to express
+yourself.</p>
+</div>
+<div class="section" id="open-source-your-code">
+<h2>Open Source your code</h2>
+<p>I love to see a <a class="reference external" href="https://github.com/">github</a> (or other open source hosting) link on
+someone's resume. It tells me that they've at least explored the
+concept of opening their code up or contributing to an existing open
+project.</p>
+<p>It also makes it really easy for me to look up and read some code
+they've written.</p>
+</div>
+<div class="section" id="knowing-the-tools-of-the-trade">
+<h2>Knowing the tools of the trade</h2>
+<p>These days academic curriculums are starting to talk more about the
+practices and tools that the professional world uses. That said, it's
+always a plus for me if you have experience with the following:</p>
+<ul class="simple">
+<li>version control (svn / git / etc)</li>
+<li>testing (experience with an <a class="reference external" href="http://en.wikipedia.org/wiki/XUnit">xunit</a> based testing framework)</li>
+<li>bug tracking (github issues / bugzilla / trac)</li>
+</ul>
+</div>
+<div class="section" id="ability-to-apply-apply-critical-reasoning">
+<h2>Ability to apply Apply critical reasoning</h2>
+<p>Software design typically involves thinking deeply about your
+problems, and reasoning between the trade-offs of one solution versus
+the other. I typically like to see the same in prospective
+interns. Having strong opinions with facts and experiences to back it
+up is great: it shows that you've given these types of problems a lot
+of thought. I'll typically ask what your favorite programming language
+is and why: if you've had experiences with a couple, you've probably
+had some time to build some opinions about it. It's a way to figure
+out if your decisions are motivated by reasoning from thinking about the problems
+you're given, or just doing things as instructed and not really thinking too hard
+about why.</p>
+</div>

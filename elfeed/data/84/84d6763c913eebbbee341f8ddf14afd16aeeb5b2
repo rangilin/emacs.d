@@ -1,0 +1,42 @@
+<p>I&#39;m happy to announce the release of v0.0.7 of the <a href="http://www.lighttable.com">Light Table Playground</a>. This version is a serious upgrade to the Instarepl that brings the ability to manually evaluate things and work in your own projects.</p>
+
+<p><a href="http://www.flickr.com/photos/siette/2723726610/" title="1up by siette, on Flickr"><img src="http://farm4.staticflickr.com/3130/2723726610_d448c38713.jpg" width="500" height="333" alt="1up"></a></p>
+
+<p>Here&#39;s a breakdown of what&#39;s new.</p>
+
+<h3>A little guide</h3>
+
+<p><img src="/images/lightable/shade.png" alt="The shade"></p>
+
+<p>The first thing you&#39;re greeted with when you open 0.0.7 is what we&#39;re calling the shade. The shade shows you new things that you can do and acts as a sort of interactive change log. Hopefully this will help keep people up to date on what comes out in a more memorable and useful way.</p>
+
+<h3>Manual Mode</h3>
+
+<p>You now have the ability to enter manual mode in the Instarepl, by simply clicking the live button in the top right, or by pressing Cmd/Ctrl-L.</p>
+
+<p><img src="/images/lightable/manual.png" alt="Manual mode"></p>
+
+<p>Once in manual mode, code is no longer evaluated as you type, but instead when you trigger evaluation of the whole editor with Cmd/Ctrl-Enter or a single form using Shift-Enter. This gives you a lot more flexibility to execute only what you want when you want to, while still maintaining the nice data visualization that the Instarepl offers. This means you can play around more with side-effecty code and other bits that you may not want executing after every keystroke.</p>
+
+<h3>Sidebar</h3>
+
+<p>The sidebar is currently just a simple menu, but will ultimately be the source of a lot of interaction with Light Table&#39;s command set.</p>
+
+<p><img src="/images/lightable/sidebar.png" alt="Sidebar"></p>
+
+<p>Currently it only has two verbs: connect and set. Set allows you to change the font size, which will be persisted between sessions. Connect allows you to hook into other running Light Table clients.</p>
+
+<h3>lein-light</h3>
+
+<p>The most exciting addition to the playground is the ability to use your own projects as the context for the Instarepl. You do this by using the <a href="http://app.kodowa.com/playground/lein-light">lein-light</a> <a href="http://leiningen.org">leiningen</a> plugin. Just run <code>lein light</code> from one of your projects and use the sidebar&#39;s connect verb to hook into it.</p>
+
+<p><img src="/images/lightable/connect.png" alt="connect to other projects"></p>
+
+<p>That&#39;s all it takes to get the playground working in your own projects. Coupled with manual mode, you can now get to town building <a href="http://webnoir.org">websites</a>, <a href="https://github.com/nathanmarz/cascalog/">working with data</a>, or <a href="http://overtone.github.com/">making music</a>.</p>
+
+<h3>Misc</h3>
+
+<p>Lastly there have been many small miscellaneous changes that seek to help performance by being a bit smarter about when and how things get executed. The addition of basic settings is also there and helps persist font size across opens. We&#39;ve also switched to https to be more secure for the downloads.</p>
+
+<p>So there you have it, go run <code>./light table</code> to upgrade, or go <a href="http://www.lighttable.com">download the playground</a> for the first time and have fun.</p>
+<img src="http://feeds.feedburner.com/~r/ChrisGranger/~4/SKg46IklbOk" height="1" width="1"/>

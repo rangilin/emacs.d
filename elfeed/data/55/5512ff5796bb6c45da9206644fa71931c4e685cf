@@ -1,0 +1,14 @@
+<p>A while ago I wrote about a
+<a href="http://emacsredux.com/blog/2013/08/21/color-themes-redux/">colour theme problem specific to OS X</a>.
+Thankfully in Emacs 24.4 the OS X (a.k.a. NS) port of Emacs uses sRGB
+colours by default (at least on OS X Lion (10.7) and newer), so you&#8217;ll
+no longer need to install Emacs from <code>homebrew</code> (or apply an sRGB
+colour support patch manually). If for some reason you want to stick
+to the colours add this to your Emacs config:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="k">setq</span> <span class="nv">ns-use-srgb-colorspace</span> <span class="no">nil</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I doubt that anyone would want to do that, but the option is there for those of you who want it.</p>

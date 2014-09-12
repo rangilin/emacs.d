@@ -1,0 +1,32 @@
+
+<p>Due to a bug in Gnus I need to fetch my e-mail in a mbox file. After
+looking around the manual of fetchmail I couldn't find a way to do
+this easily.</p>
+
+<p>Someone on #emacs suggested getmail. I think it's really cool and
+easy to setup. The installation lacks a quick recipe so here we
+go. You'll need to create /.getmail/getmailrc with something like:</p>
+
+<pre class="example">
+[retriever]
+type = SimplePOP3Retriever
+server = smtp.kanis.fr
+username = ivan@foo.com
+password = mysecretpassword
+
+[destination]
+type = Mboxrd
+path = ~/tmp/ivan.mbox
+
+[options]
+delete = true
+</pre>
+
+<p>You'll need to create an empty mbox file:</p>
+
+<pre class="example">
+touch ~/tmp/ivan.mboxc
+</pre>
+
+<p>You are all set!</p>
+

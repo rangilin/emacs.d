@@ -1,0 +1,32 @@
+<p>I've switched my Git repositories to <a href="https://github.com">GitHub</a> recently,
+and started to watch my contributions statistics, which were very low
+considering I spend my days hacking on open source software, especially
+<a href="https://openstack.org">OpenStack</a>.</p>
+<figure class="pull-right illustration clear" style="width: 30%;">
+  <img src="http://julien.danjou.info/media/images/blog/2014/octocat-on-openstack.png" />
+</figure>
+
+<p>OpenStack hosts its Git repositories on its own infrastructure at
+<a href="http://git.openstack.org">git.openstack.org</a>, but also mirrors them on
+GitHub. Logically, I was expecting GitHub to track my commits there too, as
+I'm using the same email address everywhere.</p>
+<p>It turns out that it was not the case, and the
+<a href="https://help.github.com/articles/why-are-my-contributions-not-showing-up-on-my-profile">help page about that</a>
+on GitHub describes the rule in place to compute statistics. Indeed,
+according to GitHub, I had no relations to the OpenStack repositories, as I
+never forked them nor opened a pull request on them (OpenStack uses
+<a href="http://review.openstack.org">Gerrit</a>).</p>
+<p>Starring a repository is enough to build a relationship between a user and a
+repository, so this is was the only thing needed to inform GitHub that I
+have contributed to those repositories. Considering OpenStack has hundreds
+of repositories, I decided to star them all by using a small Python script
+using <a href="https://pypi.python.org/pypi/pygithub">pygithub</a>.</p>
+<div class="clear">
+   
+</div>
+
+<p>And voilà, <a href="https://github.com/jd">my statistics</a> are now including all my
+contributions to OpenStack!</p>
+<figure class="illustration">
+  <img src="http://julien.danjou.info/media/images/blog/2014/github-openstack-stats.png" />
+</figure>

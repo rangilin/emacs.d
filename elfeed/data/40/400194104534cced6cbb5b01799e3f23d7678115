@@ -1,0 +1,14 @@
+<p>
+A fast thought on writing accounting software: The most common mistake
+programmers make when writing an accounting system is they think it's
+all about balances. They think the point of an accounting system is to
+tell you your account balance, so they design the data model around
+that.
+</p>
+
+<p>
+They're wrong. The point of an accounting system is to track the
+complete history of the movements of money and other assets. Auditing
+isn't just a feature of the system, <i>it is the system</i>. Balances are
+just a summary report on the <i>real</i> data.
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/bVNsAEs7Siw" height="1" width="1"/>

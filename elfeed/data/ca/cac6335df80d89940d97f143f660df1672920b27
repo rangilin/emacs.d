@@ -1,0 +1,45 @@
+<p>A little late but it&#8217;s finally up. We&#8217;re discussing keyboard macros in this episode.</p>
+
+<p><a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Keyboard-Macros.html#Keyboard-Macros">Keyboard macros</a> are Emacs&#8217; way of recording and playing back a series of keys. It&#8217;s a useful feature that many people don&#8217;t sufficiently use. The excellent <a href="http://emacsrocks.com/">Emacs Rocks</a> series of screencasts has <a href="http://emacsrocks.com/e02.html">some episodes</a> on clever macro usage to reduce the number of keys needed to perform some kind of task.</p>
+
+<iframe src="http://archive.org/embed/EmacsMovies/10-episode-keyboard_macros.webm" width="640" height="480" frameborder="0"></iframe>
+
+
+<p>The H.264 version of the video for iOS devices is at <a href="http://archive.org/download/EmacsMovies/10-episode-keyboard_macros.mkv">http://archive.org/download/EmacsMovies/10-episode-keyboard_macros.mkv</a>.</p>
+
+<h2>Topics covered</h2>
+
+<ol>
+<li><code>C-x (</code> and <code>C-x )</code> to start and stop recording macros. With prefix arguments <code>C-u</code> and <code>C-u C-u</code>, you can append to existing macros.</li>
+<li><code>C-x e</code> to replay macros. You can do this a number of times in one shot using prefix arguments. Also, the <code>apply-macro-to-region-lines</code> function to apply a macro to all lines in a region.</li>
+<li>The <code>C-x</code> <code>C-k</code> <code>C-i</code> chord to insert the macro counter while recording a macro. Modifying the macro counter using <code>C-x</code> <code>C-k</code> <code>C-a</code> and <code>C-x</code> <code>C-k</code> <code>C-c</code>.</li>
+<li>The <code>C-x</code> <code>q</code> command to stop while playing back a macro so that you can enter some text or make minor variations.</li>
+<li>The <code>C-x</code> <code>C-k</code> <code>n</code> to name the last macro and <code>C-x</code> <code>C-k</code> <code>b</code> to bind the last entered macro to a key. Finally, <code>insert-kbd-macro</code> to actually insert a macro as elisp into your current buffer so that you can save it for future use.</li>
+</ol>
+
+
+<p>The <code>F3</code> and <code>F4</code> keys offer a convenient combination of the basic macro record and playback functions.</p>
+
+<p><code>F3</code> stands for <code>kmacro-start-macro-or-insert-counter</code>. When it is hit the first time, the effect is the same as <code>C-x</code> <code>(</code> (i.e. start recording a macro). While this is going on, if it is hit again, it will work like you hit <code>C-x</code> <code>C-k</code> <code>C-i</code> (i.e. insert the macro counter).
+<code>F4</code> is bound to <code>kmacro-end-or-call-macro</code>. This will, if hit while a macro is being recorded, end the recording process. Here, it is similar to <code>C-x</code> <code>)</code>. If hit while a macro is not being recorded, it will work like <code>C-x</code> <code>e</code> and call the last recorded macro.</p>
+
+<p>Macros are a little expansive so I took some liberties filtering out some of the features that I thought were not that useful. These are</p>
+
+<ol>
+<li><a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Edit-Keyboard-Macro.html#Edit-Keyboard-Macro">Editing macros</a>.</li>
+<li><a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Keyboard-Macro-Step_002dEdit.html#Keyboard-Macro-Step_002dEdit">Interactively editing macros</a></li>
+<li><a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Keyboard-Macro-Ring.html#Keyboard-Macro-Ring">The macro ring</a> which contains all the macros created so far.</li>
+</ol>
+
+
+<p>I might do another screencast describing these but the manual page is explanatory and the things which I have covered will suffice for day to day usage.</p>
+
+<h2>Futher reading</h2>
+
+<ol>
+<li><a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/Keyboard-Macros.html#Keyboard-Macros">The emacs manual page on macros</a></li>
+<li><a href="http://emacswiki.org">The wiki</a> has <a href="http://emacswiki.org/emacs/KeyboardMacros">a page</a> on macros that contains a lot of useful snippets and other little goodies that can improve your experience.</li>
+<li>Xah Lee has a <a href="http://ergoemacs.org/emacs/emacs_macro_example.html">page on macros</a> with some practical examples that he uses.</li>
+<li>The <a href="http://emacsrocks.com/">Emacs Rocks</a> series of screencasts has some nice examples of macro magic.</li>
+</ol>
+

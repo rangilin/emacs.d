@@ -1,0 +1,43 @@
+
+<p>I never realised how useful this program is. I have been playing with
+CVS emacs and various version of mplayer. Stow makes it easy to juggle
+between different version of the same program.</p>
+
+<p>Put the following in your <code>.bashrc</code>:</p>
+
+<pre class="example">
+function stow
+{
+command stow --dir=$HOME/local/stow $*
+}
+
+function unstow
+{
+command stow --dir=$HOME/local/stow -D $*
+}
+</pre>
+
+<p>Here is how to stow mplayer:</p>
+
+<pre class="example">
+./configure --prefix=$HOME/local/stow/mplayer107
+make
+make install
+stow mplayer107
+</pre>
+
+<p>Note that mplayer is neatly tucked in it's own directory. Stow creates
+a symlink to mplayer at <code>~/local/bin/mplayer</code> so you need to only have
+<code>~/local/bin</code> in your path.</p>
+
+<p>Say that you compiled an earlier version of mplayer 106, switching
+from one version to the other is very easy:</p>
+
+<pre class="example">
+unstow mplayer107
+stow mplayer106
+</pre>
+
+<p>I hope I have convinced you that using stow is a good idea, installing
+different software in the same location becomes unmanageable.</p>
+

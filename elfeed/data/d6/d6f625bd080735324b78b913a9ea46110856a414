@@ -1,0 +1,55 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #24. We're stoked to announce that Go Newsletter is teaming up with <a href="http://www.gopheracademy.com/">Gopher Academy</a>! Over the last year we've been hugely impressed by the work of Brian Ketelsen, Erik St Martin and Dave Cheney strengthening the Go community across the globe. Two specific achievements that stand out are the excellent Gopher Academy blog and upcoming (sold out!) GopherCon, but there are many more.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Joining up with Gopher Academy means we can concentrate our efforts on improving the newsletter as well as pitching in to help where needed, a benefit for everyone. The administration of Go Newsletter will remain as-is. That means that I (Matt) will remain solely responsible for maintaining the email list and sending the emails themselves. But we are moving under the umbrella (so to speak) of GopherAcademy, so the rest is an implementation detail.</p>
+<p>Feel free to email me at <a href="mailto:matt@golangweekly.com">matt@golangweekly.com</a> if you have any questions, and we hope you're as excited as we are to be joining Gopher Academy.</p>
+<p>PS: sometimes we miss or forget certain articles, so feel free to <a href="/submit-a-link/">submit a link here</a>.</p>
+<p>PPS: there is also a new and impressive <a href="http://golangprojects.com/">Go jobs board</a> with a healthy list of openings.</p>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="https://software.intel.com/en-us/blogs/2014/04/13/go-parallel-2">Parallel programming with Go</a><br />Dmitry Vyukov discusses a parallel implementation of divide-and-conquer.</p>
+<p><a href="http://www.infoq.com/presentations/go-patterns-scalability">Patterns for scalable web services in Go</a><br />"Richard Crowley introduces Go standard library's HTTP packages, the relationship between JSON and Go's data structures, and Go's support for reflection, useful to create safe APIs."</p>
+<p><a href="http://blog.nindalf.com/how-goroutines-work/">How goroutines work</a><br />"A goroutine has a simple model: it is a function executing concurrently with other goroutines in the same address space."</p>
+<p><a href="http://morsmachine.dk/error-handling">Effective error handling in Go</a><br />"While it might seem daunting to have to explicitly inspect every error, there are steps you can take to defend yourself against erroneous error handling."</p>
+<p><a href="http://www.goinggo.net/2014/04/introduction-to-numeric-constants-in-go.html?m=1">Introduction to numeric constants</a><br />Detailed coverage of numeric constants and their behaviour in Go.</p>
+<p><a href="http://blog.natefinch.com/2014/04/effective-godoc.html">Getting the most out of godoc</a><br />A good post on using godoc effectively... generated with godoc!</p>
+<p><a href="https://gobyexample.com/">Go by example</a><br />A great set of annotated example programs covering many areas of Go.</p>
+<p><a href="http://blog.natefinch.com/2014/04/mocking-functions-in-go.html">Mocking functions in Go</a><br />For certains tests it may be advantageous to stub out state-dependent functions, which is easy with first-class functions.</p>
+<p><a href="http://txt.fliglio.com/2014/04/concurrency-in-java-and-go/">Concurrency in Java and Go</a><br />A comparison of parallel execution in Java and Go.</p>
+<p><a href="http://blog.fmpwizard.com/blog/go-cortex-using-wit-ai-using-raspberrypi-using-arduino">Controlling an Arduino with Go</a><br />Using Cortex (Go communicating with an NLP service) to control an Arduino.</p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="https://github.com/gogits/gogs">gogits/gogs</a><br />A self-hosted git service written in Go.</p>
+<p><a href="https://github.com/juju/errgo">juju/errgo</a><br />Error tracing and annotation.</p>
+<p><a href="https://github.com/VividCortex/ewma">VividCortex/ewma</a><br />Exponentially Weighted Moving Average algorithms for Go.</p>
+<p><a href="https://github.com/peterbourgon/g2g">peterbourgon/g2g</a><br />Get to Graphite: publish Go expvars to a Graphite server.</p>
+<p><a href="https://github.com/PuerkitoBio/goquery">PuerkitoBio/goquery</a><br />"GoQuery brings a syntax and a set of features similar to jQuery to the Go language."</p>
+<h4>DISCUSSIONS</h4>
+<p><a href="http://www.reddit.com/r/golang/comments/224qi3/what_programming_language_are_you_coming_from_or/">Which programming language are you proficient in besides Go?</a></p>
+<p><a href="http://www.reddit.com/r/golang/comments/22tvdt/making_exported_types_interfaces/">Making exported types interfaces?</a></p>
+<h4>EVENTS</h4>
+<p>We're changing how we list events. There are now many user groups worldwide, and many are large enough that listing them here probably isn't that useful. But if you're starting a new user group or running a one-off event you'd like to have listed, please let us know with <a href="/submit-a-link/">this form</a> and we'll happily list it here.</p>
+<p><a href="http://www.meetup.com/Munich-Gophers-Go-User-Group">Munich Go User Group</a></p>
+<p>And don't forget that <a href="http://www.gophercon.com/">GopherCon</a> is happening soon.</p>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator and provider of Continuum, the secure, hybrid cloud platform that provides cross-cutting control over all service layers, resources, and connections. Built in Go, Continuum enables perimeter-less network security over large-scale distributed systems, uses policy to unify dev and ops, and blends legacy and new technologies. With Continuum, you can use the tools you want, focus on what you do best, and go faster, safely. At enterprise scale.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.iron.io/"><img src="http://s3.amazonaws.com/golangweekly/iron_io.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.iron.io/">Iron.io</a> is the maker of IronMQ, a scalable cloud-based message queue, and IronWorker, an elastic task queue/worker service, and one of the first companies to use Go in production. Iron.io's services are designed for building distributed cloud applications quickly and operating at scale. The services are easy to use, highly available, and require no setup and no ops. Reduce complexity, build to scale, get Iron.</p>
+</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,64 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #18. If you're in Europe at the beginning of February, you'll be interested to know that the <a href="https://fosdem.org/2014/schedule/track/go/">schedule for the Go devroom at FOSDEM 2014</a> has been announced. And don't forget that the <a href="http://blog.gopheracademy.com/">Gopher Academy blog</a> has been running a great set of articles this month, so take a look. Compiled by <a href="https://twitter.com/mattrco">Matt Cottingham</a> and <a href="https://twitter.com/kelseyhightower">Kelsey Hightower</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="http://blog.campoy.cat/2013/12/writing-moder-web-app-with-go-tdd-rest.html">Writing a modern web app with Go, TDD, REST, and AngularJS</a><br />Slides/code from a talk given by Francesc Campoy Flores at Pivotal Labs.</p>
+<p><a href="http://www.goinggo.net/2013/12/three-index-slices-in-go-12.html">Three-index slices in Go 1.2</a><br />A good explanation of three-index slices.</p>
+<p><a href="https://www.youtube.com/watch?v=3qsGpRxDGxI">Optimization in Go, an informal overview</a><br />A talk given at the Stockholm user group.</p>
+<p><a href="http://blog.golang.org/cover">The cover story</a><br />A guide to the new cover tool, which shows test coverage of code.</p>
+<p><a href="https://docs.google.com/document/d/1P3BLR31VA8cvLJLfMibSuTdwTuF7WWLux71CYD0eeD8/edit">Go 1.3+ compiler overhaul</a><br />A document on the plan to rewrite the Go compiler (gc toolchain) in Go (it is currently written in C).</p>
+<p><a href="https://vividcortex.com/blog/2013/12/03/go-idiom-package-and-object/">Simple defaults with easy configuration in Go packages</a><br />A note on how the log package provides a default logger while making configuration easy.</p>
+<p><a href="http://blog.damienradtke.org/cgo-api-coverage/">Measuring C API Coverage with Go</a><br />A method of discovering which parts of C API have been covered with a Go wrapper.</p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="https://github.com/tsenart/pan">tsenart/pan</a><br />An sql.DB wrapper for master-slave database topologies.</p>
+<p><a href="https://github.com/vmihailenco/pg">vmihailenco/pg</a><br />A PostgreSQL client which takes an alternative approach by not using the database/sql interface.</p>
+<p><a href="https://github.com/inconshreveable/muxado">inconshreveable/muxado</a><br />muxado is an implementation of a stream multiplexing library in Go that can be layered on top of a net.Conn to multiplex that stream.</p>
+<p><a href="https://github.com/kid0m4n/go-rpi">kid0m4n/go-rpi</a><br />Use various sensors on the RaspberryPi with Go.</p>
+<p><a href="https://github.com/technoweenie/grohl">technoweenie/grohl</a><br />Combination logging, exception reporting, and metrics library.</p>
+<h4>DISCUSSIONS</h4>
+<p><a href="https://groups.google.com/d/topic/golang-nuts/PqNQG2koAUA/discussion">Shared Go libraries</a></p>
+<p><a href="https://groups.google.com/d/topic/golang-nuts/VMihSzAEEn8/discussion">Communicating state between functions</a></p>
+<h4>EVENTS</h4>
+<table class="events">
+<tbody>
+<tr>
+<td><a href="http://www.meetup.com/Tokyo-Golang-Developers/events/153098502/">Golang Meetup</a></td>
+<td>2013-12-26</td>
+<td>Tokyo Golang Developers</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golang-mel/events/155192072/">Hide from the summer and Hack on Go</a></td>
+<td>2014-01-07</td>
+<td>Golang Melbourne</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Golang-India/events/155483972/">Go Meetup 3</a></td>
+<td>2014-01-11</td>
+<td>Golang India</td>
+</tr>
+</tbody>
+</table>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator of the modern enterprise IT platform. Driven by policy, the platform solves systemic challenges and blends new and existing technologies to unify IT. Enterprise grade, the platform grows with needs and empowers IT to innovate faster now and well into the future.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.iron.io/"><img src="http://s3.amazonaws.com/golangweekly/iron_io.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.iron.io/">Iron.io</a> is the maker of IronMQ, a scalable cloud-based message queue, and IronWorker, an elastic task queue/worker service, and one of the first companies to use Go in production. Iron.io's services are designed for building distributed cloud applications quickly and operating at scale. The services are easy to use, highly available, and require no setup and no ops. Reduce complexity, build to scale, get Iron.</p>
+</td>
+</tr>
+</tbody>
+</table>

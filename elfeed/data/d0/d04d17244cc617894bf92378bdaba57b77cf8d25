@@ -1,0 +1,1 @@
+FoundationDB has announced the general availability of SQL Layer, and ANSI SQL engine that runs on top of their key-value store. The result is a relational database backed up by a scalable, fault-tolerant, shared-nothing, distributed NoSQL store with support for multi-key ACID transactions. <i>By Abel Avram</i>

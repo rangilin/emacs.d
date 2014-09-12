@@ -1,0 +1,289 @@
+<p>Lots of folks have been interested in ClojureScript lately, but have had a hard time figuring out what a CLJS app actually looks like. So today I <a href="http://youtu.be/lcRQFGtFiyE">recorded</a> myself building an <a href="http://github.com/overtone/overtone">Overtone</a> controller (that I use on an iPad) using <a href="http://webnoir.org/">noir</a>, <a href="http://github.com/ibdknox/fetch">fetch</a>, <a href="http://github.com/ibdknox/jayq">jayq</a>, and <a href="http://github.com/ibdknox/crate">crate</a>. In the end, it looks like this:</p>
+
+<p><img src="/images/overtoneController.png" alt="overtone controller"></p>
+
+<p>Since I don&#39;t narrate in the video, I figured I&#39;d give a breakdown of some of the main ideas below. If you want all the gory details though, you can watch the <a href="http://youtu.be/lcRQFGtFiyE">screencast</a> or look at the <a href="http://github.com/ibdknox/overtoneCljs">code</a>. Now to the fun part.</p>
+
+<h3>Getting started</h3>
+
+<p>The first step is to generate a new noir project using lein-noir (if you&#39;re new to noir, check out <a href="http://webnoir.org/">noir&#39;s website</a>)</p>
+
+<div class="highlight"><pre><code class="bash">lein noir new overtoneinterface
+</code></pre></div>
+
+<p>Now to set up our project we just need to include our dependencies, which with the wonderful <a href="https://github.com/emezeske/lein-cljsbuild">lein-cljsbuild</a> means you do what you always do - add them to your project.clj. ClojureScript dependencies don&#39;t really work any differently than Clojure ones do:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">defproject </span><span class="nv">overtoneinterface</span> <span class="s">&quot;0.1.0-SNAPSHOT&quot;</span>
+  <span class="ss">:description</span> <span class="s">&quot;FIXME: write this!&quot;</span>
+  <span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.clojure/clojure</span> <span class="s">&quot;1.3.0&quot;</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">overtone</span> <span class="s">&quot;0.6.0&quot;</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">jayq</span> <span class="s">&quot;0.1.0-SNAPSHOT&quot;</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">crate</span> <span class="s">&quot;0.1.0-SNAPSHOT&quot;</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">fetch</span> <span class="s">&quot;0.1.0-SNAPSHOT&quot;</span><span class="p">]</span>
+                 <span class="p">[</span><span class="nv">noir</span> <span class="s">&quot;1.3.0-alpha10&quot;</span><span class="p">]]</span>
+  <span class="ss">:cljsbuild</span> <span class="p">{</span><span class="ss">:source-path</span> <span class="s">&quot;src&quot;</span>
+              <span class="ss">:compiler</span> 
+                <span class="p">{</span><span class="ss">:output-dir</span> <span class="s">&quot;resources/public/cljs/&quot;</span>
+                 <span class="ss">:output-to</span> <span class="s">&quot;resources/public/cljs/bootstrap.js&quot;</span>
+                 <span class="ss">:optimizations</span> <span class="ss">:simple</span>
+                 <span class="ss">:pretty-print</span> <span class="nv">true</span><span class="p">}}</span>
+  <span class="ss">:main</span> <span class="nv">overtoneinterface.server</span><span class="p">)</span>
+</code></pre></div>
+
+<p>You see here that we also added a cljsbuild key that defines some properties for how we want out ClojureScript to be generated. They simply tell lein-cljsbuild where to find our source and where to place the output. To then get that into our app, we just need to include the generated javascript file and jquery in our views.common/layout function.</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="nf">defpartial</span> <span class="nv">layout</span> <span class="p">[</span><span class="o">&amp;</span> <span class="nv">content</span><span class="p">]</span>
+            <span class="p">(</span><span class="nf">html5</span>
+              <span class="p">[</span><span class="ss">:head</span>
+               <span class="p">[</span><span class="ss">:title</span> <span class="s">&quot;overtoneinterface&quot;</span><span class="p">]</span>
+               <span class="p">(</span><span class="nf">include-css</span> <span class="s">&quot;/css/reset.css&quot;</span><span class="p">)</span> 
+               <span class="p">(</span><span class="nf">include-css</span> <span class="s">&quot;/css/default.css&quot;</span><span class="p">)</span>
+               <span class="p">(</span><span class="nf">include-js</span> <span class="s">&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js&quot;</span><span class="p">)]</span>
+              <span class="p">[</span><span class="ss">:body</span>
+               <span class="p">[</span><span class="ss">:div#wrapper</span>
+                <span class="nv">content</span><span class="p">]</span>
+               <span class="p">(</span><span class="nf">include-js</span> <span class="s">&quot;/cljs/bootstrap.js&quot;</span><span class="p">)]))</span>
+</code></pre></div>
+
+<p>Then just modify welcome.clj to get rid of the getting-started content, change /welcome to /, and add a div#piano so we have a container to put our buttons in.</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">overtoneinterface.views.welcome</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">overtoneinterface.views.common</span> <span class="ss">:as</span> <span class="nv">common</span><span class="p">])</span>
+  <span class="p">(</span><span class="ss">:use</span> <span class="p">[</span><span class="nv">noir.core</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">defpage</span><span class="p">]]</span>
+        <span class="p">[</span><span class="nv">hiccup.core</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">html</span><span class="p">]]))</span>
+
+<span class="p">(</span><span class="nf">defpage</span> <span class="s">&quot;/&quot;</span> <span class="p">[]</span>
+         <span class="p">(</span><span class="nf">common/layout</span>
+           <span class="p">[</span><span class="ss">:div#piano</span><span class="p">]))</span>
+</code></pre></div>
+
+<p>I always end up creating a src/myapp/client/ directory where I keep my CLJS. So if you put the following in a main.cljs and fire up lein-cljsbuild, you&#39;ll see a nice little alert box:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">overtoneinterface.client.main</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">js/alert</span> <span class="s">&quot;hey!&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Now we&#39;re off to the races.</p>
+
+<h3>Using crate and jayq</h3>
+
+<p><a href="http://github.com/ibdknox/crate">crate</a> is a ClojureScript implementation of the HTML generation library <a href="http://github.com/weavejester/hiccup">Hiccup</a>, which represents html as Clojure vectors and maps. We use a special macro called <code>(defpartial ..)</code> to create a function that will create dom objects for us.</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">overtoneinterface.client.main</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">crate.core</span> <span class="ss">:as</span> <span class="nv">crate</span><span class="p">])</span>
+  <span class="p">(</span><span class="ss">:use-macros</span> <span class="p">[</span><span class="nv">crate.macros</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">defpartial</span><span class="p">]]))</span>
+
+<span class="p">(</span><span class="nf">defpartial</span> <span class="nv">button</span> <span class="p">[{</span><span class="ss">:keys</span> <span class="p">[</span><span class="nv">label</span> <span class="nv">action</span> <span class="nv">param</span><span class="p">]}]</span>
+  <span class="p">[</span><span class="ss">:a.button</span> <span class="p">{</span><span class="ss">:href</span> <span class="s">&quot;#&quot;</span> <span class="ss">:data-action</span> <span class="nv">action</span> <span class="ss">:data-param</span> <span class="nv">param</span><span class="p">}</span> <span class="nv">label</span><span class="p">])</span>
+</code></pre></div>
+
+<p>One thing to note here is that there&#39;s a special directive for requiring macros in CLJS. Also, any namespace used by that macro must be required as well, or otherwise that code won&#39;t end up in the generated file. Now to do something with it, we&#39;ll use jayq.</p>
+
+<p><a href="http://github.com/ibdknox/jayq">jayq</a> is a simple ClojureScript jQuery wrapper that I wrote, which makes it easy to do all your standard dom manipulations like you&#39;re used to. </p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">overtoneinterface.client.main</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">crate.core</span> <span class="ss">:as</span> <span class="nv">crate</span><span class="p">])</span>
+  <span class="p">(</span><span class="ss">:use</span> <span class="p">[</span><span class="nv">jayq.core</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">$</span> <span class="nv">append</span> <span class="nv">delegate</span> <span class="nv">data</span><span class="p">]])</span>
+  <span class="p">(</span><span class="ss">:use-macros</span> <span class="p">[</span><span class="nv">crate.macros</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">defpartial</span><span class="p">]]))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">$piano</span> <span class="p">(</span><span class="nf">$</span> <span class="err">:</span><span class="o">#</span><span class="nv">piano</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">defpartial</span> <span class="nv">button</span> <span class="p">[{</span><span class="ss">:keys</span> <span class="p">[</span><span class="nv">label</span> <span class="nv">action</span> <span class="nv">param</span><span class="p">]}]</span>
+  <span class="p">[</span><span class="ss">:a.button</span> <span class="p">{</span><span class="ss">:href</span> <span class="s">&quot;#&quot;</span> <span class="ss">:data-action</span> <span class="nv">action</span> <span class="ss">:data-param</span> <span class="nv">param</span><span class="p">}</span> <span class="nv">label</span><span class="p">])</span>
+
+<span class="p">(</span><span class="nf">append</span> <span class="nv">$piano</span> <span class="p">(</span><span class="nf">button</span> <span class="p">{</span><span class="ss">:label</span> <span class="s">&quot;play note&quot;</span> 
+                        <span class="ss">:action</span> <span class="s">&quot;play-note&quot;</span> 
+                        <span class="ss">:param</span> <span class="s">&quot;&quot;</span><span class="p">))))</span>
+</code></pre></div>
+
+<p>It does, however, add some interesting bits. One of which, is that dom elements created with crate can be referenced by the function that was used to create them. This is actually immensely useful, because it basically gives you named controls for free. For example, we end up adding a click handler for all our buttons like so:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">$body</span> <span class="p">(</span><span class="nf">$</span> <span class="ss">:body</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">delegate</span> <span class="nv">$body</span> <span class="nv">button</span> <span class="ss">:click</span>
+          <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">e</span><span class="p">]</span>
+            <span class="p">(</span><span class="nf">.preventDefault</span> <span class="nv">e</span><span class="p">)</span>
+            <span class="p">(</span><span class="nf">js/alert</span> <span class="s">&quot;clicked!&quot;</span><span class="p">)))</span>
+</code></pre></div>
+
+<p>Time to make that handler a bit more interesting. We&#39;re here to make music afterall.</p>
+
+<h3>Interacting with the server - fetch</h3>
+
+<p><a href="http://github.com/ibdknox/fetch">fetch</a> is the next piece of the puzzle which helps us by removing the barrier between the server and the client. In this case, we&#39;re going to use remotes, which are functions defined on the server that are then called by the client. Normally, these would look something like this:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="nf">letrem</span> <span class="p">[</span><span class="nv">result</span> <span class="p">(</span><span class="nf">some-remote-func</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)]</span>
+ <span class="p">(</span><span class="nf">.log</span> <span class="nv">js/console</span> <span class="nv">result</span><span class="p">))</span>
+</code></pre></div>
+
+<p>But since we want to call these dynamically based on whatever action our button is created with, we&#39;ll need to drop down one level and use <code>(fetch.remotes/remote-callback remote-func params)</code>. To do this however, we also need to be able to get a reference to the dom element that was clicked. In jQuery, you usually use <code>this</code>, but in ClojureScript &quot;this&quot; is a symbol just like anything else. For us to get at the js &quot;this&quot;, we&#39;ll simply use the macro <code>(this-as some-symbol-meaning-this ... )</code></p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">overtoneinterface.client.main</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">crate.core</span> <span class="ss">:as</span> <span class="nv">crate</span><span class="p">]</span>
+            <span class="p">[</span><span class="nv">fetch.remotes</span> <span class="ss">:as</span> <span class="nv">remotes</span><span class="p">])</span> <span class="c1">;; add fetch.remotes</span>
+  <span class="p">(</span><span class="ss">:use</span> <span class="p">[</span><span class="nv">jayq.core</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">$</span> <span class="nv">append</span> <span class="nv">delegate</span> <span class="nv">data</span><span class="p">]])</span>
+  <span class="p">(</span><span class="ss">:use-macros</span> <span class="p">[</span><span class="nv">crate.macros</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">defpartial</span><span class="p">]]))</span>
+
+<span class="nv">...</span>
+
+<span class="p">(</span><span class="nf">delegate</span> <span class="nv">$body</span> <span class="nv">button</span> <span class="ss">:click</span>
+          <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">e</span><span class="p">]</span>
+            <span class="p">(</span><span class="nf">.preventDefault</span> <span class="nv">e</span><span class="p">)</span>
+            <span class="p">(</span><span class="nf">this-as</span> <span class="nv">me</span> 
+              <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">$me</span> <span class="p">(</span><span class="nf">$</span> <span class="nv">me</span><span class="p">)</span>
+                    <span class="nv">action</span> <span class="p">(</span><span class="nf">data</span> <span class="nv">$me</span> <span class="ss">:action</span><span class="p">)</span>
+                    <span class="nv">param</span> <span class="p">(</span><span class="nf">data</span> <span class="nv">$me</span> <span class="ss">:param</span><span class="p">)</span>
+                    <span class="nv">params</span> <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">param</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+                             <span class="p">[]</span>
+                             <span class="p">[</span><span class="nv">param</span><span class="p">])]</span>
+                <span class="p">(</span><span class="nf">remotes/remote-callback</span> <span class="nv">action</span> <span class="nv">params</span><span class="p">)))))</span>
+</code></pre></div>
+
+<p>What that does is extract the action and param attributes from our button and then tells fetch to call the remote function whose name is the value of action with the params we give it. On the Noir side, you then just needs to do two things - add the wrap-remotes middleware in server.clj (make sure you restart the server!):</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">overtoneinterface.server</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">noir.server</span> <span class="ss">:as</span> <span class="nv">server</span><span class="p">]</span>
+            <span class="p">[</span><span class="nv">noir.fetch.remotes</span> <span class="ss">:as</span> <span class="nv">remotes</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="nf">server/load-views</span> <span class="s">&quot;src/overtoneinterface/views/&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">server/add-middleware</span> <span class="nv">remotes/wrap-remotes</span><span class="p">)</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">-main</span> <span class="p">[</span><span class="o">&amp;</span> <span class="nv">m</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">mode</span> <span class="p">(</span><span class="nb">keyword </span><span class="p">(</span><span class="nb">or </span><span class="p">(</span><span class="nb">first </span><span class="nv">m</span><span class="p">)</span> <span class="ss">:dev</span><span class="p">))</span>
+        <span class="nv">port</span> <span class="p">(</span><span class="nf">Integer.</span> <span class="p">(</span><span class="nb">get </span><span class="p">(</span><span class="nf">System/getenv</span><span class="p">)</span> <span class="s">&quot;PORT&quot;</span> <span class="s">&quot;8080&quot;</span><span class="p">))]</span>
+    <span class="p">(</span><span class="nf">server/start</span> <span class="nv">port</span> <span class="p">{</span><span class="ss">:mode</span> <span class="nv">mode</span>
+                        <span class="ss">:ns</span> <span class="ss">&#39;overtoneinterface</span><span class="p">})))</span>
+</code></pre></div>
+
+<p>And define a remote in views/welcome.clj</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">overtoneinterface.views.welcome</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">overtoneinterface.views.common</span> <span class="ss">:as</span> <span class="nv">common</span><span class="p">]</span>
+            <span class="p">[</span><span class="nv">overtoneinterface.models.dubstep</span> <span class="ss">:as</span> <span class="nv">dubstep</span><span class="p">])</span>
+  <span class="p">(</span><span class="ss">:use</span> <span class="p">[</span><span class="nv">noir.core</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">defpage</span><span class="p">]]</span>
+        <span class="p">[</span><span class="nv">overtone.live</span><span class="p">]</span>
+        <span class="p">[</span><span class="nv">overtone.inst.sampled-piano</span><span class="p">]</span>
+        <span class="p">[</span><span class="nv">noir.fetch.remotes</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">defremote</span><span class="p">]]</span>
+        <span class="p">[</span><span class="nv">hiccup.core</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">html</span><span class="p">]]))</span>
+
+<span class="p">(</span><span class="nf">defpage</span> <span class="s">&quot;/&quot;</span> <span class="p">[]</span>
+         <span class="p">(</span><span class="nf">common/layout</span>
+           <span class="p">[</span><span class="ss">:div#controls</span><span class="p">]</span>
+           <span class="p">[</span><span class="ss">:div#wobble</span><span class="p">]</span>
+           <span class="p">[</span><span class="ss">:div#notes</span><span class="p">]</span>
+           <span class="p">[</span><span class="ss">:div#piano</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="nf">defremote</span> <span class="nv">play-note</span> <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">sampled-piano</span> <span class="nv">n</span><span class="p">))</span>
+
+<span class="c1">;;play-note is also just a regular function, meaning you could use </span>
+<span class="c1">;;it in your clj code like normal..</span>
+<span class="c1">;;(play-note 60)</span>
+</code></pre></div>
+
+<p>If this is the first time your server has loaded overtone.live, it may take a few seconds for it to refresh as it has to startup supercollider and a few other things. Also, if this is your first time ever using the sampled piano, it has to download a pretty large set of samples (this can take an hour). Assuming you have both of those though, clicking the button will cause a tone to be played. In the video, this happens at <a href="http://www.youtube.com/watch?v=lcRQFGtFiyE&amp;feature=youtu.be&amp;hd=1#t=11m20s">11:20</a>.</p>
+
+<h3>Adding a bit more.</h3>
+
+<p>At this point the fundamentals of the app are there, the rest is just icing on the cake. I clean up the code so that it&#39;s easy to add a bunch of buttons to a container and create more piano keys for us to click:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="k">def </span><span class="nv">piano-notes</span> <span class="p">(</span><span class="nb">for </span><span class="p">[</span><span class="nv">note</span> <span class="p">(</span><span class="nb">range </span><span class="mi">40</span> <span class="mi">60</span><span class="p">)]</span> 
+                   <span class="p">{</span><span class="ss">:label</span> <span class="p">(</span><span class="nb">str </span><span class="nv">note</span><span class="p">)</span> <span class="ss">:action</span> <span class="s">&quot;play-note&quot;</span> <span class="ss">:param</span> <span class="nv">note</span><span class="p">}))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">populate</span> <span class="p">[</span><span class="nv">container</span> <span class="nv">buttons</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">doseq </span><span class="p">[</span><span class="nv">b</span> <span class="nv">buttons</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf">append</span> <span class="nv">container</span> <span class="p">(</span><span class="nf">button</span> <span class="nv">b</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nf">populate</span> <span class="nv">$piano</span> <span class="nv">piano-notes</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Then I grab the code from the dubstep example in the <a href="http://github.com/overtone/overtone">Overtone</a> repository and drop it in, create a couple more remote functions and we then have the ability to fully control our little dubstep machine. The final welcome.clj looks like this:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">overtoneinterface.views.welcome</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">overtoneinterface.views.common</span> <span class="ss">:as</span> <span class="nv">common</span><span class="p">]</span>
+            <span class="p">[</span><span class="nv">overtoneinterface.models.dubstep</span> <span class="ss">:as</span> <span class="nv">dubstep</span><span class="p">])</span>
+  <span class="p">(</span><span class="ss">:use</span> <span class="p">[</span><span class="nv">noir.core</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">defpage</span><span class="p">]]</span>
+        <span class="p">[</span><span class="nv">overtone.live</span><span class="p">]</span>
+        <span class="p">[</span><span class="nv">overtone.inst.sampled-piano</span><span class="p">]</span>
+        <span class="p">[</span><span class="nv">noir.fetch.remotes</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">defremote</span><span class="p">]]</span>
+        <span class="p">[</span><span class="nv">hiccup.core</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">html</span><span class="p">]]))</span>
+
+<span class="p">(</span><span class="nf">defpage</span> <span class="s">&quot;/&quot;</span> <span class="p">[]</span>
+         <span class="p">(</span><span class="nf">common/layout</span>
+           <span class="p">[</span><span class="ss">:div#controls</span><span class="p">]</span>
+           <span class="p">[</span><span class="ss">:div#wobble</span><span class="p">]</span>
+           <span class="p">[</span><span class="ss">:div#notes</span><span class="p">]</span>
+           <span class="p">[</span><span class="ss">:div#piano</span><span class="p">]))</span>
+
+<span class="p">(</span><span class="nf">defremote</span> <span class="nv">play-note</span> <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">sampled-piano</span> <span class="nv">n</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">defremote</span> <span class="nv">start-dub</span> <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">dubstep/start-dub</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">defremote</span> <span class="nv">stop-dub</span> <span class="p">[]</span>
+  <span class="p">(</span><span class="nf">dubstep/stop-dub</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">defremote</span> <span class="nv">dub-note</span> <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">dubstep/alter-dub</span> <span class="ss">:note</span> <span class="nv">n</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">defremote</span> <span class="nv">dub-wobble</span> <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
+  <span class="p">(</span><span class="nf">dubstep/alter-dub</span> <span class="ss">:wobble-factor</span> <span class="nv">n</span><span class="p">))</span>
+</code></pre></div>
+
+<p>And here&#39;s the final main.cljs:</p>
+
+<div class="highlight"><pre><code class="clojure"><span class="p">(</span><span class="kd">ns </span><span class="nv">overtoneinterface.client.main</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">crate.core</span> <span class="ss">:as</span> <span class="nv">crate</span><span class="p">]</span>
+            <span class="p">[</span><span class="nv">fetch.remotes</span> <span class="ss">:as</span> <span class="nv">remotes</span><span class="p">])</span>
+  <span class="p">(</span><span class="ss">:use</span> <span class="p">[</span><span class="nv">jayq.core</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">$</span> <span class="nv">append</span> <span class="nv">delegate</span> <span class="nv">data</span><span class="p">]])</span>
+  <span class="p">(</span><span class="ss">:use-macros</span> <span class="p">[</span><span class="nv">crate.macros</span> <span class="ss">:only</span> <span class="p">[</span><span class="nv">defpartial</span><span class="p">]]))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">$body</span> <span class="p">(</span><span class="nf">$</span> <span class="ss">:body</span><span class="p">))</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">$piano</span> <span class="p">(</span><span class="nf">$</span> <span class="err">:</span><span class="o">#</span><span class="nv">piano</span><span class="p">))</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">$controls</span> <span class="p">(</span><span class="nf">$</span> <span class="err">:</span><span class="o">#</span><span class="nv">controls</span><span class="p">))</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">$notes</span> <span class="p">(</span><span class="nf">$</span> <span class="err">:</span><span class="o">#</span><span class="nv">notes</span><span class="p">))</span>
+<span class="p">(</span><span class="k">def </span><span class="nv">$wobble</span> <span class="p">(</span><span class="nf">$</span> <span class="err">:</span><span class="o">#</span><span class="nv">wobble</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">defpartial</span> <span class="nv">button</span> <span class="p">[{</span><span class="ss">:keys</span> <span class="p">[</span><span class="nv">label</span> <span class="nv">action</span> <span class="nv">param</span><span class="p">]}]</span>
+  <span class="p">[</span><span class="ss">:a.button</span> <span class="p">{</span><span class="ss">:href</span> <span class="s">&quot;#&quot;</span> <span class="ss">:data-action</span> <span class="nv">action</span> <span class="ss">:data-param</span> <span class="nv">param</span><span class="p">}</span> <span class="nv">label</span><span class="p">])</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">piano-notes</span> <span class="p">(</span><span class="nb">for </span><span class="p">[</span><span class="nv">note</span> <span class="p">(</span><span class="nb">range </span><span class="mi">40</span> <span class="mi">60</span><span class="p">)]</span> 
+                   <span class="p">{</span><span class="ss">:label</span> <span class="p">(</span><span class="nb">str </span><span class="nv">note</span><span class="p">)</span> <span class="ss">:action</span> <span class="s">&quot;play-note&quot;</span> <span class="ss">:param</span> <span class="nv">note</span><span class="p">}))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">dub-notes</span> <span class="p">(</span><span class="nb">for </span><span class="p">[</span><span class="nv">note</span> <span class="p">(</span><span class="nb">range </span><span class="mi">40</span> <span class="mi">80</span><span class="p">)]</span> 
+                   <span class="p">{</span><span class="ss">:label</span> <span class="p">(</span><span class="nb">str </span><span class="nv">note</span><span class="p">)</span> <span class="ss">:action</span> <span class="s">&quot;dub-note&quot;</span> <span class="ss">:param</span> <span class="nv">note</span><span class="p">}))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">dub-wobble</span> <span class="p">(</span><span class="nb">for </span><span class="p">[</span><span class="nv">w</span> <span class="p">(</span><span class="nb">range </span><span class="mi">0</span> <span class="mi">8</span><span class="p">)]</span> 
+                   <span class="p">{</span><span class="ss">:label</span> <span class="p">(</span><span class="nb">str </span><span class="s">&quot;w&quot;</span> <span class="nv">w</span><span class="p">)</span> <span class="ss">:action</span> <span class="s">&quot;dub-wobble&quot;</span> <span class="ss">:param</span> <span class="nv">w</span><span class="p">}))</span>
+
+<span class="p">(</span><span class="k">def </span><span class="nv">control-buttons</span> <span class="p">[{</span><span class="ss">:label</span> <span class="s">&quot;start&quot;</span> <span class="ss">:action</span> <span class="s">&quot;start-dub&quot;</span> <span class="ss">:param</span> <span class="s">&quot;&quot;</span><span class="p">}</span>
+                      <span class="p">{</span><span class="ss">:label</span> <span class="s">&quot;stop&quot;</span> <span class="ss">:action</span> <span class="s">&quot;stop-dub&quot;</span> <span class="ss">:param</span> <span class="s">&quot;&quot;</span><span class="p">}])</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">populate</span> <span class="p">[</span><span class="nv">container</span> <span class="nv">buttons</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">doseq </span><span class="p">[</span><span class="nv">b</span> <span class="nv">buttons</span><span class="p">]</span>
+    <span class="p">(</span><span class="nf">append</span> <span class="nv">container</span> <span class="p">(</span><span class="nf">button</span> <span class="nv">b</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nf">populate</span> <span class="nv">$piano</span> <span class="nv">piano-notes</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">populate</span> <span class="nv">$controls</span> <span class="nv">control-buttons</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">populate</span> <span class="nv">$notes</span> <span class="nv">dub-notes</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">populate</span> <span class="nv">$wobble</span> <span class="nv">dub-wobble</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nf">delegate</span> <span class="nv">$body</span> <span class="nv">button</span> <span class="ss">:click</span>
+          <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">e</span><span class="p">]</span>
+            <span class="p">(</span><span class="nf">.preventDefault</span> <span class="nv">e</span><span class="p">)</span>
+            <span class="p">(</span><span class="nf">this-as</span> <span class="nv">me</span> 
+              <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">$me</span> <span class="p">(</span><span class="nf">$</span> <span class="nv">me</span><span class="p">)</span>
+                    <span class="nv">action</span> <span class="p">(</span><span class="nf">data</span> <span class="nv">$me</span> <span class="ss">:action</span><span class="p">)</span>
+                    <span class="nv">param</span> <span class="p">(</span><span class="nf">data</span> <span class="nv">$me</span> <span class="ss">:param</span><span class="p">)</span>
+                    <span class="nv">param</span> <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">param</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+                            <span class="p">[]</span>
+                            <span class="p">[</span><span class="nv">param</span><span class="p">])]</span>
+                <span class="p">(</span><span class="nf">remotes/remote-callback</span> <span class="nv">action</span> <span class="nv">param</span><span class="p">)))))</span>
+</code></pre></div>
+
+<p>And there you have it - a complete overtone controller in about 20 minutes.</p>
+
+<p><a href="http://news.ycombinator.com/item?id=3615022">Discuss this on HackerNews.</a></p>
+<img src="http://feeds.feedburner.com/~r/ChrisGranger/~4/vcQxjlhaIi8" height="1" width="1"/>

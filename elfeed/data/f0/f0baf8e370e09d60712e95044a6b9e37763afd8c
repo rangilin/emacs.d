@@ -1,0 +1,14 @@
+
+<p>I spent the last few days trying to figure out why kphone wouldn't
+work with my newly aquired Belkin router. The clue was the
+following security log:</p>
+
+<p><code>15.11.2004 19:36:52 **UDP Flood to Host** 192.168.2.3, 32860-&gt;&gt;</code></p>
+
+<p>The problem is that the router thinks that SIP incoming packets are a
+denial of service attack. You'll need to follow this
+<a href="http://192.168.2.1/firewall_spi_h.stm">undocumented link</a>. Next turn off <code>SPI</code> and <code>Anti-DoS firewall protection</code>.</p>
+
+<p>I find it most uncool that Belkin did not document this link. It would
+have saved me a lot time had they mention it on their manual.</p>
+

@@ -1,0 +1,84 @@
+
+ 
+<p>
+The team at Fog Creek is releasing a major new version of <a href="http://www.fogcreek.com/kiln">Kiln</a> today. Kiln is a distributed version control system. </p>
+<p>One of the biggest new features is Kiln Harmony, which lets you operate on Kiln repositories using either Git or Mercurial. So you can push changes to a Kiln repo using Git and then pull them using Mercurial. This means that you never have to decide whether you want to use Git or Mercurial. Religious war: averted. </p>
+<p><span style="display: block; margin: 0 0 0.25ex 1em; position: relative; float: right;"><a href="http://www.joelonsoftware.com/items/2013/03/11 taco.jpg"><img style="border:1px solid #666;" alt="" src="http://www.joelonsoftware.com/items/2013/03/11 taco-thumbnail.jpg" /></a></span>But, I’m getting ahead of myself!</p><p>
+For those of you that have been living under a rock, the single biggest change in developers’ lives in the last decade (besides <a href="http://stackoverflow.com/">Stack Overflow</a>, natch) is&nbsp;<a href="http://www.joelonsoftware.com/items/2010/03/17.html">Distributed Version Control</a>. DVCS is such an important improvement over the previous generation of centralized version control (Subversion, CVS, etc.) that it’s a required upgrade, even though it’s honestly a bit harder to use.
+</p><p>
+
+The popular DVCS options are Git and Mercurial. Both are open source. They are very, very similar in capabilities and operation; in fact, they are so similar that Kiln Harmony hides all the differences, so you can use any Git <em>or</em> Mercurial tool to work with any Kiln repository.
+</p><p>
+
+If Git and Mercurial are open source, why are people making money selling them?
+</p><p>
+
+The short answer is that the open source tools are kind of raw. They're dune buggies. Powerful, yes, and sufficient for a college project, but as it turns out, people buy Cadillacs, not dune buggies, to drive around in, because they like to have windshield wipers, 14-way power adjustable seats, and a way to start the engine from twenty feet away. Just in case you live in a Hollywood movie and the ignition has been hooked up to a bomb.
+</p><p>
+
+<a href="http://www.fogcreek.com/">Fog Creek</a> (and others, notably <a href="https://github.com/">GitHub</a>) are making money selling version control by providing a whole bunch of features that make the overall code management experience easier and more useful. For example, we both provide professional, secure hosting, a web management and administration interface, and somebody you can call for help.
+</p><p>
+
+Where we differ is that Kiln is more focused on the corporate market, while GitHub was designed for open source projects. I think of Kiln as the corporate Lincoln Town Car, while GitHub is kind of a VW Minibus. Both are eminently better choices than using raw Git.
+</p><p>
+
+So, specifically, Kiln gives you corporate things like:</p>
+<ul>
+	<li>code reviews</li>
+	<li>access control and permissions</li>
+<li>fast code search</li>
+	<li>a news feed to follow code you care about</li></ul>
+<p>GitHub gives you things that match the sociology of open source projects:</p>
+<ul>
+	<li>public home pages</li>
+	<li>a social network, with profiles</li>
+	<li>fork and pull workflow</li>
+</ul>
+<p><span style="display: block; margin: 0 0 0.25ex 1em; position: relative; float: right;"><a href="http://www.joelonsoftware.com/items/2013/03/11-taco2.jpg"><img style="border:1px solid #666;" alt="" src="http://www.joelonsoftware.com/items/2013/03/11-taco2-thumbnail.jpg" /></a></span>Since internal corporate projects have a very different sociology than open source projects, Kiln is very different than GitHub. On internal projects, almost all code that is developed is eventually used, although it needs to be reviewed, so Kiln kind of assumes that everything you do is most likely going to end up in the main code base, and we have a slick code review system.
+</p><p>
+
+On open source projects, contributions can come from volunteers all over the Internet, many of whom are happy to fork the code for their own needs. So GitHub provides a social network, emphasizes the ease of forking someone else's code (something you're unlikely to do in a closed corporate environment), and has a thing called a <a href="https://help.github.com/articles/using-pull-requests">pull request</a> that matches the way people tend to collaborate on open source projects without advance coordination.
+</p><p>
+
+ANYWAY, back to the new version of Kiln.
+</p><p>
+
+When Tyler and Ben built Kiln 1.0, they built it on Mercurial. Why? Well, Mercurial had pretty much all the same concepts as Git, but Git was historically unfriendly to Windows which is used by many of our corporate clients. We also thought that the Mercurial command line (hg) was a bit closer to Subversion (svn) which a lot of programmers were already used to.</p><p>
+
+So, long story short, we decided Mercurial was about 1% better than Git and that's the way we went. We didn't want to start a holy war, and we liked Git, but we just had a feeling that all else being equal, Mercurial was <em>marginally</em> better than Git.
+</p><p>
+
+We still think that, but in the years since Kiln first shipped, GitHub has taken the world by storm, creating an ecosystem around Git that more than makes up for its minor failings. Today Git is without a doubt more popular. So we knew we needed to add Git to Kiln.
+</p><p>
+
+<span style="display: block; margin: 0 0 0.25ex 1em; position: relative; float: right;"><a href="http://www.joelonsoftware.com/items/2013/03/11-taco3.jpg"><img style="border:1px solid #666;" alt="" src="http://www.joelonsoftware.com/items/2013/03/11-taco3-thumbnail.jpg" /></a></span>We could have done it the lazy way: support both kinds of repositories and make you choose which one to use. Maybe add some nice conversion tools.
+</p><p>
+
+But we are not lazy. We decided to do it the <em>awesome</em>&nbsp;way.
+</p><p>
+
+We decided that the awesome way would be to make Kiln fully bilingual. It stores every repo in <em>both</em> formats. It automatically converts everything back and forth, always. The translation is 1:1, reversible, and round-trippable. Whatever you do to a Kiln repository using Git will be immediately visible to Mercurial users and vice versa.
+</p><p>
+
+Every user of every Kiln repo can choose either Mercurial or Git, and everything always works.
+</p><p>
+
+You can push in Git, and pull in Mercurial. Or vice versa. Or both.
+</p><p>
+
+A team that uses Mercurial internally (and barely understands Git) can push their code to GitHub and interact with the GitHub community.
+</p><p>
+
+If your team likes Git but you prefer Mercurial yourself, you can use a different version control system than everybody else on your team and, honestly, they don't even have to know.
+</p><p>
+
+If your team is using Mercurial today but you want to switch to Git, you can move over -- one person at a time. If Joe in Accounting refuses to move, it doesn't matter. He can keep using Mercurial.
+</p><p>
+
+Everything maps. Everything round-trips.
+</p><p>
+
+There are some other big improvements in the version of Kiln available today. Super-fast code search. SSH and IP-whitelisting for security. Project READMEs. A bunch of other improvements throughout the interface that will be a huge upgrade for anyone already using Kiln. If you’re interested, you can <a href="https://secure.fogcreek.com/kiln/try">start a free trial online</a>.</p>
+<p>Need to hire a really great programmer? Want a job that doesn't drive you crazy? Visit the <a href="http://jobs.joelonsoftware.com/">Joel on Software Job Board</a>: Great software jobs, great people.
+</p>
+

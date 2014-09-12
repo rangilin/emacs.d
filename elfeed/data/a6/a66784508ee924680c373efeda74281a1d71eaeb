@@ -1,0 +1,48 @@
+<p>
+A gentleman (or woman) by the name of baam_waak <a href="http://www.reddit.com/r/emacs/comments/29duxk/require_or_install_package/">recently asked</a> on
+<a href="http://www.reddit.com/r/emacs/">/r/emacs</a> how can one make sure a package gets installed in case
+<a href="http://bruce-connor.github.io/emacs-online-documentation/Fun/require"><code>require</code></a>ing it fails. Sadly, this predicament has no perfect
+solution, for you require features, not packages. Fortunately, it has
+plenty of solutions that are good enough, since features commonly
+share the name of their package.
+</p>
+
+<p>
+Motivated by the question, I saw it fit to add this
+functionality to <a href="https://github.com/Bruce-Connor/paradox/">paradox's arsenal</a>.
+</p>
+
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="p">(</span><span class="nb">defun</span> <span class="nv">paradox-require</span> <span class="p">(</span><span class="nv">feature</span> <span class="k">&amp;optional</span> <span class="nv">filename</span> <span class="nv">noerror</span> <span class="nc">package</span> <span class="nv">refresh</span><span class="p">)</span>
+  <span class="s">&quot;A replacement for `require&#39; which also installs the feature if it is absent.</span>
+<span class="s">- If FEATURE is present, `require&#39; it and return t.</span>
+
+<span class="s">- If FEATURE is not present, install PACKAGE with `package-install&#39;.</span>
+<span class="s">If PACKAGE is nil, assume FEATURE is the package name.</span>
+<span class="s">After installation, `require&#39; FEATURE.</span>
+
+<span class="s">FILENAME is passed to `require&#39;.</span>
+
+<span class="s">If NOERROR is non-nil, don&#39;t complain if the feature couldn&#39;t be</span>
+<span class="s">installed, just return nil.</span>
+
+<span class="s">By default, the current package database (stored in</span>
+<span class="s">`package-archive-contents&#39;) is only updated if it is empty.</span>
+<span class="s">Passing a non-nil REFRESH argument forces this update.&quot;</span>
+  <span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nb">require</span> <span class="nv">feature</span> <span class="nv">filename</span> <span class="no">t</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nc">package</span> <span class="p">(</span><span class="nb">or</span> <span class="nc">package</span>
+                         <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">stringp</span> <span class="nv">feature</span><span class="p">)</span>
+                             <span class="p">(</span><span class="nb">intern</span> <span class="nv">feature</span><span class="p">)</span>
+                           <span class="nv">feature</span><span class="p">))))</span>
+        <span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;package</span><span class="p">)</span>
+        <span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nb">and</span> <span class="nv">package-archive-contents</span> <span class="p">(</span><span class="nb">null</span> <span class="nv">refresh</span><span class="p">))</span>
+          <span class="p">(</span><span class="nv">package-refresh-contents</span><span class="p">))</span>
+        <span class="p">(</span><span class="nb">and</span> <span class="p">(</span><span class="nv">condition-case</span> <span class="nv">e</span>
+                 <span class="p">(</span><span class="nv">package-install</span> <span class="nc">package</span><span class="p">)</span>
+               <span class="p">(</span><span class="nb">error</span> <span class="p">(</span><span class="k">if</span> <span class="nv">noerror</span> <span class="no">nil</span> <span class="p">(</span><span class="nb">error</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">e</span><span class="p">)))))</span>
+             <span class="p">(</span><span class="nb">require</span> <span class="nv">feature</span> <span class="nv">filename</span> <span class="nv">noerror</span><span class="p">)))))</span></code></pre></div>
+
+<p>
+Just use <code>(paradox-require 'dash)</code> instead of <code>(require 'dash)</code> and
+the package will be installed if necessary.</p>
+
+   <p><a href="http://endlessparentheses.com/require-feature-or-install-package.html?source=rss#disqus_thread">Comment on this.</a></p>

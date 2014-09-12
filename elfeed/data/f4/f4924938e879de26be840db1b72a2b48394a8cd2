@@ -1,0 +1,84 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #17. <a href="http://blog.golang.org/go12">Go 1.2 is released</a>! We're grateful to the Go team &amp; contributors (a total of 464, according to the contributors file) for making this happen. Also in December, the <a href="http://blog.gopheracademy.com/">Gopher Academy blog</a> will be running an article on Go each day up to Christmas. They've already had a couple of great articles, so take a look. Compiled by <a href="https://twitter.com/mattrco">Matt Cottingham</a> and <a href="https://twitter.com/kelseyhightower">Kelsey Hightower</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="http://0value.com/build-a-restful-API-with-Martini">Build a RESTful API with Martini</a><br />Martin Angers takes a deep look into the Martini web framework that's making waves in the Go community. A full walk through an example application highlights some of the best features Martini has to offer, well worth the read.</p>
+<p><a href="http://blog.golang.org/normalization">Text normalization in Go</a><br />Unicode normalization allows characters which are judged to have the same meaning but different byte representations to be compared. This article from the Go blog describes Go's approach to normalization.</p>
+<p><a href="http://www.pheelicks.com/2013/11/intro-to-images-in-go-fractals/">Fractals in Go</a><br />Continuing the series of posts using Go's image packages, this looks at creating fractals.</p>
+<p><a href="http://mxey.net/go-as-a-first-language/">Go as a first language</a><br />Maximilian evaluates the premise that Go is not only a big relief for wearied developers, but also does many things right that can benefit beginners.</p>
+<p><a href="https://docs.google.com/document/d/1xl_aRcCbksFRmCKtoyRQG9L7j6DIdMZtrkFAoi5EXaA/edit">Go 1.3 cmd/go and os/fsnotify</a><br />A design document on how the Go team plans to speed up code compilation by reducing the amount of stat&rsquo;ing and reading of files between builds. The goal is to leverage file system notifications and promote the fsnotify package to the stdlib.</p>
+<p><a href="http://dev.mikamai.com/post/68453619468/building-web-apps-with-traffic-the-go-micro-framework">Building Web Apps With Traffic, The Go Micro Framework.</a><br />Written by long time Ruby developer and MIKAMAI partner Andrea Franz, Traffic is a micro framework for Web development inspired by Sinatra.</p>
+<p><a href="http://www.jerf.org/iri/post/2923">Parametricity in Go</a><br />This article explores how restricting exports can help with testing.</p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="https://github.com/jeromer/syslogparser">jeromer/syslogparser</a><br />A parser for syslog messages implemented in Go</p>
+<p><a href="https://github.com/deckarep/gosx-notifier">deckarep/gosx-notifier</a><br />gosx-notifier is a Go framework for sending desktop notifications to OSX 10.8 or higher</p>
+<p><a href="https://github.com/DHowett/go-plist">DHowett/go-plist</a><br />A pure Go Apple Property List transcoder</p>
+<p><a href="https://github.com/laher/someutils">laher/someutils</a><br />Some CLI utilities written in Go. Mainly intended as Unixlike commands for Windows, but cross-platform.</p>
+<h4>DISCUSSIONS</h4>
+<p><a href="https://groups.google.com/forum/#!topic/golang-nuts/JM7zy5ezsWQ">How does `go get` know the URL for an import path?</a><br />Ever wanted to know how the go get command knows the URL for an import path? This go-nuts thread has the answer.</p>
+<p><a href="https://groups.google.com/forum/#!topic/golang-nuts/sAwDldpkMGQ">Reading large files the right way</a><br />The Go community helps a user handle processing large files the right way.</p>
+<h4>EVENTS</h4>
+<table class="events">
+<tbody>
+<tr>
+<td><a href="http://www.meetup.com/Golang-Peter/events/152977352/">go SPb()</a></td>
+<td>2013-12-16</td>
+<td>Golang Питер</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golang-users-berlin/events/153233572/">December Gophers</a></td>
+<td>2013-12-09</td>
+<td>GDG Berlin Golang</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-Stockholm/events/134047352/">High Performance Go</a></td>
+<td>2013-12-05</td>
+<td>Go Stockholm</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-Stockholm/events/141264182/">Compete in AI programming</a></td>
+<td>2013-12-18</td>
+<td>Go Stockholm</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golang-mel/events/146822522/">Let's look at Martini</a></td>
+<td>2013-12-03</td>
+<td>Golang Melbourne</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/GoLangPhilly/events/153338442/">December Meetup</a></td>
+<td>2013-12-11</td>
+<td>GoLangPhilly</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/go-toronto/events/151844202/">GoBot Battles</a></td>
+<td>2013-12-05</td>
+<td>Go TO</td>
+</tr>
+</tbody>
+</table>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator of the modern enterprise IT platform. Driven by policy, the platform solves systemic challenges and blends new and existing technologies to unify IT. Enterprise grade, the platform grows with needs and empowers IT to innovate faster now and well into the future.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.iron.io/"><img src="http://s3.amazonaws.com/golangweekly/iron_io.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.iron.io/">Iron.io</a> is the maker of IronMQ, a scalable cloud-based message queue, and IronWorker, an elastic task queue/worker service, and one of the first companies to use Go in production. Iron.io's services are designed for building distributed cloud applications quickly and operating at scale. The services are easy to use, highly available, and require no setup and no ops. Reduce complexity, build to scale, get Iron.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr />

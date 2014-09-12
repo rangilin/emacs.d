@@ -1,0 +1,27 @@
+
+<p>Today I forgot my root password, it must be Alzheimer. Anyhow here is
+the quick recipe to reset it. On the grub boot screen type 'e' for
+edit. Next edit the line starting with linux, at the end add
+init=/bin/bash it should look like this.</p>
+
+<pre class="example">
+linux /boot/vmlinuz-version root=UUID=hex ro quite init=/bin/bash
+</pre>
+
+<p>Next hit Ctrl-X to boot, you should land on a prompt without having to
+type your password. Next enter the following two commands:</p>
+
+<pre class="example">
+mount -o remount,rw /
+passwd
+</pre>
+
+<p>Enter the new password twice, type the following:</p>
+
+<pre class="example">
+sync
+reboot
+</pre>
+
+<p>You should be all set!</p>
+

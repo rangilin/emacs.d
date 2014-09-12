@@ -1,0 +1,194 @@
+<p>這星期我們再來看個有點冷門但我覺得還滿有趣的小東西：<strong>instancetype</strong>。如果我們去翻一下 <code>NSObject</code> 上 <code>alloc</code> 跟 <code>init</code> 的定義：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 檔案：NSObject.h</span>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">NSObject</span> <span class="o">&lt;</span><span class="n">NSObject</span><span class="o">&gt;</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">Class</span> <span class="n">isa</span>  <span class="n">OBJC_ISA_AVAILABILITY</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">init</span><span class="p">;</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">new</span><span class="p">;</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">alloc</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>會發現 <code>alloc</code> 跟 <code>init</code> 的回傳型態都是 <code>id</code>。而在<a href="http://blog.eddie.com.tw/2013/12/05/object-class-and-meta-class-in-objective-c/">上一篇</a>提到，在 Objective-C 裡 <code>id</code> 是一個可以指向任何物件的指針，所以如果這樣寫的話：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSArray</span><span class="o">*</span> <span class="n">myArray</span> <span class="o">=</span> <span class="p">[[</span><span class="n">NSArray</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>看起好像沒什麼問題，執行起來也正常，但這裡就有個小小的疑惑了.. 即然 <code>alloc</code> 跟 <code>init</code> 都是回傳 <code>id</code> 型別，Objective-C 是個動態語言，很多資訊是在執行階段(runtime)才會取得，那編譯器(compiler)又是怎麼知道它應該要是個 <code>NSArray</code>?</p>
+
+<!-- more -->
+
+
+<p>根據 <a href="http://clang.llvm.org/docs/LanguageExtensions.html">Clang 的文件</a>說明，原來當我們寫 <code>[NSArray alloc]</code> 的時候，訊息接受者(receiver，也就是 <code>NSArray</code>)收到訊息(message，也就是 <code>alloc</code>)，它並不是真的就乖乖的就只傳回 <code>id</code> 型別，而是回傳 receiver 的型別(a.k.a related result type)，在這個例子就是 <code>NSArray</code>。同理 <code>init</code> 也是一樣，所以 <code>[[NSArray alloc] init]</code> 也會偷偷的回傳 <code>NSArray</code> 型別。在 Objective-C 裡，<code>alloc</code>、<code>new</code>、<code>init</code> 等方法都享有這個特別的服務。</p>
+
+<p>但如果不是這些享有特別服務的方法呢? 例如：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">Animal</span> : <span class="nc">NSObject</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span> <span class="nf">createAnimal</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">Animal</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span> <span class="nf">createAnimal</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[[</span><span class="n">self</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">Fox</span> : <span class="nc">Animal</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">say</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">Fox</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">say</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;what does the fox say!?&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這裡我們建立了兩個類別，一個 <code>Animal</code> 一個 <code>Fox</code>，<code>Fox</code> 繼承自 <code>Animal</code>，並且在 <code>Animal</code> 定義了一個類別方法 <code>createAnimal</code>。看起來很正常，但如果接下來不小心這樣寫的話：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[[</span><span class="n">Animal</span> <span class="n">createAnimal</span><span class="p">]</span> <span class="n">say</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面這行在編譯階段沒問題，但執行之後就會 crash 了。我們一般不會這樣寫，因為我們光用肉眼就能發現問題在哪裡，父類別 <code>Animal</code> 根本沒有定義或實作 <code>say</code> 方法所以理所當然的會 crash。但為什麼這麼明顯的錯誤在 Xcode 裡沒被挑出來? 因為 <code>+createAnimal</code> 這個方法回傳的是 <code>id</code>，編譯器沒辦法在編譯階段從 <code>id</code> 推敲出它真正的型別，所以只好先放它過關，然後在執行階段就 crash 了。(關於為什麼是在執行階段才知道型別，可參考<a href="http://blog.eddie.com.tw/2013/12/05/object-class-and-meta-class-in-objective-c/">這一篇</a>的介紹)</p>
+
+<p>你當然也可以在執行階段再用 <code>respondsToSelector:</code> 之類的方法來檢查，但事實上這個工作可以交給編譯器來做，只要把 <code>id</code> 換成 <code>instancetype</code>，像這樣：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@interface</span> <span class="nc">Animal</span> : <span class="nc">NSObject</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span> <span class="nf">createAnimal</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">Animal</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span> <span class="nf">createAnimal</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[[</span><span class="n">self</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>這樣編譯器就會在原本會 crash 的那行跳出一個紅色的警告：</p>
+
+<p><img src="http://blog.eddie.com.tw/images/2013/instancetype_error_check.png" alt="image" /></p>
+
+<p>寫著：</p>
+
+<pre><code>No visible @interface for 'Animal' declares the selector 'say'
+</code></pre>
+
+<p>在編譯過程就會幫你把這個問題抓出來了。使用 <code>instancetype</code> 的另一個好處，就是在子類別也可以正確的知道子類別的型別，例如你不小心這樣寫：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[[</span><span class="n">Fox</span> <span class="n">createAnimal</span><span class="p">]</span> <span class="nl">addObject:</span><span class="s">@&quot;hello, fox!&quot;</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果這邊回傳的是 <code>id</code> 的話，上面這行在編譯階段也不會有錯，但執行就 crash 了(除非你剛好有幫 Fox 類別實作了 <code>addObject:</code> 方法)。如果改用 <code>instancetype</code> 的話，編譯器就會把問題在編譯階段就抓出來了。</p>
+
+<h2>什麼是 instancetype?</h2>
+
+<p>引用 Clang 文件的一段話：</p>
+
+<blockquote><p>&#8220;instancetype is a contextual keyword that is only permitted in the result type of an Objective-C method&#8221;</p></blockquote>
+
+
+<p>其實 <code>instancetype</code> 就只是個關鍵字(keyword)，它告訴編譯器回傳型態，讓編譯器可以在編譯階段就有足夠的資訊可以來判斷你寫的程式碼是不是有問題。</p>
+
+<h2>用 instancetype 取代 id?</h2>
+
+<p>在 <a href="https://developer.apple.com/wwdc/videos/">WWDC 2013</a> 的影片(404 - Advances in Objective-C)提到在新版的 SDK 加入了 <code>instancetype</code> 這個型別。其實 <code>instancetype</code> 並不是很新的東西，不過 Apple 在最近推出的 SDK 開始把 <code>id</code> 改換成 <code>instancetype</code>，例如我們隨便打開一個內建的類別的 header，例如 <code>NSArray.h</code> 來看看：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// 檔案：NSArry.h</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">array</span><span class="p">;</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">arrayWithObject:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">anObject</span><span class="p">;</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">arrayWithObjects:</span><span class="p">(</span><span class="k">const</span> <span class="kt">id</span> <span class="p">[])</span><span class="nv">objects</span> <span class="nf">count:</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">cnt</span><span class="p">;</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">arrayWithObjects:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">firstObj</span><span class="p">,</span> <span class="p">...</span> <span class="n">NS_REQUIRES_NIL_TERMINATION</span><span class="p">;</span>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">arrayWithArray:</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">array</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">init</span><span class="p">;</span><span class="cm">/* designated initializer */</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithObjects:</span><span class="p">(</span><span class="k">const</span> <span class="kt">id</span> <span class="p">[])</span><span class="nv">objects</span> <span class="nf">count:</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">cnt</span><span class="p">;</span><span class="cm">/* designated initializeralizer */</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithObjects:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">firstObj</span><span class="p">,</span> <span class="p">...</span> <span class="n">NS_REQUIRES_NIL_TERMINATION</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithArray:</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">array</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithArray:</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">array</span> <span class="nf">copyItems:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>NSArray 的 initializer 以及一些 class method 的回傳型態都也都是改用 <code>instancetype</code> 了。</p>
+
+<p>所以意思是要用 <code>instancetype</code> 來取得 <code>id</code> 的意思嗎? 其實不是的。</p>
+
+<p>Clang 的文件提到 <code>instancetype</code> 是 &#8220;only permitted in the result type of an Objective-C method&#8221;， 也就是說，<code>instancetype</code> 只能作為回傳值，不能作為參數，像這樣：</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">clickAction:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span> <span class="n">sender</span><span class="p">;</span>            <span class="c1">// 這樣寫沒問題</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">clickAction:</span><span class="p">(</span><span class="n">instancetype</span><span class="p">)</span> <span class="n">sender</span><span class="p">;</span>  <span class="c1">// 但這樣寫是不行的</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>簡單的說，<code>instancetype</code> 主要的目的是為了幫助編譯器更了解你的程式碼，提早在編譯階段就發現問題。</p>
+
+<p>至於之前已經寫好的程式碼需要整個用 <code>instancetype</code> 再重新改寫嗎? 其實也沒必要，不改也不會怎麼樣，因為編譯器本來就會幫 <code>alloc</code>、<code>new</code>、<code>init</code> 之類的方法傳回適當的型別，不過如果是新的專案，倒是建議可以試著在適當的地方開始使用 <code>instancetype</code>。</p>
+
+<p>話說，研究這種有點冷門的東西對 iOS app 的開發雖然不會有直接明顯的幫助，但對整個 Objective-C / Cocoa Framework 可以有更進一步的認識，可以更知道我寫的程式碼到底實際上是怎麼運作的，我個人覺得這樣挺有趣的。</p>

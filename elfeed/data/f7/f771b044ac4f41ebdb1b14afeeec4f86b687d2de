@@ -1,0 +1,75 @@
+<p>
+Although it initially takes some getting used to, I think
+Clojure/Lisp's prefix operators are a great idea. They make multi-argument
+functions really easy, so you can say things like:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #A6E22E;">=</span> a b c)
+</pre>
+</div>
+
+<p>
+&#x2026;instead of the much-clunkier:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">((a == b) &amp;&amp; (b == c))
+</pre>
+</div>
+
+<p>
+After a while you start to wonder why languages bother with operators
+that are limited to two arguments.
+</p>
+
+<p>
+The <code>&lt;</code> and <code>&gt;</code> variants are equally cool, as you can do things like
+replace the classic range-check:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #66D9EF;">if</span> ((0 &lt;= x) &amp;&amp; (x &lt;= 10)) ...
+</pre>
+</div>
+
+<p>
+&#x2026;with:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #66D9EF;">if</span> (<span style="color: #A6E22E;">&lt;=</span> 0 x 10) ...)
+</pre>
+</div>
+
+<p>
+But in the early days, I found it hard to remember whether I wanted
+<code>(&lt; x 2)</code> or <code>(&gt; x 2)</code>. For the simple pair, greater-than or less-than
+just seemed to naturally belong in the middle, for the visual reminder.
+</p>
+
+<p>
+So here's my mind-hack tip: Think of them as 'getting-larger' and
+'getting-smaller' operators, and look at the shapes of the characters.
+</p>
+
+<p>
+The glyph <code>&lt;</code> is a triangle that starts small on the left and gets
+larger as it goes right. <code>(&lt; 2 x)</code> is checking if the arguments start
+small on the left, and get larger as you go right. Two is small, x is
+larger.
+</p>
+
+<p>
+Similarly for <code>&gt;</code>: It starts large on the left of the shape &amp; gets
+smaller as it goes right.
+</p>
+
+<p>
+I found that helped the penny drop for me. Hopefully it'll help a
+reader or two&#x2026;
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/6qkWJ-mWM40" height="1" width="1"/>

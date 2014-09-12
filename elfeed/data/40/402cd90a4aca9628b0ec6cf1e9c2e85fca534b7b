@@ -1,0 +1,18 @@
+
+<p>What's wrong with the latest version of Thunderbird? It doesn't work
+with my server that uses STARTTLS. I generated a log file.</p>
+
+<pre class="example">
+Send: EHLO patsy.makina-nantes.net
+Response: 250-kanis.fr Hello 179.240.204-77.rev.gaoland.net [77.204.240.179]
+Response: 250-SIZE 104857600
+Response: 250-PIPELINING
+Response: 250-STARTTLS
+Response: 250 HELP
+Send: QUIT
+</pre>
+
+<p>Well crap it should work. It did work on my father's Thunderbird a
+year ago . How annoying. So I told my client to use Pegasus Mail which
+doesn't look as pretty but it works.</p>
+

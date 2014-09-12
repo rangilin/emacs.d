@@ -1,0 +1,211 @@
+
+     <p>Although it's not yet the last month of the year, I was in a reflective mood, and jotted down programming lessons I learned this year:
+</p>
+<ol>
+<li>Spend time first on <b>what</b> you're going to do, iterate several times on the "plan", and when you get to the computer, it should just be about <b>typing</b> out what you have already decided.
+
+<p>
+   Of course, I do my own planning within <a href="http://www.swaroopch.com/2013/01/16/orgmode/">OrgMode</a> itself, it's hard for me to do my planning on paper, but the idea is to do the iteration of the steps first, take feedback from stakeholders, etc. The actual part of typing should come last and <i>should be boring</i>.
+</p>
+<p>
+   There are places where this should probably not be applicable such as explorations of technology and finding out what is possible, but for majority of things, I constantly have to remind myself that we are in the problem-solving business first, and in the programming business second.
+</p>
+<p>
+   Part of the problem-solving is in figuring out the repercussions of making code changes and how to restrict the limitations and expand the possibilities of the code that we write, especially keeping the code as slim as possible. In simpler words, part of the time spent up front should be as much about the <a href="http://ben.moseley.name/frp/paper-v1_01.pdf">accidental complexity as well as the incidental complexity</a>.
+</p>
+<p>
+   Some call this <a href="http://youtu.be/f84n5oFoZBc">hammock-driven development</a>. Some call this <a href="http://zenhabits.net/kill-busywork/">killing busywork</a>.
+</p>
+</li>
+<li>"Working in strange environments is a CS life skill" is what Dan Grossman mentioned at the start of the <a href="https://www.coursera.org/course/proglang">Programming Languages Coursera course</a> and it was a profound statement for me.
+<p>
+   The times when I have resisted learning new tools or getting used to
+   new programming languages are the times I have atrophied.
+</p>
+<p>
+   The times when I threw away familiarity and explored new tools was when I learned and enjoyed.
+</p>
+<p>
+   Time and again, I have to make a <a href="http://zenhabits.net/discomfort/">commitment to throw familiarity away</a>. That is what pushes me to learn to <a href="http://www.swaroopch.com/2013/10/17/emacs-configuration-tutorial/">customize Emacs</a> despite already having spent years <a href="http://www.swaroopch.com/notes/vim/">mastering Vim</a> and spent so much time using PyCharm, etc.
+</p>
+<p>
+   The flip side is that learning how to create a mobile app has always been a point of procrastination for me because it is all about learning new tools, new APIs, new IDE, etc.
+</p>
+</li>
+<li>Always keep raw original data around.
+
+<p>
+   You never know when you'll need to reprocess it. It is always possible to reprocess but losing raw original data is a bad place to be. For example, if you're auto-parsing some user input and it is not a selection that the user is choosing, then you're probably better off storing the user input as-is and having a separate field where you store the result of your parsing the user input.
+</p>
+<p>
+   This habit is especially important to scale to a <a href="http://www.swaroopch.com/2013/01/12/big-data-nathan-marz/">Lambda Architecture</a>.
+</p>
+</li>
+<li>Always use camel-case for data.
+
+<p>
+   This is something I have learned the hard way when trying to use data passed between Postgresql database, MongoDB database, a Java server, a Django website server with JavaScript / Ajax-based workflows, a Django-based admin, and so on.
+</p>
+<p>
+   Especially when JavaScript and Java &amp; GSON enter into the picture, life will be much easier if the keys of your JSON data are camel-cased.
+</p>
+</li>
+<li>Do logging-first development.
+
+<p>
+   No matter how well-written or well-indented or well-formatted the code is, ultimately, the run-time behavior of the code is what determines the value of the compile-time code.
+</p>
+<p>
+   Always think about how to log the importants parts of the code which work based on time-sensitive data, so that your post-mortem on why something happened will be far easier.
+</p>
+<p>
+   For example, storing every API request and response to payment gateways was one of the best things I ever did when writing the ecommerce platform for Automatic. That clarified so many behaviors when investigating things after-the-fact, and it reiterates point 3 where it was easy to reprocess some statuses based on unexpected API responses, etc.
+</p>
+</li>
+<li><a href="http://nathanmarz.com/blog/suffering-oriented-programming.html">First make it possible. Then make it beautiful. Then make it fast.</a>
+
+<p>
+   I've worked on tasks more efficiently and effectively whenever I have taken the time to get a quick "let's get it working" version out there first, and then tweaking it constantly to get the software that the stakeholder wants.
+</p>
+<p>
+   <a href="http://daringfireball.net/2009/04/complex">Some call</a> this as how <a href="http://www.macworld.com/article/1151235/apple_rolls.html">Apple rolls</a>. Some call this as <a href="http://97things.oreilly.com/wiki/index.php/Great_software_is_not_built,_it_is_grown">software is grown, not built</a>.
+</p>
+</li>
+<li><a href="http://highscalability.com/blog/2012/12/17/11-uses-for-the-humble-presents-queue-er-message-queue.html">Queues are what makes things scalable.</a>
+
+<p>
+   Well, queues and asynchronicity are what makes things scalable.
+</p>
+<p>
+   Use queues wherever you can.
+</p>
+</li>
+<li>Immutability is paramount.
+
+<p>
+   It is what <a href="http://clojure.com/blog/2012/03/16/take5-baishampayan-ghose.html">will keep your system sane. As @ghoseb says</a>: "One day, we incurred a loss of a million Rupees at my company because of a bug that got triggered by my (apparently pure) code due to our usage of mutable datastructures in Common Lisp."
+</p>
+<p>
+   Writing pure functions makes code far more predictable and easier to understand, and at the same time, keeps the prone-to-errors-because-of-data surface area of the code smaller.
+</p>
+<p>
+   A side-effect (sic) of considering immutability is that you learn to <a href="http://www.swaroopch.com/2013/08/24/ghoseb-clojure-course-day-1/">data all the things</a>.
+</p></li>
+</ol>
+
+<h3 class="tweet-comments-header">Twitter Comments</h3>
+
+<div class="tweet-comments">
+
+<!-- @swaroopch 1,2, 6 are probably the most important things in programming ever. And I can't stress enough on how amazing Grossmans course was. -->
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/anuragwho/status/392875259717615616">@anuragwho</a> says:
+</p>
+<blockquote cite="https://twitter.com/anuragwho/status/392875259717615616">
+@swaroopch 1,2, 6 are probably the most important things in programming ever. And I can't stress enough on how amazing Grossmans course was.
+</blockquote>
+</div>
+
+
+
+<!-- "Do logging-first development." and other programming lessons @swaroopch learned in '13: http://t.co/ZpjzFXSRlI
+
+<p>
++1 for logging-first. -->
+</p>
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/_prakash/status/392883675659923456">@_prakash</a> says:
+</p>
+<blockquote cite="https://twitter.com/_prakash/status/392883675659923456">
+"Do logging-first development.
+</blockquote>
+</div>
+
+
+
+<!-- I constantly have to remind myself that we are in the problem-solving business first, and in the programming business second. - @swaroopch -->
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/higagan/status/392909152609001472">@higagan</a> says:
+</p>
+<blockquote cite="https://twitter.com/higagan/status/392909152609001472">
+I constantly have to remind myself that we are in the problem-solving business first, and in the programming business second. - @swaroopch
+</blockquote>
+</div>
+
+
+
+<!-- The times when I have resisted learning new tools or getting used to new programming languages are the times I have atrophied. - @swaroopch -->
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/higagan/status/392910282026020864">@higagan</a> says:
+</p>
+<blockquote cite="https://twitter.com/higagan/status/392910282026020864">
+The times when I have resisted learning new tools or getting used to new programming languages are the times I have atrophied. - @swaroopch
+</blockquote>
+</div>
+
+
+
+<!-- The times when I threw away familiarity and explored new tools was when I learned and enjoyed. - @swaroopch -->
+
+<div class="tweet">
+<p class="username">
+<a href="https://twitter.com/higagan/status/392910564835336192">@higagan</a> says:
+</p>
+<blockquote cite="https://twitter.com/higagan/status/392910564835336192">
+The times when I threw away familiarity and explored new tools was when I learned and enjoyed. - @swaroopch
+</blockquote>
+</div>
+
+
+
+</div>
+
+<div class="comments-wrapper">
+<h3 class="comments-section">Comments</h3>
+<div id="comment-4989" class="comment" data-name="Alagappan" data-email="ralagappan2006@gmail.com" data-date="2013-10-23 11:43:58" data-url="http://alagappan.co.in">
+<p class="who">
+  <cite><a href="http://alagappan.co.in">Alagappan</a></cite> says:
+</p>
+<p class="what">
+  Quite interesting post. Especially the "First make it possible. Then make it beautiful. Then make it fast" quote. Thanks!
+</p>
+</div>
+<div id="comment-4990" class="comment" data-name="Arpit" data-email="arpit@clinknow.com" data-date="2013-10-23 14:46:26">
+<p class="who">
+  <cite>Arpit</cite> says:
+</p>
+<p class="what">
+  Very good post. Reading this felt like reading my own thoughts. I learnt, albeit the hard way, to keep the raw data for future re-processing. We had to go through horrid nights where we couldn't replicate the issue because we had no idea what the original data that caused the issue was.
+<br/>
+
+<br/>
+Thanks for putting this out there!
+</p>
+</div>
+<div id="comment-4992" class="comment" data-name="swaroop" data-email="swaroop@swaroopch.com" data-date="2013-10-24 08:28:27">
+<p class="who">
+  <cite>swaroop</cite> says:
+</p>
+<p class="what">
+  Thanks Alagappan for reading!
+</p>
+</div>
+<div id="comment-4993" class="comment" data-name="swaroop" data-email="swaroop@swaroopch.com" data-date="2013-10-24 08:29:17">
+<p class="who">
+  <cite>swaroop</cite> says:
+</p>
+<p class="what">
+  Thanks Arpit, and I can easily relate to your war story :)
+</p>
+</div>
+</div><!-- comments-wrapper -->
+
+  

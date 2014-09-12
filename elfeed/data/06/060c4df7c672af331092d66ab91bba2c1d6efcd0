@@ -1,0 +1,52 @@
+<p>
+What a great title, eh? Clojure's a fantastic language for writing
+DSLs, and yet it's a hard topic get into. A good book on the subject
+is just what the Clojure ecosystem needs.
+</p>
+
+<p>
+Sadly, this isn't that book.
+</p>
+
+<p>
+The biggest problem is that there's hardly any content about writing
+DSLs. This is a ~240 page book, and about 200 of that is just "Intro
+to Clojure" stuff. That would be fine, but there are much better
+introductory books out there.
+</p>
+
+<p>
+Filler aside, that leaves maybe 40 pages that are actually about writing
+DSLs. Sadly it's the weakest stuff in the book. It consists of two
+examples of using Clojure to wrap existing Java libraries. One's a
+Twitter client, the other's a wrapper around Java's Date &amp; Calendar
+classes. And there's no way around saying this - both are badly written.
+</p>
+
+<p>
+It would be a terrible shame if any beginner in Clojure read this
+stuff and thought it was a good way to proceed.  What should be a
+simple function to read a config file into a map is presented in an
+overwrought &amp; brittle fashion.  Macros are used frequently but never
+appropriately.  Clojure code drops down into Java interop for no good
+reason at all.  And the author seems to have an obsession with
+dynamically-binding variables, regardless of whether it's appropriate.
+I strongly suspect this betrays a lack of understanding about what
+they're for. Either way, the Twitter DSL is going to break as soon as
+you do anything interesting with it, like delay the results. (Stuart
+Sierra has <a href="http://stuartsierra.com/2013/03/29/perils-of-dynamic-scope">a great post about it</a>.)
+</p>
+
+<p>
+So is there anything here to like? Yes, the author is quite lucid. His
+technical writing reads easily. I hope he writes a book on another
+topic one day - but he'll need to be far better versed in the
+material.
+</p>
+
+<p>
+In the meantime, if you want an intro to Clojure book, check out the
+superb <a href="http://www.amazon.com/gp/product/1935182641/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1935182641&linkCode=as2&tag=blogjenksterc-20">Joy of Clojure</a>. And if you're a seasoned Clojure programmer
+looking for a good book on DSL writing&#x2026;well&#x2026;so am I. In the
+meantime, <a href="http://pragprog.com/magazines/2011-07/growing-a-dsl-with-clojure">here's a good article</a> on one application of the technique&#x2026;
+</p><img src="http://feeds.feedburner.com/~r/KrisJenkinsBlog/~4/ksOGAoAiR0s" height="1" width="1"/>

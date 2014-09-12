@@ -1,0 +1,8 @@
+
+<p>Edit the file /etc/modprobe.d/blacklist.conf and add the following
+line:</p>
+
+<pre class="example">
+blacklist pcspkr
+</pre>
+

@@ -1,0 +1,59 @@
+<p>
+One little-know feature of <a href="http://orgmode.org/">org-mode</a> is that you can define new types
+of links with the aptly named <a href="http://doc.endlessparentheses.com/Fun/org-add-link-type"><code>org-add-link-type</code></a>. The applications of
+this virtue are many. One might, for instance, write links which
+search an entire code base for an expression.
+</p>
+
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="p">(</span><span class="nv">org-add-link-type</span>
+ <span class="s">&quot;grep&quot;</span> <span class="ss">&#39;endless/follow-grep-link</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">endless/follow-grep-link</span> <span class="p">(</span><span class="nv">regexp</span><span class="p">)</span>
+  <span class="s">&quot;Run `rgrep&#39; with REGEXP as argument.&quot;</span>
+  <span class="p">(</span><span class="nv">grep-compute-defaults</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">rgrep</span> <span class="nv">regexp</span> <span class="s">&quot;*&quot;</span> <span class="p">(</span><span class="nv">expand-file-name</span> <span class="s">&quot;./&quot;</span><span class="p">)))</span></code></pre></div>
+
+<p>
+Then, when you click on something like the following link in an
+<code>org-mode</code> buffer, you'll be taken to a list of results.
+</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">** TODO Refactor [[grep:OldClassName][OldClassName]] into NewClassName</code></pre></div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">LINK header arguments</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+As <a href="http://www.reddit.com/r/emacs/comments/2d6hjs/use_orgmode_links_for_absolutely_anything/cjmyxfm">/u/blue1_ points out</a>, for links that are simple URL substitutions
+you can also use <code>#+LINK</code> headers.
+</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#+LINK: isbn http://www.amazon.com/dp/%s</code></pre></div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Tag Searches</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+For another use case, the following code defines links which search
+your headlines for specific tags.
+</p>
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="p">(</span><span class="nv">org-add-link-type</span>
+ <span class="s">&quot;tag&quot;</span> <span class="ss">&#39;endless/follow-tag-link</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">endless/follow-tag-link</span> <span class="p">(</span><span class="nv">tag</span><span class="p">)</span>
+  <span class="s">&quot;Display a list of TODO headlines with tag TAG.</span>
+<span class="s">With prefix argument, also display headlines without a TODO keyword.&quot;</span>
+  <span class="p">(</span><span class="nv">org-tags-view</span> <span class="p">(</span><span class="nb">null</span> <span class="nv">current-prefix-arg</span><span class="p">)</span> <span class="nv">tag</span><span class="p">))</span></code></pre></div>
+
+<p>
+Then, merely write your links as
+</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">[[tag:work+phonenumber-boss][Optional Description]]</code></pre></div>
+<p>
+The syntax allowed, <a href="http://orgmode.org/manual/Matching-tags-and-properties.html#Match-syntax">described here</a>, is the same used for the
+<a href="http://doc.endlessparentheses.com/Fun/org-tags-view"><code>org-tags-view</code></a> command.
+</p>
+</div>
+</div>
+
+   <p><a href="http://endlessparentheses.com/use-org-mode-links-for-absolutely-anything.html?source=rss#disqus_thread">Comment on this.</a></p>

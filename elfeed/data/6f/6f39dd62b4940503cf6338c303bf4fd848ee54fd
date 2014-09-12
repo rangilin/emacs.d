@@ -1,0 +1,30 @@
+
+<p>I spent the day trying to get TV output on my laptop, a Dell Inspiron
+8100. The graphic chip is an ATI Radeon Mobility 9000 R250 LF.</p>
+
+<p>I installed Xorg version 7.1.1 with the ATI proprietary driver also
+known as fglrx version 8.28.8. I used the following command to setup
+xorg.conf:</p>
+
+<pre class="example">
+aticonfig --initial=dual-head --tvf=PAL-B --tvs=VIDEO  --ovon=1 --ovt=Xv
+</pre>
+
+<p>I get TV output in color and it looks nice. I also have video overlay
+on both screens. Many people claim that it does not work, they must be
+talking about an older version of the ATI driver.</p>
+
+<p>However when I play a video on the secondary screen a quarter is
+chopped off at the bottom. This happens even if the video is played
+inside a window, this makes me think there is a bug in the video
+overlay. It works fine on the primary screen.</p>
+
+<p>There is also a mosaic of ghost videos on the primary screen. The
+driver is probably using wrong area of the video memory. The cursor is
+broken on the secondary display.</p>
+
+<p>Close but no cigar.</p>
+
+<p>This has nothing to do with the above but I was quite impressed that
+Ubuntu booted on a LVM partition.</p>
+

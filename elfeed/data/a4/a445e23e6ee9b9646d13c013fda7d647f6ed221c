@@ -1,0 +1,102 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #16. With four years since the initial public release of Go, last week saw some good articles on how Go is being used in various companies. Compiled by <a href="https://twitter.com/mattrco">Matt Cottingham</a> and <a href="https://twitter.com/kelseyhightower">Kelsey Hightower</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="http://blog.golang.org/4years">Four years of Go</a><br />Andrew Gerrand gives a recap of four years of Go as an open source project.</p>
+<p><a href="http://www.slideshare.net/cloudflare/go-profiling-john-graham-cumming">Profiling Go Programs</a><br />Profiling and improving an LRU cache using pprof</p>
+<p><a href="https://lincolnloop.com/blog/introduction-go-debugging-gdb/">Introduction to Go debugging with gdb</a><br />A walkthrough of using gdb to debug a Go program</p>
+<p><a href="http://dave.cheney.net/2013/11/14/more-simple-test-coverage-in-go-1-2">More simple test coverage in Go 1.2</a><br />Dave Cheney covers some improvements to the `cover` test coverage tool which is part of the 1.2 toolchain</p>
+<p><a href="http://blog.cloudflare.com/what-weve-been-doing-with-go">What we've been doing with Go</a><br />"Almost two years ago CloudFlare started working with Go. What started as an experiment on one network and concurrency heavy project has turned into full, production use of Go for multiple services."</p>
+<p><a href="https://www.youtube.com/watch?v=d5aHr8VGU-8&amp;feature=youtube_gdata_player">Go within Cloud Foundry</a><br />An overview of why Cloud Foundry chose Go, and how it is being used</p>
+<p><a href="http://www.slideshare.net/jpetazzo/docker-and-go-why-did-we-decide-to-write-docker-in-go">Why did we decide to write Docker in Go?</a><br />"Docker is currently one of the most popular Go projects. After a (quick) Docker intro, we will discuss why we picked Go, and how it turned out for us."</p>
+<p><a href="http://www.pheelicks.com/2013/10/intro-to-images-in-go-concurrency/">Intro to images in Go: concurrency</a><br />A good example of using channels to generate an image of communicating nodes.</p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="http://martini.codegangsta.io/">Martini</a><br />A new web development toolkit which integrates with existing code that implements the http.HandlerFunc interface</p>
+<p><a href="http://influxdb.org/">InfluxDB</a><br />"An open-source, distributed, time series, events, and metrics database with no external dependencies"</p>
+<p><a href="https://github.com/benbjohnson/megajson">benbjohnson/megajson</a><br />"A JSON parser generator for high performance encoding and decoding in Go"</p>
+<p><a href="https://github.com/surma/httptools">surma/httptools</a><br />"Augmenting the basic net/http package with functionality found in web frameworks without breaking the original API"</p>
+<p><a href="https://github.com/fzipp/pythia">fzipp/pythia</a><br />"Pythia is a web frontend for the Go source code oracle, which is a source code comprehension tool for Go programs"</p>
+<h4>EVENTS</h4>
+<table class="events">
+<tbody>
+<tr>
+<td><a href="http://www.meetup.com/Go-Stockholm/events/134047352/">High Performance Go</a></td>
+<td>2013-12-05</td>
+<td>Go Stockholm</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golang-syd/events/149989102/">November Go hack night</a></td>
+<td>2013-11-27</td>
+<td>golang-syd</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Los-Angeles-Gophers/events/150746732/">Martini and tv42</a></td>
+<td>2013-11-22</td>
+<td>Los Angeles Gophers</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-Steel-Programmers/events/148227332/">Monthly meetup &amp; presentation</a></td>
+<td>2013-11-22</td>
+<td>Go Steel Programmers</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Golang-Moscow/events/147393632/">Go, Яндекс, Go</a></td>
+<td>2013-11-20</td>
+<td>Golang Москва</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-London-User-Group/events/147685182/">Go London User Group #5</a></td>
+<td>2013-11-21</td>
+<td>Go London User Group</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golang-amsterdam/events/147302682/">Learning Go the fun way</a></td>
+<td>2013-11-21</td>
+<td>Golang Amsterdam</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golang-mel/events/146822522/">Hack on Go</a></td>
+<td>2013-12-03</td>
+<td>Golang Melbourne</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/atxgolang/events/150404592/">ATX-Golang November</a></td>
+<td>2013-11-22</td>
+<td>Austin Go Language User Group</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-Users-Group-Atlanta/events/146228742/">Golang Meetup - November</a></td>
+<td>2013-11-26</td>
+<td>Go User Group Atlanta</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-Miami/events/149353662/">Go Concurrency Patterns</a></td>
+<td>2013-11-20</td>
+<td>Go Miami</td>
+</tr>
+</tbody>
+</table>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator of the modern enterprise IT platform. Driven by policy, the platform solves systemic challenges and blends new and existing technologies to unify IT. Enterprise grade, the platform grows with needs and empowers IT to innovate faster now and well into the future.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.iron.io/"><img src="http://s3.amazonaws.com/golangweekly/iron_io.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.iron.io/">Iron.io</a> is the maker of IronMQ, a scalable cloud-based message queue, and IronWorker, an elastic task queue/worker service, and one of the first companies to use Go in production. Iron.io's services are designed for building distributed cloud applications quickly and operating at scale. Reduce complexity, build to scale, get Iron.</p>
+</td>
+</tr>
+</tbody>
+</table>

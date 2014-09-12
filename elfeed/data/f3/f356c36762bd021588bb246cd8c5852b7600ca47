@@ -1,0 +1,163 @@
+<p>最後的成果在這個repo裡： <a href="https://github.com/brucehsu/peg/tree/leg" rel="nofollow" target="_blank">https://github.com/brucehsu/peg/tree/leg</a></p>
+<h2>來龍去脈</h2>
+<p>決定要用Go寫Ruby VM之後，第一件事情當然就是尋找Go上的parser generator。<br>
+Go裡頭就包含了 <a href="http://golang.org/cmd/yacc/">自己的yacc工具</a> ，與原先的yacc語法完全相容，加上Ruby（MRI、mruby）都是使用yacc來作為生成parse的方式（詳見各repo底下的<code>parse.y</code>），所以一開始很直覺地就把<code>goyacc</code>列為solution。<br>
+但是<code>goyacc</code>在使用上有個要注意的地方，就是 <a href="http://www.plurk.com/p/j9tr11">c9s前輩所提到的</a> ：它跟原先的yacc一樣，還需要跟lexer作搭配，但golex這個project卻已經無人維護許久。</p>
+
+<p>之後在 <a href="https://twitter.com/audreyt/status/406549601873719296">唐鳳前輩的指點下</a> ，決定採用<code>tinyrb</code>中以LEG/PEG定義出的Ruby subset作為發展的基石，況且在 <a href="https://github.com/feyeleanor/RubyGoLightly">RubyGoLighty</a> 這個以<code>tinyrb</code>為底並Go實作的project當中，除了提供一個stack-based的Ruby VM外，還手動將LEG/PEG轉換成了Go code，看來可以省下不少麻煩。</p>
+
+<p>但等等…… 因為其年代久遠（四年多前），裡面的Go code看來一點都不像Go，而只是如C的直接貼上（不過我沒有build過或是認真看過，或許可以正常使用也說不準），要修改也有些難度，難不成只能重新再造輪子了？</p>
+
+<p>經過一番搜尋，發現其實之前就已經 <a href="https://groups.google.com/forum/#!topic/golang-nuts/A1OxsEvZiXs">有人重新用Go實作了PEG</a> 並加入一些Go限定的功能，而且到去年9月時仍有commit，只是事情有一好沒兩好，這位作者只有實作PEG的部份，不含LEG。</p>
+
+<p>剛好我也打算再跟Go混熟一點，幫這個project加入LEG的支援看來似乎是個不錯的練習，只是我沒想到會拖那麼久…… orz</p>
+
+<!-- more -->
+<h2>PEG</h2>
+<p>說了這麼多，還沒有介紹PEG和LEG到底是什麼。</p>
+
+<p>PEG是Parsing Expression Grammar的縮寫，是由 <a href="http://bford.info/packrat/">MIT的Bryan Ford</a> 所提出用來定義語法的context-free grammar。作者網頁上也列了根據他的研究所寫出的不同語言的實作版本，最為人所知的當然還是 <a href="http://piumarta.com/software/peg/">C語言版</a> ，也就是<code>peg</code>與<code>leg</code>這兩個工具的來源。</p>
+
+<p>基本上的使用，如果之前有<code>lex/yacc</code>或Regular expression的經驗應該可以快速上手，下面稍微列一下定義：</p>
+
+<ul>
+<li>
+<code>name &lt;- pattern</code>，不同於<code>yacc</code>，是以<code>&lt;-</code>作為assign operator</li>
+<li>
+<code>seq1 / seq2 / seq3</code>，不同於<code>yacc</code>，是以<code>/</code>作為OR</li>
+<li>
+<code>.</code> match任一字元</li>
+<li>
+<code>[characters]</code> 括號內的任一字元， <code>[^0-9]</code> 開頭的<code>^</code>是除了特定字元外的意思</li>
+<li>
+<code>( pattern )</code> 將括號內的pattern歸為一組</li>
+<li>
+<code>&lt; &gt;</code> 會將兩者內的字元累積起來，放至yytext變數中供人使用</li>
+<li>
+<code>?</code> 有或無， <code>+</code> 至少一個或以上， <code>*</code> 無或一個或以上</li>
+</ul><p>以上是基本的語法元素，PEG也定義了如果對這些元素作條件判斷：</p>
+
+<ul>
+<li>
+<strong>Predicate</strong> 為有著成功或失敗狀態的構詞單位，失敗時不會消耗掉input， <code>&amp; element</code>以match為成功， <code>! element</code>則以不能match為成功（著名的例子是<code>!.</code>作為EOF）。 <code>&amp; { action }</code> 是特殊的predicate，如果action回傳為true，則繼續執行剩餘的element，為false則尋找是否有替代的rule。在C和Go版本的實作中，以上三種類型分別被稱為PeekFor, PeekNot, Predicate</li>
+</ul><h2>LEG</h2>
+<p>因為<code>yacc</code>的悠久歷史，導致許多的project都是使用<code>yacc</code>所定義的語法，如果要想轉換到PEG上還會因為功能上的差異而花一番功夫，於是C版本便提供了與<code>yacc</code>相容性較高的<code>leg</code>作為解決方案。</p>
+
+<p>LEG在定義上與PEG的不同之處在於：</p>
+
+<ul>
+<li>
+<code>name = pattern</code>，改用了<code>=</code>來作為assign operator</li>
+<li>
+<code>seq1 | seq2</code>，與<code>yacc</code>相同用<code>|</code>來作OR</li>
+<li>rule name可以使用 <code>-</code>，像是<code>rule-name</code>，會被轉換為<code>rule_name</code>，也可以單獨使用<code>-</code>
+</li>
+<li>
+<code>;</code> 可以被用來結束一個pattern (optional)</li>
+<li>
+<code>%{ text... %}</code> 會將text部份全部copy到生成的go source code的開頭</li>
+<li>`<code>%%</code> 會結束rule宣告的section，接下來所有的text會被複製到go source code的結尾</li>
+<li>
+<code>exp ~ {action}</code>，只有在前面失敗的時候才會呼叫 <code>action</code>
+</li>
+<li>
+<code>$$ = value</code>，大概是最大也最重要的不同，LEG可以指定該rule回傳的semantic value，value type都一樣，預設是int，在C版本中是用YYSTYPE來指定</li>
+<li>
+<code>identifier:name</code>，承上，因為可以指定semantic value，所以提供了自定變數名稱的方式來代表回傳的semantic value</li>
+</ul><p>目前我大概只剩比較次要的功能沒作（<code>;</code>和<code>~ {action}</code>），其它的都已經完成。</p>
+<h2>PEG in Go的設計分析</h2>
+<p>首先，先來看看Go版本的PEG包含了哪些東西。<br>
+基本上主要使用的source code file都在根目錄底下了</p>
+
+<ul>
+<li>
+<code>set.go</code>: 恰如其名是集合資料結構的實作，主要用於以switch來最佳化生成的code，因為我沒有碰到最佳化的這一塊，所以無從奉告XD</li>
+<li>
+<code>bootstrap.peg.go</code>: 由PEG本身generate出來的PEG parser，待會再細談。</li>
+<li>
+<code>peg.go</code>: 整個PEG的核心，定義了AST的資料結構和相關的function，將AST compile成Go code也是在這裡完成的。</li>
+<li>
+<code>peg.peg</code>: 用PEG來定義PEG， <a href="http://piumarta.com/software/peg/peg.1.html">詳見C版本的man page</a> ，值得注意的是Go版本針對部份rule作了些修改。</li>
+</ul><p>如果單純看<code>bootstrap.peg.go</code>的程式碼可能會有點摸不著頭緒，好險原作者也把當初怎麼生成<code>bootstrap.peg.go</code>的方式留在<code>bootstrap/</code>裡頭，所以我們可以透過<code>bootstrap/main.go</code>的內容來一窺AST的生長方式。</p>
+<h3>peg.go</h3><h4>AST</h4>
+<p>就如同許多compiler一樣，PEG也是先建出AST之後再將其compile成source code，樹根為<code>Tree</code>資料結構，除了有些額外的性質外，基本上是前面定義過的<code>node</code> linked list，而它的nodes一開始都會是一條條的rule（<code>TypeRule</code>），直至要compile前進行處理時才會有所更動。</p>
+
+<p>每個<code>TypeRule</code>的node底下，也只會有一個屬於三種list type（<code>TypeSequence</code>、<code>TypeAlternate</code>、<code>TypeRange</code>）的node，完整的定義則是在這個list node裡頭。</p>
+
+<p><code>TypeSequence</code>就是很簡單的list，一個接著另一個。<br><code>TypeAlternate</code>是在如果rule有所分歧的時候，即是<code>seq1 / seq2 / seq3</code>的情況。以前面為例子，這樣的一個<code>TypeAlternate</code> node底下分別會有三個<code>TypeSequence</code> node。<br><code>TypeRange</code>只會有兩個child node，負責<code>a-z</code>的情況。</p>
+
+<p>除了list types外，還有另外一類的fix types，用來代表<code>+ * ? &lt;&gt; ! &amp;</code>的情況。當你加入一個fix types的node時，它會把前一個node加為自己的child，並取代它原本所在的位置，簡而言之就是直接長在前一個node的頭上。</p>
+<h4>Complication</h4>
+<p>在compile AST之前，PEG會先作過數種處理：</p>
+
+<ul>
+<li><p>anoymous function <code>link(n Node)</code>及其後的first/second pass<br>
+基本上是幫忙建立t.Rules的清單，比較不一樣的是會再建新的rule來包裝<code>TypeAction</code>。</p></li>
+<li><p><code>join([]func() {...})</code><br>
+內含兩個anoymous function，一個是算各條rule被用到的數目，另外一個則是檢查是否有left recursion</p></li>
+<li><p><code>t._switch</code><br>
+最佳化，此處不談，因為我也沒看 :p</p></li>
+<li><p><code>print</code> 系列anoymous function<br>
+這些function是為了生成最後的source code所用的，有<code>printSave</code>, <code>printRestore</code>, <code>printTemplate</code>, <code>printRule</code>, <code>printBegin</code>, <code>printEnd</code>, <code>printLabel</code>, <code>printJump</code>, <code>printRule</code>，後面會再說明。</p></li>
+</ul><p>Complication的部份，是先利用Go提供的<code>text/template</code>將<code>Tree</code>裡的特定變數塞至檔案開頭所定義的template <code>PEG_HEADER_TEMPLATE</code>中再印出成為<code>bootstrap.peg.go</code>的開頭，剩下的部份則由<code>compile(n Node, ko uint)</code>負責。<br>
+這部份我就直接留到<code>bootstrap.peg.go</code>時再一一說明，個人覺得有例子對照比較好了解最後會生出什麼樣的東西。</p>
+<h3>bootstrap.peg.go</h3>
+<p>這裡要談的只有兩個functions：<code>Init()</code>和<code>Execute()</code>，這可以算是PEG裡面最重要、最核心的兩個functions了。</p>
+
+<p><code>Init()</code>顧名思義，就是PEG parsing的初始化，或許有人會納悶怎麼沒有<code>yyparse()</code>可用，其實是因為在<code>Init()</code>中就定義了一個可以被呼叫的<code>Parse(rule ...int) error</code> function了。<br>
+在 <code>peg.go</code> 中，最後的complication主要就是輸出到<code>Init()</code>的尾端，作為<code>rules</code>這個array的內容。<br>
+這個array包含什麼呢？其實就是一連串回傳<code>bool</code>的anoymous functions，每個function都代表著一個grammar rule，如果match成功的話就會回傳true，反之則false。<br>
+每個function都身兼lexical及syntax parsing，假設有條rule是這樣的：<code>Rule &lt;- 'Hello,' ID</code>，那個該function內就會先用一一去比對目前的input開頭是不是<code>Hello,</code>，如果不是就會利用<code>goto</code>跳到<code>return false</code>的地方。當遇到需要比對另外一條rule <code>ID</code>時，就只要呼叫<code>rules[ID]</code>所對應到的function即可。<br>
+當一條rule比對成功後，就會將目前的位置連同Rule名稱加入到TokenTree裡頭，以便之後<code>Execute()</code>可以依序執行結果。</p>
+
+<p>綜合來說，你看到的code大概會是下面這樣樣子：</p>
+
+<figure class="figure-code code"><figcaption><span>
+</span></figcaption><div class="highlight"><pre>{
+  position118, tokenIndex118, depth118 := position, tokenIndex, depth // 儲存目前的位置、token數量和深度
+  if buffer[position] != rune('H') {
+    goto l122 // when failed
+  }
+  if buffer[position] != rune('e') {
+    goto l122 // when failed
+  }
+  ...
+  if buffer[position] != rune(',') {
+    goto l122 // when failed
+  }
+  
+  // 呼叫其它rule作matching
+  if !rules[RuleID]() {
+    goto l122 // when failed
+  }
+  
+  add(Rule, position118)
+}
+return true
+
+l122:
+  position, tokenIndex, depth = position118, tokenIndex118, depth118
+  return false
+</pre></div>
+</figure><p>還記得前面提到的<code>Parse()</code>嗎？其實它所作的就只是呼叫第一條rule所對應到的function讓程式生成TokenTree而已。</p>
+
+<p>接著我們來看<code>Execute()</code>的內容，會發現裡面其實並不是所有的rules都會被執行，只有<code>RulePegText</code>及<code>RuleAction</code>系列，前者是<code>TypePush</code>和<code>TypeImplicitPush</code>所產生的，用來指定截取文字的範圍（補充說明：<code>TypeImplicitPush</code>其實在編譯時會被加入在<code>TypeRule</code>當中，所以你才可以用<code>buffer[begin:end]</code>來取得rule的文字內容），後者則是使用者自行定義的行動。</p>
+<h2>LEG in Go的實作筆記</h2>
+<p>一開始我是從最基本的<code>declaration</code>和<code>trailer</code>作起（分別是加code到檔頭和檔尾），實作的方式很簡單，就是直接幫<code>Tree</code>加上新的string member，然後讓<code>text/template</code>來處理剩下來的問題。讓Rule名稱可以使用<code>-</code>也蠻基本的，只是在作self-illustrated的LEG時會需要注意一下，不然就會當成<code>TypeRange</code>去了。（我還為了這事搞了很久，因為<code>bootstrap.peg.go</code>雖然沒問題，但是編出來的<code>leg</code>指令再去編<code>leg.leg</code>出來的結果會噴錯 :/）</p>
+
+<p>接下來才是最惱人的部份：如何加入semantic value？</p>
+
+<p>敝人資質鶩鈍，故想了幾天、參考了C語言的版本許久才終於想到一個方法：</p>
+
+<p>首先加入一個新的type　<code>TypeVariable</code>，讓它成為<code>TypeName</code>的child（畢竟Varaible name是和呼叫rule的<code>TypeName</code>綁在一起）</p>
+
+<p>在建立完AST之後，先作過一次AST的DFS traversal，並計算到某<code>TypeAction</code> node時該rule已定義的varaibles，再藉其數目來得到各semantic values於stack中的位置。由於Go沒有像C macro的功能，所以不能如C版本的leg一樣用<code>#define var_name stack[pos]</code>這種簡單方式來作變數取代，所以我是先用regular expression取出變數名稱後，再一一取代回原字串。</p>
+
+<p>只是這樣只能處理有著固定數目的變數，如果一條rule內有像<code>TypeAlternate</code>的分歧，靜態分析就會錯誤百出，所以實際上還是得在建<code>TokenTree</code>的時候，動態去操作stack才行。於是我便加入了<code>RuleActionPush</code>及<code>RuleActionPop</code>這兩個負責stack operation的類別，然後於compile時期，幫有用到variable的rule加入<code>variableCount</code>來統計目前執行階段有多少個variable，並於最後將所有的varialbe都pop出來；如果中間遇到<code>TypeAlternate</code>分歧，會另外再建一個新的<code>variableCount{NUM}</code>來儲存進入前的variable數目，並於離開時pop掉多出來的variable，然後把<code>variableCount</code>設回進入時的數值。若是rule本身有用到semantic value（如何判斷？直接看底下的actions有沒有用到<script type="math/tex"></script>就好了XD），最後也會將目前的semantic value給push進stack裡。</p>
+
+<p>關於上面的作法，各位可以參考這幾個commits：</p>
+
+<ol>
+<li><a href="https://github.com/brucehsu/peg/commit/9718cf5b91da4b85f483bdd29a98b202ce2768e3" rel="nofollow" target="_blank">https://github.com/brucehsu/peg/commit/9718cf5b91da4b85f483bdd29a98b202ce2768e3</a></li>
+<li><a href="https://github.com/brucehsu/peg/commit/047d5e6502f6f98c5e59fa08797ce4041521e3bb" rel="nofollow" target="_blank">https://github.com/brucehsu/peg/commit/047d5e6502f6f98c5e59fa08797ce4041521e3bb</a></li>
+</ol>

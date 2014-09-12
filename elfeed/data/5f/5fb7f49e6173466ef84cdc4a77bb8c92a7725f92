@@ -1,0 +1,10 @@
+
+<p>Emacs has a mode to prevent you from zoning out. It's works pretty
+much like a screensaver. Try it out with the following command:</p>
+
+<p><code>M-x zone</code></p>
+
+<p>When you had enough turn it off with:</p>
+
+<p><code>M-x zone-leave-me-alone</code></p>
+

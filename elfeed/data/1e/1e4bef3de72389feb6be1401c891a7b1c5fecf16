@@ -1,0 +1,17 @@
+
+<p>Found some interesting tools for video editing. Christian Marillat is
+kindly maintaining these tools for Debian. Add the following line to
+your <code>/etc/apt/sources.list</code>:</p>
+
+<pre class="example">
+# Christian Marillat package
+deb ftp://ftp.nerim.net/debian-marillat/ testing main
+</pre>
+
+<p>Now you can play with <code>avidemux</code> and <code>transcode</code>:</p>
+
+<pre class="example">
+apt-get update
+apt-get install transcode avidemux
+</pre>
+

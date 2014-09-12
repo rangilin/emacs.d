@@ -1,0 +1,38 @@
+
+<p>I wanted a big font on my xterm in order to do a presentation. My
+laptop is a PowerBook. Unlike Linux, The X server on OSX only handles
+bitmap.</p>
+
+<p>I compiled otf2bdf and downloaded the Inconsolata true type font. I
+then ran the following script to create a 30 point bitmap font:</p>
+
+<pre class="src">
+otf2bdf -p 30 Inconsolata.otf &gt; inconsolata.bdf
+bdftopcf -o inconsolata.pcf inconsolata.bdf
+rm inconsolata.pcf.gz
+gzip inconsolata.pcf
+sudo cp inconsolata.pcf.gz /usr/X11R6/lib/X11/fonts/misc
+xset fp rehash
+</pre>
+
+<p>I ran the following as root to register the font:</p>
+
+<pre class="example">
+/usr/X11R6/lib/X11/fonts/misc
+mkfontdir .
+xset fp rehash
+</pre>
+
+<p>I can now open up xterm with the font generated. I changed the point
+size in the above script till xterm took the entire width of my
+screen.</p>
+
+<pre class="example">
+xterm -fn '-freetype-*-*-*-*-*-*-*-*-*-*-*-*-*'
+</pre>
+
+<p>As you can see the result is not perfect. It must be a bug in the
+conversion program but it's good enough for a presentation.</p>
+
+<p class="image"><img src="xterm-with-big-font.png" alt=""></p>
+

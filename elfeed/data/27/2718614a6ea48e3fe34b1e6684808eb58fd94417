@@ -1,0 +1,220 @@
+<p>As APIs evolve it&rsquo;s inevitable that portions of them will be deprecated. Generally it&rsquo;s fairly
+easy to find out what&rsquo;s deprecated, but for several reasons that&rsquo;s not the case in Ruby:</p>
+
+<ul>
+<li>Deprecation is done through the use of C functions such as <code>rb_warn</code> &amp; <code>rb_warning</code> (as opposed to some more
+transparent methods as Java&rsquo;s <code>@deprecated</code> annotation). To see the deprecation messages from those functions
+you&rsquo;ll have to run Ruby with <code>-w</code>. Consider this example code:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">string</span><span class="o">.</span><span class="n">lines</span> <span class="k">do</span> <span class="o">|</span><span class="n">line</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="n">line</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">ruby</span> <span class="o">-</span><span class="n">w</span> <span class="nb">test</span><span class="o">.</span><span class="n">rb</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">.</span><span class="n">.</span><span class="o">/</span><span class="nb">test</span><span class="o">.</span><span class="n">rb</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span> <span class="ss">warning</span><span class="p">:</span> <span class="n">passing</span> <span class="n">a</span> <span class="n">block</span> <span class="n">to</span> <span class="nb">String</span><span class="c1">#lines is deprecated</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>Alternative Ruby implementations (like <code>JRuby</code> and <code>Rubinius</code>)
+generally don&rsquo;t produce the same deprecation warnings. For instance &ndash;
+<code>JRuby</code> doesn&rsquo;t produce any warnings for the code listed above. One
+can say that currently deprecations are an MRI implementation detail
+(although they shouldn&rsquo;t be).</p></li>
+<li><p>Deprecations are rarely mentioned in the API docs.</p></li>
+<li><p>There&rsquo;s no easy way to find out in which version of Ruby
+something got deprecated as <code>rb_warn</code> is a generic instrumentation for
+producing all sorts of warnings, as opposed to something created specifically to handle
+deprecations.</p></li>
+<li><p>Some APIs are deprecated only informally (like
+<a href="http://batsov.com/articles/2013/08/21/the-elements-of-style-in-ruby-number-9-hash-number-has-key-and-hash-number-has-value-are-deprecated/"><code>Hash#has_key?</code> and <code>Hash#has_value?</code></a>).</p></li>
+<li><p>Some APIs are deprecated with <code>Kernel#warn</code> (like <code>Digest::Digest</code>).</p></li>
+</ul>
+
+
+<p>All of the above makes it fairly hard to compile a precise list of deprecations, but we&rsquo;ll go
+only for a rough cut here. Let see what we can do&hellip;</p>
+
+<p>Grepping in Ruby 2.1&rsquo;s code base reveals the following:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">dir</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">2174</span><span class="p">:</span>    <span class="n">rb_warning</span><span class="p">(</span><span class="s2">&quot;Dir.exists? is a deprecated name, use Dir.exist? instead&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">enumerator</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">355</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;Enumerator.new without a block is deprecated; use Object#to_enum&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ext</span><span class="o">/</span><span class="n">dbm</span><span class="o">/</span><span class="n">dbm</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">338</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;DBM#index is deprecated; use DBM#key&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ext</span><span class="o">/</span><span class="n">gdbm</span><span class="o">/</span><span class="n">gdbm</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">453</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;GDBM#index is deprecated; use GDBM#key&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ext</span><span class="o">/</span><span class="n">openssl</span><span class="o">/</span><span class="n">ossl_cipher</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">217</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;arguments for %s#encrypt and %s#decrypt were deprecated; &quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ext</span><span class="o">/</span><span class="n">sdbm</span><span class="o">/</span><span class="n">init</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">331</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;SDBM#index is deprecated; use SDBM#key&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ext</span><span class="o">/</span><span class="n">stringio</span><span class="o">/</span><span class="n">stringio</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">656</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;StringIO#bytes is deprecated; use #each_byte instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">876</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;StringIO#chars is deprecated; use #each_char instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">920</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;StringIO#codepoints is deprecated; use #each_codepoint instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">1124</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;StringIO#lines is deprecated; use #each_line instead&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ext</span><span class="o">/</span><span class="n">zlib</span><span class="o">/</span><span class="n">zlib</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">3892</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;Zlib::GzipReader#bytes is deprecated; use #each_byte instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">4174</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;Zlib::GzipReader#lines is deprecated; use #each_line instead&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">file</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">1413</span><span class="p">:</span>    <span class="n">rb_warning</span><span class="p">(</span><span class="s2">&quot;%sexists? is a deprecated name, use %sexist? instead&quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">hash</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">529</span><span class="p">:</span>            <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;ignoring wrong elements is deprecated, remove them explicitly&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">934</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;Hash#index is deprecated; use Hash#key&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">3470</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;ENV.index is deprecated; use ENV.key&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">io</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">3385</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;IO#lines is deprecated; use #each_line instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">3436</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;IO#bytes is deprecated; use #each_byte instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">3590</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;IO#chars is deprecated; use #each_char instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">3697</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;IO#codepoints is deprecated; use #each_codepoint instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">11196</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;ARGF#lines is deprecated; use #each_line instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">11243</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;ARGF#bytes is deprecated; use #each_byte instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">11282</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;ARGF#chars is deprecated; use #each_char instead&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">11321</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;ARGF#codepoints is deprecated; use #each_codepoint instead&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">object</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">991</span><span class="p">:</span>    <span class="n">rb_warning</span><span class="p">(</span><span class="s2">&quot;untrusted? is deprecated and its behavior is same as tainted?&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">1005</span><span class="p">:</span>    <span class="n">rb_warning</span><span class="p">(</span><span class="s2">&quot;untrust is deprecated and its behavior is same as taint&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">1020</span><span class="p">:</span>    <span class="n">rb_warning</span><span class="p">(</span><span class="s2">&quot;trust is deprecated and its behavior is same as untaint&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">proc</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">663</span><span class="p">:</span>    <span class="n">rb_warn</span><span class="p">(</span><span class="s2">&quot;rb_f_lambda() is deprecated; use rb_block_proc() instead&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">string</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">6407</span><span class="p">:</span>       <span class="n">rb_warning</span><span class="p">(</span><span class="s2">&quot;passing a block to String#lines is deprecated&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">6576</span><span class="p">:</span>       <span class="n">rb_warning</span><span class="p">(</span><span class="s2">&quot;passing a block to String#bytes is deprecated&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">6665</span><span class="p">:</span>       <span class="n">rb_warning</span><span class="p">(</span><span class="s2">&quot;passing a block to String#chars is deprecated&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="mi">6769</span><span class="p">:</span>       <span class="n">rb_warning</span><span class="p">(</span><span class="s2">&quot;passing a block to String#codepoints is deprecated&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">vm_method</span><span class="o">.</span><span class="n">c</span>
+</span><span class='line'><span class="mi">54</span><span class="p">:</span>    <span class="n">rb_warning</span><span class="p">(</span><span class="s2">&quot;rb_clear_cache() is deprecated.&quot;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Below is a cleaned up list of the output shown above. I&rsquo;ve removed everything
+that&rsquo;s unlikely to be of general interest.</p>
+
+<ul>
+<li><code>Dir.exists?</code> is a deprecated name, use <code>Dir.exist?</code> instead</li>
+<li><code>Enumerator.new</code> without a block is deprecated; use <code>Object#to_enum</code></li>
+<li><code>StringIO#bytes</code> is deprecated; use <code>StringIO#each_byte</code> instead</li>
+<li><code>StringIO#chars</code> is deprecated; use <code>StringIO#each_char</code> instead</li>
+<li><code>StringIO#codepoints</code> is deprecated; use <code>StringIO#each_codepoint</code> instead</li>
+<li><code>StringIO#lines</code> is deprecated; use <code>StringIO#each_line</code> instead</li>
+<li><code>File.exists?</code> is a deprecated name, use <code>File.exist?</code> instead</li>
+<li><code>Hash#index</code> is deprecated; use <code>Hash#key</code></li>
+<li><code>ENV.index</code> is deprecated; use <code>ENV.key</code></li>
+<li><code>IO#lines</code> is deprecated; use <code>IO#each_line</code> instead</li>
+<li><code>IO#bytes</code> is deprecated; use <code>IO#each_byte</code> instead</li>
+<li><code>IO#chars</code> is deprecated; use <code>IO#each_char</code> instead</li>
+<li><code>IO#codepoints</code> is deprecated; use <code>IO#each_codepoint</code> instead</li>
+<li><code>ARGF#lines</code> is deprecated; use <code>ARGF#each_line</code> instead</li>
+<li><code>ARGF#bytes</code> is deprecated; use <code>ARGF#each_byte</code> instead</li>
+<li><code>ARGF#chars</code> is deprecated; use <code>ARGF#each_char</code> instead</li>
+<li><code>ARGF#codepoints</code> is deprecated; use <code>ARGF#each_codepoint</code> instead</li>
+<li><code>Object#untrusted?</code> is deprecated and its behavior is same as <code>Object#tainted?</code></li>
+<li><code>Object#untrust</code> is deprecated and its behavior is same as <code>Object#taint</code></li>
+<li><code>Object#trust</code> is deprecated and its behavior is same as <code>Object#untaint</code></li>
+<li>passing a block to <code>String#lines</code> is deprecated</li>
+<li>passing a block to <code>String#bytes</code> is deprecated</li>
+<li>passing a block to <code>String#chars</code> is deprecated</li>
+<li>passing a block to <code>String#codepoints</code> is deprecated</li>
+</ul>
+
+
+<p>Unfortunately there&rsquo;s no way to know in which version of Ruby
+something got deprecated. Obviously most of the things on the list
+were deprecated before Ruby 2.1. Ideally in the future we&rsquo;ll get a
+better deprecation mechanism that actually keeps track of such data.</p>
+
+<p>Hopefully some of you will find this information useful!</p>
+
+<p>We&rsquo;re planning to get some deprecation tracking in <a href="https://github.com/bbatsov/rubocop">RuboCop</a>, but
+due to Ruby&rsquo;s dynamic nature implementing such a feature reliably in a static code analyzer is an
+impossible task.</p>

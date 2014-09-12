@@ -1,0 +1,11 @@
+<p>程式設計遊戲屬於電腦遊戲，就是讓多個程式互相競爭。這種遊戲有哪些基本需求？又要如何在瀏覽器中執行呢？用 JavaScript 嗎？<br />
+四項基本要件<br />
+要讓程式互相競爭有四項基本要件：</p>
+<ol>
+<li>必須獨立於主程式之外執行。</li>
+<li>必須先定義與主程式溝通的方式。</li>
+<li>必須平行執行。主程式與各小程式均互相平行執行。</li>
+<li>必須能輕鬆植入至遊戲環境。</li>
+</ol>
+<p>傳統的 JavaScript 雖然好用，但因為本來就是同步執行，所以無法隔離子程式。隨著時代演變，新版 JavaScript 現已具備更多功能。而 <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers">Web Workers</a> 則是為了加快 JavaScript 的速度所設計，可於瀏覽器中執行繁重的計算作業，卻又不會影響使用者介面。還不只如此，Web Workers 更符合上述的程式設計遊戲的需求：可平行執行、可獨立於主程式之外執行、根據事件而和主程式溝通，且歸功於新的 File API，更可從用戶端植入程式。</p>
+<p><a href="http://news.oss.tw/node/17172" target="_blank">閱讀全文</a></p>

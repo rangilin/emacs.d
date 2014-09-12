@@ -1,0 +1,9 @@
+<p>If you like to teach test-first/test-driven techniques, then you have probably stumbled over configuration problems in your programming environment. This happens to every presenter at least once. We have a variety of ways to handle the problem, and today I’d like to share another one with you.</p>
+
+<p>Google Spreadsheet can run Javascript, which means that we now have a ready-to-go approximation of <a href="http://fit.c2.com">Fit</a>. It took me only a few minutes to figure out how to write a Javascript function that operates on the value in a spreadsheet cell. After that, I recorded ten minutes of video demonstrating the environment.</p>
+
+<iframe src="http://blog.thecodewhisperer.com//player.vimeo.com/video/89909482" width="500" height="280" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+<p><a href="http://vimeo.com/89909482">Using Google Spreadsheet as a simple TDD/BDD environment</a> from <a href="http://vimeo.com/user894225">J. B. Rainsberger</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+<p><em>Yes, I wrote the code test-first, but not test-driven. Please hold your cards and letters. I wanted to demonstrate a testing environment and not TDD. Even so, with ATDD or BDD, we programmers often receive a batch of customer tests and make them pass one by one, and sometimes we don’t need additional programmer tests to have confidence that we’ve built things well. Looking at the final design for this solution, I don’t think that a strict test-driven approach would have improved anything. If you disagree, then please share your approach with us!</em></p>
+

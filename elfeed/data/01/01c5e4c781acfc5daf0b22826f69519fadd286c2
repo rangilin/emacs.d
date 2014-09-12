@@ -1,0 +1,6 @@
+
+<p>Emacs doesn't have a precise stopwatch so I <a href="stopwatch.el">wrote one</a>. It has millisecond
+accuracy.</p>
+
+<p class="image"><img src="stopwatch.png" alt=""></p>
+

@@ -1,0 +1,228 @@
+<p>Emacs isn’t just an editor, it’s an entire Emacs Lisp interpreter and environment. We can use Emacs Lisp not only to extend and customize our beloved editor, but also to write entire programs and applications. Nic Ferrier’s <a href="https://github.com/nicferrier/elnode">elnode</a> server is probably the most ambitious Emacs Lisp application of this sort, but we can start at a smaller scale and try to write our shell scripts and tools with Emacs Lisp.</p>
+<p>However, it turns out that writing programs in Emacs Lisp is more intricate than it seems at a first glance. Emacs decades-long history as interactive application have left deep marks in Emacs and Emacs Lisp, which make independent noninteractive scripts surprisingly difficult.</p>
+<h1 id="making-emacs-lisp-scripts-executable">Making Emacs Lisp scripts executable</h1>
+<p>Nowadays Emacs has a convenient <code>--script</code> option to load and evaluate a specific file<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>, but how to make a proper shebang out of it? The naive attempt won’t do:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/usr/bin/emacs</span> <span class="nv">--script</span>
+<span class="p">(</span><span class="nv">message</span> <span class="s">&quot;Hello world&quot;</span><span class="p">)</span>
+</pre></div>
+
+<p>Emacs is not <code>/bin/sh</code>, and its location varies between different systems. There may even be different Emacs versions at different places. For instance, on OS X <code>/usr/bin/emacs</code> is an outdated Emacs 22, and the “real” Emacs is typically installed via Homebrew at <code>/usr/local/bin/emacs</code>.</p>
+<p>Normally, we’d accommodate these differences with <code>/usr/bin/env</code>:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/usr/bin/env</span> <span class="nv">emacs</span> <span class="nv">--script</span>
+<span class="p">(</span><span class="nv">message</span> <span class="s">&quot;Hello world&quot;</span><span class="p">)</span>
+</pre></div>
+
+<p>But this just raises another portability issue: Linux doesn’t split subsequent arguments in the shebang, and sends <code>emacs --script</code> as a <em>single</em> argument to <code>/usr/bin/env</code>, which doesn’t really do the trick.</p>
+<p>To make our script executable in a portable and reliable way, we need to resort to some very dirty trickery<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>:</p>
+<div class="highlight"><pre><span class="c">#!/bin/sh</span>
+<span class="s2">&quot;:&quot;</span>; <span class="nb">exec </span>emacs --script <span class="s2">&quot;$0&quot;</span> <span class="s2">&quot;$@&quot;</span> <span class="c"># -*- mode: emacs-lisp; lexical-binding: t; -*-</span>
+<span class="o">(</span>message <span class="s2">&quot;Hello world&quot;</span><span class="o">)</span>
+</pre></div>
+
+<p>This wraps the Emacs Lisp code into a POSIX shell script which calls out to <code>emacs</code> with appropriate arguments. The semicolon in the second line hides the <code>exec</code> statement from Emacs, and the no-op colon statement turns this into a proper sequence statement for the shell. The colon in turn is quoted to make it appear as string literal to Emacs Lisp.</p>
+<p>The file local variables tell Emacs to use Emacs Lisp Mode for the script, regardless of the shebang, and to enable lexical binding.</p>
+<p>This particularly evil trick works reliably with any POSIX shell. Even better, we can now pass arbitrary arguments to the <code>emacs</code> executable, which allows us to get rid of a little nuisance of <code>--script</code>.</p>
+<h1 id="inhibiting-site-start">Inhibiting site-start</h1>
+<p>The <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Initial-Options.html#index-g_t_002d_002dscript-4535d">–script</a> option is essentially just a shortcut for <code>--batch -l</code>, i.e. enter batch mode and load the given file. Batch Mode mainly means that Emacs will not create a frame, but instead exit after processing all command line arguments (which includes evaluating our script). Besides, <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Initial-Options.html#index-g_t_002d_002dbatch-4534">–batch</a> also disables the user initialization file. However, it still processes the global site initialization file:</p>
+<blockquote>
+<p><code>--batch</code> implies <code>-q</code> (do not load an initialization file), but <strong><code>site-start.el</code> is loaded nonetheless</strong>. It also causes Emacs to exit after processing all the command options. In addition, it disables auto-saving except in buffers for which auto-saving is explicitly requested.</p>
+</blockquote>
+<p>The global site initialization is frequently a huge kitchen sink which sets up globally installed packages and adds several seconds to Emacs’ startup time in the worst case. Besides, it’s not really a good idea to load arbitrary packages before our script even gets a chance to run.</p>
+<p>We can opt out of the global site initialization by adding <code>--quick</code> to the <code>emacs</code> options of our script, which gives us a bare-bones Emacs without any initialization:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/bin/sh</span>
+<span class="s">&quot;:&quot;</span><span class="c1">; exec emacs --quick --script &quot;$0&quot; &quot;$@&quot; # -*- mode: emacs-lisp; lexical-binding: t; -*-</span>
+<span class="p">(</span><span class="nv">message</span> <span class="s">&quot;Hello world&quot;</span><span class="p">)</span>
+</pre></div>
+
+<p>If you need to, you can still load the global site initialization <em>explicitly</em> from <a href="http://doc.endlessparentheses.com/Var/site-run-file">site-run-file</a>:</p>
+<div class="highlight"><pre><span class="p">(</span><span class="nb">load</span> <span class="nv">site-run-file</span> <span class="ss">&#39;no-error</span> <span class="ss">&#39;no-message</span><span class="p">)</span>
+</pre></div>
+
+<h1 id="processing-command-line-arguments">Processing command line arguments</h1>
+<p>Emacs exposes the command line arguments in <a href="http://doc.endlessparentheses.com/Var/command-line-args-left">command-line-args-left</a> alias <code>argv</code><a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/bin/sh</span>
+<span class="s">&quot;:&quot;</span><span class="c1">; exec emacs --quick --script &quot;$0&quot; &quot;$@&quot; # -*- mode: emacs-lisp; lexical-binding: t; -*-</span>
+
+<span class="p">(</span><span class="nv">message</span> <span class="s">&quot;Hello: %S&quot;</span> <span class="nv">argv</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="gp">$</span> ./hello.el <span class="s1">&#39;John Doe&#39;</span>
+<span class="go">Hello: (&quot;John Doe&quot;)</span>
+</pre></div>
+
+<p>Passing options doesn’t work that well, though:</p>
+<div class="highlight"><pre><span class="gp">$</span> ./hello.el --greeting <span class="s1">&#39;Good morning %s!&#39;</span> <span class="s1">&#39;John Doe&#39;</span>
+<span class="go">Hello: (&quot;--greeting&quot; &quot;Good morning %s!&quot; &quot;John Doe&quot;)</span>
+<span class="go">Unknown option `--greeting&#39;</span>
+</pre></div>
+
+<p>Emacs tries to interpret <code>--greeting</code> on its own, and rightfully complains that it has never heard of any such option. How do we keep Emacs away from our options?</p>
+<p>The source code of <code>startup.el</code>, more precisely the function <code>command-line-1</code>, reveals the solution: Emacs processes all command line arguments <em>immediately</em>, in order of their appearance. After processing, each argument is <em>removed</em> from <code>argv</code>, hence the name <code>command-line-args-left</code>.</p>
+<p>Since <code>command-line-args-left</code> aka <code>argv</code> is a global variable, we can just remove all remaining arguments from <code>argv</code> before our script exits:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/bin/sh</span>
+<span class="s">&quot;:&quot;</span><span class="c1">; exec emacs --quick --script &quot;$0&quot; &quot;$@&quot; # -*- mode: emacs-lisp; lexical-binding: t; -*-</span>
+
+<span class="p">(</span><span class="nv">message</span> <span class="s">&quot;Hello: %S&quot;</span> <span class="nv">argv</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">argv</span> <span class="no">nil</span><span class="p">)</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="gp">$</span> ./hello.el --greeting <span class="s1">&#39;Good morning %s!&#39;</span> <span class="s1">&#39;John Doe&#39;</span>
+<span class="go">Hello: (&quot;--greeting&quot; &quot;Good morning %s!&quot; &quot;John Doe&quot;)</span>
+</pre></div>
+
+<p>Alternatively, we can also just force Emacs to exit early:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/bin/sh</span>
+<span class="s">&quot;:&quot;</span><span class="c1">; exec emacs --quick --script &quot;$0&quot; &quot;$@&quot; # -*- mode: emacs-lisp; lexical-binding: t; -*-</span>
+
+<span class="p">(</span><span class="nv">message</span> <span class="s">&quot;Hello: %S&quot;</span> <span class="nv">argv</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">kill-emacs</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+<p>Exiting Emacs with an explicit exit code is good style anyway.</p>
+<p>Typically, you’d process the arguments in a <code>while</code> loop, and <code>pop</code> each argument off <code>argv</code>, which leaves it empty after processing the arguments:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/bin/sh</span>
+<span class="s">&quot;:&quot;</span><span class="c1">; exec emacs --quick --script &quot;$0&quot; &quot;$@&quot; # -*- mode: emacs-lisp; lexical-binding: t; -*-</span>
+
+<span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">greeting</span> <span class="s">&quot;Hello %s!&quot;</span><span class="p">)</span>
+      <span class="nv">options-done</span>
+      <span class="nv">names</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">while</span> <span class="nv">argv</span>
+    <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">option</span> <span class="p">(</span><span class="nb">pop</span> <span class="nv">argv</span><span class="p">)))</span>
+      <span class="p">(</span><span class="nb">cond</span>
+       <span class="p">(</span><span class="nv">options-done</span> <span class="p">(</span><span class="nb">push</span> <span class="nv">option</span> <span class="nv">names</span><span class="p">))</span>
+       <span class="c1">;; Don&#39;t process options after &quot;--&quot;</span>
+       <span class="p">((</span><span class="nb">string=</span> <span class="nv">option</span> <span class="s">&quot;--&quot;</span><span class="p">)</span> <span class="p">(</span><span class="k">setq</span> <span class="nv">options-done</span> <span class="no">t</span><span class="p">))</span>
+       <span class="p">((</span><span class="nb">string=</span> <span class="nv">option</span> <span class="s">&quot;--greeting&quot;</span><span class="p">)</span>
+        <span class="p">(</span><span class="k">setq</span> <span class="nv">greeting</span> <span class="p">(</span><span class="nb">pop</span> <span class="nv">argv</span><span class="p">)))</span>
+       <span class="c1">;; --greeting=Foo</span>
+       <span class="p">((</span><span class="nv">string-match</span> <span class="s">&quot;\\`--greeting=\\(\\(?:.\\|\n\\)*\\)\\&#39;&quot;</span> <span class="nv">option</span><span class="p">)</span>
+        <span class="p">(</span><span class="k">setq</span> <span class="nv">greeting</span> <span class="p">(</span><span class="nv">match-string</span> <span class="mi">1</span> <span class="nv">option</span><span class="p">)))</span>
+       <span class="p">((</span><span class="nv">string-prefix-p</span> <span class="s">&quot;--&quot;</span> <span class="nv">option</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">message</span> <span class="s">&quot;Unknown option: %s&quot;</span> <span class="nv">option</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">kill-emacs</span> <span class="mi">1</span><span class="p">))</span>
+       <span class="p">(</span><span class="no">t</span> <span class="p">(</span><span class="nb">push</span> <span class="nv">option</span> <span class="nv">names</span><span class="p">)))</span>
+
+      <span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">length</span> <span class="nv">greeting</span><span class="p">)</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">message</span> <span class="s">&quot;Missing argument for --greeting!&quot;</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">kill-emacs</span> <span class="mi">1</span><span class="p">))))</span>
+
+  <span class="p">(</span><span class="nb">unless</span> <span class="nv">names</span>
+    <span class="p">(</span><span class="nv">message</span> <span class="s">&quot;Missing names!&quot;</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">kill-emacs</span> <span class="mi">1</span><span class="p">))</span>
+
+  <span class="p">(</span><span class="nb">dolist</span> <span class="p">(</span><span class="nv">name</span> <span class="p">(</span><span class="nb">nreverse</span> <span class="nv">names</span><span class="p">))</span>
+    <span class="p">(</span><span class="nv">message</span> <span class="nv">greeting</span> <span class="nv">name</span><span class="p">))</span>
+
+  <span class="p">(</span><span class="nv">kill-emacs</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+
+<p>Emacs doesn’t interfere with our options and arguments anymore:</p>
+<div class="highlight"><pre><span class="gp">$</span> ./hello.el --greeting<span class="o">=</span><span class="s1">&#39;Hello %s&#39;</span> <span class="s1">&#39;John Doe&#39;</span> <span class="s1">&#39;Donald Duck&#39;</span>
+<span class="go">Hello John Doe</span>
+<span class="go">Hello Donald Duck</span>
+</pre></div>
+
+<h1 id="standard-output-and-input">Standard output and input</h1>
+<p>In the previous examples, we used <code>message</code> to print text in our script. There’s a little issue, though. We can’t properly redirect the output:</p>
+<div class="highlight"><pre><span class="gp">$</span> ./hello.el <span class="s1">&#39;John Doe&#39;</span> <span class="s1">&#39;Donald Duck&#39;</span> &gt; /dev/null
+<span class="go">Hello John Doe!</span>
+<span class="go">Hello Donald Duck!</span>
+</pre></div>
+
+<p><code>message</code> writes to standard <em>error</em>, but a good script should use standard output. For this output stream, there’s another, lesser known family of functions: <a href="http://doc.endlessparentheses.com/Fun/print">print</a>, <a href="http://doc.endlessparentheses.com/Fun/prin1">prin1</a>, <a href="http://doc.endlessparentheses.com/Fun/princ">princ</a> and friends. All of these functions output “printed representations” of Lisp objects, with varying levels formatting and quoting.</p>
+<p>For simple printing, <code>princ</code> is the right candidate, since it prints without any formatting and quoting. And naturally the unquoted “printed representation” of a string is… the string itself, so we can use this function to print a list of names to standard output:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/bin/sh</span>
+<span class="s">&quot;:&quot;</span><span class="c1">; exec emacs --quick --script &quot;$0&quot; &quot;$@&quot; # -*-emacs-lisp-*-</span>
+
+<span class="p">(</span><span class="nv">while</span> <span class="nv">argv</span>
+  <span class="p">(</span><span class="nb">princ</span> <span class="p">(</span><span class="nb">format</span> <span class="s">&quot;Hello %s!&quot;</span> <span class="p">(</span><span class="nb">pop</span> <span class="nv">argv</span><span class="p">)))</span>
+  <span class="p">(</span><span class="nb">terpri</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">kill-emacs</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+<p>Unlike <code>message</code>, <code>princ</code> doesn’t take a format string, so we need to call <a href="http://doc.endlessparentheses.com/Fun/format">format</a> ourselves. <a href="http://doc.endlessparentheses.com/Fun/terpri">terpri</a> is a little utility that just prints a newline. The result is as expected, and we can also redirect the output now:</p>
+<div class="highlight"><pre><span class="gp">$</span> ./hello.el <span class="s1">&#39;John Doe&#39;</span> <span class="s1">&#39;Donald Duck&#39;</span>
+<span class="go">Hello John Doe!</span>
+<span class="go">Hello Donald Duck!</span>
+<span class="gp">$</span> ./hello.el <span class="s1">&#39;John Doe&#39;</span> <span class="s1">&#39;Donald Duck&#39;</span> &gt;/dev/null
+</pre></div>
+
+<p>We have covered standard output now, but what about standard input? There are no obvious input functions in Emacs Lisp, but the minibuffer reads from standard input in batch mode<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a>:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/bin/sh</span>
+<span class="s">&quot;:&quot;</span><span class="c1">; exec emacs --quick --script &quot;$0&quot; &quot;$@&quot; # -*-emacs-lisp-*-</span>
+
+<span class="p">(</span><span class="k">let</span> <span class="p">(</span><span class="nv">name</span><span class="p">)</span>
+  <span class="p">(</span><span class="nv">while</span> <span class="p">(</span><span class="nb">and</span> <span class="p">(</span><span class="k">setq</span> <span class="nv">name</span> <span class="p">(</span><span class="nb">ignore-errors</span> <span class="p">(</span><span class="nv">read-from-minibuffer</span> <span class="s">&quot;&quot;</span><span class="p">)))</span>
+              <span class="p">(</span><span class="nb">&gt;</span> <span class="p">(</span><span class="nb">length</span> <span class="nv">name</span><span class="p">)</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="p">(</span><span class="nb">princ</span> <span class="p">(</span><span class="nb">format</span> <span class="s">&quot;Hello %s!&quot;</span> <span class="nv">name</span><span class="p">))</span>
+    <span class="p">(</span><span class="nb">terpri</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nv">kill-emacs</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+<p>We read lines from standard input with <code>read-from-minibuffer</code>, until an empty string is read, or an error occurs. Note that EOF, e.g. <kbd>C-d</kbd> signals an error, so we can exit the input with <kbd>C-d</kbd> like in other programs.</p>
+<div class="highlight"><pre><span class="gp">$</span> ./hello.el
+<span class="go">John Doe</span>
+<span class="go">Hello John Doe!</span>
+<span class="go">Donald Duck</span>
+<span class="go">Hello Donald Duck!</span>
+</pre></div>
+
+<p>This has limitations, though. We can only read whole lines, and don’t have direct access to the underlying TTY. The former doesn’t really matter, but the latter limits the graphical capabilities of Emacs scripts and rules out all curses-like stuff or any text UI.</p>
+<div class="alert alert-warning">
+<p><strong>Warning!</strong> Even worse, secure text input by reading directly from the TTY is currently <strong>impossible</strong> in any released version from Emacs: <code>read-passwd</code> reads from standard input in batch mode and <strong>exposes</strong> the password input on the terminal.</p>
+<p>A patch to hide input on batch mode is committed to Emacs trunk, but as of now, it will <strong>not</strong> be part of upcoming Emacs 24.4.</p>
+</div>
+<h1 id="debugging">Debugging</h1>
+<p>By default, Emacs’ error reporting is pretty terse, in interactive mode as well as in batch mode: It just prints the error message, without any backtraces. Consider this script, which has a little type error inside:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/bin/sh</span>
+<span class="s">&quot;:&quot;</span><span class="c1">; exec emacs --quick --script &quot;$0&quot; &quot;$@&quot; # -*-emacs-lisp-*-</span>
+
+<span class="p">(</span><span class="nv">message</span> <span class="s">&quot;%S&quot;</span> <span class="p">(</span><span class="nb">+</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">argv</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">argv</span><span class="p">)))</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">argv</span> <span class="no">nil</span><span class="p">)</span>
+</pre></div>
+
+<p>The error message isn’t exactly helpful, though:</p>
+<div class="highlight"><pre><span class="gp">$</span> ./hello.el 10 20
+<span class="go">Wrong type argument: number-or-marker-p, &quot;10&quot;</span>
+</pre></div>
+
+<p>In interactive mode, we debug such errors by simply retrying the command after <kbd>M-x toggle-debug-on-error</kbd>. Emacs then enters the debugger and creates a backtrace if an error occurs.</p>
+<p>In batch mode, we can’t “retry”, though, so we need to enable backtraces right away, by setting <a href="http://doc.endlessparentheses.com/Var/debug-on-error">debug-on-error</a>:</p>
+<div class="highlight"><pre><span class="err">#</span><span class="nv">!/bin/sh</span>
+<span class="s">&quot;:&quot;</span><span class="c1">; exec emacs --quick --script &quot;$0&quot; &quot;$@&quot; # -*-emacs-lisp-*-</span>
+
+<span class="p">(</span><span class="k">setq</span> <span class="nv">debug-on-error</span> <span class="no">t</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">message</span> <span class="s">&quot;%S&quot;</span> <span class="p">(</span><span class="nb">+</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">argv</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">argv</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="k">setq</span> <span class="nv">argv</span> <span class="no">nil</span><span class="p">)</span>
+</pre></div>
+
+<p>Now we get stracktraces for any error:</p>
+<div class="highlight"><pre><span class="gp">$</span> ./hello.el 10 20
+<span class="go">Debugger entered--Lisp error: (wrong-type-argument number-or-marker-p &quot;10&quot;)</span>
+<span class="go">  +(&quot;10&quot; &quot;20&quot;)</span>
+<span class="go">  (message &quot;%S&quot; (+ (car argv) (cadr argv)))</span>
+<span class="go">  eval-buffer(#&lt;buffer  *load*&gt; nil &quot;/Users/swiesner/Developer/Sandbox/hello.el&quot; nil t)  ; Reading at buffer position 140</span>
+<span class="go">  load-with-code-conversion(&quot;/Users/swiesner/Developer/Sandbox/hello.el&quot; &quot;/Users/swiesner/Developer/Sandbox/hello.el&quot; nil t)</span>
+<span class="go">  load(&quot;/Users/swiesner/Developer/Sandbox/hello.el&quot; nil t t)</span>
+<span class="go">  command-line-1((&quot;-scriptload&quot; &quot;./hello.el&quot; &quot;10&quot; &quot;20&quot;))</span>
+<span class="go">  command-line()</span>
+<span class="go">  normal-top-level()</span>
+</pre></div>
+
+<h1 id="keep-your-hands-clean">Keep your hands clean</h1>
+<p>As much as we all love Emacs Lisp, it’s not a language that we should use for scripting or independent programs. Emacs Lisp is not an independent language and runtime environment. It’s tied to Emacs, and Emacs is an interactive text editor first and foremost.</p>
+<p>I wrote this article partly to help you in the rare cases that you actually need to write non-interactive Emacs Lisp programs (e.g. a runner for your test suite), but mostly to show how brittle Emacs Lisp is when used outside Emacs.</p>
+<p>Don’t get your hands dirty. Instead, just use any of the plenty of other languages that are available, e.g. Python, Ruby or whatever. If you want a Lisp, use Common Lisp, e.g. <a href="http://www.sbcl.org">SBCL</a>. Even better, put your hands on a decent functional language as OCaml or Haskell.</p>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>In the early days, we’d much about with <code>--no-init-file</code>, <code>--batch</code> and <code>--load</code> to enter noninteractive mode and load a file.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>See <a href="http://stackoverflow.com/a/6259330/355252" class="uri">http://stackoverflow.com/a/6259330/355252</a><a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>There is also <a href="http://doc.endlessparentheses.com/Var/command-line-args">command-line-args</a>, but that holds <em>all</em> Emacs options, including those that Emacs already interpreted, and is of little use in scripts.<a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="http://stackoverflow.com/a/2906967/355252" class="uri">http://stackoverflow.com/a/2906967/355252</a>. All credits go to SO here, I’d never have figured this out by myself.<a href="#fnref4">↩</a></p></li>
+</ol>
+</section>

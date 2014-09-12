@@ -1,0 +1,131 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #22. Videos from FOSDEM are now up as one epic playlist, and there are a number of excellent in-depth articles in this issue. Don't forget there's also a <a href="http://twitter.com/golangweekly">Go Newsletter twitter account</a> if you'd like to get more frequent updates. Compiled by <a href="https://twitter.com/mattrco">Matthew Cottingham</a> and <a href="https://twitter.com/kelseyhightower">Kelsey Hightower</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="http://www.youtube.com/playlist?list=PLtLJO5JKE5YDKG4WcaNts3IVZqhDmmuBH">Go DevRoom FOSDEM 2014</a><br />The videos from the Go DevRoom at FOSDEM 2014 are up!</p>
+<p><a href="http://www.golangbootcamp.com/">Go Bootcamp book</a><br />A free book for learning Go, written as an accompaniment to the first Go Bootcamp.</p>
+<p><a href="http://twit.tv/show/floss-weekly/284">FLOSS Weekly Episode 284 - The Go Language</a><br />FLOSS Weekly interviews Francesc Campoy Flores, Developer Programs Engineer for the Go team, on all things Go.</p>
+<p><a href="http://blog.cloudflare.com/its-go-time-on-linux">It's Go time on Linux</a><br />"Some interesting changes related to timekeeping in the upcoming Go 1.3 release inspired us take a closer look at how Go programs keep time with the help of the Linux kernel."</p>
+<p><a href="http://ayende.com/blog/165857/reviewing-etcd">Reviewing etcd</a><br />A deep dive in to the etcd codebase.</p>
+<p><a href="http://www.goinggo.net/2014/03/web-form-validation-and-localization-in.html">Web form validation And localization</a><br />Using the go-i18n package to display localized validation error messages.</p>
+<p><a href="http://0value.com/throttled--guardian-of-the-web-server">Throttled: guardian of the web server</a><br />Martin Angers looks at throttled, a package that implements various strategies to control access to HTTP handlers.</p>
+<p><a href="http://www.sourcecode.net.br/2014/02/zabbix-api-with-golang.html">Zabbix API with Golang</a><br />Rafael Fernandes dos Santos provides a nice walkthrough of automating Zabbix monitoring with Go.</p>
+<p><a href="https://code.google.com/p/go-wiki/wiki/Style">Go Style Guide</a><br />Brad Fitzpatrick shares the Go style guide used at Google.</p>
+<p><a href="https://coreos.com/blog/cluster-level-container-orchestration/">Cluster-level container deployment with Fleet</a><br />The latest addition to the CoreOS stack, Fleet, builds on etcd and systemd to provide a distributed, fault-tolerant platform for deploying applications on CoreOS clusters.</p>
+<p><a href="https://michaelwhatcott.com/html-coverage-reports-with-goconvey/">HTML Coverage Reports with GoConvey</a><br />GoConvey now supports HTML coverage reports.</p>
+<p><a href="http://www.goinggo.net/2014/02/the-nature-of-channels-in-go.html">The nature of channels</a><br />William Kennedy provides an in-depth review of how channels work.</p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="https://godoc.org/github.com/apexskier/httpauth">httpauth</a><br />"Package httpauth implements cookie/session based authentication and authorization. Intended for use with the net/http or github.com/gorilla/mux packages..."</p>
+<p><a href="https://github.com/lxc/go-lxc">lxc/go-lxc</a><br />Go bindings for liblxc. Lots of functionality including the ability to manage the full life cycle of a LXC container and run adhoc commands.</p>
+<p><a href="https://github.com/slyrz/mango">slyrz/mango</a><br />mango is a small command line utility that allows you to create manual pages from the source code of your Go commands. It builds manual pages from the comments and flag function calls found in your .go files.</p>
+<p><a href="https://github.com/sqs/go-elasticbeanstalk">sqs/go-elasticbeanstalk</a><br />AWS Elastic Beanstalk client (for Go) and command-line tool for easy binary deployment.</p>
+<p><a href="https://github.com/PuerkitoBio/throttled">PuerkitoBio/throttled</a><br />Package throttled implements different throttling strategies for controlling access to HTTP handlers.</p>
+<p><a href="https://github.com/azer/atlas">azer/atlas</a><br />Minimalistic Go Library for Creating JSON API Servers</p>
+<h4>DISCUSSIONS</h4>
+<p><a href="https://groups.google.com/forum/#!topic/golang-nuts/4vnt7NdLvVU">Proposed breaking change in crypto/tls for 1.3</a><br />To address cases where hostname verification is skipped by default, agl has proposed changing tls.Conn.Handshake so that it returns an error when neither ServerName nor InsecureSkipVerify is given in the tls.Config.</p>
+<p><a href="https://groups.google.com/forum/#!topic/golang-nuts/QVPKm7pbhds">How to set GOPATH in Windows.</a><br />Here's how you set GOPATH the Windows way.</p>
+<p><a href="https://groups.google.com/forum/#!topic/golang-nuts/h_ozn-HEy8o">Bit mask to represent set of flags</a><br />Great discussion on how to use a bit mask to represent a set of flags; code example included.</p>
+<h4>EVENTS</h4>
+<table class="events">
+<tbody>
+<tr>
+<td><a href="http://www.meetup.com/golang-users-berlin/events/167107522/">Community Gopher</a></td>
+<td>2014-03-14</td>
+<td>GDG Berlin Golang</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/startupedmonton/events/167937602/">Edmonton Go Meetup</a></td>
+<td>2014-03-25</td>
+<td>Startup Edmonton</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golangsf/events/158289412/">GoSF - Serialization | OpenStack | RaspberryPis</a></td>
+<td>2014-03-20</td>
+<td>GoSF</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/golang-syd/events/168333742/">March Go Madness</a></td>
+<td>2014-03-26</td>
+<td>golang-syd</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Golang-DC/events/154669882/">FoundationDB Go Bindings</a></td>
+<td>2014-03-11</td>
+<td>Golang DC</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-Steel-Programmers/events/163555652/">Monthly meetup &amp; presentation</a></td>
+<td>2014-03-27</td>
+<td>Go Steel Programmers</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Denver-Go-Language-User-Group/events/159414652/">Monthly Denver Gopher Meetup</a></td>
+<td>2014-03-28</td>
+<td>Denver Go Language User Group</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/GDG-Gigcity/events/168547522/">Introduction to Go</a></td>
+<td>2014-03-19</td>
+<td>GDG Gigcity</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-Miami/events/167518632/">Cross Compiling / Task Oriented Programs</a></td>
+<td>2014-03-13</td>
+<td>Go Miami</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Tokyo-Golang-Developers/events/168114882/">Golang Meetup</a></td>
+<td>2014-03-18</td>
+<td>Tokyo Golang Developers</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Go-Israel/events/162890412/">Lets meetup and establish a long term agenda for Go Israel</a></td>
+<td>2014-03-19</td>
+<td>Go Israel</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/San-Diego-Golang/events/164354372/">Pizza &amp; Go!</a></td>
+<td>2014-03-14</td>
+<td>san diego golang</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Golang-Pune/events/168385732/">Introduction to Go</a></td>
+<td>2014-03-15</td>
+<td>Golang Pune</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Atlanta-Go-Enthusiasts/events/167435302/">Deploying Sophisticated Go applications to App Engine</a></td>
+<td>2014-03-11</td>
+<td>Atlanta Go Enthusiasts</td>
+</tr>
+<tr>
+<td><a href="http://www.meetup.com/Davidson-Golang/events/169842942/">Go bootcamp</a></td>
+<td>2014-03-27</td>
+<td>Davidson Golang</td>
+</tr>
+</tbody>
+</table>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator and provider of Continuum, the secure, hybrid-cloud platform that provides cross-cutting control over all service layers, resources, and connections. Built in Go, Continuum enables perimeter-less network security over large-scale distributed systems, uses policy to unify dev and ops, and blends legacy and new technologies. With Continuum, you can use the tools you want, focus on what you do best, and go faster, safely. At enterprise scale. <a href="http://apcera.com/jobs/">Now hiring engineers</a> who make things possible.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.iron.io/"><img src="http://s3.amazonaws.com/golangweekly/iron_io.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.iron.io/">Iron.io</a> is the maker of IronMQ, a scalable cloud-based message queue, and IronWorker, an elastic task queue/worker service, and one of the first companies to use Go in production. Iron.io's services are designed for building distributed cloud applications quickly and operating at scale. The services are easy to use, highly available, and require no setup and no ops. Reduce complexity, build to scale, get Iron.</p>
+</td>
+</tr>
+</tbody>
+</table>

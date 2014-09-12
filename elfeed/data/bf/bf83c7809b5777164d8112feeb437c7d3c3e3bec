@@ -1,0 +1,219 @@
+
+
+  
+  
+    
+      
+        
+<div class="image">
+  <img src="gopher/header.jpg">
+</div>
+
+      
+        
+  
+  <p>
+    The Go gopher is an iconic mascot and one of the most distinctive features of the Go project. In this post we&#39;ll talk about his origins, evolution, and behavior.
+  </p>
+  
+
+      
+        
+  
+  <p>
+    About 15 years ago—long before the Go project—the gopher first appeared as a promotion for the <a href="https://wfmu.org/" target="_blank">WFMU radio station</a> in New Jersey. <a href="http://reneefrench.blogspot.com" target="_blank">Renee French</a> was commissioned to design a T-shirt for an annual fundraiser and out came the gopher.
+  </p>
+  
+
+      
+        
+<div class="image">
+  <img src="gopher/wfmu.jpg">
+</div>
+
+      
+        
+  
+  <p>
+    He next made an appearance at Bell Labs, as Bob Flandrena&#39;s <a href="http://research.swtch.com/face" target="_blank">avatar</a> in the Bell Labs mail system. Other Renee drawings became avatars for ken, r, rsc, and others. (Of course, Peter Weinberger&#39;s was his own <a href="http://spinroot.com/pico/pjw.html" target="_blank">iconic face</a>.)
+  </p>
+  
+
+      
+        
+<div class="image">
+  <img src="gopher/avatars.png">
+</div>
+
+      
+        
+  
+  <p>
+    Another Bell Labs activity led to Renee creating <a href="http://plan9.bell-labs.com/plan9/glenda.html" target="_blank">Glenda</a>, the Plan 9 mascot, a distant cousin of the WFMU gopher.
+  </p>
+  
+
+      
+        
+<div class="image">
+  <img src="gopher/glenda.png">
+</div>
+
+      
+        
+  
+  <p>
+    When we started the Go project we needed a logo, and Renee volunteered to draw it. It was featured on the first Go T-shirt and the Google Code site.
+  </p>
+  
+
+      
+        
+<div class="image">
+  <img src="gopher/logo.png">
+</div>
+
+      
+        
+  
+  <p>
+    For the open source launch in 2009, Renee suggested adapting the WFMU gopher as a mascot. And the Go gopher was born:
+  </p>
+  
+
+      
+        
+<div class="image">
+  <img src="gopher/gopher.png">
+</div>
+
+      
+        
+  
+  <p>
+    (The gopher has no name. He&#39;s just the &#34;Go gopher&#34;.)
+  </p>
+  
+
+      
+        
+  
+  <p>
+    For the <a href="https://www.youtube.com/watch?v=-i0hat7pdpk#t=24m40s" target="_blank">launch</a> of the <a href="https://developers.google.com/appengine/docs/go" target="_blank">Go App Engine runtime</a> at Google I/O 2011 we engaged <a href="http://squishable.com" target="_blank">Squishable</a> to manufacture the plush gophers. This was the first time the gopher was colored blue and appeared in three dimensions. The first prototype was kinda hairy:
+  </p>
+  
+
+      
+        
+<div class="image">
+  <img src="gopher/prototype.jpg">
+</div>
+
+      
+        
+  
+  <p>
+    But the second one was just right:
+  </p>
+  
+
+      
+        
+<div class="image">
+  <img src="gopher/plush.jpg">
+</div>
+
+      
+        
+  
+  <p>
+    Around the same time, Renee roughed out a gopher in clay. This inspired a refined sculpture that became a vinyl figurine made by <a href="http://www.kidrobot.com/" target="_blank">Kidrobot</a>. The vinyls were first distributed at OSCON 2011.
+  </p>
+  
+
+      
+        
+<div class="image">
+  <img src="gopher/vinyl.jpg">
+</div>
+
+      
+        
+  
+  <p>
+    The gopher therefore exists in many forms, but he has always been Renee&#39;s creation. He stands for the Go project and Go programmers everywhere, and is one of the most popular things in the Go world.
+  </p>
+  
+
+      
+        
+  
+  <p>
+    The Go gopher is a character; a unique creation. He&#39;s not any old gopher, just as Snoopy is not any old cartoon dog.
+  </p>
+  
+
+      
+        
+  
+  <p>
+    The <a href="http://golang.org/doc/gopher/" target="_blank">gopher images</a> are Creative Commons Attributions 3.0 licensed. That means you can play with the images but you must give credit to their creator (Renee French) wherever they are used.
+  </p>
+  
+
+      
+        
+  
+  <p>
+    Here are a few gopher adaptations that people have used as mascots for user group mascots and similar organizations.
+  </p>
+  
+
+      
+        
+<div class="image">
+  <img src="gopher/usergroups.png">
+</div>
+
+      
+        
+  
+  <p>
+    They&#39;re cute and we like them, but by the Creative Commons rules the groups should give Renee credit, perhaps as a mention on the user group web site.
+  </p>
+  
+
+      
+        
+  
+  <p>
+    The vinyl and plush gophers are copyrighted designs; accept no substitutes! But how can you get one? Their natural habitat is near high concentrations of Go programmers, and their worldwide population is growing. They may be purchased from the <a href="https://www.googlestore.com/Google+Redesign/Brands/Gopher/Go+Gopher+Squishable.axd" target="_blank">Google Store</a>, although the supply can be irregular. (These elusive creatures have been spotted in all <a href="http://www.flickr.com/photos/pinkhamsters/sets/72157627910426064/" target="_blank">kinds</a> <a href="https://plus.google.com/107966629974328136037/posts/TcFA9zHzQB8" target="_blank">of</a> <a href="https://twitter.com/goroutine" target="_blank">places</a>.)
+  </p>
+  
+
+      
+        
+  
+  <p>
+    Perhaps the best way to get a gopher is to catch one in the wild at a Go conference. There are two big chances this year: <a href="http://gophercon.com/" target="_blank">GopherCon</a> (Denver, April 24-26) and <a href="http://dotgo.eu" target="_blank">dotGo</a> (Paris, October 10).
+  </p>
+  
+
+      
+        
+<div class="image">
+  <img src="gopher/portrait.jpg">
+</div>
+
+      
+        
+  
+  <p>
+    <i>(Photo by</i> <a href="https://twitter.com/noahhlo/status/437395572081688576" target="_blank"><i>Noah Lorang</i></a><i>.)</i>
+  </p>
+  
+
+      
+    
+  
+

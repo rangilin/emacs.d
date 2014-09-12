@@ -1,0 +1,116 @@
+<p>One thing Emacs users deal all the time is looking for the source of
+various libraries and function or variable definitions.  Typically this
+involves the use of commands like <code>C-h f</code> (<code>describe-function</code>), <code>C-h v</code>
+(<code>describe-variable</code>) and <code>C-h k</code> (<code>describe-key</code>) and jumping to the source from the help buffer those commands produce.
+Let&#8217;s see if we can improve upon this workflow.</p>
+
+<h3>find-func</h3>
+
+<p>Enter the built-in Emacs library <code>find-func</code>. It provides a myriad of useful commands to help us quickly locate sources.
+Let&#8217;s take a brief look at some of them.</p>
+
+<ul>
+<li>You can find the source of a library with <code>M-x find-library</code>. If you want to find the source of <code>ido</code> you can do so like this:</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>M-x find-library RET ido RET</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&#8217;d suggest binding the command to <code>C-h C-l</code> for quick access:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">define-key</span> <span class="ss">&#39;help-command</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">&quot;C-l&quot;</span><span class="p">)</span> <span class="ss">&#39;find-library</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>You can find the source of a function definition with <code>M-x find-function</code>. Here&#8217;s an example:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="nv">M-x</span> <span class="nv">find-function</span> <span class="nv">RET</span> <span class="nv">find-function</span> <span class="nv">RET</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&#8217;d suggest binding the command to <code>C-h C-f</code> for quick access:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">define-key</span> <span class="ss">&#39;help-command</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">&quot;C-f&quot;</span><span class="p">)</span> <span class="ss">&#39;find-function</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>We can actually do one better - we can directly jump to a command
+definition using a keybinding of the command with <code>M-x
+find-function-on-key</code>. Here&#8217;s how we can find the source the command
+bound to <code>C-a</code> (<code>beginning-of-line</code>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="nv">M-x</span> <span class="nv">find-function-on-key</span> <span class="nv">RET</span> <span class="nv">C-a</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&#8217;d suggest binding the command to <code>C-h C-k</code> for quick access:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">define-key</span> <span class="ss">&#39;help-command</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">&quot;C-k&quot;</span><span class="p">)</span> <span class="ss">&#39;find-function-on-key</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>You can find the source of a variable definition with <code>M-x find-variable</code>. Here&#8217;s an example:</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="nv">M-x</span> <span class="nv">find-variable</span> <span class="nv">RET</span> <span class="nv">large-file-warning-threshold</span> <span class="nv">RET</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&#8217;d suggest binding the command to <code>C-h C-v</code> for quick access:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">define-key</span> <span class="ss">&#39;help-command</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">&quot;C-v&quot;</span><span class="p">)</span> <span class="ss">&#39;find-variable</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<p>The library provides other useful commands as well - like
+<code>find-function-at-point</code> and <code>find-variable-at-point</code>.</p>
+
+<p>If you don&#8217;t like the keybindings I suggested you can use
+<code>find-function-setup-keys</code> instead.  This will give you keybindings
+like <code>C-x F</code>, <code>C-x V</code>, <code>C-f K</code> (plus a few extra for commands like
+<code>find-funtion-other-window</code>).</p>
+
+<h3>elisp-slime-nav</h3>
+
+<p>Another really cool way to browse Elisp sources (and documentation) is the third-party package
+<a href="https://github.com/purcell/elisp-slime-nav">elisp-slime-nav</a>. Assuming you&#8217;ve installed it already you can
+enabled it like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nb">require</span> <span class="ss">&#39;elisp-slime-nav</span><span class="p">)</span>
+</span><span class='line'><span class="p">(</span><span class="nb">dolist</span> <span class="p">(</span><span class="nv">hook</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">emacs-lisp-mode-hook</span> <span class="nv">ielm-mode-hook</span><span class="p">))</span>
+</span><span class='line'><span class="p">(</span><span class="nv">add-hook</span> <span class="nv">hook</span> <span class="ss">&#39;elisp-slime-nav-mode</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once this is done you&#8217;ll be able to jump to the source of the Emacs
+Lisp object at point (function or variable) with <code>M-.</code> (as in SLIME
+and CIDER for Common Lisp and Clojure respectively) and jump back with
+<code>M-,</code>. You can also see the description of the object at point using
+<code>C-c C-d</code> (or <code>C-c C-d d</code>).</p>
+
+<p>That&#8217;s all for today, folks!</p>
+
+<p><strong>P.S.</strong></p>
+
+<p>All the suggested keybindings are present out-of-the-box in
+<a href="https://github.com/bbatsov/prelude">Prelude</a>. <code>elisp-slime-nav</code> is also
+enabled out-of-the box in Prelude.</p>

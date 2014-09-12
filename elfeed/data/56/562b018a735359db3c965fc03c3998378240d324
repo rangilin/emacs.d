@@ -1,0 +1,15 @@
+
+<p>The first time I tried screen many years ago I didn't see the point.
+Now I can't live without it, I guess it's an acquired taste.</p>
+
+<p>This gross hack plays sounds on activity. Here is my typical use case:
+I run a copy that takes a long time. As I listen to music while
+working I will hear a sound when it's finished.</p>
+
+<p>Here is the script <a href="gong.sh">gong.sh</a> that plays the sound file and the <a href="screen-play-sound.patch">patch</a> for
+screen. It's just 3 more lines and you'll need to fix the hard coded
+path.</p>
+
+<p>I have a similar patch to copy screen selection to the X clipboard
+with xclip. I will post it if there is interest.</p>
+

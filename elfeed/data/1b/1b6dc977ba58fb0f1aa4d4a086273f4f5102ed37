@@ -1,0 +1,16 @@
+<p>
+My laptop is so old it is almost getting out-performed by my smartphone, 
+the principal consequence being that its keyboard has started to give
+up on life. Occasionally, a key won't register when I hit it, and
+occasionally I'll get paranoid and hit a key twice without knowing it
+actually had registered the first time.
+</p>
+
+<p>
+Emacs' keystroke echoing is a fantastic aid in this regard, informing
+me whether the key worked or not when I'm typing a complex sequenced command. I only need to make it faster so
+that I don't have to wait for it.
+</p>
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="p">(</span><span class="k">setq</span> <span class="nv">echo-keystrokes</span> <span class="mf">0.1</span><span class="p">)</span></code></pre></div>
+
+   <p><a href="http://endlessparentheses.com/faster-keystroke-echo.html?source=rss#disqus_thread">Comment on this.</a></p>

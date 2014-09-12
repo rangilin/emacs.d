@@ -1,0 +1,11 @@
+
+<p>I bought music on the web for the first time. It's a band called
+Filewile. I miss tearing up the CD jewel case cover and looking for
+the artwork.</p>
+
+<p>Anyhow here is how to do a mass conversion:</p>
+
+<pre class="src">
+<span style="color: #8b008b; background-color: #b9babd;">for</span> i<span style="color: #8b008b; background-color: #b9babd;"> in</span> *.flac ; <span style="color: #8b008b; background-color: #b9babd;">do</span> flac -d $<span style="color: #000000; background-color: #b9babd;">i</span> ; <span style="color: #8b008b; background-color: #b9babd;">done</span>
+</pre>
+

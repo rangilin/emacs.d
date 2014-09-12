@@ -1,0 +1,20 @@
+
+<p>I have used bash for over ten years. I just got a little curious and
+decided to study the competitor zsh.</p>
+
+<p>I think it has a killer feature: shared history. The previous commands
+will be shared between instance of zsh. I find this very handy since I
+always run several shell with scree. The following lines turn it on:</p>
+
+<pre class="example">
+# History sharing and huge size
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.history
+setopt share_history
+setopt append_history
+</pre>
+
+<p>I am not sure I will switch to zsh but it's interesting to change
+things a bit.</p>
+

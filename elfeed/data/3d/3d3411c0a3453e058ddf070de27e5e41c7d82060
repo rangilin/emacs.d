@@ -1,0 +1,58 @@
+<p>Welcome to Emacs Movies.</p>
+
+<p>This is a blog where I plan to post screencasts to teach people how to use the programmers editor <a href="http://www.gnu.org/software/emacs/">Gnu Emacs</a>.</p>
+
+<h2>Production workflow</h2>
+
+<p>The videos are recorded by me and then encoded and uploaded. I&#8217;m not doing any editing and so small mistakes will be left in there. I do plan to make a script and do a trial run before recording the final version so there&#8217;s some &#8220;pre editing&#8221;.</p>
+
+<p>I use this makefile to automate the entire process</p>
+
+<script src="https://gist.github.com/2466292.js?file=gistfile1.mak"></script>
+
+
+<p>I use something like <code>make number=01 name=introduction</code> to create <code>01-episode-introduction.mkv</code> and <code>01-episode-introduction.webm</code>. The former is for ios devices and the latter for streaming. Make is surprisingly efficient for this since it can resume if things are interrupted and can automatically do things in parallel if a <code>-j</code> is passed. For example, it will transcode the <code>webm</code> and <code>mkv</code> files as two processes if I ask it to. Once that&#8217;s done and I&#8217;m happy, I do a <code>make number=01 name=introduction upload</code> and the generated files are uploaded to the archives web servers using its implementation of the Amazon S3 API. This allows the whole flow to be non-interactive and smooth. I&#8217;m not much of a GUI man and prefer to have things run in a console.</p>
+
+<p>These files are uploaded to the internet archive in the <a href="http://www.archive.org/details/EmacsMovies">EmacsMovies collection</a>. I prefer using the archive to other video hosting websites because they allow you to download the original files directly. Also, their mission to preserve data for ever rather than to make money off user generated content appeals to me.</p>
+
+<h2>Software used</h2>
+
+<p>I&#8217;ve already mentioned <a href="http://ffmpeg.org">ffmpeg</a> in the workflow.</p>
+
+<p>During the recording, I use my <a href="https://github.com/nibrahim/showkeys">showkeys</a> application to display keystrokes on the side. I didn&#8217;t use this instead of more mature programs like <a href="http://code.google.com/p/key-mon/">key-mon</a> for a <a href="http://nibrahim.net.in/2011/11/30/showkeys.html">number of reasons</a>.</p>
+
+<p>The blog is generated using <a href="http://octopress.org/">Octopress</a> which is a set of plugins and spiffy templates for the <a href="http://jekyllrb.com/">jekyll</a> static blog generator. I use my own emacs mode <a href="https://github.com/nibrahim/Hyde">hyde.el</a> to maintain the blog. It is maintained on github at <a href="https://github.com/nibrahim/emacsmovies.org">https://github.com/nibrahim/emacsmovies.org</a>. The emacsmovies.org website is hosted currently on <a href="http://hcoop.net/">the Internet hosting cooperative</a>.</p>
+
+<p>I&#8217;m mentioning all this so that people can offer suggestions on how to improve the workflow.</p>
+
+<p>On a side note, I&#8217;m a Python developer in my day job and I wanted to do this entire project without using Python at all and I was able to.</p>
+
+<h2>Long term plans</h2>
+
+<blockquote>
+<p>Emacs is like a brain, at maximum you can only utilize about 10% of its real power :)</p>
+<footer>delYsid on #emacs</footer>
+</blockquote>
+
+
+<p>It is definitely not possible to cover <em>all</em> of Emacs. My plan as of now is to start off with a few screencasts on basic editing and navigation. After this, a few on basic customisation. Then I plan to do emacs &#8220;applications&#8221; (e.g. dired, Gnus, org-mode) etc. I&#8217;ll probably loosely structure it around the <a href="http://www.gnu.org/software/emacs/manual/html_node/emacs/index.html">emacs manual</a>.</p>
+
+<p>I had a conversation with Zed Shaw about his <a href="http://learncodethehardway.org/">learn code the hard way</a> series of books and video tutorials. He suggested that I supplement the screencasts with a book and I&#8217;ve started work on that too. Right now, my feeling is that each screencast will be the contents of one chapter condensed. I hope to keep all the screencasts under 15 minutes long each.</p>
+
+<p>I hope to do at least one a month. If you have any comments or suggestions, please email me - <code>noufal at emacsmovies.org</code>.</p>
+
+<h2>Support and feedback</h2>
+
+<p>For any fixes in the software mentioned above or corrections on the website, please use the <a href="https://github.com/nibrahim/emacsmovies.org/issues">github issue tracker</a>. If you&#8217;re interested in doing a screencast for the website, please email me at <code>noufal at emacsmovies.org</code> and we can work something out.</p>
+
+<h2>Licensing</h2>
+
+<p>All the software which I&#8217;ve written to make this possible are released under the GNU GPL version 3.</p>
+
+<p>The actual videos are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.</p>
+
+<p>I will occasionally link to videos created by other people. These are owned by the people who made them and are might have different licensing terms.</p>
+
+<h2>Following emacsmovies.org</h2>
+
+<p>I have a twitter account setup for this website. You can follow <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Flocalhost%3A4000%2F&region=follow_link&screen_name=emacsmovies&source=followbutton&variant=2.0">@emacsmovies</a> on twitter to stay up to date or subscribe to the <a href="http://emacsmovies.org/atom.xml">atom feed</a>.</p>

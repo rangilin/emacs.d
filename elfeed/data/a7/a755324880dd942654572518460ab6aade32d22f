@@ -1,0 +1,12 @@
+
+<p>I maintain several quote files. Each quote is separated by %. The
+author line starts with &quot; &mdash;&quot;. This line at the top is how I tell
+to wrap quotes without messing everything.</p>
+
+<pre class="example">
+-*- mode: text; paragraph-separate: &quot;%\\|    --&quot;; -*-
+</pre>
+
+<p>The text is a simple regular expression. I guess it can be useful for
+other formats.</p>
+

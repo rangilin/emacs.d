@@ -1,0 +1,42 @@
+<table>
+<tbody>
+<tr>
+<td height="100" width="110"><a><img src="http://s3.amazonaws.com/golangweekly/swim.png" /></a></td>
+<td>
+<p>Welcome to Go Newsletter Issue #26. Gophercon videos are starting to appear on the <a href="http://confreaks.com/events/gophercon2014">confreaks website</a>. If you are a student, take a look at the Go projects in the <a href="https://wiki.mozilla.org/Security/Automation/WinterOfSecurity2014">Mozilla Winter of Security 2014</a>.</p>
+<p>Compiled by <a href="https://twitter.com/mattrco">Matt Cottingham</a> and <a href="https://twitter.com/kelseyhightower">Kelsey Hightower</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h4>ARTICLES &amp; TALKS</h4>
+<p><a href="https://developers.soundcloud.com/blog/roshi-a-crdt-system-for-timestamped-events">Roshi: a CRDT system for timestamped events</a><br />Roshi is a distributed storage system for time-series events, based on conflict-free replicated datatypes (CRDTs).</p>
+<p><a href="https://groups.google.com/forum/#!topic/llgo-dev/8uBfmIkGM88/discussion">llgo is now self hosting</a><br />llgo, an alternative compiler, can now build itself and any Go code it depends upon.</p>
+<p><a href="http://lk4d4.darth.io/posts/defer/">Defer overhead in go</a><br />Interesting to see the cost of using defer, although I wouldn't base any decisions on this over profiling your own code.</p>
+<p><a href="http://blog.natefinch.com/2014/05/intro-to-go-interfaces.html?spref=tw">Intro++ to Go Interfaces</a><br />An extended introduction to Go interfaces</p>
+<p><a href="https://software.intel.com/en-us/blogs/2014/05/10/debugging-performance-issues-in-go-programs">Debugging performance issues in Go programs</a><br />Thorough guide to profiling Go programs by Dmitry Vyukov</p>
+<p><a href="http://noeffclue.blogspot.ca/2014/05/compiler-part-1-introduction-to-writing.html">Compiler Part 1: Introduction to Writing a Compiler in Pure Go</a><br />Rob Thornton kicks off a 10 part series on learning how to write a compiler in pure Go.</p>
+<p><a href="http://highscalability.com/blog/2014/5/7/update-on-disqus-its-still-about-realtime-but-go-demolishes.html">Update On Disqus: It's Still About Realtime, But Go Demolishes Python</a><br />Disqus sheds some light on how the switch from Python to Go in one of their realtime systems helped drastically reduce memory and CPU usage while keeping average end-to-end latency to just under 10ms.</p>
+<h4>NEW &amp; UPDATED PACKAGES</h4>
+<p><a href="http://kidoman.io/framework/embd.html?v2">EMBD</a><br />"EMBD is a framework for Go which does GPIO (General Purpose I/O), talks the I&sup2;C protocol (+ many more) and provides the drivers necessary to interact with many hardware sensors"</p>
+<p><a href="https://www.spacemonkey.com/blog/posts/go-open-source">Space Monkey open source packages</a><br />A collection of open source packages including OpenSSL bindings, logging, and monitoring.</p>
+<p><a href="https://github.com/stretchr/powerwalk">stretchr/powerwalk</a><br />Concurrently walk a file tree</p>
+<p><a href="https://github.com/mkaz/lanyon">mkaz/lanyon</a><br />Lanyon is a simple web server, which reads directories of markdown files and converts them to HTML and serves. An intuitive and easy way to create a website.</p>
+<p><a href="https://github.com/kelseyhightower/coreos-ipxe-server">kelseyhightower/coreos-ipxe-server</a><br />The CoreOS iPXE Server attempts to automate as much of the Booting CoreOS via iPXE process as possible, mainly generating iPXE boot scripts and serving CoreOS PXE boot images.</p>
+<h4>SPONSORS</h4>
+<table>
+<tbody>
+<tr>
+<td width="130"><a href="http://www.apcera.com/"><img src="http://s3.amazonaws.com/golangweekly/apcera.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.apcera.com/">Apcera</a> is the creator and provider of Continuum, the secure, hybrid cloud platform that provides cross-cutting control over all service layers, resources, and connections. Built in Go, Continuum enables perimeter-less network security over large-scale distributed systems, uses policy to unify dev and ops, and blends legacy and new technologies. With Continuum, you can use the tools you want, focus on what you do best, and go faster, safely. At enterprise scale.</p>
+</td>
+</tr>
+<tr>
+<td width="130"><a href="http://www.iron.io/"><img src="http://s3.amazonaws.com/golangweekly/iron_io.png" /></a></td>
+<td>
+<p style="font-size: 13px;"><a href="http://www.iron.io/">Iron.io</a> is the maker of IronMQ, a scalable cloud-based message queue, and IronWorker, an elastic task queue/worker service, and one of the first companies to use Go in production. Iron.io's services are designed for building distributed cloud applications quickly and operating at scale. The services are easy to use, highly available, and require no setup and no ops. Reduce complexity, build to scale, get Iron.</p>
+</td>
+</tr>
+</tbody>
+</table>

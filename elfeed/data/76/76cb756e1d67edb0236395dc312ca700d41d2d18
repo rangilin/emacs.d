@@ -1,0 +1,59 @@
+<p>
+I am not a fantastic typist. My speed is acceptable, but I make a great
+deal of mistakes. The following snippet has turned me into the Messi
+of keyboards.
+</p>
+
+<p>
+Whenever I make a typo:
+</p>
+
+<ol class="org-ol">
+<li>Hit <kbd>C-x C-i</kbd>, instead of erasing the mistake;
+</li>
+<li>Select the appropriate correction (thanks to ispell);
+</li>
+<li>Sleep easier at night knowing I'll never see that mistake again (thanks to abbrev).
+</li>
+</ol>
+
+<div class="highlight"><pre><code class="language-cl" data-lang="cl"><span class="p">(</span><span class="nv">define-key</span> <span class="nv">ctl-x-map</span> <span class="s">&quot;\C-i&quot;</span> <span class="ss">&#39;endless/ispell-word-then-abbrev</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">endless/ispell-word-then-abbrev</span> <span class="p">(</span><span class="nv">p</span><span class="p">)</span>
+  <span class="s">&quot;Call `ispell-word&#39;. Then create an abbrev for the correction made.</span>
+<span class="s">With prefix P, create local abbrev. Otherwise it will be global.&quot;</span>
+  <span class="p">(</span><span class="nv">interactive</span> <span class="s">&quot;P&quot;</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">bef</span> <span class="p">(</span><span class="nv">downcase</span> <span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nv">thing-at-point</span> <span class="ss">&#39;word</span><span class="p">)</span> <span class="s">&quot;&quot;</span><span class="p">)))</span> <span class="nv">aft</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">call-interactively</span> <span class="ss">&#39;ispell-word</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">aft</span> <span class="p">(</span><span class="nv">downcase</span> <span class="p">(</span><span class="nb">or</span> <span class="p">(</span><span class="nv">thing-at-point</span> <span class="ss">&#39;word</span><span class="p">)</span> <span class="s">&quot;&quot;</span><span class="p">)))</span>
+    <span class="p">(</span><span class="nb">unless</span> <span class="p">(</span><span class="nb">string=</span> <span class="nv">aft</span> <span class="nv">bef</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">message</span> <span class="s">&quot;\&quot;%s\&quot; now expands to \&quot;%s\&quot; %sally&quot;</span>
+               <span class="nv">bef</span> <span class="nv">aft</span> <span class="p">(</span><span class="k">if</span> <span class="nv">p</span> <span class="s">&quot;loc&quot;</span> <span class="s">&quot;glob&quot;</span><span class="p">))</span>
+      <span class="p">(</span><span class="nv">define-abbrev</span>
+        <span class="p">(</span><span class="k">if</span> <span class="nv">p</span> <span class="nv">local-abbrev-table</span> <span class="nv">global-abbrev-table</span><span class="p">)</span>
+        <span class="nv">bef</span> <span class="nv">aft</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="k">setq</span> <span class="nv">save-abbrevs</span> <span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">setq-default</span> <span class="nv">abbrev-mode</span> <span class="no">t</span><span class="p">)</span></code></pre></div>
+<p>
+In my innocence, I had initially assigned this command to a
+3-key sequence. It took me less then a month to realise it needed a
+shorter bind, I'd been using it 30 times a day.
+</p>
+
+<p>
+Auto correction with abbrev is <a href="http://www.emacswiki.org/emacs/autocorrection_abbrev_defs">far from a new concept</a>. Do you use
+anything similar?
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h3 id="sec-1">Update</h3>
+<div class="outline-text-2" id="text-1">
+<p>
+Code was the wrong way around. Now it <i>really</i> uses global abbrev by
+default.
+</p>
+</div>
+</div>
+
+   <p><a href="http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html?source=rss#disqus_thread">Comment on this.</a></p>

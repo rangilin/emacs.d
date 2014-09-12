@@ -1,0 +1,24 @@
+At <a href="http://dvcon.org/2013_home">DVCon 2013</a> I asked <a href="http://www.coolverification.com/">JL Gray</a>'s panel if we would ever have Free tools, like the software world.  None of panelists seemed to think so, one of the panelists, a Mentor employee, scoffed, "you get what you pay for with free tools."  Never mind that their (and Cadence's and Synopsys's) products are very likely developed with tools that contain millions of lines of Free software.<br />
+<br />
+So, to work towards answering my own question, I spent a little time and looked for Free/Open Source verilog simulators.  Here's what I found:<br />
+<br />
+<a href="https://sites.google.com/site/iverilog/">Icarus Verilog</a><br />
+<br />
+<a href="http://sourceforge.net/projects/gplcver/">GPL Cver</a><br />
+<br />
+<a href="http://sourceforge.net/projects/pvsim/">PVSim Verilog Simulator</a><br />
+<br />
+<a href="http://sourceforge.net/projects/veriwell/">VeriWell Verilog Simulator</a><br />
+<br />
+I have personally used Icarus and Cver before, but not very extensively.  They were usable and seemed pretty complete, for Verilog.  None of the above claim any support of SystemVerilog except for Icarus.  The Icarus developer at one point expressed abhorrence at SystemVerilog but it seems support for some parts of the language have been added.<br />
+<br />
+PVSim and VeriWell were new to me.  I'll give them a try, hopefully soon, and post more information.<br />
+<br />
+Another one that should be mentioned is <a href="http://www.veripool.org/wiki/verilator">Verilator</a>.  I have downloaded and played with this one too.  It only supports synthesizable Verilog, so have fun writting a testbench.  I think the intent is for you to write your testbench in C++, so if you like that idea then this could be a good one to try too.<br />
+<br />
+Did I miss any?<br />
+<br />
+UPDATE: All of these (except Verilator) plus a host of other free EDA tools are available to easily try out at <a href="http://www.edaplayground.com/">EDA Playground</a>.  Go there now, it's a fun place to play.<br />
+<br />
+2ND UPDATE: As mentioned in the comments below, there are two other ways to try Icarus online: <span style="font-family: Times, Times New Roman, serif;"><a href="http://www.compileonline.com/" style="background-color: white; color: #1155cc;" target="_blank">www.compileonline.com</a> and<span style="background-color: white; color: #222222;"> </span><a href="http://www.iverilog.com/" style="background-color: white; color: #1155cc;" target="_blank">www.iverilog.com</a><span style="color: #222222;"><span style="background-color: white;">.</span></span></span><br />
+<br />
