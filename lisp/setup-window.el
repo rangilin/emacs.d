@@ -28,13 +28,13 @@ buffer in it"
 ;; http://snarfed.org/emacs_page_up_page_down
 (defun rangi/page-down ()
   "Move cursor one page down"
-  (interactive)
+  (interactive "^")
   (condition-case nil (scroll-up)
     (end-of-buffer (goto-char (point-max)))))
 
 (defun rangi/page-up ()
   "Move cursor one page up"
-  (interactive)
+  (interactive "^")
   (condition-case nil (scroll-down)
     (beginning-of-buffer (goto-char (point-min)))))
 
