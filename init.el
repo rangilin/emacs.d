@@ -39,6 +39,7 @@
 (require 'setup-others)
 (require 'setup-php)
 (require 'setup-recentf)
+(require 'setup-rss)
 (require 'setup-ruby)
 (require 'setup-search-n-replace)
 (require 'setup-sql)
