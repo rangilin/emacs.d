@@ -44,6 +44,7 @@
 
 ;; ------------------------------ ace jump
 (use-package ace-jump-mode
-  :bind (("C-;" . ace-jump-mode)))
+  :bind (("C-;" . ace-jump-mode)
+         ("M-;" . ace-jump-mode-pop-mark)))
 
 (provide 'setup-cursor)
