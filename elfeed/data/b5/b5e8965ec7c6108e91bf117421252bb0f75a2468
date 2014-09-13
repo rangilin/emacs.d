@@ -1,7 +1,0 @@
-
-<p>I have written a new interface for verbiste. It shows french
-conjugation for a word near the point. If you want this feature
-download <a href="verbiste.el">verbiste.el</a> and put it somewhere in your load path.</p>
-
-<p class="image"><img src="verbiste.jpg" alt=""></p>
-

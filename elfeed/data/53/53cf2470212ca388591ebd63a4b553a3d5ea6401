@@ -1,1 +1,0 @@
-<p>To get the benefits of a microservice approach you need to able to deploy code frequently, so <a href="http://martinfowler.com/articles/microservices.html#InfrastructureAutomation">deployments and infrastructure management needs to be automated</a>. All this services also imply more frequent partial failures, which have to be expected as part of service design.</p>

@@ -1,1 +1,0 @@
-<p>Some notes from my experiences in setting up a Vagrant VM to help collaborators use my web publishing toolchain. I used Chef to provision the VM and rbenv to install and control the right version of ruby.</p>

@@ -1,8 +1,0 @@
-
-<p>Decided to typeset a lyrics booklet for a CD. Found the <code>cd-cover</code>
-package at <a href="http://www.ctan.org/">CTAN</a> that does just that. I was sailing along till I tried
-to print it. The Postscript file that it generates is in letter
-instead of A4. It wouldn't be a big deal usually but I am trying to
-print this double sided so it has to be centered just right. I'll
-think about it later!</p>
-

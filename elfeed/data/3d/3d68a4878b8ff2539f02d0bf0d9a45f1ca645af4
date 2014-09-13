@@ -1,5 +1,0 @@
-
-<p>You need 'prerequisites_policy' =&gt; q[follow], in your
-.cpan/CPAN/MyConfig.pm and PERL_MM_USE_DEFAULT=1 in the
-environment.</p>
-

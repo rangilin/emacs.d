@@ -1,9 +1,0 @@
-
-<p>I am working on postscript files that were generated from Word. I was
-changing some font in Inkscape but the kerning was all wrong. I
-thought &quot;I'll try Illustrator, it will do a better job&quot;. So I open the
-file in Ilustrator and the accented characters were gone. I tried
-again with a PDF file, now the accented characters were upper
-cased. Postcript and PDF are both Adobe technology, I just can't
-believe Illustrator importer is crap!</p>
-

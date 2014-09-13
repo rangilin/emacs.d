@@ -6,7 +6,7 @@
 (use-package elfeed
   :init
   (progn
-    (setq-default elfeed-db-directory (expand-file-name "elfeed" user-emacs-directory))
+    (setq-default elfeed-db-directory "/ramsey/Dropbox/rss/")
     (setq-default elfeed-feeds
                   (-filter (lambda (s) (not (s-starts-with? "#" s)))
                            (s-split "\n" (f-read "/ramsey/Dropbox/rss/feeds.txt") t))))

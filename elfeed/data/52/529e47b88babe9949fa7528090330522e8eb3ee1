@@ -1,8 +1,0 @@
-
-<p>It doesn't work out of the box. You need to issue the following
-command:</p>
-
-<pre class="example">
-sudo apt-get install gnome-user-share
-</pre>
-

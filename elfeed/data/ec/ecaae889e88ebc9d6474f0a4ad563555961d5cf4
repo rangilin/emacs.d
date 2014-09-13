@@ -1,6 +1,0 @@
-<div class = 'img'><a href = 'http://martinfowler.com/articles/distributed-objects-microservices.html'><img src = 'http://martinfowler.com/articles/images/distributed-objects-microservices/local-remote.png' width = '100px' height = '' alt = '' title = ''/></a></div><p>When I wrote Patterns of Enterprise Application Architecture, I
-    coined what I called the First Law of Distributed Object Design:
-    “don’t distribute your objects”. In recent months there’s been a lot
-    of interest in microservices, which has led a few people to ask
-    whether microservices are in contravention to this law, and if so
-    why I am in favor of them?</p>

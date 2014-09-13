@@ -1,1 +1,0 @@
-If you&#8217;re a Linux/BSD user you probably do most of your bulk operations on files with the command line tools find ... -exec or find ... &#124; xargs &#8212; but there&#8217;s a much better way. Dired (M-x dired or C-x d), Emacs&#8217;s DIRectory EDitor, can do the same but in a very intuitive way. I&#8217;ve [...]

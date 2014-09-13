@@ -1,8 +1,0 @@
-
-<p>Bbdb (Big Brother DataBase) is the rolodex of emacs. I have added
-picture support so that you can see your contacts face.</p>
-
-<p class="image"><img src="bbdb-picture.png" alt=""></p>
-
-<p>All you need is to download the following file <a href="bbdb-picture.el">bbdb-picture.el</a>.</p>
-

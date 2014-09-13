@@ -1,8 +1,0 @@
-
-<p>My tip for today if you do move files from one partition to another
-and that you find out you do no have enough space. Do not, I repeat,
-do not copy the files back to their original destination. Indeed it
-seems that the <code>mv</code> command will create empty files if the destination
-is full. If you copy your files back you will clobber your original
-files with empty ones!</p>
-

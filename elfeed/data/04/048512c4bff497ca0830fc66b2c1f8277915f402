@@ -1,4 +1,0 @@
-<p>In <a href="https://lists.gnu.org/archive/html/help-gnu-emacs/2014-09/msg00220.html">Problems installing (M)ELPA packages</a> Sebastien wrote:</p>
-<blockquote><p>While using `package.el’ fulfills a long-awaited dream for easily adding and upgrading Emacs libraries, I now feel upgrading packages is much more complex than what I anticipated.</p>
-<p>At least two of the packages I use daily (Org and Helm) require to be installed from inside a fresh Emacs session (emacs -Q), where nothing has been loaded.</p></blockquote>
-<p>I had wondered but never found out why one must follow this approach when installing org from scratch. Good to know!</p>

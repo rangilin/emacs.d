@@ -1,6 +1,0 @@
-
-<p>Mark Simpson reported that version 1.1 did not work with BBDB 2.35.
-Version 1.2 fixes that. You can download it <a href="bbdb-spell.el">here</a>. If you are running
-BBDB 3.0 you don't need to do anything as Roland Winkler has added the
-file in git.</p>
-

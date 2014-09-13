@@ -1,1 +1,0 @@
-A microtest has the following properties: It is short, typically under a dozen lines of code. It is *always* automated. It does not test the object inside the running app, but instead in a purpose-built testing application. It invokes only a tiny portion of the code, most usually a single branch of a single function. [&#8230;]

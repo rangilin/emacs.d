@@ -1,1 +1,0 @@
-If you&#8217;re lucky (or unlucky, depending on your viewpoint) enough to be using Git as part of your workflow, you may have come across Magit, an Emacs interface to Git. Magit&#8217;s an excellent interface to Git, but it does assume you know exactly what you&#8217;re doing with Magit and, ultimately, Git. Magit has a fine [...]

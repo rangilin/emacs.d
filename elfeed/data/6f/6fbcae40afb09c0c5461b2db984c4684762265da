@@ -1,1 +1,0 @@
-A friend of mine showed me Fish Shell, a shell replacement for Mac and Linux. One of its coolest features was a &#8220;quick directory switcher&#8221; that lets you jump to directories you&#8217;ve previously visited in that session. Feeling left out I decided to write dirswitch.el, a directory switcher for M-x shell, Emacs&#8217;s built-in shell mode [...]

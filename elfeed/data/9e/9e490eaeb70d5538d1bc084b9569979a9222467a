@@ -1,9 +1,0 @@
-
-<p>Can't export gif files with the Gimp? You need to do install the
-following:</p>
-
-<p><code>apt-get install gimp1.2-nonfree</code></p>
-
-<p>This is due to a silly patent by a company I won't care to name on LZW
-compression.</p>
-

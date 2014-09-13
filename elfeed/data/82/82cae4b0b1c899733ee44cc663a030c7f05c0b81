@@ -1,8 +1,0 @@
-
-<p>I got tired of people's name being highlighted red when composing
-e-mail with flyspell. So I wrote bbdb-spell that exports peoples'
-first and last name from bbdb to aspell custom dictionaries.</p>
-
-<p>You need to set the variable ivan-bbdb-aspell-dictionary to a list of
-personal dictionaries. Then run M-x ivan-bbdb-export-aspell.</p>
-

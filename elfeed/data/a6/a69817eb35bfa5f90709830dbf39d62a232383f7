@@ -1,8 +1,0 @@
-
-<p>I use appointment with org. I find that a global time delay for each
-appointments is inconvenient. For example I need to be warned an hour
-before an appointment downtown and only 5 minutes for a meeting at
-work. I have hacked appt.el to keep track of a delay for each
-appointment. The function appt-add is compatible with the old appt and
-the change has been accepted upstream.</p>
-

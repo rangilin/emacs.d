@@ -1,1 +1,0 @@
-A programming game is a computer game where two or more programs compete with each other. What are the basic requirements for programming games and can they be realized in browsers? With JavaScript? 4 basic claims There are 4 basic claims. Competing programs: must run isolated from the main program. must communicate with the main [&#8230;]

@@ -1,8 +1,0 @@
-<p>XACT is a audio application used to manage audio for games using the XNA
-framework. Here are some resources to help you get started.</p>
-<p><a class="reference external" href="http://www.microsoft.com/en-us/download/details.aspx?id=23714">Installing XNA 4.0</a></p>
-<p>you may need Visual Studio 2010 express to use it:</p>
-<p><a class="reference external" href="http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express">Visual Studio 2010 install links</a></p>
-<p>Make sure to install the C# express version.</p>
-<p>After that, try following <a class="reference external" href="http://msdn.microsoft.com/en-us/library/bb203895(v=xnagamestudio.20).aspx">this tutorial</a> to build XACT projects.</p>
-</p>

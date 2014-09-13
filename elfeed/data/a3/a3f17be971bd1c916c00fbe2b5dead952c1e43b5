@@ -1,1 +1,0 @@
-As part of a recent advanced TDD course, we took a careful look at a simple stack implementation TDD-style. Here are the decisions that went into designing and implementing the stack. First, the specification decisions: Stack is an object Name is &#8220;Stack&#8221; There is an operation to add an element It is called &#8220;push&#8221; It [...]

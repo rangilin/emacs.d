@@ -1,7 +1,0 @@
-<p>My coworker showed this to me today: if you want to use a perforce
-command from the command line, and pass it a batch of filenames from a
-command (such as find or grep), simply use:</p>
-<p><pre class="literal-block">
-p4 COMMAND ${ENTER_COMMAND_HERE}
-</pre>
-</p>

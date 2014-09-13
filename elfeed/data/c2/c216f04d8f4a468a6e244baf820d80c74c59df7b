@@ -1,1 +1,0 @@
-Ever wonder how Emacs *knows* that the point is next to a balanced expression like a bracket or a string? That kill-sexp or up-list knows how to kill the balanced expression at point or move up one level in a nested set of brackets, in just about any major mode out there? At a higher [...]

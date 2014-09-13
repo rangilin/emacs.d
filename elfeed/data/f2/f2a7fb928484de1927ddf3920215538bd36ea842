@@ -1,6 +1,0 @@
-<p>Just mentioning a little m4 script I wrote a little while ago.
-ax_check_mysql is used to find a valid MySQL installation, and gives
-you the binary, include, and plugin directories.</p>
-<p>If you have an autoconf project, and you need MySQL, definitely consider
-it!</p>
-<p><a class="reference external" href="http://www.gnu.org/software/autoconf-archive/ax_check_mysql.html#ax_check_mysql">http://www.gnu.org/software/autoconf-archive/ax_check_mysql.html#ax_check_mysql</a></p>

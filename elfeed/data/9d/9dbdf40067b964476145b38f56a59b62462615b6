@@ -1,7 +1,0 @@
-
-<p>It's easy on Linux. Just type the following:</p>
-
-<pre class="example">
-for i in *.mp3 ; do mpg123 -w $i.wav $i ; done
-</pre>
-

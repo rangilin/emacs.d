@@ -1,5 +1,0 @@
-
-<p>I noticed <a href="winpack.html">winpack</a> didn't work very well with Windows XP service pack
-3. I have removed gnuwin32 in favor of msys/mingw. I updated hg and
-vim while I was at it.</p>
-

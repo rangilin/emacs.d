@@ -1,7 +1,0 @@
-
-<p>Why is <a href="http://www.wonderworks.com/vm/">VM</a> (the best e-mail client IMHO) only highlighting the first
-dozen URL on my e-mail?  A quick look at vm-vars.eland I found the
-problem. The variable vm-url-search-limitis set to a 12000. Heck 12k
-is puny. I have put the following in my .vm and everything is groovy
-again: (setq vm-url-search-limit 100000)</p>
-
