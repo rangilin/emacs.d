@@ -14,9 +14,6 @@
 ;; ------------------------------ newline & Indent
 (bind-key "RET" 'newline-and-indent)
 
-;; ------------------------------ kill line
-(define-key key-translation-map (kbd "M-H") (kbd "<C-S-backspace>"))
-
 ;; ------------------------------ join line
 (defun rangi/join-below-line ()
   (interactive)

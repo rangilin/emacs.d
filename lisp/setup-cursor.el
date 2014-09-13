@@ -44,6 +44,8 @@
 ;; so I can pop mark multiple time with C-u C-@ C-@...
 (setq-default set-mark-command-repeat-pop t)
 
+(bind-key "M-H" 'mark-defun)
+
 ;; ------------------------------ ace jump
 (use-package ace-jump-mode
   :bind (("C-;" . ace-jump-mode)
