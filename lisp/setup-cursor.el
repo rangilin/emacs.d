@@ -25,6 +25,8 @@
     (setq-default mc/list-file (expand-file-name ".mc-lists.el" rangi/gen-dir)))
   :bind (("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
+         ("C-c C->" . mc/mark-all-like-this)
+         ("C-c C-<" . mc/mark-all-dwim)
          ("C-S-c C->" . mc/mark-more-like-this-extended)))
 
 ;; ------------------------------ sub word
