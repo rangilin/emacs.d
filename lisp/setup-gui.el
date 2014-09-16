@@ -93,7 +93,10 @@
   (when window-system
     (let ((theme rangi/theme))
       (message "Reloading theme %s" theme)
-      (load-theme theme))))
+      (load-theme theme))
+
+    ;; make current window more obvious
+    (set-face-attribute 'mode-line nil :box '(:color "#EEE" :line-width 1))))
 
 (defadvice server-create-window-system-frame
   (after reload-theme-on-frame-created ())
