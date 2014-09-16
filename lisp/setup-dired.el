@@ -2,9 +2,10 @@
 
 (use-package dired
   :init
-  (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-listing-switches "-aBhl  --group-directories-first")
+  (setq dired-dwim-target t)
 
+;;   (put 'dired-find-alternate-file 'disabled nil)
 ;;   (defun rangi/dired-up-directory (prefix)
 ;;     "My `dired-up-directory' alternate which open parent directory in current
 ;; buffer by default. However, open in new buffer if prefix is given"
