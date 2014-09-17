@@ -101,4 +101,7 @@
 
 (bind-key "<f5>" 'rangi/refresh-buffer)
 
+;; ------------------------------ narrowing
+(put 'narrow-to-region 'disabled nil)
+
 (provide 'setup-buffer)
