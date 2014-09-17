@@ -15,9 +15,17 @@
     (add-hook 'org-shiftdown-final-hook 'windmove-down)
     (add-hook 'org-shiftright-final-hook 'windmove-right)
 
-    (defadvice org-beginning-of-line (before advice-org-beginning-of-line activate)
+    (defadvice org-beginning-of-line
+      (before advice-org-beginning-of-line activate)
       (handle-shift-selection))
-    (defadvice org-end-of-line (before advice-org-end-of-line activate)
+    (defadvice org-end-of-line
+      (before advice-org-end-of-line activate)
+      (handle-shift-selection))
+    (defadvice org-table-beginning-of-field
+      (before advice-org-table-beginning-of-field activate)
+      (handle-shift-selection))
+    (defadvice org-table-end-of-field
+      (before advice-org-table-end-of-field activate)
       (handle-shift-selection))
 
     (use-package gnuplot)
