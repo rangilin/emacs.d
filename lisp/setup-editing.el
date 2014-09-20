@@ -173,4 +173,4 @@
 
 (bind-key "M-T" 'rangi/transpose-by-delimiter)
 
-(delimiter 'setup-editing)
+(provide 'setup-editing)
