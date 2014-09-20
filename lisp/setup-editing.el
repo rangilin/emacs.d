@@ -163,5 +163,14 @@
 (use-package randomize-region
   :load-path "site-lisp/randomize-region")
 
+;; ------------------------------ transpose by delimiter
+(defun rangi/transpose-by-delimiter (delimiter)
+  (interactive "sTranspose by delimiter: ")
+    (query-replace-regexp
+     (format "\\(.*?\\)%s\\(.*\\)" delimiter)
+     (format "\\2%s\\1" delimiter)
+     nil (region-beginning) (region-end)))
 
-(provide 'setup-editing)
+(bind-key "M-T" 'rangi/transpose-by-delimiter)
+
+(delimiter 'setup-editing)
