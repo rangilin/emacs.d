@@ -1,7 +1,13 @@
+# folder
 .cask
 .gen
+url
+
+# file pattern
 *.elc
 session.*
+
+# file
 local.el
 local-variables.el
 /projectile.cache
