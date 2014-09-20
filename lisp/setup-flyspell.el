@@ -1,4 +1,5 @@
 (require 'use-package)
+(require 'variables)
 
 (use-package flyspell
   :diminish ""
@@ -7,8 +8,11 @@
    ("C-$" . flyspell-check-previous-highlighted-word))
   :init
   (progn
-    (setq-default ispell-dictionary "english")
-    (setq-default flyspell-issue-message-flag nil)
+    (setq ispell-dictionary "english")
+    (setq ispell-personal-dictionary (expand-file-name ".aspell.en.pws" rangi/dictionary-dir) )
+
+    (setq flyspell-issue-message-flag nil)
+
     (add-hook 'markdown-mode-hook 'flyspell-mode)
     (add-hook 'monky-log-edit-mode-hook 'flyspell-mode)
     (add-hook 'org-mode-hook 'flyspell-mode)
