@@ -30,6 +30,7 @@
                     "M-]" ;; next-buffer
                     "C-M-v" ;; other window page down
                     "C-M-V" ;; other window page up
+                    "C-u" ;; prefix argument
                     ))
     (setq-default term-bind-key-alist
                   '(
