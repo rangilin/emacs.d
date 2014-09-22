@@ -16,9 +16,11 @@
 (defun rangi/browse-url-with-prompt (prompt url-format)
   "Browse URL with prompt as format arguments"
   (interactive)
-  (let ((result (rangi/prompt prompt)))
+  (let* ((result (rangi/prompt prompt))
+         (url (format url-format result)))
     (unless (zerop (length result))
-      (browse-url (format url-format result)))))
+      (browse-url url)
+      (message "Send %s to browser" url))))
 
 (bind-key "C-c B f" 'rangi/browse-fy)
 (bind-key "C-c B g" 'rangi/browse-google)
