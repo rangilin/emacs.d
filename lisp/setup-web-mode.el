@@ -13,6 +13,8 @@
     (setq-default web-mode-markup-indent-offset tab-width)
     (setq-default web-mode-css-indent-offset tab-width)
     (setq-default web-mode-code-indent-offset tab-width)
+
+    (bind-key "C-x u" 'undo-tree-visualize web-mode-map)
     (bind-key "C-/" 'web-mode-comment-or-uncomment web-mode-map)))
 
 (provide 'setup-web-mode)
