@@ -96,7 +96,7 @@
       (load-theme theme))
 
     ;; make current window more obvious
-    (set-face-attribute 'mode-line nil :box '(:color "#EEE" :line-width 1))))
+    (set-face-attribute 'mode-line nil :box '(:color "#EEE" :line-width 2))))
 
 (defadvice server-create-window-system-frame
   (after reload-theme-on-frame-created ())
