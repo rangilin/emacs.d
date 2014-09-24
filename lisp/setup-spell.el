@@ -8,6 +8,8 @@
    ("C-$" . flyspell-check-previous-highlighted-word))
   :init
   (progn
+    (setq ispell-program-name "aspell")
+    (setq ispell-extra-args '("-C" "--sug-mode=ultra" "--run-together-limit=5"))
     (setq ispell-dictionary "english")
     (setq ispell-personal-dictionary (expand-file-name ".aspell.en.pws" rangi/dictionary-dir) )
 
@@ -21,4 +23,4 @@
   (progn
     (bind-key "C-;" nil flyspell-mode-map))) ; reserved for ace jump
 
-(provide 'setup-flyspell)
+(provide 'setup-spell)
