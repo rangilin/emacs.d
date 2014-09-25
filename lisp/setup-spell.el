@@ -11,7 +11,7 @@
     (setq ispell-program-name "aspell")
     (setq ispell-extra-args '("-C" "--sug-mode=ultra" "--run-together-limit=5"))
     (setq ispell-dictionary "english")
-    (setq ispell-personal-dictionary (expand-file-name ".aspell.en.pws" rangi/dictionary-dir) )
+    (setq ispell-personal-dictionary rangi/personal-dictionary-en)
 
     (setq flyspell-issue-message-flag nil)
 
@@ -19,6 +19,7 @@
     (add-hook 'monky-log-edit-mode-hook 'flyspell-mode)
     (add-hook 'org-mode-hook 'flyspell-mode)
     (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+    (add-hook 'text-mode-hook 'flyspell-mode))
   :config
   (progn
     (bind-key "C-;" nil flyspell-mode-map))) ; reserved for ace jump
