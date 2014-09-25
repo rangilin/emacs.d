@@ -32,13 +32,13 @@
                                  (mode . woman-mode)
                                  (mode . info-mode)
                                  (mode . help-mode)))
+                     ("Org" (mode . org-mode))
                      ("SQL client" (mode . sql-interactive-mode))
                      ("Terminal" (or (mode . term-mode)
                                      (mode . shell-mode)
                                      (mode . eshell-mode)))
                      ;; stay last
-                     ("Temporary" (name . "\*.*\*"))
-                     )))
+                     ("Temporary" (name . "\*.*\*")))))
 
     ;; define a column that display buffer size in readable format
     (define-ibuffer-column readable-size
@@ -85,15 +85,14 @@
          ("M-S-<right>" . buf-move-right)
          ("M-S-<left>" . buf-move-left)))
 
-;; ------------------------------ buffer auto revert
+;; ------------------------------ default scratch buffer mode
+(setq initial-major-mode 'text-mode)
+
+;; ------------------------------ revert buffer
 (global-auto-revert-mode 1)
 (setq-default global-auto-revert-non-file-buffers t)
 (setq-default auto-revert-verbose nil)
 
-;; ------------------------------ default scratch buffer mode
-(setq initial-major-mode 'text-mode)
-
-;; revert buffer ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun rangi/refresh-buffer ()
   (interactive)
   (revert-buffer nil t nil)
