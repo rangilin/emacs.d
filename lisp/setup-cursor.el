@@ -60,4 +60,12 @@
 
 (bind-key "C-a" 'rangi/back-to-indentation-or-beginning)
 
+;; ------------------------------ forward/backward whitespace
+;; (defun rangi/backward-whitespace (arg)
+;;   (interactive "p")
+;;   (forward-whitespace (- arg)))
+;;
+;; (bind-key "M-F" 'forward-whitespace)
+;; (bind-key "M-B" 'rangi/backward-whitespace)
+
 (provide 'setup-cursor)
