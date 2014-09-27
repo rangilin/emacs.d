@@ -51,4 +51,13 @@
   :bind (("C-;" . ace-jump-mode)
          ("M-;" . ace-jump-mode-pop-mark)))
 
+;; ------------------------------ back to indentation or beginning
+;; http://www.emacswiki.org/emacs/BackToIndentationOrBeginning
+(defun rangi/back-to-indentation-or-beginning () (interactive)
+  "Back to indentation or beginning of current line"
+  (if (= (point) (progn (back-to-indentation) (point)))
+      (beginning-of-line)))
+
+(bind-key "C-a" 'rangi/back-to-indentation-or-beginning)
+
 (provide 'setup-cursor)
