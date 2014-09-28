@@ -28,6 +28,15 @@
       (before advice-org-table-end-of-field activate)
       (handle-shift-selection))
 
+    (defadvice org-beginning-of-line (around ad-org-beginning-of-line-around act)
+      "Move back to indentation first, then to beginning of line"
+      (let ((initial-position (point)))
+        ad-do-it
+        (when (looking-at "^ +")
+          (when (equal initial-position
+                       (progn (back-to-indentation)
+                              (point)))
+            (beginning-of-line)))))
 
     ;; ------------------------------ Move single cell
     ;; http://cs.gmu.edu/~kauffman/software/org-table-move-single-cell.el
