@@ -8,6 +8,7 @@
       (guide-key/add-local-highlight-command-regexp "org-"))
     (add-hook 'org-mode-hook 'rangi/guide-key-for-org-mode)
 
+    (setq guide-key/idle-delay 2)
     (setq guide-key/recursive-key-sequence-flag t)
     (setq guide-key/guide-key-sequence '("C-c" "C-x"))
     (guide-key-mode 1)))
