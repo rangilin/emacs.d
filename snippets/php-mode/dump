@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: var_dump with ob_start
+# key: dump
+# --
+ob_start();
+var_dump($1);
+${2:$print} = ob_get_clean();
