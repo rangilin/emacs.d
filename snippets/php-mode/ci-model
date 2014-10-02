@@ -4,10 +4,8 @@
 # --
 <?php
 
-class ${1:My_model} extends ${2:CI_Model}
-{
-function __construct()
-{
+class ${1:My_model} extends ${2:CI_Model} {
+function __construct() {
 parent::__construct();
 }
 
