@@ -18,7 +18,7 @@
     (add-hook 'markdown-mode-hook 'flyspell-mode)
     (add-hook 'monky-log-edit-mode-hook 'flyspell-mode)
     (add-hook 'org-mode-hook 'flyspell-mode)
-    (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+    (add-hook 'prog-mode-hook 'flyspell-prog-mode)
     (add-hook 'text-mode-hook 'flyspell-mode))
   :config
   (progn
