@@ -25,6 +25,7 @@
   (progn
     (projectile-global-mode)
 
+    (setq-default projectile-projects-cache (make-hash-table :test 'equal))
     (setq-default projectile-enable-caching t)
     (setq-default projectile-switch-project-action 'projectile-dired)
     (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rangi/gen-dir))
