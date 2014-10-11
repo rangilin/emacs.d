@@ -10,5 +10,6 @@ session.*
 # file
 local.el
 local-variables.el
+ido.last
 /projectile.cache
 .yas-compiled-snippets.el
