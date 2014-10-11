@@ -2,9 +2,9 @@
 # name: CodeIgniter model
 # key: ci-model
 # --
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ${1:My_model} extends ${2:CI_Model} {
+class ${1:My_model} extends ${2:CI}_Model {
 function __construct() {
 parent::__construct();
 }

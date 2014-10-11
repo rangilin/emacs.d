@@ -2,12 +2,12 @@
 # name: CodeIgniter controller
 # key: ci-controller
 # --
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class ${1:My}_controller extends ${2:CI_Controller} {
+class ${1:Controller} extends ${2:CI}_Controller {
 
 function __construct() {
-__construct();
+parent::__construct();
 }
 
 public function ${3:index}($4) {
