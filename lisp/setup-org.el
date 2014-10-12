@@ -9,6 +9,7 @@
     (setq-default org-startup-truncated nil)
     (setq-default org-startup-with-inline-images t)
     (setq-default org-drawers `("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "DETAIL"))
+    (setq-default org-catch-invisible-edits 'smart)
 
     (add-hook 'org-shiftup-final-hook 'windmove-up)
     (add-hook 'org-shiftleft-final-hook 'windmove-left)
