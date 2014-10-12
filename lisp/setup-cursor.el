@@ -30,13 +30,18 @@
          ("C-S-c C->" . mc/mark-more-like-this-extended)))
 
 ;; ------------------------------ sub word
-(global-subword-mode)
+(use-package subword
+  :diminish ""
+  :init
+  (progn
+    (global-subword-mode)
 
-;; solve issue that subword not support shift selection at my version
-(defadvice subword-forward (before advice-subword-forward activate)
-  (handle-shift-selection))
-(defadvice subword-backward (before advice-subword-backward activate)
-  (handle-shift-selection))
+    ;; solve issue that subword not support shift selection at my version
+    (defadvice subword-forward (before advice-subword-forward activate)
+      (handle-shift-selection))
+    (defadvice subword-backward (before advice-subword-backward activate)
+      (handle-shift-selection))))
+
 
 
 ;; ------------------------------ mark
