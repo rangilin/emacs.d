@@ -25,6 +25,7 @@
     (bind-key "C-/" 'web-mode-comment-or-uncomment web-mode-map)
 
     (defun rangi/web-mode-hook ()
+      (toggle-truncate-lines)
       (when (stringp buffer-file-name)
           (cond ((string-match "\\.php\\'" buffer-file-name)
                  (yas-activate-extra-mode 'php-mode)))))
