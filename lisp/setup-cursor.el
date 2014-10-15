@@ -27,7 +27,8 @@
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C->" . mc/mark-all-like-this)
          ("C-c C-<" . mc/mark-all-dwim)
-         ("C-S-c C->" . mc/mark-more-like-this-extended)))
+         ("C-S-c C->" . mc/mark-more-like-this-extended)
+         ("C-c <C-mouse-1>" . mc/add-cursor-on-click)))
 
 ;; ------------------------------ sub word
 (use-package subword
