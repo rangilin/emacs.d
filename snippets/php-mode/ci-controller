@@ -2,7 +2,8 @@
 # name: CodeIgniter controller
 # key: ci-controller
 # --
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class ${1:Controller} extends ${2:CI}_Controller {
 

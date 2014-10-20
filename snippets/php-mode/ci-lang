@@ -1,5 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: CodeIgniter lang line
-# key: ci-lang
-# --
-$this->lang->line('$1')$0
