@@ -9,7 +9,7 @@
   :init
   (progn
     (setq ispell-program-name "aspell")
-    (setq ispell-extra-args '("-C" "--sug-mode=ultra" "--run-together-limit=5"))
+    (setq ispell-extra-args '("--sug-mode=ultra" "--run-together-limit=5" "--run-together-min=3"))
     (setq ispell-dictionary "english")
     (setq ispell-personal-dictionary rangi/personal-dictionary-en)
 
