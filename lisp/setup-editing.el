@@ -173,11 +173,4 @@
 
 (bind-key "M-T" 'rangi/transpose-by-delimiter)
 
-;; ------------------------------ aggressive indentation
-(use-package aggressive-indent
-  :init
-  (progn
-    (global-aggressive-indent-mode 1)))
-
-
 (provide 'setup-editing)

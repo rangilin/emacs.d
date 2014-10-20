@@ -4,7 +4,6 @@
 
 (source melpa)
 (depends-on "ace-jump-mode")
-(depends-on "aggressive-indent")
 (depends-on "anzu")
 (depends-on "apache-mode")
 (depends-on "autopair")
