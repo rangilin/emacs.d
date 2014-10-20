@@ -11,10 +11,9 @@
     (setq-default ruby-deep-indent-paren nil)
 
     (defun rangi--setup-ruby-mode ()
-      (autopair-mode -1)) ; use ruby-electric instead
+      (autopair-mode -1)
+      (bind-key "C-c q" 'yari ruby-mode-map)) ; use ruby-electric instead
     (add-hook 'ruby-mode-hook 'rangi--setup-ruby-mode)
-
-
 
     (use-package ruby-electric
       :init
@@ -29,18 +28,11 @@
           (ruby-indent-line t)
           (end-of-line))))
 
-
-
     (use-package rhtml-mode
       :mode (("\\.html\\.erb$" . rhtml-mode)))
 
-
-
     (use-package yari
-      :bind ("C-c q" . yari)
       :init (defalias 'ri 'yari))
-
-
 
     (use-package rspec-mode
       :init
