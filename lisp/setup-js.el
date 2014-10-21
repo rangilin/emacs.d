@@ -11,6 +11,6 @@
   :config
   (progn
     (setq-default js2-basic-offset tab-width)
-    (setq-default js2-bounce-indent-p t)))
+    (setq-default js2-bounce-indent-p nil)))
 
 (provide 'setup-js)
