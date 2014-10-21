@@ -8,8 +8,8 @@ url
 session.*
 
 # file
-local.el
-local-variables.el
+lisp/local.el
+lisp/local-variables.el
 ido.last
 /projectile.cache
 .yas-compiled-snippets.el
