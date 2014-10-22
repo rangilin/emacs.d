@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: altfoe
+# key: altfoe
+# --
+<?php foreach (${1:$array} as ${3:${2:$key} => }${4:$value}): ?>
+$0
+<?php endforeach; ?>
