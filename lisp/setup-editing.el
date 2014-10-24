@@ -60,27 +60,29 @@
 ;; Text Manipulation
 ;; ============================================================
 
-(bind-key "C-d" 'delete-forward-char)
 
 ;; ------------------------------ delete word
-(defun rangi/delete-word (arg)
-  "Delete word after cursor without add to kill ring"
-  (interactive "p")
-  (delete-region (point)
-                 (progn
-                   (if (rangi/minor-mode-on-p 'subword-mode)
-                       (subword-forward arg)
-                       (forward-word arg))
-                    (point))))
+;; (defun rangi/delete-word (arg)
+;;   "Delete word after cursor without add to kill ring"
+;;   (interactive "p")
+;;   (delete-region (point)
+;;                  (progn
+;;                    (if (rangi/minor-mode-on-p 'subword-mode)
+;;                        (subword-forward arg)
+;;                        (forward-word arg))
+;;                     (point))))
 
-(defun rangi/backward-delete-word (arg)
-  "Delete word before cursor without add it to kill ring"
-  (interactive "p")
-  (rangi/delete-word (- arg)))
+;; (defun rangi/backward-delete-word (arg)
+;;   "Delete word before cursor without add it to kill ring"
+;;   (interactive "p")
+;;   (rangi/delete-word (- arg)))
 
-(bind-key "C-M-h" 'rangi/backward-delete-word)
-(bind-key "M-d" 'rangi/delete-word)
+;; (bind-key "C-M-h" 'rangi/backward-delete-word)
+;; (bind-key "M-d" 'rangi/delete-word)
 
+
+(bind-key "C-d" 'delete-forward-char)
+(bind-key "C-M-h" 'backward-kill-word)
 ;; ------------------------------ delete character backward
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
 
