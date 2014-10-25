@@ -23,8 +23,7 @@
     (setq-default term-buffer-maximum-size 10000)
     (setq-default multi-term-switch-after-close nil)
     (setq-default term-unbind-key-list
-                  `(
-                    "C-x" ;; all command with prefix "C-x"
+                  `("C-x" ;; all command with prefix "C-x"
                     "M-x" ;; smex
                     "M-[" ;; previous-buffer
                     "M-]" ;; next-buffer
@@ -33,8 +32,7 @@
                     "C-u" ;; prefix argument
                     ))
     (setq-default term-bind-key-alist
-                  '(
-                    ("C-c C-c" . term-interrupt-subjob)
+                  '(("C-c C-c" . term-interrupt-subjob)
                     ("C-c C-j" . term-line-mode)
                     ("C-c C-k" . term-char-mode)
                     ("C-m" . term-send-raw)
@@ -43,15 +41,9 @@
                     ("M-f" . term-send-forward-word)
                     ("M-b" . term-send-backward-word)
                     ("M-d" . term-send-forward-kill-word)
+                    ("<C-backspace>" . term-send-backward-kill-word)
                     ("C-M-h" . term-send-backward-kill-word)
-                    ("C-y" . term-paste)))
-
-    ;; ------------------------------ workaround directory with Chinese name bug
-    (defadvice term-command-hook (before decode-string)
-      (setq string (decode-coding-string string locale-coding-system)))
-    (when (version< emacs-version "24.3.50.1") (ad-activate 'term-command-hook))
-
-    ))
+                    ("C-y" . term-paste)))))
 
 ;; ------------------------------ exec path
 (use-package exec-path-from-shell
