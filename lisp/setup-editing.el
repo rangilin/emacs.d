@@ -36,6 +36,11 @@
       (bind-key "C-'" 'er/expand-region org-mode-map))
     (add-hook 'org-mode-hook 'rangi/er-org-mode-hook)))
 
+;; ------------------------------ change inner
+(use-package change-inner
+  :bind (("M-i" . change-inner)
+         ("M-o" . change-outer)))
+
 ;; ------------------------------ undo
 (use-package undo-tree
   :diminish undo-tree-mode

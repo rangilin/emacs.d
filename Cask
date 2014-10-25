@@ -10,6 +10,7 @@
 (depends-on "bind-key")
 (depends-on "browse-kill-ring")
 (depends-on "buffer-move")
+(depends-on "change-inner")
 (depends-on "color-moccur")
 (depends-on "color-theme-sanityinc-tomorrow")
 (depends-on "dash")
