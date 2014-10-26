@@ -1,6 +1,9 @@
 (require 'use-package)
 (require 'variables)
 
+(use-package flyspell-lazy
+  :init (flyspell-lazy-mode 1))
+
 (use-package flyspell
   :diminish ""
   :bind
@@ -8,6 +11,7 @@
    ("C-$" . flyspell-check-previous-highlighted-word))
   :init
   (progn
+
     (setq ispell-program-name "aspell")
     (setq ispell-extra-args '("--sug-mode=ultra" "--run-together-limit=5" "--run-together-min=3"))
     (setq ispell-dictionary "english")

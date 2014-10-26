@@ -24,6 +24,7 @@
 (depends-on "flx-ido")
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
+(depends-on "flyspell-lazy")
 (depends-on "fullscreen-mode")
 (depends-on "gnuplot")
 (depends-on "go-eldoc")

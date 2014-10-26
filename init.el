@@ -24,7 +24,7 @@
 (require 'setup-elisp)
 (require 'setup-eshell)
 (require 'setup-flycheck)
-;(require 'setup-spell)
+(require 'setup-spell)
 (require 'setup-font)
 (require 'setup-go)
 (require 'setup-gui)
