@@ -108,17 +108,13 @@
   (if (rangi--point-is-at-lower-window)
       (recenter-top-bottom (truncate (/ (window-text-height) 2)))))
 
-(defun rangi--get-point-y ()
-  "Get Y position of the point related to current window"
-  (cdr (nth 6 (posn-at-point))))
-
 (defun rangi--point-is-at-upper-window ()
   "Check point is at upper part of current window"
-  (<= (rangi--get-point-y) (truncate (/ (window-text-height) 2))))
+  (<= (cdr (posn-col-row (posn-at-point))) (truncate (/ (window-text-height) 2))))
 
 (defun rangi--point-is-at-lower-window ()
   "Check point is at lower part of current window"
-  (> (rangi--get-point-y) (truncate (/ (window-text-height) 2))))
+  (> (cdr (posn-col-row (posn-at-point))) (truncate (/ (window-text-height) 2))))
 
 (bind-key "M-P" 'rangi/move-text-up)
 (bind-key "M-N" 'rangi/move-text-down)
