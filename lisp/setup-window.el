@@ -10,7 +10,7 @@
 buffer in it"
   (interactive)
   (call-interactively 'split-window-vertically)
-  (set-window-buffer (next-window) (other-buffer))
+  ;(set-window-buffer (next-window) (other-buffer))
   (other-window 1))
 
 (defun rangi/split-window-horizontally ()
@@ -18,7 +18,7 @@ buffer in it"
 buffer in it"
   (interactive)
   (call-interactively 'split-window-horizontally)
-  (set-window-buffer (next-window) (other-buffer))
+  ;(set-window-buffer (next-window) (other-buffer))
   (other-window 1))
 
 (bind-key "C-x 2" 'rangi/split-window-vertically)
