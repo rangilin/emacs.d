@@ -16,7 +16,7 @@
   "File which contains feeds")
 
 ;; ------------------------------ aspell
-(defvar rangi/dictionary-dir "/ramsey/Dropbox/aspell"
+(defvar rangi/dictionary-dir "/ramsey/Dropbox/files/aspell"
   "Directory for dictionary files")
 
 (defvar rangi/personal-dictionary-en
