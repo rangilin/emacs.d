@@ -15,7 +15,6 @@
 (depends-on "color-theme-sanityinc-tomorrow")
 (depends-on "dash")
 (depends-on "diminish")
-(depends-on "elfeed")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 (depends-on "f")
