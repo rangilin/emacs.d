@@ -2,6 +2,7 @@
 # name: elseif block
 # key: elseif
 # --
-elseif (${1:$bool}) {
+elseif (${1:$bool})
+{
 $0
 }

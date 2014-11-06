@@ -2,6 +2,7 @@
 # name: constructor
 # key: constructor
 # --
-function __construct($1) {
+function __construct($1)
+{
   ${2:parent::__construct();}$0
 }
