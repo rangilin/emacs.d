@@ -31,8 +31,43 @@
     (size-pairs . ((15 . 16) (17 . 18) (19 . 20) (20 . 20) (21 . 22) (24 . 24)
                    (26 . 26) (28 . 28) (30 . 30) (34 . 34) (36 . 36)))))
 
+(defvar rangi/font-alist-source-code-pro-wqymh
+  '((english-font . "Source Code Pro")
+    (cjk-font . "WenQuanYi Micro Hei")
+    (default-size-pair . (19 . 22))
+    (size-pairs . ((15 . 18) (17 . 20) (19 . 22) (20 . 24) (21 . 26) (24 . 28)
+                   (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
+
+(defvar rangi/font-alist-ubuntu-mono-wqymh
+  '((english-font . "Ubuntu Mono")
+    (cjk-font . "WenQuanYi Micro Hei")
+    (default-size-pair . (19 . 20))
+    (size-pairs . ((15 . 16) (17 . 18) (19 . 20) (21 . 22) (24 . 24)
+                   (26 . 26) (28 . 28) (30 . 30) (34 . 34) (36 . 36)))))
+
+(defvar rangi/font-alist-dejavu-sans-mono-wqymh
+  '((english-font . "DejaVu Sans Mono")
+    (cjk-font . "WenQuanYi Micro Hei")
+    (default-size-pair . (19 . 22))
+    (size-pairs . ((15 . 18) (17 . 20) (19 . 22) (20 . 24) (21 . 26) (24 . 28)
+                   (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
+
+(defvar rangi/font-alist-droid-sans-mono-wqymh
+  '((english-font . "Droid Sans Mono")
+    (cjk-font . "WenQuanYi Micro Hei")
+    (default-size-pair . (19 . 22))
+    (size-pairs . ((15 . 18) (17 . 20) (19 . 22) (20 . 24) (21 . 26) (24 . 28)
+                   (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
+
+(defvar rangi/font-alist-anonymous-pro-wqymh
+  '((english-font . "Anonymous Pro")
+    (cjk-font . "WenQuanYi Micro Hei")
+    (default-size-pair . (21 . 22))
+    (size-pairs . ((15 . 16) (17 . 18) (19 . 20) (21 . 22) (24 . 26)
+                   (26 . 28) (28 . 30) (30 . 32) (34 . 38) (36 . 40)))))
+
 ;; -------------------------------------------------- setup font
-(defvar rangi/font-alist rangi/font-alist-consolas-wqymh
+(defvar rangi/font-alist rangi/font-alist-anonymous-pro-wqymh
   "Default font alist")
 
 (defvar rangi/font-size-pair (cdr (assoc 'default-size-pair rangi/font-alist))
