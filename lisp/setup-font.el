@@ -20,7 +20,7 @@
 (defvar rangi/font-alist-consolas-wqymh
   '((english-font . "Consolas")
     (cjk-font . "WenQuanYi Micro Hei")
-    (default-size-pair . (19 . 20))
+    (default-size-pair . (17 . 18))
     (size-pairs . ((15 . 16) (17 . 18) (19 . 20) (20 . 22) (21 . 24) (24 . 26)
                    (26 . 28) (28 . 30) (30 . 34) (34 . 38) (36 . 40)))))
 
