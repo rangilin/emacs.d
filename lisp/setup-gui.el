@@ -33,20 +33,11 @@
 (setq-default scroll-preserve-screen-position 1)
 (setq-default mouse-wheel-progressive-speed nil)
 
-;; ------------------------------ column indicator
-(use-package fill-column-indicator
+;; ------------------------------ column enforce mode
+(use-package column-enforce-mode
   :init
   (progn
-    (defun rangi--enable-fci ()
-      ;; temporary workaround
-      ;; https://github.com/alpaker/Fill-Column-Indicator/issues/46
-      (when (not (string= major-mode "web-mode"))
-        (setq fci-rule-column 80)
-        (setq fci-rule-width 2)
-        (setq fci-rule-color "#666")
-        (fci-mode)))
-    (add-hook 'prog-mode-hook 'rangi--enable-fci)
-    (add-hook 'markdown-mode-hook 'rangi--enable-fci)))
+    (add-hook 'prog-mode-hook 'column-enforce-mode)))
 
 ;; ------------------------------ fullscreen
 (use-package fullscreen-mode
