@@ -27,6 +27,7 @@
 
     (defun rangi/web-mode-hook ()
       (toggle-truncate-lines)
+      (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
       (when (stringp buffer-file-name)
           (cond ((string-match "\\.php\\'" buffer-file-name)
                  (yas-activate-extra-mode 'php-mode)))))
