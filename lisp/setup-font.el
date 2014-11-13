@@ -67,7 +67,7 @@
                    (26 . 28) (28 . 30) (30 . 32) (34 . 38) (36 . 40)))))
 
 ;; -------------------------------------------------- setup font
-(defvar rangi/font-alist rangi/font-alist-anonymous-pro-wqymh
+(defvar rangi/font-alist rangi/font-alist-consolas-wqymh
   "Default font alist")
 
 (defvar rangi/font-size-pair (cdr (assoc 'default-size-pair rangi/font-alist))
