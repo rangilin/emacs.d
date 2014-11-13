@@ -89,12 +89,18 @@
       (message "Reloading theme %s" theme)
       (load-theme theme))
 
-    ;; make current window more obvious
-    (set-face-attribute 'mode-line nil :box '(:color "#EEE" :line-width 2))))
+    ;; some customization for sanityinc-tomorrow-eighties theme
+    (set-face-attribute 'mode-line nil
+                        :box '(:line-width 1 :color "#EEE")
+                        :foreground "white"
+                        :background (face-attribute 'default :background))
+    (set-face-attribute 'mode-line-inactive nil :background (face-attribute 'default :background))
+    (set-face-background 'fringe (face-attribute 'default :background))))
 
 (defadvice server-create-window-system-frame
   (after reload-theme-on-frame-created ())
   "Reload theme when a frame is created"
+
   (rangi/reload-theme))
 
 (ad-activate 'server-create-window-system-frame)
