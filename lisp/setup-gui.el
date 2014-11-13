@@ -35,8 +35,10 @@
 
 ;; ------------------------------ column enforce mode
 (use-package column-enforce-mode
+  :diminish column-enforce-mode
   :init
   (progn
+    (setq-default column-enforce-comments nil)
     (add-hook 'prog-mode-hook 'column-enforce-mode)))
 
 ;; ------------------------------ fullscreen
