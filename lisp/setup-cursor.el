@@ -62,8 +62,11 @@
 (defun rangi/back-to-indentation-or-beginning ()
   "Back to indentation or beginning of current line"
   (interactive "^")
-  (if (= (point) (progn (back-to-indentation) (point)))
-      (beginning-of-line)))
+  ;; workaround in visual line mode
+  (if (bound-and-true-p visual-line-mode)
+      (beginning-of-visual-line)
+      (when (= (point) (progn (back-to-indentation) (point)))
+        (beginning-of-line))))
 
 (bind-key "C-a" 'rangi/back-to-indentation-or-beginning)
 
