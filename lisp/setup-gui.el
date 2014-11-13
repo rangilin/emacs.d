@@ -38,6 +38,7 @@
   :diminish column-enforce-mode
   :init
   (progn
+    (set-face-foreground 'column-enforce-face "bisque3")
     (setq-default column-enforce-comments nil)
     (add-hook 'prog-mode-hook 'column-enforce-mode)))
 
