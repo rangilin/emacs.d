@@ -9,6 +9,7 @@
          ("\\.erb\\'" . web-mode)
          ("\\.mustache\\'" . web-mode)
          ("\\.djhtml\\'" . web-mode)
+         ("\\.tmpl\\'" . web-mode)
          ("\\.html\\'" . web-mode))
   :config
   (progn
