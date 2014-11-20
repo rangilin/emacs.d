@@ -13,7 +13,6 @@
          ("\\.html\\'" . web-mode))
   :config
   (progn
-     ;; use web-mode's auto pairing
     (setq-default web-mode-markup-indent-offset tab-width)
     (setq-default web-mode-css-indent-offset tab-width)
     (setq-default web-mode-code-indent-offset tab-width)
@@ -28,11 +27,12 @@
 
     (defun rangi/web-mode-hook ()
       (toggle-truncate-lines)
-      (autopair-mode -1)
       (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
       (when (stringp buffer-file-name)
           (cond ((string-match "\\.php\\'" buffer-file-name)
-                 (yas-activate-extra-mode 'php-mode)))))
+                 (yas-activate-extra-mode 'php-mode))
+                ((string-match "\\.tmpl\\'" buffer-file-name)
+                 (setq web-mode-enable-auto-pairing nil)))))
 
     (add-hook 'web-mode-hook 'rangi/web-mode-hook)))
 
