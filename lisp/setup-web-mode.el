@@ -13,7 +13,7 @@
          ("\\.html\\'" . web-mode))
   :config
   (progn
-    (autopair-mode -1) ;; use web-mode's auto pairing
+     ;; use web-mode's auto pairing
     (setq-default web-mode-markup-indent-offset tab-width)
     (setq-default web-mode-css-indent-offset tab-width)
     (setq-default web-mode-code-indent-offset tab-width)
@@ -28,6 +28,7 @@
 
     (defun rangi/web-mode-hook ()
       (toggle-truncate-lines)
+      (autopair-mode -1)
       (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
       (when (stringp buffer-file-name)
           (cond ((string-match "\\.php\\'" buffer-file-name)
