@@ -12,7 +12,6 @@
 (make-directory rangi/gen-dir t)
 
 ;; -------------------------------------------------- setup modules
-(require 'setup-autopair)
 (require 'setup-backup-n-autosave)
 (require 'setup-browser)
 (require 'setup-buffer)

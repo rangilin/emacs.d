@@ -7,6 +7,7 @@
 (setq-default x-select-enable-clipboard t)
 (setq-default require-final-newline t)
 
+(electric-pair-mode 1)
 (delete-selection-mode 1)
 (show-paren-mode 1)
 
