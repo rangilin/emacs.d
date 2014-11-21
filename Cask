@@ -6,7 +6,6 @@
 (depends-on "ace-jump-mode")
 (depends-on "anzu")
 (depends-on "apache-mode")
-(depends-on "autopair")
 (depends-on "bind-key")
 (depends-on "browse-kill-ring")
 (depends-on "buffer-move")
