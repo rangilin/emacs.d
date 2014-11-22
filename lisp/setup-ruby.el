@@ -11,8 +11,8 @@
     (setq-default ruby-deep-indent-paren nil)
 
     (defun rangi--setup-ruby-mode ()
-      (autopair-mode -1)
-      (bind-key "C-c q" 'yari ruby-mode-map)) ; use ruby-electric instead
+      (bind-key "C-c q" 'yari ruby-mode-map))
+
     (add-hook 'ruby-mode-hook 'rangi--setup-ruby-mode)
 
     (use-package ruby-electric
