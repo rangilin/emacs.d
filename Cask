@@ -39,6 +39,8 @@
 (depends-on "move-text")
 (depends-on "multi-term")
 (depends-on "multiple-cursors")
+(depends-on "php-boris")
+(depends-on "php-boris-minor-mode")
 (depends-on "php-mode")
 (depends-on "projectile")
 (depends-on "rhtml-mode")
