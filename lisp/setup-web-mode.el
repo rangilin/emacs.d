@@ -28,10 +28,11 @@
       (toggle-truncate-lines)
       (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
       (when (stringp buffer-file-name)
-          (cond ((string-match "\\.php\\'" buffer-file-name)
-                 (yas-activate-extra-mode 'php-mode))
-                ((string-match "\\.tmpl\\'" buffer-file-name)
-                 (setq web-mode-enable-auto-pairing nil)))))
+        (if (string-match "\\.php\\'" buffer-file-name)
+            (yas-activate-extra-mode 'php-mode))
+        (if (or (string-match "\\.blade.php\\'" buffer-file-name)
+                (string-match "\\.tmpl\\'" buffer-file-name))
+            (setq web-mode-enable-auto-pairing nil))))
 
     (add-hook 'web-mode-hook 'rangi/web-mode-hook)))
 
