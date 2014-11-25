@@ -13,3 +13,6 @@ lisp/local-variables.el
 ido.last
 /projectile.cache
 .yas-compiled-snippets.el
+
+eshell/history
+eshell/lastdir
