@@ -23,7 +23,7 @@
        " \n"
        (if (= (user-uid) 0)
              (with-face " #" :foreground "red")
-         " ☞")
+         " $")
        " "))
 
     (setq-default eshell-prompt-function 'rangi-eshell-prompt)))
