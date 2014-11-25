@@ -12,9 +12,6 @@
 (defvar rangi/elfeed-directory "/ramsey/Dropbox/rss/"
   "Directory where contains DB data for elfeed")
 
-(defvar rangi/elfeed-feeds-file (expand-file-name "feeds.txt" rangi/elfeed-directory)
-  "File which contains feeds")
-
 ;; ------------------------------ aspell
 (defvar rangi/dictionary-dir "/ramsey/Dropbox/files/aspell"
   "Directory for dictionary files")
