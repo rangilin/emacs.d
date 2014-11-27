@@ -107,7 +107,8 @@
 (defun rangi-kill-this-buffer-and-close-window ()
   (interactive)
   (kill-this-buffer)
-  (delete-window))
+  (unless (eq 1 (length (get-buffer-window-list)))
+    (delete-window)))
 
 (bind-key "C-<f4>" 'rangi-kill-this-buffer-and-close-window)
 
