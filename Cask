@@ -15,6 +15,7 @@
 (depends-on "column-enforce-mode")
 (depends-on "dash")
 (depends-on "diminish")
+(depends-on "dsvn")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 (depends-on "f")

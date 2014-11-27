@@ -15,4 +15,10 @@
   (progn
     (setq monky-process-type 'cmdserver)))
 
+(use-package dsvn
+  :init
+  (progn
+     (autoload 'svn-status "dsvn" "Run `svn status'." t)
+     (autoload 'svn-update "dsvn" "Run `svn update'." t)))
+
 (provide 'setup-svc)
