@@ -103,4 +103,12 @@
 ;; ------------------------------ narrowing
 (put 'narrow-to-region 'disabled nil)
 
+;; ------------------------------ close window & kill buffer
+(defun rangi-kill-this-buffer-and-close-window ()
+  (interactive)
+  (kill-this-buffer)
+  (delete-window))
+
+(bind-key "C-<f4>" 'rangi-kill-this-buffer-and-close-window)
+
 (provide 'setup-buffer)
