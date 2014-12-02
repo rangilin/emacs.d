@@ -12,6 +12,7 @@
     (add-hook 'before-save-hook 'gofmt-before-save)
 
     (bind-key "C-c C-r" 'go-remove-unused-imports go-mode-map)
+    (bind-key "C-c C-q" 'godoc go-mode-map)
     (bind-key "C-c i" 'go-goto-imports go-mode-map)
     (bind-key "C-c C-S-j" 'godef-jump-other-window go-mode-map)
 
