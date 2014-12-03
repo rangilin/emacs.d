@@ -66,6 +66,13 @@
     (size-pairs . ((15 . 16) (17 . 18) (19 . 20) (21 . 22) (24 . 26)
                    (26 . 28) (28 . 30) (30 . 32) (34 . 38) (36 . 40)))))
 
+(defvar rangi/font-alist-input-mono-wqymh
+  '((english-font . "Input Mono")
+    (cjk-font . "WenQuanYi Micro Hei")
+    (default-size-pair . (17 . 22))
+    (size-pairs . ((15 . 20) (17 . 22) (19 . 24) (20 . 26) (21 . 26) (24 . 30)
+                   (26 . 34) (28 . 36) (30 . 38) (34 . 44) (36 . 46)))))
+
 ;; -------------------------------------------------- setup font
 (defvar rangi/font-alist rangi/font-alist-consolas-wqymh
   "Default font alist")
