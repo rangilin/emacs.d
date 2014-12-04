@@ -10,7 +10,10 @@
     (use-package ido-ubiquitous
       :init (ido-ubiquitous-mode 1))
     (use-package ido-vertical-mode
-      :init (ido-vertical-mode))
+      :init
+      (progn
+        (ido-vertical-mode)
+        (setq-default ido-vertical-define-keys nil)))
     (use-package flx-ido
       :init (flx-ido-mode 1)
       :config
