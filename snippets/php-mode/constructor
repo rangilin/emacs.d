@@ -1,8 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: constructor
-# key: constructor
-# --
-function __construct($1)
-{
-  ${2:parent::__construct();}$0
-}

@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: constructor
+# key: cons
+# --
+${1:public} function __construct($2)
+{
+  ${3:parent::__construct();}$0
+}
