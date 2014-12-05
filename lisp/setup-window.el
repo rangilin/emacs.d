@@ -44,7 +44,10 @@ buffer in it"
 ;; ------------------------------ switch window
 (use-package switch-window
   :bind (("C-x o" . switch-window)
-         ("C-x C-o" . switch-window)))
+         ("C-x C-o" . switch-window))
+  :init
+  (progn
+    (setq-default switch-window-shortcut-style 'qwerty)))
 
 (use-package windmove
   :config (windmove-default-keybindings 'shift))
@@ -56,7 +59,7 @@ buffer in it"
 ;; ------------------------------ resizing
 (defun rangi/resize-window ()
   (interactive)
-  (set-temporary-overlay-map
+  (set-transient-map
     (let ((map (make-sparse-keymap)))
         (define-key map (kbd "<left>") 'shrink-window-horizontally)
         (define-key map (kbd "<right>") 'enlarge-window-horizontally)
