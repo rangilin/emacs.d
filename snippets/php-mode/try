@@ -1,11 +1,9 @@
 # -*- mode: snippet; require-final-newline: nil -*-
-# name: try catch finally
+# name: try catch
 # key: try
 # --
 try {
 $0
 } catch (${1:Exception} ${2:$e}) {
 $3
-}${4: finally \{
-$5
-\}}
+}
