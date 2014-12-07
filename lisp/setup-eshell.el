@@ -4,6 +4,7 @@
 (use-package "eshell"
   :init
   (progn
+    (use-package "em-smart")
 
     (defmacro with-face (str &rest properties)
       `(propertize ,str 'face (list ,@properties)))
@@ -26,6 +27,9 @@
          " $")
        " "))
 
-    (setq-default eshell-prompt-function 'rangi-eshell-prompt)))
+    (setq-default eshell-prompt-function 'rangi-eshell-prompt)
+    (setq-default eshell-where-to-jump 'begin)
+    (setq-default eshell-review-quick-commands nil)
+    (setq-default eshell-smart-space-goes-to-end t)))
 
 (provide 'setup-eshell)
