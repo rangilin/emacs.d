@@ -1,3 +1,5 @@
+(source gnu)
+
 (source org)
 (depends-on "org")
 (depends-on "org-plus-contrib")
