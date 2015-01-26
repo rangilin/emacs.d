@@ -40,6 +40,7 @@
             (beginning-of-line)))))
 
     (defun rangi/setup-org-mode ()
+      (flycheck-mode -1)
       (unbind-key "C-j" org-mode-map)
       (bind-key "RET" 'org-return-indent org-mode-map))
 
