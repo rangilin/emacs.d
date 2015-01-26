@@ -18,7 +18,7 @@
                    'face font-lock-keyword-face)
        (propertize (concat user-login-name "@" system-name)
                    'face font-lock-constant-face)
-       " "
+       " : "
        (propertize (abbreviate-file-name (eshell/pwd))
                    'face font-lock-constant-face)
        " \n"
