@@ -20,6 +20,7 @@
 
     (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+    (unbind-key "M-;" web-mode-map)
     (bind-key "C-_" 'undo-tree-undo web-mode-map)
     (bind-key "M-_" 'undo-tree-redo web-mode-map)
     (bind-key "C-x u" 'undo-tree-visualize web-mode-map)
