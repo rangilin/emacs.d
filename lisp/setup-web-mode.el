@@ -17,6 +17,7 @@
     (setq-default web-mode-css-indent-offset tab-width)
     (setq-default web-mode-code-indent-offset tab-width)
     (setq-default web-mode-sql-indent-offset tab-width)
+    (setq-default web-mode-enable-auto-pairing nil)
 
     (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
