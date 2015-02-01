@@ -27,7 +27,6 @@
 (depends-on "flycheck-cask")
 (depends-on "flycheck-rust")
 (depends-on "flyspell-lazy")
-(depends-on "fullscreen-mode")
 (depends-on "gnuplot")
 (depends-on "go-eldoc")
 (depends-on "go-mode")

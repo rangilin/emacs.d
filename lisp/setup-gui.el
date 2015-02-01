@@ -42,10 +42,6 @@
     (setq-default column-enforce-comments nil)
     (add-hook 'prog-mode-hook 'column-enforce-mode)))
 
-;; ------------------------------ fullscreen
-(use-package fullscreen-mode
-  :init (fullscreen-mode 1))
-
 ;; ------------------------------ linum
 ;; http://whattheemacsd.com//key-bindings.el-01.html
 (use-package linum
