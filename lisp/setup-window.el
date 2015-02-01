@@ -41,13 +41,11 @@ buffer in it"
 (bind-key "C-v" 'rangi/page-down)
 (bind-key "M-v" 'rangi/page-up)
 
-;; ------------------------------ switch window
-(use-package switch-window
-  :bind (("C-x o" . switch-window)
-         ("C-x C-o" . switch-window))
-  :init
-  (progn
-    (setq-default switch-window-shortcut-style 'qwerty)))
+;; ------------------------------ ace window
+(use-package ace-window
+  :bind (("C-x o" . ace-window)
+         ("C-x C-o" . ace-window))
+  :config (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 (use-package windmove
   :config (windmove-default-keybindings 'shift))

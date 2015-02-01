@@ -78,13 +78,6 @@
 (bind-key "M-]" 'next-buffer)
 (bind-key "M-[" 'previous-buffer)
 
-;; ------------------------------ buffer move
-(use-package buffer-move
-  :bind (("M-S-<up>" . buf-move-up)
-         ("M-S-<down>" . buf-move-down)
-         ("M-S-<right>" . buf-move-right)
-         ("M-S-<left>" . buf-move-left)))
-
 ;; ------------------------------ default scratch buffer mode
 (setq initial-major-mode 'text-mode)
 
