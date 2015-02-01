@@ -192,7 +192,13 @@
     (setq smartparens-strict-mode t)
     (setq sp-autoescape-string-quote nil)
     (setq sp-autoinsert-if-followed-by-word t)
-    (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p)))
+
+    (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))
+
+    (sp-local-pair 'web-mode "<?php " " ?>" :trigger "<?p"))
+
+    (sp-local-pair 'php-mode "<?php " " ?>" :trigger "<?p"))
+
   :bind
   (("C-M-k" . sp-kill-sexp)
    ("C-M-f" . sp-forward-sexp)
