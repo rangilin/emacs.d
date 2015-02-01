@@ -3,7 +3,11 @@
 ;; ------------------------------ anzu
 (use-package anzu
   :diminish ""
-  :init (global-anzu-mode +1)
+  :init
+  (progn
+    (setq-default anzu-search-threshold 1000)
+    (setq-default anzu-minimum-input-length 3)
+    (global-anzu-mode +1))
   :bind
   (("M-%" . anzu-query-replace)
    ("C-M-%" . anzu-query-replace-regexp)))
