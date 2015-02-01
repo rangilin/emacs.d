@@ -194,7 +194,7 @@
     (setq sp-autoinsert-if-followed-by-word t)
     (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p)))
   :bind
-  (("C-M-k" . sp-kill-sexp-with-a-twist-of-lime)
+  (("C-M-k" . sp-kill-sexp)
    ("C-M-f" . sp-forward-sexp)
    ("C-M-b" . sp-backward-sexp)
    ("C-M-n" . sp-up-sexp)
