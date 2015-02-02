@@ -176,8 +176,6 @@
 
 (bind-key "M-T" 'rangi/transpose-by-delimiter)
 
-(provide 'setup-editing)
-
 ;; ------------------------------ smartparens
 (use-package smartparens
   :init
@@ -197,7 +195,7 @@
 
     (sp-local-pair 'web-mode "<?php " " ?>" :trigger "<?p"))
 
-    (sp-local-pair 'php-mode "<?php " " ?>" :trigger "<?p"))
+    (sp-local-pair 'php-mode "<?php " " ?>" :trigger "<?p")
 
   :bind
   (("C-M-k" . sp-kill-sexp)
@@ -217,3 +215,5 @@
    ("M-S" . sp-split-sexp)
    ("M-J" . sp-join-sexp)
    ("C-M-t" . sp-transpose-sexp)))
+
+(provide 'setup-editing)
