@@ -173,6 +173,7 @@
 
 ;; ------------------------------ smartparens
 (use-package smartparens
+  :diminish ""
   :init
   (progn
     (use-package smartparens-config)
