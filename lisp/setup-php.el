@@ -1,6 +1,7 @@
 (require 'use-package)
 
 (use-package php-mode
+  :mode "\\.php\\|config.php\\'"
   :config
   (progn
     (setq-default php-mode-coding-style 'drupal)
