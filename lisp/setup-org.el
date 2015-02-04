@@ -4,7 +4,6 @@
   :mode ("\\.org$" . org-mode)
   :init
   (progn
-    (setq-default org-directory "/ramsey/Dropbox/org")
     (setq-default org-special-ctrl-a/e t)
     (setq-default org-startup-truncated nil)
     (setq-default org-startup-with-inline-images t)
