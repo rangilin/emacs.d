@@ -1,3 +1,6 @@
 [submodule "site-lisp/duplicator"]
 	path = site-lisp/duplicator
 	url = git@github.com:RangiLin/duplicator.git
+[submodule "site-lisp/reddit-mode"]
+	path = site-lisp/reddit-mode
+	url = git@github.com:death/reddit-mode.git
