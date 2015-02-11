@@ -16,16 +16,16 @@
     (add-hook 'org-shiftright-final-hook 'windmove-right)
 
     (defadvice org-beginning-of-line
-      (before advice-org-beginning-of-line activate)
+        (before advice-org-beginning-of-line activate)
       (handle-shift-selection))
     (defadvice org-end-of-line
-      (before advice-org-end-of-line activate)
+        (before advice-org-end-of-line activate)
       (handle-shift-selection))
     (defadvice org-table-beginning-of-field
-      (before advice-org-table-beginning-of-field activate)
+        (before advice-org-table-beginning-of-field activate)
       (handle-shift-selection))
     (defadvice org-table-end-of-field
-      (before advice-org-table-end-of-field activate)
+        (before advice-org-table-end-of-field activate)
       (handle-shift-selection))
 
     (defadvice org-beginning-of-line (around ad-org-beginning-of-line-around act)
@@ -41,7 +41,8 @@
     (defun rangi/setup-org-mode ()
       (flycheck-mode -1)
       (unbind-key "C-j" org-mode-map)
-      (bind-key "RET" 'org-return-indent org-mode-map))
+      (bind-key "RET" 'org-return-indent org-mode-map)
+      (bind-key "C-c a" 'org-agenda org-mode-map))
 
     (add-hook 'org-mode-hook 'rangi/setup-org-mode)
 
@@ -106,6 +107,6 @@
 
     (use-package gnuplot)
     (use-package org-plot
-      :bind (("C-M-g" . org-plot/gnuplot)))))
+      :bind (("C-M-g" . org-plot/gnuplot)))
 
-(provide 'setup-org)
+    (provide 'setup-org)))
