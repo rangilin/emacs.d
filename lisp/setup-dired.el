@@ -2,6 +2,8 @@
 
 (use-package dired
   :init
+  (when (string-equal system-type "darwin")
+    (setq insert-directory-program "/usr/local/bin/gls"))
   (setq dired-listing-switches "-aBhl  --group-directories-first")
   (setq dired-dwim-target t)
 
