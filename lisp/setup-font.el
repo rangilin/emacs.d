@@ -128,10 +128,10 @@
 (bind-key "C-x C-0" 'rangi/reset-font-size)
 
 ;; advice so new frame can be setup font size
-;; (defadvice server-create-window-system-frame
-;;   (after set-frame-font-size ())
-;;   "Set custom frame colours when creating the first frame on a display"
-;;   (rangi/reset-font-size))
+(defadvice server-create-window-system-frame
+  (after set-frame-font-size ())
+  "Set custom frame colours when creating the first frame on a display"
+  (rangi/reset-font-size))
 
 (rangi/reset-font-size)
 
