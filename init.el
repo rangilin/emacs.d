@@ -47,6 +47,9 @@
 (require 'setup-web-mode)
 (require 'setup-window)
 
+(when (string-equal system-type "darwin")
+  (require 'setup-mac))
+
 ;;-------------------------------------------------- unbind keys
 (global-unset-key (kbd "C-SPC"))
 
