@@ -32,4 +32,7 @@
 the minor mode"
   (and (boundp mode) (symbol-value mode)))
 
+(defun rangi-open-startup-file ()
+  (find-file rangi/startup-file))
+
 (provide 'functions)
