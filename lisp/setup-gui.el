@@ -78,28 +78,37 @@
 (setq-default display-time-format "%m/%d %T")
 (setq-default display-time-interval 1)
 
+(load-theme rangi/theme)
+;; some customization for sanityinc-tomorrow-eighties theme
+(set-face-attribute 'mode-line nil
+                    :box '(:line-width 1 :color "#EEE")
+                    :foreground "white"
+                    :background (face-attribute 'default :background))
+(set-face-attribute 'mode-line-inactive nil :background (face-attribute 'default :background))
+(set-face-background 'fringe (face-attribute 'default :background))
+
 ;; ------------------------------ workaround emacsclient theme bug
-(defun rangi/reload-theme (&rest frame)
-  (when window-system
-    (let ((theme rangi/theme))
-      (message "Reloading theme %s" theme)
-      (load-theme theme))
-
-    ;; some customization for sanityinc-tomorrow-eighties theme
-    (set-face-attribute 'mode-line nil
-                        :box '(:line-width 1 :color "#EEE")
-                        :foreground "white"
-                        :background (face-attribute 'default :background))
-    (set-face-attribute 'mode-line-inactive nil :background (face-attribute 'default :background))
-    (set-face-background 'fringe (face-attribute 'default :background))))
-
-(defadvice server-create-window-system-frame
-  (after reload-theme-on-frame-created ())
-  "Reload theme when a frame is created"
-
-  (rangi/reload-theme))
-
-(ad-activate 'server-create-window-system-frame)
-(add-hook 'after-make-frame-functions 'rangi/reload-theme t)
+;; (defun rangi/reload-theme (&rest frame)
+;;   (when window-system
+;;     (let ((theme rangi/theme))
+;;       (message "Reloading theme %s" theme)
+;;       (load-theme theme))
+;;
+;;     ;; some customization for sanityinc-tomorrow-eighties theme
+;;     (set-face-attribute 'mode-line nil
+;;                         :box '(:line-width 1 :color "#EEE")
+;;                         :foreground "white"
+;;                         :background (face-attribute 'default :background))
+;;     (set-face-attribute 'mode-line-inactive nil :background (face-attribute 'default :background))
+;;     (set-face-background 'fringe (face-attribute 'default :background))))
+;;
+;; (defadvice server-create-window-system-frame
+;;   (after reload-theme-on-frame-created ())
+;;   "Reload theme when a frame is created"
+;;
+;;   (rangi/reload-theme))
+;;
+;; (ad-activate 'server-create-window-system-frame)
+;; (add-hook 'after-make-frame-functions 'rangi/reload-theme t)
 
 (provide 'setup-gui)
