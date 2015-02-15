@@ -8,7 +8,6 @@
 ;; --------------------------------------------------
 
 ; inspired from https://gist.github.com/coldnew/7398845
-
 ;; -------------------------------------------------- pre-made font alist
 (defvar rangi/font-alist-monaco-wqymh
   '((english-font . "Monaco")
@@ -73,9 +72,18 @@
     (size-pairs . ((15 . 20) (17 . 22) (19 . 24) (20 . 26) (21 . 26) (24 . 30)
                    (26 . 34) (28 . 36) (30 . 38) (34 . 44) (36 . 46)))))
 
+(defvar rangi/font-alist-monaco-lehei
+  '((english-font . "Monaco")
+    (cjk-font . "LiHei Pro")
+    (default-size-pair . (13 . 16))
+    (size-pairs . ((11 . 14) (13 . 16) (15 . 18) (17 . 20) (19 . 22) (20 . 24) (21 . 26) (24 . 28)
+                   (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
+
 ;; -------------------------------------------------- setup font
-(defvar rangi/font-alist rangi/font-alist-consolas-wqymh
+(defvar rangi/font-alist rangi/font-alist-monaco-wqymh
   "Default font alist")
+(when (string-equal system-type "darwin")
+  (setq-default rangi/font-alist rangi/font-alist-monaco-lehei))
 
 (defvar rangi/font-size-pair (cdr (assoc 'default-size-pair rangi/font-alist))
   "Current font size pair, By default it is the default size pair of the default font alist")
