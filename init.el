@@ -47,7 +47,7 @@
 (require 'setup-web-mode)
 (require 'setup-window)
 
-(when (string-equal system-type "darwin")
+(when (rangi-osxp)
   (require 'setup-mac))
 
 ;;-------------------------------------------------- unbind keys
