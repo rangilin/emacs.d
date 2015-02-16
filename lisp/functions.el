@@ -1,16 +1,18 @@
 ;;; functions.el --- utilities functions which are required by setup files
 (require 'thingatpt)
 
-;; -- OS specified -------------------------------------------------------------
-;; http://doc.rix.si/org/fsem.html#sec-2-1
+;; -- System related  ----------------------------------------------------------
+(defun rangi-linux-p ()
+  "Returns t if OS is Linux, otherwise nil"
+  (string= system-type "gnu/linux"))
 
-(defun rangi-gnulinuxp ()
-  "Returns t if the system is a GNU/Linux machine, otherwise nil"
-  (string-equal system-type "gnu/linux"))
+(defun rangi-osx-p ()
+  "Returns t if OS is Mac OS X, otherwise nil"
+  (string= system-type "darwin"))
 
-(defun rangi-osxp ()
-  "Returns t if the system is a Mac OS X machine, otherwise nil"
-  (string-equal system-type "darwin"))
+(defun rangi-hostname-p (name)
+  "Return t if the system name is the same with specified name, otherwise nil"
+  (string= system-name name))
 
 (defun rangi/sub-gen-dir (sub-dir-name)
   "Create a directory under `rangi/gen-dir' and return full dir path of it"

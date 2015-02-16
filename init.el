@@ -49,7 +49,7 @@
 (require 'setup-web-mode)
 (require 'setup-window)
 
-(when (rangi-osxp)
+(when (rangi-osx-p)
   (require 'setup-mac))
 
 ;;-------------------------------------------------- unbind keys
