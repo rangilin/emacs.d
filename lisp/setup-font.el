@@ -12,8 +12,8 @@
 (defvar rangi/font-alist-monaco-wqymh
   '((english-font . "Monaco")
     (cjk-font . "WenQuanYi Micro Hei")
-    (default-size-pair . (17 . 20))
-    (size-pairs . ((15 . 18) (17 . 20) (19 . 22) (20 . 24) (21 . 26) (24 . 28)
+    (default-size-pair . (15 . 18))
+    (size-pairs . ((13 . 16) (15 . 18) (17 . 20) (19 . 22) (20 . 24) (21 . 26) (24 . 28)
                    (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
 (defvar rangi/font-alist-consolas-wqymh
