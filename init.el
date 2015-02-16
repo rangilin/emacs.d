@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;; -------------------------------------------------- boostrap
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
