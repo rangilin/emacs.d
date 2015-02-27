@@ -9,6 +9,7 @@
     (setq-default org-startup-with-inline-images t)
     (setq-default org-drawers `("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "DETAIL"))
     (setq-default org-catch-invisible-edits 'smart)
+    (setq-default org-completion-use-ido t)
 
     ;; agenda
     (setq-default org-agenda-start-on-weekday 0)
