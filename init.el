@@ -13,6 +13,8 @@
 ;; create generate files directory if not exist
 (make-directory rangi/gen-dir t)
 
+(set-locale-environment "zh_TW.utf-8")
+
 ;; -------------------------------------------------- setup modules
 (require 'setup-backup-n-autosave)
 (require 'setup-browser)
