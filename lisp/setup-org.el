@@ -10,6 +10,9 @@
     (setq-default org-drawers `("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "DETAIL"))
     (setq-default org-catch-invisible-edits 'smart)
 
+    ;; agenda
+    (setq-default org-agenda-start-on-weekday 0)
+
     (add-hook 'org-shiftup-final-hook 'windmove-up)
     (add-hook 'org-shiftleft-final-hook 'windmove-left)
     (add-hook 'org-shiftdown-final-hook 'windmove-down)
