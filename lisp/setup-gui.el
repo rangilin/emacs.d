@@ -12,7 +12,13 @@
 (setq-default inhibit-startup-message t)
 (setq-default initial-scratch-message "")
 
-(setq-default visible-bell t)
+(setq ring-bell-function
+      (lambda ()
+        (let ((cursor (face-background 'cursor))
+              (bg (face-background 'default)))
+          (set-face-background 'cursor bg)
+          (set-face-background 'cursor cursor))))
+
 (blink-cursor-mode -1)
 (setq-default echo-keystrokes 0.1)
 
