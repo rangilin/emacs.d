@@ -22,6 +22,12 @@
 (use-package multiple-cursors
   :init
   (progn
+
+    (use-package mc-hide-unmatched-lines-mode
+      :init
+      (progn
+        (bind-key "C-:" 'mc-hide-unmatched-lines-mode)))
+
     (setq-default mc/list-file (expand-file-name ".mc-lists.el" rangi/gen-dir)))
   :bind (("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
