@@ -19,16 +19,14 @@
 (bind-key "C-S-l" 'rangi/horizontal-recenter)
 
 ;; ------------------------------ multiple cursors
+(setq-default mc/list-file (expand-file-name ".mc-lists.el" rangi/gen-dir))
 (use-package multiple-cursors
   :init
   (progn
 
     (use-package mc-hide-unmatched-lines-mode
-      :init
-      (progn
-        (bind-key "C-:" 'mc-hide-unmatched-lines-mode)))
+      :init (bind-key "C-:" 'mc-hide-unmatched-lines-mode)))
 
-    (setq-default mc/list-file (expand-file-name ".mc-lists.el" rangi/gen-dir)))
   :bind (("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C->" . mc/mark-all-like-this)
@@ -48,7 +46,6 @@
       (handle-shift-selection))
     (defadvice subword-backward (before advice-subword-backward activate)
       (handle-shift-selection))))
-
 
 
 ;; ------------------------------ mark
