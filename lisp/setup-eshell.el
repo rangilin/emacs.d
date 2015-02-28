@@ -27,6 +27,11 @@
          " $")
        " "))
 
+    (setq eshell-prefer-lisp-functions t)
+    (setq eshell-prefer-lisp-variables t)
+    (setq password-cache t)
+    (setq password-cache-expiry 150) ;; 2.5 min
+
     (setq-default eshell-prompt-function 'rangi-eshell-prompt)
     (setq-default eshell-where-to-jump 'begin)
     (setq-default eshell-review-quick-commands nil)
