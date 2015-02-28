@@ -45,7 +45,12 @@ buffer in it"
 (use-package ace-window
   :bind (("C-x o" . ace-window)
          ("C-x C-o" . ace-window))
-  :config (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+  :config
+  (progn
+    (set-face-attribute
+     'aw-leading-char-face nil
+     :inherit 'ace-jump-face-foreground :height 3.0)
+    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))))
 
 (use-package windmove
   :config (windmove-default-keybindings 'shift))
