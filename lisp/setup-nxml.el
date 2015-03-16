@@ -23,7 +23,7 @@
 
 
 (use-package zencoding-mode
-  :init
+  :config
   (progn
     (bind-key "C-j" nil zencoding-mode-keymap)
     (add-hook 'html-mode-hook 'zencoding-mode)

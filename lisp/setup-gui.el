@@ -42,7 +42,7 @@
 ;; ------------------------------ column enforce mode
 (use-package column-enforce-mode
   :diminish column-enforce-mode
-  :init
+  :config
   (progn
     (set-face-foreground 'column-enforce-face "dim gray")
     (setq-default column-enforce-comments nil)

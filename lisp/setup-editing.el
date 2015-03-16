@@ -41,20 +41,24 @@
   :diminish undo-tree-mode
   :init
   (progn
+    (global-undo-tree-mode 1))
+  :config
+  (progn
     (bind-key "C-/" nil undo-tree-map)
-    (bind-key "C-?" nil undo-tree-map)
-    (global-undo-tree-mode 1)))
+    (bind-key "C-?" nil undo-tree-map)))
 
 ;; ------------------------------ yasnippet
 (use-package yasnippet
   :diminish yas-minor-mode
   :init
   (progn
+    (yas-global-mode 1))
+  :config
+  (progn
+    (setq-default yas/prompt-functions '(yas/ido-prompt)))
     (let ((snippets-dir (f-expand "snippets" user-emacs-directory)))
       (yas-load-directory snippets-dir)
-      (setq-default yas/snippet-dirs snippets-dir))
-    (yas-global-mode 1)
-    (setq-default yas/prompt-functions '(yas/ido-prompt))))
+      (setq-default yas/snippet-dirs snippets-dir)))
 
 ;; ============================================================
 ;; Text Manipulation
