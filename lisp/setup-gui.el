@@ -28,9 +28,6 @@
               '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name))
                          "%b"))))
 
-;; default frame size to maximized
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 ;; ------------------------------ scrolling behavior
 (setq-default redisplay-dont-pause t)
 (setq-default scroll-margin 1)

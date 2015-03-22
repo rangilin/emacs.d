@@ -44,4 +44,7 @@
 ;; (ad-activate 'server-create-window-system-frame)
 ;; (add-hook 'after-make-frame-functions 'rangi/reload-theme t)
 
+;; ------------------------------ default frame size to maximized
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 (provide 'setup-limbo)
