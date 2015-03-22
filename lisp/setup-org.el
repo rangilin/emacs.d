@@ -13,6 +13,7 @@
 
     ;; agenda
     (setq-default org-agenda-start-on-weekday 0)
+    (setq-default org-agenda-format-date "%a %Y-%m-%d")
 
     (add-hook 'org-shiftup-final-hook 'windmove-up)
     (add-hook 'org-shiftleft-final-hook 'windmove-left)
