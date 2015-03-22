@@ -52,9 +52,6 @@ buffer in it"
      :inherit 'ace-jump-face-foreground :height 3.0)
     (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))))
 
-(use-package windmove
-  :config (windmove-default-keybindings 'shift))
-
 ;; ------------------------------ winner
 (use-package winner
   :init (winner-mode 1))

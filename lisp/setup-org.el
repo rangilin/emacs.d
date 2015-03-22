@@ -15,11 +15,6 @@
     (setq-default org-agenda-start-on-weekday 0)
     (setq-default org-agenda-format-date "%a %Y-%m-%d")
 
-    (add-hook 'org-shiftup-final-hook 'windmove-up)
-    (add-hook 'org-shiftleft-final-hook 'windmove-left)
-    (add-hook 'org-shiftdown-final-hook 'windmove-down)
-    (add-hook 'org-shiftright-final-hook 'windmove-right)
-
     (defadvice org-beginning-of-line
         (before advice-org-beginning-of-line activate)
       (handle-shift-selection))
