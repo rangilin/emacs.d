@@ -6,6 +6,9 @@
 (require 'variables)
 (require 'thingatpt)
 
+
+(set-face-background 'cursor "forest green")
+
 ;; ------------------------------ horizontal recenter
 ;; http://stackoverflow.com/a/1249665/554279
 (defun rangi/horizontal-recenter ()
