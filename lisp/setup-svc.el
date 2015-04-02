@@ -5,6 +5,7 @@
   (progn
 
     (setq-default magit-auto-revert-mode-lighter "")
+    (setq-default magit-last-seen-setup-instructions "1.4.0")
 
     (defun rangi/disable-magit-item-highlight ()
       (face-remap-add-relative 'magit-item-highlight '()))
