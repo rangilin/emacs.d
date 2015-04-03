@@ -7,7 +7,7 @@
 (require 'thingatpt)
 
 
-(set-face-background 'cursor "forest green")
+(set-face-background 'cursor "green2")
 
 ;; ------------------------------ horizontal recenter
 ;; http://stackoverflow.com/a/1249665/554279
