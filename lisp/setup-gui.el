@@ -36,14 +36,12 @@
 (setq-default scroll-preserve-screen-position 1)
 (setq-default mouse-wheel-progressive-speed nil)
 
-;; ------------------------------ column enforce mode
-(use-package column-enforce-mode
-  :diminish column-enforce-mode
+;; ------------------------------ modeline position
+(use-package modeline-posn
   :config
   (progn
-    (set-face-foreground 'column-enforce-face "dim gray")
-    (setq-default column-enforce-comments nil)
-    (add-hook 'prog-mode-hook 'column-enforce-mode)))
+    (size-indication-mode 1)
+    (setq-default modelinepos-column-limit 80)))
 
 ;; ------------------------------ linum
 ;; http://whattheemacsd.com//key-bindings.el-01.html
