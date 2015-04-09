@@ -1,7 +1,7 @@
 Emacs configuration
 ===================
 
-My Emacs configuration.
+ My Emacs configuration.
 
 ### Other configurations  ###
 
