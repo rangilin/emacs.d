@@ -5,11 +5,11 @@
 (defvar rangi/theme 'sanityinc-tomorrow-eighties
   "Default theme")
 
-(defvar rangi/startup-file "/ramsey/Dropbox/personal/main.org"
+(defvar rangi/startup-file "~/Dropbox/personal/main.org"
   "File to open when emacs is started")
 
 ;; ------------------------------ aspell
-(defvar rangi/dictionary-dir "/ramsey/Dropbox/files/aspell"
+(defvar rangi/dictionary-dir "~/Dropbox/files/aspell"
   "Directory for dictionary files")
 
 (defvar rangi/personal-dictionary-en
