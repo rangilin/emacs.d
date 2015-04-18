@@ -1,12 +1,12 @@
 (require 'use-package)
 
 (use-package dired
-  :init
+  :config
   (when (string-equal system-type "darwin")
     (setq insert-directory-program "/usr/local/bin/gls"))
+
   (setq dired-listing-switches "-aBhl  --group-directories-first")
   (setq dired-dwim-target t)
-
 ;;   (put 'dired-find-alternate-file 'disabled nil)
 ;;   (defun rangi-dired-up-directory (prefix)
 ;;     "My `dired-up-directory' alternate which open parent directory in current
