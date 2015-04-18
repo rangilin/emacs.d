@@ -27,7 +27,7 @@
     (bind-key "C-x u" 'undo-tree-visualize web-mode-map)
     (bind-key "C-/" 'web-mode-comment-or-uncomment web-mode-map)
 
-    (defun rangi/web-mode-hook ()
+    (defun rangi-web-mode-hook ()
       (toggle-truncate-lines)
       (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
       (when (stringp buffer-file-name)
@@ -37,6 +37,6 @@
                 (string-match "\\.tmpl\\'" buffer-file-name))
             (setq web-mode-enable-auto-pairing nil))))
 
-    (add-hook 'web-mode-hook 'rangi/web-mode-hook)))
+    (add-hook 'web-mode-hook 'rangi-web-mode-hook)))
 
 (provide 'setup-web-mode)

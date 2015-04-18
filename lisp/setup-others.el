@@ -32,7 +32,7 @@
     (projectile-load-known-projects)
 
     (defadvice projectile-test-project
-      (before rangi/advise-projectile-save-before-test activate)
+      (before rangi-advise-projectile-save-before-test activate)
       (save-some-buffers t))))
 
 (use-package feature-mode

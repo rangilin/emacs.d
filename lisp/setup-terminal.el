@@ -14,9 +14,9 @@
           (clear-this-command-keys)))
 
     ;; ------------------------------ hook for setup term mode
-    (defun rangi/setup-term-mode ()
+    (defun rangi-setup-term-mode ()
       (yas-minor-mode -1)) ; yas tab not works well with term
-    (add-hook 'term-mode-hook 'rangi/setup-term-mode)
+    (add-hook 'term-mode-hook 'rangi-setup-term-mode)
 
     (setq-default multi-term-program "/bin/bash")
     (setq-default multi-term-program-switches "--login")

@@ -38,13 +38,13 @@
                               (point)))
             (beginning-of-line)))))
 
-    (defun rangi/setup-org-mode ()
+    (defun rangi-setup-org-mode ()
       (flycheck-mode -1)
       (unbind-key "C-j" org-mode-map)
       (bind-key "RET" 'org-return-indent org-mode-map)
       (bind-key "C-c a" 'org-agenda org-mode-map))
 
-    (add-hook 'org-mode-hook 'rangi/setup-org-mode)
+    (add-hook 'org-mode-hook 'rangi-setup-org-mode)
 
     ;; ------------------------------ Move single cell
     ;; http://cs.gmu.edu/~kauffman/software/org-table-move-single-cell.el

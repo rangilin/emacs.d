@@ -4,11 +4,11 @@
   :mode (("\\.go$" . go-mode))
   :config
   (progn
-    (defun rangi/go-mode-hook ()
+    (defun rangi-go-mode-hook ()
       (setq tab-width 4)
       (setq indent-tabs-mode t))
 
-    (add-hook 'go-mode-hook 'rangi/go-mode-hook)
+    (add-hook 'go-mode-hook 'rangi-go-mode-hook)
     (add-hook 'before-save-hook 'gofmt-before-save)
 
     (defun rangi-godoc (args)

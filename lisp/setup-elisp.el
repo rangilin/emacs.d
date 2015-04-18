@@ -29,7 +29,7 @@
   :init (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode))
 
 ;; ------------------------------ byte compile
-(defun rangi/byte-recompile ()
+(defun rangi-byte-recompile ()
   "Byte-compile init files to improve speed"
   (interactive)
   (byte-recompile-file (expand-file-name "init.el" user-emacs-directory))
@@ -44,6 +44,6 @@
 ;; find . -name "*.elc" -type f -not -path "./.cask/*"
 ;; delete them with additional -delete after the command
 
-(bind-key "C-c <f12>" 'rangi/byte-recompile)
+(bind-key "C-c <f12>" 'rangi-byte-recompile)
 
 (provide 'setup-elisp)

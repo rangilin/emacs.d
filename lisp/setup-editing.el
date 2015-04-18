@@ -15,11 +15,11 @@
 (bind-key "RET" 'newline-and-indent)
 
 ;; ------------------------------ join line
-(defun rangi/join-below-line ()
+(defun rangi-join-below-line ()
   (interactive)
   (join-line 1))
 
-(bind-key "C-j" 'rangi/join-below-line)
+(bind-key "C-j" 'rangi-join-below-line)
 (bind-key "C-S-j" 'join-line)
 
 ;; ------------------------------ browse kill ring
@@ -66,7 +66,7 @@
 
 
 ;; ------------------------------ delete word
-;; (defun rangi/delete-word (arg)
+;; (defun rangi-delete-word (arg)
 ;;   "Delete word after cursor without add to kill ring"
 ;;   (interactive "p")
 ;;   (delete-region (point)
@@ -76,13 +76,13 @@
 ;;                        (forward-word arg))
 ;;                     (point))))
 
-;; (defun rangi/backward-delete-word (arg)
+;; (defun rangi-backward-delete-word (arg)
 ;;   "Delete word before cursor without add it to kill ring"
 ;;   (interactive "p")
-;;   (rangi/delete-word (- arg)))
+;;   (rangi-delete-word (- arg)))
 
-;; (bind-key "C-M-h" 'rangi/backward-delete-word)
-;; (bind-key "M-d" 'rangi/delete-word)
+;; (bind-key "C-M-h" 'rangi-backward-delete-word)
+;; (bind-key "M-d" 'rangi-delete-word)
 
 
 (bind-key "C-d" 'delete-forward-char)
@@ -91,14 +91,14 @@
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
 
 ;; ------------------------------ move text
-(defun rangi/move-text-up (arg)
+(defun rangi-move-text-up (arg)
   "Move text up, but recenter if at upper part of the window"
   (interactive "*p")
   (move-text-up arg)
   (if (rangi--point-is-at-upper-window)
       (recenter-top-bottom (truncate (/ (window-text-height) 2)))))
 
-(defun rangi/move-text-down (arg)
+(defun rangi-move-text-down (arg)
   "Move text up, but recenter if at lower part of the window"
   (interactive "*p")
   (move-text-down arg)
@@ -115,8 +115,8 @@
   "Check point is at lower part of current window"
   (> (cdr (posn-col-row (posn-at-point))) (truncate (/ (window-text-height) 2))))
 
-(bind-key "M-P" 'rangi/move-text-up)
-(bind-key "M-N" 'rangi/move-text-down)
+(bind-key "M-P" 'rangi-move-text-up)
+(bind-key "M-N" 'rangi-move-text-down)
 
 ;; ------------------------------ zapzapzapzap
 (use-package misc
@@ -129,7 +129,7 @@
   :bind ("C-c d" . duplicator/duplicate-lines))
 
 ;; ------------------------------ insert new line
-(defun rangi/insert-newline-above ()
+(defun rangi-insert-newline-above ()
   "Insert a newline above the current line."
   (interactive)
   (beginning-of-line)
@@ -137,18 +137,18 @@
   (forward-line -1)
   (indent-according-to-mode))
 
-(defun rangi/insert-newline-below ()
+(defun rangi-insert-newline-below ()
   "Insert a newline below the current line."
   (interactive)
   (end-of-line)
   (newline)
   (indent-according-to-mode))
 
-(bind-key "<M-S-return>" 'rangi/insert-newline-above)
-(bind-key "<S-return>" 'rangi/insert-newline-below)
+(bind-key "<M-S-return>" 'rangi-insert-newline-above)
+(bind-key "<S-return>" 'rangi-insert-newline-below)
 
 ;; ------------------------------ comment
-;; (defun rangi/comment-or-uncomment-region-or-line ()
+;; (defun rangi-comment-or-uncomment-region-or-line ()
 ;;   "Comments or uncomments the region or the current line if there's no active region."
 ;;   (interactive)
 ;;   (let (beg end)
@@ -166,14 +166,14 @@
   :load-path "site-lisp/randomize-region")
 
 ;; ------------------------------ transpose by delimiter
-(defun rangi/transpose-by-delimiter (delimiter)
+(defun rangi-transpose-by-delimiter (delimiter)
   (interactive "sTranspose by delimiter: ")
     (query-replace-regexp
      (format "\\(.*?\\)%s\\(.*\\)" delimiter)
      (format "\\2%s\\1" delimiter)
      nil (region-beginning) (region-end)))
 
-(bind-key "M-T" 'rangi/transpose-by-delimiter)
+(bind-key "M-T" 'rangi-transpose-by-delimiter)
 
 ;; ------------------------------ smartparens
 (use-package smartparens

@@ -8,9 +8,10 @@
 (column-number-mode t)
 (line-number-mode t)
 
-(setq-default inhibit-splash-screen t)
-(setq-default inhibit-startup-message t)
-(setq-default initial-scratch-message "")
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+(setq initial-scratch-message "")
+(setq inhibit-startup-echo-area-message "")
 
 (setq ring-bell-function
       (lambda ()

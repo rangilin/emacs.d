@@ -2,14 +2,14 @@
 
 ;; ------------------------------ trailing whitespace
 ;; show trailing whitespace in following mode
-(defun rangi/show-trailing-whitespace ()
+(defun rangi-show-trailing-whitespace ()
   (setq show-trailing-whitespace t))
-(add-hook 'prog-mode-hook 'rangi/show-trailing-whitespace)
+(add-hook 'prog-mode-hook 'rangi-show-trailing-whitespace)
 
 ;; hide trailing whitespace in following mode
-(defun rangi/hide-trailing-whitespace ()
+(defun rangi-hide-trailing-whitespace ()
   (setq show-trailing-whitespace nil))
-(add-hook 'minibuffer-inactive-mode-hook 'rangi/hide-trailing-whitespace)
+(add-hook 'minibuffer-inactive-mode-hook 'rangi-hide-trailing-whitespace)
 
 ;; clean trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -68,9 +68,9 @@
          (ido-find-file-in-dir default-directory))))
     (bind-key "C-x C-f" 'ibuffer-ido-find-file ibuffer-mode-map)
 
-    (defun rangi/ibuffer-mode-hook ()
+    (defun rangi-ibuffer-mode-hook ()
       (ibuffer-switch-to-saved-filter-groups "Default"))
-    (add-hook 'ibuffer-mode-hook 'rangi/ibuffer-mode-hook)
+    (add-hook 'ibuffer-mode-hook 'rangi-ibuffer-mode-hook)
 
     ))
 
@@ -86,12 +86,12 @@
 (setq-default global-auto-revert-non-file-buffers t)
 (setq-default auto-revert-verbose nil)
 
-(defun rangi/refresh-buffer ()
+(defun rangi-refresh-buffer ()
   (interactive)
   (revert-buffer nil t nil)
   (message "buffer is refreshed"))
 
-(bind-key "<f5>" 'rangi/refresh-buffer)
+(bind-key "<f5>" 'rangi-refresh-buffer)
 
 ;; ------------------------------ narrowing
 (put 'narrow-to-region 'disabled nil)

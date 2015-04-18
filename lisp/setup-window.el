@@ -5,7 +5,7 @@
 (setq split-width-threshold 120)
 
 ;; ------------------------------ split window
-(defun rangi/split-window-vertically ()
+(defun rangi-split-window-vertically ()
   "Split window vertically. Focus to the new window and display a recent used
 buffer in it"
   (interactive)
@@ -13,7 +13,7 @@ buffer in it"
   ;(set-window-buffer (next-window) (other-buffer))
   (other-window 1))
 
-(defun rangi/split-window-horizontally ()
+(defun rangi-split-window-horizontally ()
   "Split window horizontally. Focus to the new window and display a recent used
 buffer in it"
   (interactive)
@@ -21,25 +21,25 @@ buffer in it"
   ;(set-window-buffer (next-window) (other-buffer))
   (other-window 1))
 
-(bind-key "C-x 2" 'rangi/split-window-vertically)
-(bind-key "C-x 3" 'rangi/split-window-horizontally)
+(bind-key "C-x 2" 'rangi-split-window-vertically)
+(bind-key "C-x 3" 'rangi-split-window-horizontally)
 
 ;; ------------------------------ better page down/up
 ;; http://snarfed.org/emacs_page_up_page_down
-(defun rangi/page-down ()
+(defun rangi-page-down ()
   "Move cursor one page down"
   (interactive "^")
   (condition-case nil (scroll-up)
     (end-of-buffer (goto-char (point-max)))))
 
-(defun rangi/page-up ()
+(defun rangi-page-up ()
   "Move cursor one page up"
   (interactive "^")
   (condition-case nil (scroll-down)
     (beginning-of-buffer (goto-char (point-min)))))
 
-(bind-key "C-v" 'rangi/page-down)
-(bind-key "M-v" 'rangi/page-up)
+(bind-key "C-v" 'rangi-page-down)
+(bind-key "M-v" 'rangi-page-up)
 
 ;; ------------------------------ ace window
 (use-package ace-window
@@ -57,7 +57,7 @@ buffer in it"
   :init (winner-mode 1))
 
 ;; ------------------------------ resizing
-(defun rangi/resize-window ()
+(defun rangi-resize-window ()
   (interactive)
   (set-transient-map
     (let ((map (make-sparse-keymap)))
@@ -67,6 +67,6 @@ buffer in it"
         (define-key map (kbd "<up>") 'enlarge-window)
         map) t))
 
-(bind-key "C-c w" 'rangi/resize-window);
+(bind-key "C-c w" 'rangi-resize-window);
 
 (provide 'setup-window)

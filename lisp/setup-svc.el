@@ -7,9 +7,9 @@
     (setq-default magit-auto-revert-mode-lighter "")
     (setq-default magit-last-seen-setup-instructions "1.4.0")
 
-    (defun rangi/disable-magit-item-highlight ()
+    (defun rangi-disable-magit-item-highlight ()
       (face-remap-add-relative 'magit-item-highlight '()))
-    (add-hook 'magit-status-mode-hook 'rangi/disable-magit-item-highlight)))
+    (add-hook 'magit-status-mode-hook 'rangi-disable-magit-item-highlight)))
 
 (use-package monky
   :config

@@ -9,6 +9,6 @@
     (add-hook 'after-init-hook 'global-flycheck-mode)))
 
 (use-package flycheck-cask
-  :init (add-hook 'flycheck-mode-hook 'flycheck-cask-setup))
+  :config (add-hook 'flycheck-mode-hook 'flycheck-cask-setup))
 
 (provide 'setup-flycheck)

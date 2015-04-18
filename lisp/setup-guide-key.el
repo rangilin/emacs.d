@@ -4,9 +4,9 @@
   :diminish guide-key-mode
   :init
   (progn
-    (defun rangi/guide-key-for-org-mode ()
+    (defun rangi-guide-key-for-org-mode ()
       (guide-key/add-local-highlight-command-regexp "org-"))
-    (add-hook 'org-mode-hook 'rangi/guide-key-for-org-mode)
+    (add-hook 'org-mode-hook 'rangi-guide-key-for-org-mode)
 
     (setq guide-key/idle-delay 2)
     (setq guide-key/recursive-key-sequence-flag t)
