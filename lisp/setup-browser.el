@@ -16,7 +16,7 @@
 (defun rangi/browse-url-with-prompt (prompt url-format)
   "Browse URL with prompt as format arguments"
   (interactive)
-  (let* ((result (rangi/prompt prompt))
+  (let* ((result (rangi-prompt prompt))
          (url (format url-format result)))
     (unless (zerop (length result))
       (browse-url url)

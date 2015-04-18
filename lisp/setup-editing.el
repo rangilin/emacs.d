@@ -71,7 +71,7 @@
 ;;   (interactive "p")
 ;;   (delete-region (point)
 ;;                  (progn
-;;                    (if (rangi/minor-mode-on-p 'subword-mode)
+;;                    (if (rangi-minor-mode-on-p 'subword-mode)
 ;;                        (subword-forward arg)
 ;;                        (forward-word arg))
 ;;                     (point))))
