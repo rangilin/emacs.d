@@ -27,6 +27,9 @@
 (setq-default frame-title-format
               '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name))
                          "%b"))))
+;; ------------------------------ confirm before exist
+(setq-default confirm-kill-emacs 'y-or-n-p)
+
 
 ;; ------------------------------ scrolling behavior
 (setq-default redisplay-dont-pause t)
