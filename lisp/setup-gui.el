@@ -13,14 +13,6 @@
 (setq initial-scratch-message "")
 (setq inhibit-startup-echo-area-message "")
 
-(setq ring-bell-function
-      (lambda ()
-        (let ((cursor (face-background 'cursor))
-              (bg (face-background 'default)))
-          (set-face-background 'cursor bg)
-          (set-face-background 'cursor cursor))))
-
-(blink-cursor-mode -1)
 (setq-default echo-keystrokes 0.1)
 
 (fset 'yes-or-no-p 'y-or-n-p)

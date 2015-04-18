@@ -4,10 +4,18 @@
 
 (require 'use-package)
 (require 'variables)
-(require 'thingatpt)
 
+;; ------------------------------ cursour setup
+(set-face-background 'cursor "green")
+(blink-cursor-mode -1)
 
-(set-face-background 'cursor "green2")
+;; ------------------------------ use cursor as visual ring bell
+(setq ring-bell-function
+      (lambda ()
+        (let ((cursor (face-background 'cursor))
+              (bg (face-background 'default)))
+          (set-face-background 'cursor bg)
+          (set-face-background 'cursor cursor))))
 
 ;; ------------------------------ horizontal recenter
 ;; http://stackoverflow.com/a/1249665/554279
@@ -52,7 +60,6 @@
 
 
 ;; ------------------------------ mark
-
 ;; so I can pop mark multiple time with C-u C-@ C-@...
 (setq-default set-mark-command-repeat-pop t)
 
@@ -77,11 +84,10 @@
 (bind-key "C-a" 'rangi-back-to-indentation-or-beginning)
 
 ;; ------------------------------ forward/backward whitespace
-;; (defun rangi-backward-whitespace (arg)
-;;   (interactive "p")
-;;   (forward-whitespace (- arg)))
-;;
-;; (bind-key "M-F" 'forward-whitespace)
-;; (bind-key "M-B" 'rangi-backward-whitespace)
+(defun rangi-backward-whitespace (arg)
+  (interactive "p")
+  (forward-whitespace (- arg)))
+(bind-key "M-F" 'forward-whitespace)
+(bind-key "M-B" 'rangi-backward-whitespace)
 
 (provide 'setup-cursor)
