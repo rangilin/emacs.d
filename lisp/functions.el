@@ -15,12 +15,12 @@
   (string= system-name name))
 
 (defun rangi/sub-gen-dir (sub-dir-name)
-  "Create a directory under `rangi/gen-dir' and return full dir path of it"
-  (if (boundp 'rangi/gen-dir)
-    (let ((sub-dir-path (expand-file-name sub-dir-name rangi/gen-dir)))
+  "Create a directory under `rangi-gen-dir' and return full dir path of it"
+  (if (boundp 'rangi-gen-dir)
+    (let ((sub-dir-path (expand-file-name sub-dir-name rangi-gen-dir)))
       (make-directory sub-dir-path t)
       (file-name-as-directory sub-dir-path))
-    (error "`rangi/gen-dir' is not defined")))
+    (error "`rangi-gen-dir' is not defined")))
 
 (defun rangi/prompt (prompt)
   "Prompt with message `prompt' and with default value as initial content"
@@ -46,6 +46,6 @@ the minor mode"
   (and (boundp mode) (symbol-value mode)))
 
 (defun rangi-open-startup-file ()
-  (find-file rangi/startup-file))
+  (find-file rangi-startup-file))
 
 (provide 'functions)

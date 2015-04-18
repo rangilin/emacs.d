@@ -83,7 +83,7 @@
 (setq-default display-time-interval 1)
 
 ;; ------------------------------ Load theme
-(load-theme rangi/theme t)
+(load-theme rangi-theme t)
 ;; some customization for sanityinc-tomorrow-eighties theme
 (set-face-attribute 'mode-line nil
                     :box '(:line-width 1 :color "#EEE")

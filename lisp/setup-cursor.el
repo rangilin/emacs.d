@@ -22,7 +22,7 @@
 (bind-key "C-S-l" 'rangi/horizontal-recenter)
 
 ;; ------------------------------ multiple cursors
-(setq-default mc/list-file (expand-file-name ".mc-lists.el" rangi/gen-dir))
+(setq-default mc/list-file (expand-file-name ".mc-lists.el" rangi-gen-dir))
 (use-package multiple-cursors
   :init
   (progn

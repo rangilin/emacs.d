@@ -28,7 +28,7 @@
     (setq-default projectile-projects-cache (make-hash-table :test 'equal))
     (setq-default projectile-enable-caching t)
     (setq-default projectile-switch-project-action 'projectile-dired)
-    (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rangi/gen-dir))
+    (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rangi-gen-dir))
     (projectile-load-known-projects)
 
     (defadvice projectile-test-project
@@ -60,9 +60,9 @@
 ;; ------------------------------ startup file
 (defun rangi--open-startup-file ()
   (interactive)
-  (if (file-exists-p rangi/startup-file)
-    (find-file rangi/startup-file)
-    (message (format "File %s does not exist" rangi/startup-file))))
+  (if (file-exists-p rangi-startup-file)
+    (find-file rangi-startup-file)
+    (message (format "File %s does not exist" rangi-startup-file))))
 
 (bind-key "C-c <home>" 'rangi--open-startup-file)
 

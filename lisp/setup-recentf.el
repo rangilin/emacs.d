@@ -7,7 +7,7 @@
                   `("COMMIT_EDITMSG"
                     "/Dropbox/journal"
                     "\\.elc$"))
-    (setq-default recentf-save-file (expand-file-name "recentf" rangi/gen-dir))
+    (setq-default recentf-save-file (expand-file-name "recentf" rangi-gen-dir))
     (setq-default recentf-max-saved-items 100)
     (recentf-mode 1))
   :bind (("C-x C-r" . rangi/recentf-ido-find-file)
