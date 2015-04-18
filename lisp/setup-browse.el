@@ -1,5 +1,5 @@
 (require 'functions)
-(require 'use-package)
+
 
 (defun rangi-browse-fy ()
   "Dictionary look up with prompt"
