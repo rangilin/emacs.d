@@ -17,62 +17,61 @@
 ;; ------------------------------ ibuffer
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
+
   :config
-  (progn
+  ;; don't display empty filter groups
+  (setq-default ibuffer-show-empty-filter-groups nil)
 
-    ;; don't display empty filter groups
-    (setq-default ibuffer-show-empty-filter-groups nil)
+  (setq ibuffer-filter-group-name-face 'font-lock-doc-face)
 
-    ;; my filter groups
-    (setq-default ibuffer-saved-filter-groups
-                  `(("Default"
-                     ("Dired" (mode . dired-mode))
-                     ("Emacs" (or (name . "*Messages*")))
-                     ("Help" (or (mode . Man-mode)
-                                 (mode . woman-mode)
-                                 (mode . info-mode)
-                                 (mode . help-mode)))
-                     ("Org" (mode . org-mode))
-                     ("SQL client" (mode . sql-interactive-mode))
-                     ("Terminal" (or (mode . term-mode)
-                                     (mode . shell-mode)
-                                     (mode . eshell-mode)))
-                     ;; stay last
-                     ("Temporary" (name . "\*.*\*")))))
+  ;; my filter groups
+  (setq-default ibuffer-saved-filter-groups
+                `(("Default"
+                   ("Dired" (mode . dired-mode))
+                   ("Emacs" (or (name . "*Messages*")))
+                   ("Help" (or (mode . Man-mode)
+                               (mode . woman-mode)
+                               (mode . info-mode)
+                               (mode . help-mode)))
+                   ("Org" (mode . org-mode))
+                   ("SQL client" (mode . sql-interactive-mode))
+                   ("Terminal" (or (mode . term-mode)
+                                   (mode . shell-mode)
+                                   (mode . eshell-mode)))
+                   ;; stay last
+                   ("Temporary" (name . "\*.*\*")))))
 
-    ;; define a column that display buffer size in readable format
-    (define-ibuffer-column readable-size
-      (:name "Size" :inline t)
-      (cond
-       ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-       ((> (buffer-size) 1000) (format "%7.1fK" (/ (buffer-size) 1000.0)))
-       (t (format "%8d" (buffer-size)))))
+  ;; define a column that display buffer size in readable format
+  (define-ibuffer-column readable-size
+    (:name "Size" :inline t)
+    (cond
+     ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+     ((> (buffer-size) 1000) (format "%7.1fK" (/ (buffer-size) 1000.0)))
+     (t (format "%8d" (buffer-size)))))
 
-    ;; setup ibuffer format
-    (setq-default ibuffer-formats
-                  '((mark modified read-only
-                          " " (name 24 24 :left :elide)
-                          " " (readable-size 9 -1 :right)
-                          " " (mode 16 16 :left :elide)
-                          " " filename-and-process)))
+  ;; setup ibuffer format
+  (setq-default ibuffer-formats
+                '((mark modified read-only
+                        " " (name 24 24 :left :elide)
+                        " " (readable-size 9 -1 :right)
+                        " " (mode 16 16 :left :elide)
+                        " " filename-and-process)))
 
 
-    (defun ibuffer-ido-find-file ()
-      "Like `ido-find-file', but default to the directory of the buffer at point."
-      (interactive
-       (let ((default-directory
-               (let ((buf (ibuffer-current-buffer)))
-                 (if (buffer-live-p buf)
-                     (with-current-buffer buf default-directory)
-                   default-directory))))
-         (ido-find-file-in-dir default-directory))))
-    (bind-key "C-x C-f" 'ibuffer-ido-find-file ibuffer-mode-map)
+  (defun ibuffer-ido-find-file ()
+    "Like `ido-find-file', but default to the directory of the buffer at point."
+    (interactive
+     (let ((default-directory
+             (let ((buf (ibuffer-current-buffer)))
+               (if (buffer-live-p buf)
+                   (with-current-buffer buf default-directory)
+                 default-directory))))
+       (ido-find-file-in-dir default-directory))))
+  (bind-key "C-x C-f" 'ibuffer-ido-find-file ibuffer-mode-map)
 
-    (defun rangi-ibuffer-mode-hook ()
-      (ibuffer-switch-to-saved-filter-groups "Default"))
-    (add-hook 'ibuffer-mode-hook 'rangi-ibuffer-mode-hook)
-
-    ))
+  (defun rangi-ibuffer-mode-hook ()
+    (ibuffer-switch-to-saved-filter-groups "Default"))
+  (add-hook 'ibuffer-mode-hook 'rangi-ibuffer-mode-hook))
 
 ;; ------------------------------ switch buffer
 (bind-key "M-]" 'next-buffer)
