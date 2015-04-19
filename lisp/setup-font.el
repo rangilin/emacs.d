@@ -75,9 +75,9 @@
 (defvar rangi-font-alist-monaco-lehei
   '((english-font . "Monaco")
     (cjk-font . "LiHei Pro")
-    (default-size-pair . (13 . 16))
-    (size-pairs . ((11 . 14) (13 . 16) (15 . 18) (17 . 20) (19 . 22) (20 . 24) (21 . 26) (24 . 28)
-                   (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
+    (default-size-pair . (11 . 14))
+    (size-pairs . ((10 . 12) (11 . 14) (13 . 16) (15 . 18) (17 . 20) (19 . 22) (20 . 24)
+                   (21 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
 ;; -------------------------------------------------- setup font
 (defvar rangi-font-alist rangi-font-alist-monaco-wqymh
