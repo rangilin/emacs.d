@@ -94,6 +94,8 @@
 
 ;; ------------------------------ narrowing
 (put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
 
 ;; ------------------------------ close window & kill buffer
 (defun rangi-kill-this-buffer-and-close-window ()
