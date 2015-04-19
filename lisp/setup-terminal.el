@@ -1,4 +1,6 @@
 (require 'use-package)
+(require 'variables)
+
 ;; ------------------------------ term
 (use-package multi-term
   :bind (("C-c t" . multi-term))
@@ -57,5 +59,8 @@
 (use-package comint
   :init
   (setq-default comint-scroll-to-bottom-on-output 'all))
+
+;; ------------------------------ tramp
+(setq-default tramp-persistency-file-name (expand-file-name "tramp" rangi-gen-dir))
 
 (provide 'setup-terminal)
