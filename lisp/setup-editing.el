@@ -4,12 +4,18 @@
 (setq-default tab-width 2)
 (setq-default comment-empty-lines t)
 (setq-default indent-tabs-mode nil)
-(setq-default x-select-enable-clipboard t)
 (setq-default require-final-newline t)
+
+(setq-default mouse-yank-at-point t)
+(setq-default x-select-enable-clipboard t)
+(setq-default save-interprogram-paste-before-kill t)
 
 (delete-selection-mode 1)
 (show-paren-mode 1)
 
+(setq-default default-fill-column 80)
+;; ------------------------------ fill paragraph / region
+(bind-key "M-Q" 'fill-region)
 
 ;; ------------------------------ newline & Indent
 (bind-key "RET" 'newline-and-indent)
@@ -40,30 +46,30 @@
 (use-package undo-tree
   :diminish undo-tree-mode
   :init
-  (progn
-    (global-undo-tree-mode 1))
+  (global-undo-tree-mode 1)
   :config
-  (progn
-    (bind-key "C-/" nil undo-tree-map)
-    (bind-key "C-?" nil undo-tree-map)))
+  (bind-key "C-/" nil undo-tree-map)
+  (bind-key "C-?" nil undo-tree-map))
 
 ;; ------------------------------ yasnippet
 (use-package yasnippet
   :diminish yas-minor-mode
   :init
-  (progn
-    (yas-global-mode 1))
+  (yas-global-mode 1)
   :config
-  (progn
-    (setq-default yas/prompt-functions '(yas/ido-prompt)))
-    (let ((snippets-dir (f-expand "snippets" user-emacs-directory)))
-      (yas-load-directory snippets-dir)
-      (setq-default yas/snippet-dirs snippets-dir)))
+  (setq-default yas/prompt-functions '(yas/ido-prompt))
+  (let ((snippets-dir (f-expand "snippets" user-emacs-directory)))
+    (yas-load-directory snippets-dir)
+    (setq-default yas/snippet-dirs snippets-dir)))
+
 
 ;; ============================================================
 ;; Text Manipulation
 ;; ============================================================
 
+;; ------------------------------ case
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 ;; ------------------------------ delete word
 ;; (defun rangi-delete-word (arg)
@@ -120,8 +126,8 @@
 
 ;; ------------------------------ zapzapzapzap
 (use-package misc
-  :bind (("M-Z" . zap-to-char)
-         ("M-z" . zap-up-to-char)))
+  :bind (("M-z" . zap-to-char)
+         ("M-Z" . zap-up-to-char)))
 
 ;; ------------------------------ duplicator
 (use-package duplicator
@@ -179,21 +185,18 @@
 (use-package smartparens
   :diminish ""
   :init
-  (progn
-    (use-package smartparens-config)
-    (use-package smartparens-ruby)
-    (use-package smartparens-html)
-    (smartparens-global-mode 1)
-    (show-smartparens-global-mode 1))
-  :config
-  (progn
-    (setq smartparens-strict-mode t)
-    (setq sp-autoescape-string-quote nil)
-    (setq sp-autoinsert-if-followed-by-word t)
+  (use-package smartparens-config)
+  (use-package smartparens-ruby)
+  (use-package smartparens-html)
+  (smartparens-global-mode 1)
+  (show-smartparens-global-mode 1)
 
-    (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))
-    (sp-local-pair 'web-mode "<?php " " ?>" :trigger "<?p")
-    (sp-local-pair 'php-mode "<?php " " ?>" :trigger "<?p"))
+  :config
+  (setq smartparens-strict-mode t)
+  (setq-default sp-autoinsert-if-followed-by-word t)
+  (sp-local-pair 'emacs-lisp-mode "`" nil :when '(sp-in-string-p))
+  (sp-local-pair 'web-mode "<?php " " ?>" :trigger "<?p")
+  (sp-local-pair 'php-mode "<?php " " ?>" :trigger "<?p")
 
   :bind
   (("C-M-k" . sp-kill-sexp)
