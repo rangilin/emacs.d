@@ -35,8 +35,8 @@
   (byte-recompile-file (expand-file-name "init.el" user-emacs-directory))
   (byte-recompile-file (expand-file-name "functions.el" user-emacs-directory))
   (byte-recompile-file (expand-file-name "variables.el" user-emacs-directory))
-  (byte-recompile-file (expand-file-name "local-functions.el" user-emacs-directory))
-  (byte-recompile-file (expand-file-name "local-variables.el" user-emacs-directory))
+  (byte-recompile-file (expand-file-name "local-preload.el" user-emacs-directory))
+  (byte-recompile-file (expand-file-name "local.el" user-emacs-directory))
   (byte-recompile-directory (expand-file-name "lisp" user-emacs-directory) 0)
   (byte-recompile-directory (expand-file-name "site-lisp" user-emacs-directory) 0))
 
