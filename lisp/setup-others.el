@@ -17,7 +17,10 @@
   :mode ("\\.wm[m]?$" . webmacro-mode))
 
 (use-package smex
-  :bind ("M-x" . smex))
+  :bind (("M-x" . smex)
+         ("C-x C-m" . smex))
+  :config
+  (setq-default smex-save-file (expand-file-name "smex_items" rangi-gen-dir)))
 
 (use-package projectile
   :diminish projectile-mode
@@ -26,7 +29,9 @@
     (projectile-global-mode)
 
     (setq-default projectile-projects-cache (make-hash-table :test 'equal))
+    (setq-default projectile-cache-file (expand-file-name "projectile.cache" rangi-gen-dir))
     (setq-default projectile-enable-caching t)
+
     (setq-default projectile-switch-project-action 'projectile-dired)
     (setq-default projectile-known-projects-file (expand-file-name "projectile-bookmarks.eld" rangi-gen-dir))
     (projectile-load-known-projects)

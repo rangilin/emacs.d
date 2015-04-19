@@ -7,13 +7,9 @@ url
 *.elc
 session.*
 
-# file
+#  file
 lisp/local.el
-lisp/local-variables.el
-ido.last
-/projectile.cache
+lisp/local-preload.el
 .yas-compiled-snippets.el
-
 eshell/history
 eshell/lastdir
-/smex-items
