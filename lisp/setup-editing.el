@@ -1,7 +1,7 @@
 (require 'use-package)
 (require 'functions)
 
-(setq-default tab-width 2)
+(setq-default tab-width 4)
 (setq-default comment-empty-lines t)
 (setq-default indent-tabs-mode nil)
 (setq-default require-final-newline t)
