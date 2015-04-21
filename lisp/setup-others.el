@@ -63,7 +63,7 @@
 
 
 ;; ------------------------------ startup file
-(defun rangi--open-startup-file ()
+(defun rangi-open-startup-file ()
   (interactive)
   (if (file-exists-p rangi-startup-file)
     (find-file rangi-startup-file)
