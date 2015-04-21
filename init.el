@@ -78,8 +78,12 @@
 (require 'local nil t)
 
 ;; -------------------------------------------------- after
-;; add last so displayed message will not be hide by functions in hook
-(add-hook 'after-init-hook 'rangi-show-init-time)
+;; overwrite default function to show my own message
+(defun startup-echo-area-message ()
+  (rangi-show-init-time))
+
+;; open startup file
+(rangi-open-startup-file)
 
 ;; annoying!
 (kill-buffer "*Compile-Log*")
