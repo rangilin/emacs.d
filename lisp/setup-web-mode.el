@@ -10,7 +10,7 @@
          ("\\.mustache\\'" . web-mode)
          ("\\.djhtml\\'" . web-mode)
          ("\\.tmpl\\'" . web-mode)
-         ("\\.html\\'" . web-mode))
+         ("\\.htm[l]?\\'" . web-mode))
   :config
   (progn
     (setq-default web-mode-markup-indent-offset tab-width)
