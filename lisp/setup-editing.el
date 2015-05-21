@@ -54,14 +54,10 @@
 ;; ------------------------------ yasnippet
 (use-package yasnippet
   :diminish yas-minor-mode
-  :init
-  (yas-global-mode 1)
   :config
-  (setq-default yas/prompt-functions '(yas/ido-prompt))
-  (let ((snippets-dir (f-expand "snippets" user-emacs-directory)))
-    (yas-load-directory snippets-dir)
-    (setq-default yas/snippet-dirs snippets-dir)))
-
+  (setq yas-prompt-functions '(yas-ido-prompt))
+  (setq yas-snippet-dirs (concat (file-name-as-directory user-emacs-directory) "snippets"))
+  (yas-global-mode 1))
 
 ;; ============================================================
 ;; Text Manipulation
