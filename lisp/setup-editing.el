@@ -17,6 +17,9 @@
 ;; ------------------------------ fill paragraph / region
 (bind-key "M-Q" 'fill-region)
 
+;; ------------------------------ hippie expand
+(bind-key "M-/" 'hippie-expand)
+
 ;; ------------------------------ newline & Indent
 (bind-key "RET" 'newline-and-indent)
 
