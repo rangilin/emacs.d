@@ -14,13 +14,10 @@
 (show-paren-mode 1)
 
 (setq-default default-fill-column 80)
-;; ------------------------------ fill paragraph / region
+
+(bind-key "M-\\" 'cycle-spacing)
 (bind-key "M-Q" 'fill-region)
-
-;; ------------------------------ hippie expand
 (bind-key "M-/" 'hippie-expand)
-
-;; ------------------------------ newline & Indent
 (bind-key "RET" 'newline-and-indent)
 
 ;; ------------------------------ join line
