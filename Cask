@@ -14,6 +14,7 @@
 (depends-on "change-inner")
 (depends-on "color-moccur")
 (depends-on "color-theme-sanityinc-tomorrow")
+(depends-on "darktooth-theme")
 (depends-on "dash")
 (depends-on "diminish")
 (depends-on "dsvn")
