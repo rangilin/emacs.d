@@ -78,13 +78,13 @@
 ;; ------------------------------ Load theme
 (load-theme rangi-theme t)
 
-;;;; some customization for sanityinc-tomorrow-eighties theme
-;; (set-face-attribute 'mode-line nil
-;;                     :box '(:line-width 1 :color "#EEE")
-;;                     :foreground "white"
-;;                     :background (face-attribute 'default :background))
-;; (set-face-attribute 'mode-line-inactive nil :background (face-attribute 'default :background))
-;; (set-face-background 'fringe (face-attribute 'default :background))
+;; some customization for sanityinc-tomorrow theme
+(set-face-attribute 'mode-line nil
+                    :box '(:line-width 1 :color "#EEE")
+                    :foreground "white"
+                    :background (face-attribute 'default :background))
+(set-face-attribute 'mode-line-inactive nil :background (face-attribute 'default :background))
+(set-face-background 'fringe (face-attribute 'default :background))
 
 
 (provide 'setup-gui)
