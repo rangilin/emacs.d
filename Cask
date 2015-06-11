@@ -5,7 +5,6 @@
 (depends-on "org-plus-contrib")
 
 (source melpa)
-(depends-on "material-theme")
 (depends-on "ace-jump-mode")
 (depends-on "ace-window")
 (depends-on "anzu")
