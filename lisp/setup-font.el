@@ -9,6 +9,8 @@
 
 ; inspired from https://gist.github.com/coldnew/7398845
 ;; -------------------------------------------------- pre-made font alist
+
+;; ------------------------------ linux
 (defvar rangi-font-alist-monaco-wqymh
   '((english-font . "Monaco")
     (cjk-font . "WenQuanYi Micro Hei")
@@ -72,18 +74,27 @@
     (size-pairs . ((15 . 20) (17 . 22) (19 . 24) (20 . 26) (21 . 26) (24 . 30)
                    (26 . 34) (28 . 36) (30 . 38) (34 . 44) (36 . 46)))))
 
+;; ------------------------------ mac
+
 (defvar rangi-font-alist-monaco-lehei
   '((english-font . "Monaco")
     (cjk-font . "LiHei Pro")
-    (default-size-pair . (11 . 14))
+    (default-size-pair . (13 . 16))
     (size-pairs . ((10 . 12) (11 . 14) (13 . 16) (15 . 18) (17 . 20) (19 . 22) (20 . 24)
                    (21 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
+
+(defvar rangi-font-alist-inconsolata-lehei
+  '((english-font . "Inconsolata")
+    (cjk-font . "LiHei Pro")
+    (default-size-pair . (20 . 20))
+    (size-pairs . ((14 . 14) (15 . 16) (17 . 18) (19 . 20) (20 . 20) (21 . 22)
+                   (24 . 24) (26 . 26) (28 . 28) (30 . 30) (34 . 34) (36 . 36)))))
 
 ;; -------------------------------------------------- setup font
 (defvar rangi-font-alist rangi-font-alist-monaco-wqymh
   "Default font alist")
 (when (string-equal system-type "darwin")
-  (setq-default rangi-font-alist rangi-font-alist-monaco-lehei))
+  (setq-default rangi-font-alist rangi-font-alist-inconsolata-lehei))
 
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist))
   "Current font size pair, By default it is the default size pair of the default font alist")
