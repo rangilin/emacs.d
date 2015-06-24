@@ -17,8 +17,22 @@
 
 (bind-key "M-\\" 'cycle-spacing)
 (bind-key "M-Q" 'fill-region)
-(bind-key "M-/" 'hippie-expand)
 (bind-key "RET" 'newline-and-indent)
+
+;; ------------------------------ expand words
+
+(bind-key "M-/" (make-hippie-expand-function
+                 '(try-expand-dabbrev-visible
+                   try-expand-dabbrev
+                   try-expand-dabbrev-all-buffers
+                   try-complete-file-name-partially
+                   try-complete-file-name
+                   try-expand-list
+                   try-expand-line
+                   try-expand-dabbrev-from-kill
+                   try-complete-lisp-symbol-partially
+                   try-complete-lisp-symbol
+                   ) t))
 
 ;; ------------------------------ join line
 (defun rangi-join-below-line ()
