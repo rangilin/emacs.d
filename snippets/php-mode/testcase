@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: PHPUnit test case class
+# key: testcase
+# --
+class ${1:My}Test extends PHPUnit_Framework_TestCase
+{
+$0
+}

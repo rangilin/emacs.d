@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: PHPUnit test function
+# key: test
+# --
+public function test${1:Something}()
+{
+$0
+}
