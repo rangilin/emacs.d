@@ -86,7 +86,7 @@
 (defvar rangi-font-alist-inconsolata-lehei
   '((english-font . "Inconsolata")
     (cjk-font . "LiHei Pro")
-    (default-size-pair . (20 . 20))
+    (default-size-pair . (14 . 14))
     (size-pairs . ((14 . 14) (15 . 16) (17 . 18) (19 . 20) (20 . 20) (21 . 22)
                    (24 . 24) (26 . 26) (28 . 28) (30 . 30) (34 . 34) (36 . 36)))))
 
