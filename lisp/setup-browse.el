@@ -13,7 +13,7 @@
   (interactive)
   (rangi-browse-url-with-prompt
    "Let me Google that for you: "
-   "https://www.google.com.tw/#q=%s"))
+   "https://www.google.com.tw/search?q=%s"))
 
 (defun rangi-browse-url-with-prompt (prompt url-format)
   "Browse URL with prompt as format arguments"
