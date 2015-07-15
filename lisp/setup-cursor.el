@@ -6,7 +6,7 @@
 (require 'variables)
 
 ;; ------------------------------ cursour setup
-(set-face-background 'cursor "green")
+(set-face-background 'cursor "#00CCFF")
 (blink-cursor-mode -1)
 
 ;; ------------------------------ use cursor as visual ring bell
