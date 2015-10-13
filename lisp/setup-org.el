@@ -10,6 +10,7 @@
     (setq-default org-drawers `("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "DETAIL"))
     (setq-default org-catch-invisible-edits 'smart)
     (setq-default org-completion-use-ido t)
+    (setq-default org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
 
     ;; agenda
     (setq-default org-agenda-start-on-weekday 0)
