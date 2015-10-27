@@ -91,10 +91,10 @@
                    (24 . 24) (26 . 26) (28 . 28) (30 . 30) (34 . 34) (36 . 36)))))
 
 ;; -------------------------------------------------- setup font
-(defvar rangi-font-alist rangi-font-alist-consolas-wqymh
+(defvar rangi-font-alist rangi-font-alist-monaco-wqymh
   "Default font alist")
 (when (string-equal system-type "darwin")
-  (setq-default rangi-font-alist rangi-font-alist-inconsolata-lehei))
+  (setq-default rangi-font-alist rangi-font-alist-monaco-lehei))
 
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist))
   "Current font size pair, By default it is the default size pair of the default font alist")
