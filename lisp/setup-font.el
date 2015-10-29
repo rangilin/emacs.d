@@ -91,7 +91,7 @@
                    (24 . 24) (26 . 26) (28 . 28) (30 . 30) (34 . 34) (36 . 36)))))
 
 ;; -------------------------------------------------- setup font
-(defvar rangi-font-alist rangi-font-alist-monaco-wqymh
+(defvar rangi-font-alist rangi-font-alist-consolas-wqymh
   "Default font alist")
 (when (string-equal system-type "darwin")
   (setq-default rangi-font-alist rangi-font-alist-monaco-lehei))
