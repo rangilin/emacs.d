@@ -15,6 +15,7 @@
     ;; agenda
     (setq-default org-agenda-start-on-weekday 0)
     (setq-default org-agenda-format-date "%a %Y-%m-%d")
+    (setq-default org-ellipsis "⤵")
 
     (defadvice org-beginning-of-line
         (before advice-org-beginning-of-line activate)
