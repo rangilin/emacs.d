@@ -69,6 +69,10 @@
     (find-file rangi-startup-file)
     (message (format "File %s does not exist" rangi-startup-file))))
 
+;; ------------------------------ ledger cli
+(use-package ledger-mode
+  :mode ("\\.ledger$" . ledger-mode))
+
 (bind-key "C-c <home>" 'rangi--open-startup-file)
 
 

@@ -35,6 +35,7 @@
 (depends-on "ido-vertical-mode")
 (depends-on "inf-ruby")
 (depends-on "js2-mode")
+(depends-on "ledger-mode")
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "modeline-posn")
