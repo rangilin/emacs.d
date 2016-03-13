@@ -3,7 +3,7 @@
 (use-package flycheck
   :config
   (define-key flycheck-mode-map flycheck-keymap-prefix nil)
-    (setq flycheck-keymap-prefix (kbd "C-c f"))
+    (setq flycheck-keymap-prefix (kbd "C-c c-f"))
     (define-key flycheck-mode-map flycheck-keymap-prefix
       flycheck-command-map)
 

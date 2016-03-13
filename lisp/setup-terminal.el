@@ -62,5 +62,8 @@
 
 ;; ------------------------------ tramp
 (setq-default tramp-persistency-file-name (expand-file-name "tramp" rangi-gen-dir))
+(setq-default vc-ignore-dir-regexp
+      (format "\\(%s\\)\\|\\(%s\\)" vc-ignore-dir-regexp tramp-file-name-regexp))
+
 
 (provide 'setup-terminal)
