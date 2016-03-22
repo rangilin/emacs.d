@@ -71,7 +71,11 @@
 
 ;; ------------------------------ ledger cli
 (use-package ledger-mode
-  :mode ("\\.ledger$" . ledger-mode))
+  :mode ("\\.ledger$" . ledger-mode)
+  :config
+  (setq ledger-reports
+        `(("Envelope Balance" "ledger -f strict.ledger -f %(ledger-file) --strict bal not ^Assets")
+          ("Real Balance" "ledger -f strict.ledger -f %(ledger-file) --real --strict bal"))))
 
 (bind-key "C-c <home>" 'rangi--open-startup-file)
 
