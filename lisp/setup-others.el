@@ -76,7 +76,8 @@
   (setq ledger-reports
         `(("Envelope Balance" "ledger -f strict.ledger -f %(ledger-file) --strict bal not ^Assets")
           ("Real Balance" "ledger -f strict.ledger -f %(ledger-file) --real --strict bal")
-          ("Current Month Expense" "ledger -f strict.ledger -f %(ledger-file) --strict --real --period \"this month\" reg ^Expense -M"))))
+          ("Current Month Expense" "ledger -f strict.ledger -f %(ledger-file) --strict --real --period \"this month\" reg ^Expense -M")
+          ("Last Month Expense" "ledger -f strict.ledger -f %(ledger-file) --strict --real --period \"last month\" reg ^Expense -M"))))
 
 (bind-key "C-c <home>" 'rangi--open-startup-file)
 
