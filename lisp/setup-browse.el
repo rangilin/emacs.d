@@ -15,6 +15,13 @@
    "Let me Google that for you: "
    "https://www.google.com.tw/search?q=%s"))
 
+(defun rangi-browse-duckduckgo ()
+  "Search DuckDuckGo"
+  (interactive)
+  (rangi-browse-url-with-prompt
+   "Let me duckduckgo that for you: "
+   "https://duckduckgo.com/?q=%s"))
+
 (defun rangi-browse-url-with-prompt (prompt url-format)
   "Browse URL with prompt as format arguments"
   (interactive)
@@ -26,5 +33,6 @@
 
 (bind-key "C-c B f" 'rangi-browse-fy)
 (bind-key "C-c B g" 'rangi-browse-google)
+(bind-key "C-c B d" 'rangi-browse-duckduckgo)
 
 (provide 'setup-browse)
