@@ -90,11 +90,19 @@
     (size-pairs . ((14 . 14) (15 . 16) (17 . 18) (19 . 20) (20 . 20) (21 . 22)
                    (24 . 24) (26 . 26) (28 . 28) (30 . 30) (34 . 34) (36 . 36)))))
 
+(defvar rangi-font-alist-menlo-lehei
+  '((english-font . "Menlo")
+    (cjk-font . "LiHei Pro")
+    (default-size-pair . (14 . 16))
+    (size-pairs . ((14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24) (21 . 26)
+                   (23 . 28) (25 . 30) (26 . 32) (28 . 34)))))
+
 ;; -------------------------------------------------- setup font
 (defvar rangi-font-alist rangi-font-alist-consolas-wqymh
   "Default font alist")
+
 (when (string-equal system-type "darwin")
-  (setq-default rangi-font-alist rangi-font-alist-monaco-lehei))
+  (setq-default rangi-font-alist rangi-font-alist-menlo-lehei))
 
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist))
   "Current font size pair, By default it is the default size pair of the default font alist")
