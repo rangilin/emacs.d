@@ -1,6 +1,13 @@
 ;;; -*- lexical-binding: t; -*-
 
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+;; (package-initialize)
+
 ;; -------------------------------------------------- bootstrapping
+
 ;; add all files under '.emacs/lisp/' to the load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
@@ -78,12 +85,16 @@
 (require 'local nil t)
 
 ;; -------------------------------------------------- after
+(defun rangi-emacs-startup ()
+  ;; close compile log window so it won't always block the way
+  (delete-windows-on "*Compile-Log*")
+
+  ;; open startup file
+  (rangi-open-startup-file))
+
+
+(add-hook 'emacs-startup-hook 'rangi-emacs-startup)
+
 ;; overwrite default function to show my own message
 (defun startup-echo-area-message ()
   (rangi-show-init-time))
-
-;; open startup file
-(rangi-open-startup-file)
-
-;; annoying!
-(kill-buffer "*Compile-Log*")
