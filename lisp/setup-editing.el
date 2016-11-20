@@ -107,32 +107,8 @@
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
 
 ;; ------------------------------ move text
-(defun rangi-move-text-up (arg)
-  "Move text up, but recenter if at upper part of the window"
-  (interactive "*p")
-  (move-text-up arg)
-  (if (rangi--point-is-at-upper-window)
-      (recenter-top-bottom (truncate (/ (window-text-height) 2)))))
-
-(defun rangi-move-text-down (arg)
-  "Move text up, but recenter if at lower part of the window"
-  (interactive "*p")
-  (move-text-down arg)
-  (if (region-active-p)
-      (exchange-point-and-mark))
-  (if (rangi--point-is-at-lower-window)
-      (recenter-top-bottom (truncate (/ (window-text-height) 2)))))
-
-(defun rangi--point-is-at-upper-window ()
-  "Check point is at upper part of current window"
-  (<= (cdr (posn-col-row (posn-at-point))) (truncate (/ (window-text-height) 2))))
-
-(defun rangi--point-is-at-lower-window ()
-  "Check point is at lower part of current window"
-  (> (cdr (posn-col-row (posn-at-point))) (truncate (/ (window-text-height) 2))))
-
-(bind-key "M-P" 'rangi-move-text-up)
-(bind-key "M-N" 'rangi-move-text-down)
+(bind-key "M-P" 'move-text-up)
+(bind-key "M-N" 'move-text-down)
 
 ;; ------------------------------ zapzapzapzap
 (use-package misc
