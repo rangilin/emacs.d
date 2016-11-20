@@ -53,6 +53,8 @@
          ("access\\.conf\\'" . apache-mode)
          ("sites-\\(available\\|enabled\\)/" . apache-mode)))
 
+(use-package nginx-mode)
+
 ;; ------------------------------ dired
 (put 'dired-find-alternate-file 'disabled nil)
 (setq dired-listing-switches "-aBhl  --group-directories-first")
