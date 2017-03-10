@@ -1,0 +1,8 @@
+elpa
+*~
+*.elc
+auto-save-list
+backups
+tramp
+session.*
+.DS_Store
