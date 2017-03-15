@@ -6,3 +6,4 @@ backups
 tramp
 session.*
 .DS_Store
+autogen

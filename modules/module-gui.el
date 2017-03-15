@@ -1,53 +1,96 @@
-;; Turn interfaces off.
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(defun rl/initialize-module-gui ()
+  "Initialize GUI module."
+  (rl--set-up-bell)
+  (rl--set-up-scroll)
+  (rl--set-up-cursor)
+  (rl--set-up-theme)
+  (rl--set-up-ido)
+  (rl--set-up-interface))
 
 
+(defun rl--set-up-interface ()
+  "Set up GUI."
 
-;; Turn splash screen off.
-(setq inhibit-startup-message t)
+  ;; turn off these interface
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (unless (string= system-type "darwin")
+    (menu-bar-mode -1))
 
+  ;; Don't print initial message in scratch buffer.
+  (setq initial-scratch-message "")
 
+  ;; highlight current line
+  (global-hl-line-mode 1)
 
-;; Blink the modeline on errors.
-(setq visible-bell nil)
-(setq ring-bell-function (lambda ()
-                           (invert-face 'mode-line)
-                           (run-with-timer 0.05 nil 'invert-face 'mode-line)))
+  ;; Use y/n to confirm dialog.
+  (fset 'yes-or-no-p 'y-or-n-p)
 
+  ;; setup locale
+  (set-locale-environment "zh_TW.utf-8")
 
-
-;; Highlight current line.
-(global-hl-line-mode 1)
-
-
-
-;; Highlight matching parentheses when the point is on them.
-(show-paren-mode 1)
-
-
-
-;; Use y/n to confirm dialog.
-(fset 'yes-or-no-p 'y-or-n-p)
+  ;; no splash message
+  (setq inhibit-startup-message t))
 
 
-
-;; Keep cursor position while scrolling.
-(setq scroll-conservatively 10000
-      scroll-preserve-screen-position t)
-
-
-
-;; Don't print initial message in scratch buffer.
-(setq initial-scratch-message "")
+(defun rl--set-up-bell ()
+  "Set up bell."
+  (setq visible-bell nil)
+  (setq ring-bell-function
+        (lambda ()
+          (invert-face 'mode-line)
+          (run-with-timer 0.05 nil 'invert-face 'mode-line))))
 
 
+(defun rl--set-up-scroll ()
+  "Set up scroll."
+  (setq scroll-conservatively 10000)
+  (setq scroll-preserve-screen-position t))
 
-;; Load spacemacs theme. I use dark theme by default.
-(use-package spacemacs-theme
-  :ensure t)
-(load-theme 'spacemacs-dark t)
+
+(defun rl--set-up-theme ()
+  (use-package spacemacs-theme :ensure t)
+  (load-theme 'spacemacs-dark t)
+  (custom-set-faces
+   '(cursor ((t (:background "MediumOrchid3"))))))
+
+
+(defun rl--set-up-cursor ()
+  (blink-cursor-mode -1))
+
+
+(defun rl--set-up-ido ()
+  (use-package ido
+    :config
+
+    (setq ido-enable-flex-matching t)
+    (setq ido-use-virtual-buffers t)
+    (setq ido-save-directory-list-file (expand-file-name "ido.last" rl/dir-autogen))
+
+    (ido-everywhere 1)
+    (ido-mode 1)
+
+    (use-package ido-ubiquitous
+      :ensure t
+      :config
+      (ido-ubiquitous-mode 1))
+
+    (use-package ido-vertical-mode
+      :ensure t
+      :config
+      (setq-default ido-vertical-define-keys 'C-n-and-C-p-only)
+      (setq-default ido-vertical-show-count t)
+      (ido-vertical-mode 1))
+
+    ;; ido M-x
+    (use-package smex
+      :ensure t
+      :bind
+      ("M-x" . smex)
+      ("M-X" . smex-major-mode-commands)
+      :config
+      (setq smex-save-file (expand-file-name "smex_items" rl/dir-autogen))
+      (smex-initialize))))
 
 
 
