@@ -5,8 +5,24 @@
   (rl--set-up-cursor)
   (rl--set-up-theme)
   (rl--set-up-ido)
+  (rl--set-up-window)
   (rl--set-up-interface))
 
+(defun rl/split-window-vertically ()
+  "Split window vertically. Focus to the new window and display a recent used
+buffer in it"
+  (interactive)
+  (call-interactively 'split-window-vertically)
+  (set-window-buffer (next-window) (other-buffer))
+  (other-window 1))
+
+(defun rl/split-window-horizontally ()
+  "Split window horizontally. Focus to the new window and display a recent used
+buffer in it"
+  (interactive)
+  (call-interactively 'split-window-horizontally)
+  (set-window-buffer (next-window) (other-buffer))
+  (other-window 1))
 
 (defun rl--set-up-interface ()
   "Set up GUI."
@@ -30,7 +46,12 @@
   (set-locale-environment "zh_TW.utf-8")
 
   ;; no splash message
-  (setq inhibit-startup-message t))
+  (setq inhibit-startup-message t)
+  (setq inhibit-startup-echo-area-message "")
+
+  ;; show column & line number in mode line
+  (column-number-mode t)
+  (line-number-mode t))
 
 
 (defun rl--set-up-bell ()
@@ -93,5 +114,8 @@
       (smex-initialize))))
 
 
+(defun rl--set-up-window ()
+  (bind-key "C-x 2" 'rl/split-window-vertically)
+  (bind-key "C-x 3" 'rl/split-window-horizontally))
 
 (provide 'module-gui)
