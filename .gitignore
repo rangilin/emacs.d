@@ -7,3 +7,4 @@ tramp
 session.*
 .DS_Store
 autogen
+eshell
