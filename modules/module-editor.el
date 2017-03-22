@@ -102,7 +102,9 @@
 
 
 (defun rl--set-up-navigation ()
-  "Set up keybindings for navigation."
+  "Set up navigation."
+  (setq-default scroll-error-top-bottom t)
+
   (bind-key "M-g c" #'goto-char)
   (bind-key "M-g l" #'goto-line))
 
