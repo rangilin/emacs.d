@@ -23,6 +23,7 @@
 (require 'module-file)
 (require 'module-font)
 (require 'module-gui)
+(require 'module-org)
 (require 'module-web)
 
 
@@ -31,6 +32,7 @@
 (rl/initialize-module-file)
 (rl/initialize-module-font)
 (rl/initialize-module-gui)
+(rl/initialize-module-org)
 (rl/initialize-module-web)
 
 
@@ -50,5 +52,5 @@
 ;; TODO
 ;;
 ;; => daemon / emacsclent integration
-;;
-;;
+;; => mysql binary path
+;; => auto sudo open file
