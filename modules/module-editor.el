@@ -34,6 +34,7 @@
   (rl--set-up-navigation)
   (rl--set-up-marks)
   (rl--set-up-pairs)
+  (rl--set-up-revert-buffer)
   (rl--set-up-tabs))
 
 
@@ -64,6 +65,16 @@
 
 (defun rl/ibuffer-mode-hook ()
   (ibuffer-switch-to-saved-filter-groups "default"))
+
+
+;; http://www.emacswiki.org/emacs/BackToIndentationOrBeginning
+(defun rl/back-to-indentation-or-beginning ()
+  "Back to indentation or beginning of current line"
+  (interactive "^")
+  (if (bound-and-true-p visual-line-mode)
+      (beginning-of-visual-line)
+      (when (= (point) (progn (back-to-indentation) (point)))
+        (beginning-of-line))))
 
 
 (defun rl--load-editor-packages ()
@@ -103,10 +114,13 @@
 
 (defun rl--set-up-navigation ()
   "Set up navigation."
+
+  ;; move cursor to top or bottom when it can not scroll
   (setq-default scroll-error-top-bottom t)
 
-  (bind-key "M-g c" #'goto-char)
-  (bind-key "M-g l" #'goto-line))
+  (bind-key "C-a" 'rl/back-to-indentation-or-beginning)
+  (bind-key "M-g c" 'goto-char)
+  (bind-key "M-g l" 'goto-line))
 
 
 (defun rl--set-up-pairs ()
@@ -120,10 +134,10 @@
   ;; Make marked characters will be replaced when changed.
   (delete-selection-mode 1)
   ;; Set up some marking keybindings.
-  (bind-key "M-L" #'rl/mark-line)
-  (bind-key "M-S" #'rl/mark-sentence)
-  (bind-key "M-X" #'mark-sexp)
-  (bind-key "M-D" #'mark-defun))
+  (bind-key "M-L" 'rl/mark-line)
+  (bind-key "M-S" 'rl/mark-sentence)
+  (bind-key "M-X" 'mark-sexp)
+  (bind-key "M-D" 'mark-defun))
 
 
 (defun rl--set-up-revert-buffer ()
