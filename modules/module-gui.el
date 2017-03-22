@@ -108,7 +108,6 @@ buffer in it"
       :ensure t
       :bind
       ("M-x" . smex)
-      ("M-X" . smex-major-mode-commands)
       :config
       (setq smex-save-file (expand-file-name "smex_items" rl/dir-autogen))
       (smex-initialize))))
