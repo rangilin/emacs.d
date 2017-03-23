@@ -35,6 +35,7 @@
   (rl--set-up-marks)
   (rl--set-up-pairs)
   (rl--set-up-revert-buffer)
+  (rl--set-up-undo)
   (rl--set-up-tabs))
 
 
@@ -147,6 +148,12 @@
   (setq-default auto-revert-verbose nil)
   (bind-key "<f5>" 'rl/refresh-buffer))
 
+
+(defun rl--set-up-undo ()
+  (use-package undo-tree
+    :ensure t
+    :config
+    (global-undo-tree-mode)))
 
 
 (provide 'module-editor)
