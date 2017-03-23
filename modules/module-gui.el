@@ -71,9 +71,7 @@ buffer in it"
 
 (defun rl--set-up-theme ()
   (use-package spacemacs-theme :ensure t)
-  (load-theme 'spacemacs-dark t)
-  (custom-set-faces
-   '(cursor ((t (:background "MediumOrchid3"))))))
+  (load-theme 'spacemacs-dark t))
 
 
 (defun rl--set-up-cursor ()
