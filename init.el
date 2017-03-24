@@ -7,7 +7,7 @@
                          ("gnu"   . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
-;(package-refresh-contents)
+(package-refresh-contents)
 
 
 ;; use use-package to install and lazy loading packages
@@ -22,6 +22,7 @@
 (require 'module-editor)
 (require 'module-file)
 (require 'module-font)
+(require 'module-ivy)
 (require 'module-gui)
 (require 'module-org)
 (require 'module-web)
@@ -31,6 +32,7 @@
 (rl/initialize-module-editor)
 (rl/initialize-module-file)
 (rl/initialize-module-font)
+(rl-initialize-module-ivy)
 (rl/initialize-module-gui)
 (rl/initialize-module-org)
 (rl/initialize-module-web)
