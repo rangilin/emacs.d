@@ -29,6 +29,7 @@
 (require 'module-svc)
 (require 'module-web)
 (require 'module-terminal)
+(require 'module-projectile)
 
 
 ;; initialize modules
@@ -42,6 +43,7 @@
 (rl-init-module-svc)
 (rl-init-module-web)
 (rl-init-module-terminal)
+(rl-init-module-projectile)
 
 
 ;; Put all customizations into custom.el and load the file if it is already exists.
@@ -49,6 +51,10 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+;; swap option & command modifier
+(when (eq system-type 'darwin)
+  (setq mac-option-modifier 'super)
+  (setq mac-command-modifier 'meta))
 
 
 (setq gc-cons-threshold 100000000)
@@ -60,5 +66,3 @@
 ;; TODO
 ;;
 ;; => daemon / emacsclent integration
-;; => mysql binary path
-;; => auto sudo open file

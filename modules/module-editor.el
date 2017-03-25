@@ -35,6 +35,7 @@
   (rl--set-up-revert-buffer)
   (rl--set-up-undo)
   (rl--set-up-abbrev)
+  (rl--set-up-indentation)
   (rl--set-up-tabs))
 
 
@@ -75,6 +76,33 @@
       (beginning-of-visual-line)
       (when (= (point) (progn (back-to-indentation) (point)))
         (beginning-of-line))))
+
+
+;; http://stackoverflow.com/a/1249665/554279
+(defun rl-horizontal-recenter ()
+  "make the point horizontally centered in the window"
+  (interactive)
+  (let ((mid (/ (window-width) 2))
+        (line-len (save-excursion (end-of-line) (current-column)))
+        (cur (current-column)))
+    (if (< mid cur) (set-window-hscroll (selected-window) (- cur mid)))))
+
+
+(defun rl-insert-newline-above ()
+  "Insert a newline above the current line."
+  (interactive)
+  (beginning-of-line)
+  (newline)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+
+(defun rl-insert-newline-below ()
+  "Insert a newline below the current line."
+  (interactive)
+  (end-of-line)
+  (newline)
+  (indent-according-to-mode))
 
 
 (defun rl--load-editor-packages ()
@@ -119,6 +147,7 @@
   ;; move cursor to top or bottom when it can not scroll
   (setq-default scroll-error-top-bottom t)
 
+  (bind-key "C-S-l" 'rl-horizontal-recenter)
   (bind-key "C-a" 'rl-back-to-indentation-or-beginning)
   (bind-key "M-g c" 'goto-char)
   (bind-key "M-g l" 'goto-line))
@@ -168,6 +197,11 @@
     :config
     (if (file-exists-p abbrev-file-name)
         (quietly-read-abbrebv-file))))
+
+
+(defun rl--set-up-indentation ()
+  (bind-key "<M-S-return>" 'rl-insert-newline-above)
+  (bind-key "<S-return>" 'rl-insert-newline-below))
 
 
 
