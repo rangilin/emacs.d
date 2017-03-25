@@ -1,5 +1,3 @@
-;;; module-editor.el
-
 (defvar rl--ibuffer-filter-groups
   `(("default"
      ("Dired" (mode . dired-mode))
@@ -28,7 +26,7 @@
           " " filename-and-process)))
 
 
-(defun rl/initialize-module-editor ()
+(defun rl-init-module-editor ()
   "Initialize editor module."
   (rl--load-editor-packages)
   (rl--set-up-navigation)
@@ -39,7 +37,7 @@
   (rl--set-up-tabs))
 
 
-(defun rl/mark-line (&optional arg)
+(defun rl-mark-line (&optional arg)
   "Mark a line."
   (interactive "p")
   (beginning-of-line)
@@ -50,26 +48,26 @@
     (goto-char here)))
 
 
-(defun rl/mark-sentence (&optional arg)
+(defun rl-mark-sentence (&optional arg)
   "Mark a sentence."
   (interactive "P")
   (backward-sentence)
   (mark-end-of-sentence arg))
 
 
-(defun rl/refresh-buffer ()
+(defun rl-refresh-buffer ()
   "Referesh current buffer."
   (interactive)
   (revert-buffer nil t nil)
   (message "buffer is refreshed"))
 
 
-(defun rl/ibuffer-mode-hook ()
+(defun rl-ibuffer-mode-hook ()
   (ibuffer-switch-to-saved-filter-groups "default"))
 
 
 ;; http://www.emacswiki.org/emacs/BackToIndentationOrBeginning
-(defun rl/back-to-indentation-or-beginning ()
+(defun rl-back-to-indentation-or-beginning ()
   "Back to indentation or beginning of current line"
   (interactive "^")
   (if (bound-and-true-p visual-line-mode)
@@ -103,7 +101,7 @@
      ((> (buffer-size) 1000) (format "%7.1fK" (/ (buffer-size) 1000.0)))
      (t (format "%8d" (buffer-size)))))
 
-  (add-hook 'ibuffer-mode-hook 'rl/ibuffer-mode-hook)))
+  (add-hook 'ibuffer-mode-hook 'rl-ibuffer-mode-hook)))
 
 
 (defun rl--set-up-tabs ()
@@ -119,7 +117,7 @@
   ;; move cursor to top or bottom when it can not scroll
   (setq-default scroll-error-top-bottom t)
 
-  (bind-key "C-a" 'rl/back-to-indentation-or-beginning)
+  (bind-key "C-a" 'rl-back-to-indentation-or-beginning)
   (bind-key "M-g c" 'goto-char)
   (bind-key "M-g l" 'goto-line))
 
@@ -135,8 +133,8 @@
   ;; Make marked characters will be replaced when changed.
   (delete-selection-mode 1)
   ;; Set up some marking keybindings.
-  (bind-key "M-L" 'rl/mark-line)
-  (bind-key "M-S" 'rl/mark-sentence)
+  (bind-key "M-L" 'rl-mark-line)
+  (bind-key "M-S" 'rl-mark-sentence)
   (bind-key "M-X" 'mark-sexp)
   (bind-key "M-D" 'mark-defun))
 
@@ -146,7 +144,7 @@
   (global-auto-revert-mode 1)
   (setq-default global-auto-revert-non-file-buffers t)
   (setq-default auto-revert-verbose nil)
-  (bind-key "<f5>" 'rl/refresh-buffer))
+  (bind-key "<f5>" 'rl-refresh-buffer))
 
 
 (defun rl--set-up-undo ()

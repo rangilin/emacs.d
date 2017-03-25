@@ -22,19 +22,19 @@
   "This list is used to store matching (english . chinese) font-size.")
 
 
-(defun rl/initialize-module-font ()
+(defun rl-init-module-font ()
   "Initialize font module."
   (rl--set-font emacs-english-font emacs-cjk-font emacs-font-size-pair)
-  (bind-key "C-=" 'rl/increase-emacs-font-size)
-  (bind-key "C--" 'rl/decrease-emacs-font-size))
+  (bind-key "C-=" 'rl-increase-emacs-font-size)
+  (bind-key "C--" 'rl-decrease-emacs-font-size))
 
 
-(defun rl/increase-emacs-font-size ()
+(defun rl-increase-emacs-font-size ()
   "Decrease emacs's font-size acording emacs-font-size-pair-list."
   (interactive) (rl--emacs-step-font-size 1))
 
 
-(defun rl/decrease-emacs-font-size ()
+(defun rl-decrease-emacs-font-size ()
   "Increase emacs's font-size acording emacs-font-size-pair-list."
   (interactive) (rl--emacs-step-font-size -1))
 

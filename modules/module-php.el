@@ -1,4 +1,4 @@
-(defun rl/initialize-module-php ()
+(defun rl-init-module-php ()
   "Initialize PHP module."
   (rl--set-up-php-mode))
 

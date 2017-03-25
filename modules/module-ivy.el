@@ -1,4 +1,4 @@
-(defun rl-initialize-module-ivy ()
+(defun rl-init-module-ivy ()
   (rl--set-up-ivy)
   (rl--set-up-counsel)
   (rl--set-up-swiper))

@@ -1,7 +1,7 @@
 ;;; module-org.el
 
 
-(defun rl/initialize-module-org ()
+(defun rl-init-module-org ()
   "Initialize org mode module."
 
   "Make org mode curosr move to start/end of headline"

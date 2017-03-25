@@ -1,4 +1,4 @@
-(defun rl/initialize-module-gui ()
+(defun rl-init-module-gui ()
   "Initialize GUI module."
   (rl--set-up-bell)
   (rl--set-up-scroll)

@@ -1,4 +1,4 @@
-(defun rl/initialize-module-web ()
+(defun rl-init-module-web ()
     (rl--set-up-restclient))
 
 

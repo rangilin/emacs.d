@@ -22,20 +22,24 @@
 (require 'module-editor)
 (require 'module-file)
 (require 'module-font)
-(require 'module-ivy)
 (require 'module-gui)
+(require 'module-ivy)
 (require 'module-org)
+(require 'module-php)
+(require 'module-svc)
 (require 'module-web)
 
 
 ;; initialize modules
-(rl/initialize-module-editor)
-(rl/initialize-module-file)
-(rl/initialize-module-font)
-(rl-initialize-module-ivy)
-(rl/initialize-module-gui)
-(rl/initialize-module-org)
-(rl/initialize-module-web)
+(rl-init-module-editor)
+(rl-init-module-file)
+(rl-init-module-font)
+(rl-init-module-gui)
+(rl-init-module-ivy)
+(rl-init-module-org)
+(rl-init-module-php)
+(rl-init-module-svc)
+(rl-init-module-web)
 
 
 ;; Put all customizations into custom.el and load the file if it is already exists.
