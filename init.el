@@ -28,6 +28,7 @@
 (require 'module-php)
 (require 'module-svc)
 (require 'module-web)
+(require 'module-terminal)
 
 
 ;; initialize modules
@@ -40,6 +41,7 @@
 (rl-init-module-php)
 (rl-init-module-svc)
 (rl-init-module-web)
+(rl-init-module-terminal)
 
 
 ;; Put all customizations into custom.el and load the file if it is already exists.
