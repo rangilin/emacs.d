@@ -34,6 +34,7 @@
   (rl--set-up-pairs)
   (rl--set-up-revert-buffer)
   (rl--set-up-undo)
+  (rl--set-up-abbrev)
   (rl--set-up-tabs))
 
 
@@ -159,6 +160,15 @@
     :diminish undo-tree-mode
     :config
     (global-undo-tree-mode)))
+
+
+(defun rl--set-up-abbrev ()
+  (use-package abbrev
+    :diminish abbrev-mode
+    :config
+    (if (file-exists-p abbrev-file-name)
+        (quietly-read-abbrebv-file))))
+
 
 
 (provide 'module-editor)
