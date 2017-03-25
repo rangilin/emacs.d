@@ -5,6 +5,7 @@
   (rl--set-up-cursor)
   (rl--set-up-theme)
   (rl--set-up-mode-line)
+  (rl--set-up-window)
   (rl--set-up-interface))
 
 
@@ -67,6 +68,11 @@
     :config
     (require 'spaceline-config)
     (spaceline-spacemacs-theme)))
+
+
+(defun rl--set-up-window ()
+  (setq split-height-threshold nil)
+  (setq split-width-threshold 120))
 
 
 
