@@ -4,7 +4,9 @@
 
 (defun rl--set-up-magit ()
   (use-package magit
-    :ensure t))
+    :ensure t
+    :config
+    (bind-key "C-x g" 'magit-status)))
 
 
 (provide 'module-svc)
