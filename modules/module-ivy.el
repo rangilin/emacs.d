@@ -7,6 +7,7 @@
 (defun rl--set-up-ivy ()
   (use-package ivy
     :ensure t
+    :diminish ivy-mode
     :init
     (setq ivy-use-virtual-buffers t)
     (setq ivy-count-format "%d/%d ")

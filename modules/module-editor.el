@@ -82,6 +82,7 @@
   ;; Make emacs trim whitespace smartly.
   (use-package ws-butler
     :ensure t
+    :diminish ws-butler-mode
     :config
     (ws-butler-global-mode 1))
 
@@ -141,15 +142,21 @@
 
 (defun rl--set-up-revert-buffer ()
   "Set up buffer revert behaviors."
-  (global-auto-revert-mode 1)
-  (setq-default global-auto-revert-non-file-buffers t)
-  (setq-default auto-revert-verbose nil)
-  (bind-key "<f5>" 'rl-refresh-buffer))
+  (use-package autorevert
+    :diminish auto-revert-mode
+    :init
+    (setq auto-revert-verbose nil)
+    (setq global-auto-revert-non-file-buffers t)
+    :config
+    (global-auto-revert-mode 1)
+    (global-auto-revert-mode 1)
+    (bind-key "<f5>" 'rl-refresh-buffer)))
 
 
 (defun rl--set-up-undo ()
   (use-package undo-tree
     :ensure t
+    :diminish undo-tree-mode
     :config
     (global-undo-tree-mode)))
 
