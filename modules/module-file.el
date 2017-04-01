@@ -9,7 +9,35 @@
   (rl--set-up-autosave)
   (rl--set-up-backup)
   (rl--set-up-dired)
-  (rl--set-up-recentf))
+  (rl--set-up-recentf)
+  (rl--set-up-open))
+
+
+(defun rl-get-current-path-dwim ()
+  "Get file path from current buffer, and try to be smart with it."
+  (cond
+   ;; When in dired mode, try get path under the cursor, otherwise return the current directory
+   ((equal major-mode `dired-mode)
+    (let ((path (ignore-errors (dired-get-file-for-visit))))
+      (if path path default-directory)))
+   ;; Return file name of current buffer
+   (t buffer-file-name)))
+
+
+;; http://emacsredux.com/blog/2013/03/27/open-file-in-external-program/
+(defun rl-open-with (arg)
+  "Open file in default external program.
+ With a prefix ARG always prompt for command to use"
+  (interactive "P")
+  (let ((path (rl-get-current-path-dwim)))
+    (when path (shell-command
+                (concat
+                 (cond
+                  ((and (not arg) (eq system-type 'darwin)) "open")
+                  ((and (not arg) (member system-type '(gnu gnu/linux gnu/kfreebsd))) "xdg-open")
+                  (t (read-shell-command "Open current file with: ")))
+                 " "
+                 (shell-quote-argument path))))))
 
 
 (defun rl-sub-dir-autogen (sub-dir-name)
@@ -17,7 +45,6 @@
   (let ((sub-dir-path (expand-file-name sub-dir-name rl-dir-autogen)))
     (make-directory sub-dir-path t)
     (file-name-as-directory sub-dir-path)))
-
 
 
 (defun rl--set-up-autogens ()
@@ -58,6 +85,10 @@
     (setq recentf-max-menu-items 15)
     (run-at-time nil (* 5 60) 'recentf-save-list) ; save recent files every 5 mins
     (recentf-mode 1)))
+
+
+(defun rl--set-up-open ()
+  (bind-key "C-c o" 'rl-open-with))
 
 
 
