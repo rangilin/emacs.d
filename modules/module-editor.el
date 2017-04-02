@@ -144,13 +144,20 @@
 (defun rl--set-up-navigation ()
   "Set up navigation."
 
+  (use-package ace-window
+    :ensure t
+    :init
+    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+  (use-package avy
+    :ensure t
+    :init
+    (setq avy-background t))
+
   ;; move cursor to top or bottom when it can not scroll
   (setq-default scroll-error-top-bottom t)
 
   (bind-key "C-S-l" 'rl-horizontal-recenter)
-  (bind-key "C-a" 'rl-back-to-indentation-or-beginning)
-  (bind-key "M-g c" 'goto-char)
-  (bind-key "M-g l" 'goto-line))
+  (bind-key "C-a" 'rl-back-to-indentation-or-beginning))
 
 
 (defun rl--set-up-pairs ()
@@ -178,7 +185,6 @@
     (setq auto-revert-verbose nil)
     (setq global-auto-revert-non-file-buffers t)
     :config
-    (global-auto-revert-mode 1)
     (global-auto-revert-mode 1)
     (bind-key "<f5>" 'rl-refresh-buffer)))
 

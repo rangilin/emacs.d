@@ -55,7 +55,11 @@
 
 (defun rl--set-up-theme ()
   (use-package spacemacs-theme :ensure t)
-  (load-theme 'spacemacs-dark t))
+  (load-theme 'spacemacs-dark t)
+  (set-face-attribute 'avy-lead-face nil :foreground "red")
+  (set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1")
+  (set-face-attribute 'avy-lead-face-1 nil :foreground "red")
+  (set-face-attribute 'avy-lead-face-2 nil :foreground "DeepSkyBlue1"))
 
 
 (defun rl--set-up-cursor ()
