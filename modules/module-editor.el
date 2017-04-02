@@ -38,6 +38,7 @@
   (rl--set-up-indentation)
   (rl--set-up-multiple-cursors)
   (rl--set-up-hungry-delete)
+  (rl--set-up-expand-region)
   (rl--set-up-tabs))
 
 
@@ -242,6 +243,12 @@
     :ensure t
     :config
     (global-hungry-delete-mode)))
+
+
+(defun rl--set-up-expand-region ()
+  (use-package expand-region
+    :ensure t
+    :bind ("C-'" . er/expand-region)))
 
 
 
