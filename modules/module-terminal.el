@@ -6,7 +6,7 @@
   (use-package exec-path-from-shell
     :ensure t
     :config
-    (when (memq window-system '(mac ns))
+    (when (member system-type '(gnu gnu/linux gnu/kfreebsd darwin))
       (exec-path-from-shell-initialize))))
 
 
