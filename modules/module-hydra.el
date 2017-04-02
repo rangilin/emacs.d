@@ -19,7 +19,8 @@ _g_: char          _D_: region          _M_: region        _K_: region      _C_:
 _l_: line
 "
     ("w" ace-window)
-    ("g" avy-goto-char)
+    ("g" avy-goto-word-1)
+    ("G" avy-goto-char)
     ("l" avy-goto-line)
     ("d" avy-copy-line)
     ("D" avy-copy-region)
