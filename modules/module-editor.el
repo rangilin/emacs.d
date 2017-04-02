@@ -39,6 +39,7 @@
   (rl--set-up-multiple-cursors)
   (rl--set-up-hungry-delete)
   (rl--set-up-expand-region)
+  (rl--set-up-kill-ring)
   (rl--set-up-tabs))
 
 
@@ -250,6 +251,12 @@
     :ensure t
     :bind ("C-'" . er/expand-region)))
 
+
+(defun rl--set-up-kill-ring ()
+  (use-package browse-kill-ring
+    :ensure t
+    :config
+    (browse-kill-ring-default-keybindings)))
 
 
 
