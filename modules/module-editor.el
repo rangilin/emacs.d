@@ -36,6 +36,7 @@
   (rl--set-up-undo)
   (rl--set-up-abbrev)
   (rl--set-up-indentation)
+  (rl--set-up-multiple-cursors)
   (rl--set-up-tabs))
 
 
@@ -103,6 +104,23 @@
   (end-of-line)
   (newline)
   (indent-according-to-mode))
+
+
+(defun rl-multiple-cursors (arg)
+  (interactive "p")
+  (message "Multiple cursors is activated...")
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (kbd ">") 'mc/mark-all-like-this)
+     (define-key map (kbd "n") 'mc/mark-next-like-this-word)
+     (define-key map (kbd "N") 'mc/skip-to-next-like-this)
+     (define-key map (kbd "M-n") 'mc/unmark-next-like-this)
+     (define-key map (kbd "p") 'mc/mark-previous-like-this-word)
+     (define-key map (kbd "P") 'mc/skip-to-previous-like-this)
+     (define-key map (kbd "M-p") 'mc/unmark-previous-like-this)
+     (define-key map (kbd "l") 'mc/edit-lines)
+     map)
+   t))
 
 
 (defun rl--load-editor-packages ()
@@ -203,6 +221,14 @@
     :config
     (if (file-exists-p abbrev-file-name)
         (quietly-read-abbrebv-file))))
+
+
+(defun rl--set-up-multiple-cursors ()
+  (use-package multiple-cursors
+    :ensure t
+    :bind ("C->" . rl-multiple-cursors)
+    :config
+    (setq mc/list-file (expand-file-name ".mc-lists.el" rl-dir-autogen))))
 
 
 (defun rl--set-up-indentation ()

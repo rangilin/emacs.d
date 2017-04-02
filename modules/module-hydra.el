@@ -5,12 +5,12 @@
     :config
     (setq hydra-is-helpful t)
     (hydra-add-font-lock)
-    (rl--set-up-hydra-ace)))
+    (rl--set-up-ace-hydra)))
 
 
 
-(defun rl--set-up-hydra-ace ()
-  (defhydra hydra-ace (:color teal :hint nil)
+(defun rl--set-up-ace-hydra ()
+  (defhydra ace-hydra (:color teal :hint nil)
     "
 Goto             ^^Duplicate          ^^Move             ^^Kill           ^^Copy
 ------------------------------------------------------------------------------------
@@ -30,6 +30,7 @@ _l_: line
     ("c" avy-kill-ring-save-whole-line)
     ("C" avy-kill-ring-save-region))
 
-  (bind-key "M-g" 'hydra-ace/body))
+  (bind-key "M-g" 'ace-hydra/body))
+
 
 (provide 'module-hydra)
