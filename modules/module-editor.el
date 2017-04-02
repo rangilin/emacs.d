@@ -37,6 +37,7 @@
   (rl--set-up-abbrev)
   (rl--set-up-indentation)
   (rl--set-up-multiple-cursors)
+  (rl--set-up-hungry-delete)
   (rl--set-up-tabs))
 
 
@@ -234,6 +235,14 @@
 (defun rl--set-up-indentation ()
   (bind-key "<M-S-return>" 'rl-insert-newline-above)
   (bind-key "<S-return>" 'rl-insert-newline-below))
+
+
+(defun rl--set-up-hungry-delete ()
+  (use-package hungry-delete
+    :ensure t
+    :config
+    (global-hungry-delete-mode)))
+
 
 
 
