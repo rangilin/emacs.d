@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: CodeIgniter load things
+# key: ci-load
+# --
+${1:\$this}$2->${3:load}->${4:view}('${5:my_view}');

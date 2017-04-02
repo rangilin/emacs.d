@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: initialize
+# key: init
+# --
+def initialize$1
+  $0
+end

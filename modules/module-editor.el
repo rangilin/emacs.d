@@ -40,7 +40,13 @@
   (rl--set-up-hungry-delete)
   (rl--set-up-expand-region)
   (rl--set-up-kill-ring)
-  (rl--set-up-tabs))
+  (rl--set-up-tabs)
+  (rl--set-up-bookmark)
+  (rl--set-up-yasnippet))
+
+
+(defun rl-yas-ivy-prompt (prompt choices &optional display-fn)
+  (yas-completing-prompt prompt choices display-fn #'ivy-completing-read))
 
 
 (defun rl-mark-line (&optional arg)
@@ -115,10 +121,10 @@
   (set-transient-map
    (let ((map (make-sparse-keymap)))
      (define-key map (kbd ">") 'mc/mark-all-like-this)
-     (define-key map (kbd "n") 'mc/mark-next-like-this-word)
+     (define-key map (kbd "n") 'mc/mark-next-like-this)
      (define-key map (kbd "N") 'mc/skip-to-next-like-this)
      (define-key map (kbd "M-n") 'mc/unmark-next-like-this)
-     (define-key map (kbd "p") 'mc/mark-previous-like-this-word)
+     (define-key map (kbd "p") 'mc/mark-previous-like-this)
      (define-key map (kbd "P") 'mc/skip-to-previous-like-this)
      (define-key map (kbd "M-p") 'mc/unmark-previous-like-this)
      (define-key map (kbd "l") 'mc/edit-lines)
@@ -242,6 +248,7 @@
 (defun rl--set-up-hungry-delete ()
   (use-package hungry-delete
     :ensure t
+    :diminish hungry-delete-mode
     :config
     (global-hungry-delete-mode)))
 
@@ -257,6 +264,21 @@
     :ensure t
     :config
     (browse-kill-ring-default-keybindings)))
+
+
+(defun rl--set-up-yasnippet ()
+  (use-package yasnippet
+    :diminish yas-minor-mode
+    :ensure t
+    :config
+    (setq yas-snippet-dirs (concat (file-name-as-directory user-emacs-directory) "snippets"))
+    (yas-global-mode 1)))
+
+
+(defun rl--set-up-bookmark ()
+  (use-package bookmark
+    :config
+    (setq bookmark-default-file (expand-file-name "bookmarks" rl-dir-autogen))))
 
 
 

@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: foreach loop
+# key: foe
+# --
+foreach (${1:$array} as ${3:${2:$key} => }${4:$value}) {
+$0
+}

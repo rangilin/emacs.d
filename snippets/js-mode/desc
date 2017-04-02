@@ -1,0 +1,5 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: jasmine description
+# key: desc
+# --
+describe('$1', function() {$0});

@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: while alternate
+# key: altwhile
+# --
+<?php while (${1:expr}): ?>
+$0
+<?php endwhile; ?>

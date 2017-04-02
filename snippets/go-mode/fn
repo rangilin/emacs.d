@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: func
+# key: fn
+# --
+func ${2:($1) }${3:foo}($4)$5 {
+    $0
+}
