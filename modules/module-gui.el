@@ -5,7 +5,6 @@
   (rl--set-up-cursor)
   (rl--set-up-theme)
   (rl--set-up-mode-line)
-  (rl--set-up-window)
   (rl--set-up-interface))
 
 
@@ -56,6 +55,7 @@
 (defun rl--set-up-theme ()
   (use-package spacemacs-theme :ensure t)
   (load-theme 'spacemacs-dark t)
+
   (set-face-attribute 'avy-lead-face nil :foreground "red")
   (set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1")
   (set-face-attribute 'avy-lead-face-1 nil :foreground "red")
@@ -72,11 +72,6 @@
     :config
     (require 'spaceline-config)
     (spaceline-spacemacs-theme)))
-
-
-(defun rl--set-up-window ()
-  (setq split-height-threshold nil)
-  (setq split-width-threshold 120))
 
 
 
