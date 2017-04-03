@@ -12,6 +12,8 @@
 
 
 (defun rl--set-up-comment ()
+  "Set up comment behaviors."
+  (setq comment-empty-lines t)
   (bind-key "C-/" 'comment-dwim))
 
 
