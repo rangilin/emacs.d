@@ -221,7 +221,9 @@
     :ensure t
     :diminish undo-tree-mode
     :config
-    (global-undo-tree-mode)))
+    (global-undo-tree-mode 1)
+    (bind-key "C-/" nil undo-tree-map)
+    (bind-key "C-?" nil undo-tree-map)))
 
 
 (defun rl--set-up-abbrev ()
