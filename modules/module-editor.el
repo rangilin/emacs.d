@@ -238,8 +238,7 @@
   (use-package multiple-cursors
     :ensure t
     :bind ("C->" . rl-multiple-cursors)
-    :config
-    (setq mc/list-file (expand-file-name ".mc-lists.el" rl-dir-autogen))))
+    :init (setq-default mc/list-file (expand-file-name ".mc-lists.el" rl-dir-autogen))))
 
 
 (defun rl--set-up-indentation ()
