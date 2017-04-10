@@ -2,7 +2,8 @@
   (rl--set-up-flycheck)
   (rl--set-up-auto-complete)
   (rl--set-up-comment)
-  (rl--set-up-php))
+  (rl--set-up-php)
+  (rl--set-up-markdown))
 
 
 (defun rl--set-up-auto-complete ()
@@ -47,6 +48,19 @@
   "Set up eldoc mode."
   (use-package eldoc
     :diminish eldoc-mode))
+
+
+(defun rl--set-up-markdown ()
+  "Set up markdown mode"
+  (use-package markdown-mode
+    :ensure t
+    :commands (markdown-mode gfm-mode)
+    :mode (("README\\.md\\'" . gfm-mode)
+           ("\\.md\\'" . markdown-mode)
+           ("\\.markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown")))
+
+
 
 
 
