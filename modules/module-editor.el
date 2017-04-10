@@ -42,6 +42,7 @@
   (rl--set-up-kill-ring)
   (rl--set-up-tabs)
   (rl--set-up-bookmark)
+  (rl--set-up-subword)
   (rl--set-up-yasnippet))
 
 
@@ -280,6 +281,13 @@
   (use-package bookmark
     :config
     (setq bookmark-default-file (expand-file-name "bookmarks" rl-dir-autogen))))
+
+
+(use-package subword
+  :diminish ""
+  :config
+  (global-subword-mode))
+
 
 
 
