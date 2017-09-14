@@ -12,6 +12,13 @@
 
 ;; predefined English and CJK font combinations
 
+(defvar rl-font-alist-hack-hiragino-sans
+  '((english-font . "Hack")
+    (cjk-font . "Hiragino Sans GB W3")
+    (default-size-pair . (13 . 16))
+    (size-pairs . ((10 . 12) (11 . 14) (13 . 16) (15 . 18) (17 . 20) (19 . 22) (20 . 24)
+                   (21 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
+
 (defvar rl-font-alist-monaco-hiragino-sans
   '((english-font . "Monaco")
     (cjk-font . "Hiragino Sans GB W3")
@@ -28,7 +35,7 @@
 
 ;; Set up fonts
 
-(defvar rl-font-alist rl-font-alist-menlo-hiragino-sans
+(defvar rl-font-alist rl-font-alist-hack-hiragino-sans
   "Default font alist")
 
 (defvar rl-font-size-pair (cdr (assoc 'default-size-pair rl-font-alist))
