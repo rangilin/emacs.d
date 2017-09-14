@@ -1,5 +1,6 @@
 (defun rl-init-module-gui ()
   "Initialize GUI module."
+  (rl--set-up-fringe)
   (rl--set-up-bell)
   (rl--set-up-scroll)
   (rl--set-up-cursor)
@@ -25,12 +26,20 @@
   ;; Use y/n to confirm dialog.
   (fset 'yes-or-no-p 'y-or-n-p)
 
+  ;; always confirm before exit
+  (setq-default confirm-kill-emacs 'y-or-n-p)
+
   ;; setup locale
   (set-locale-environment "zh_TW.utf-8")
 
   ;; no splash message
   (setq inhibit-startup-message t)
   (setq inhibit-startup-echo-area-message "")
+
+  ;; display path of current buffer in the frame title
+  (setq-default frame-title-format
+              '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name))
+                         "%b"))))
 
   ;; show column & line number in mode line
   (column-number-mode t)
@@ -73,6 +82,12 @@
     (require 'spaceline-config)
     (when (fboundp 'spaceline-emacs-theme)
       (spaceline-emacs-theme))))
+
+
+(defun rl--set-up-fringe ()
+  (setq-default indicate-buffer-boundaries 'left)
+  (setq-default indicate-empty-lines +1)
+  (set-face-background 'fringe (face-attribute 'default :background)))
 
 
 (provide 'module-gui)
