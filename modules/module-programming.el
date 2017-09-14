@@ -17,6 +17,7 @@
     :ensure t
     :diminish flycheck-mode
     :init
+    (setq-default flycheck-emacs-lisp-load-path 'inherit)
     (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
     :config (global-flycheck-mode)))
 

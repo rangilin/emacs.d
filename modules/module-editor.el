@@ -282,12 +282,11 @@
     :config
     (setq bookmark-default-file (expand-file-name "bookmarks" rl-dir-autogen))))
 
-
-(use-package subword
+(defun rl--set-up-subword ()
+  (use-package subword
   :diminish ""
   :config
-  (global-subword-mode))
-
+  (global-subword-mode)))
 
 
 

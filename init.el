@@ -70,3 +70,7 @@
 ;; TODO
 ;;
 ;; => daemon / emacsclent integration
+;; => psysh
+;; => https://github.com/abo-abo/auto-yasnippet
+;; => scratch in text mode
+;; => eval & replace lisp
