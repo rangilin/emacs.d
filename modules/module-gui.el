@@ -53,15 +53,13 @@
 
 
 (defun rl--set-up-theme ()
-
   (use-package color-theme-sanityinc-tomorrow :ensure t)
   (load-theme 'sanityinc-tomorrow-eighties t)
 
    (set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d")
    (set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1" :background "#2d2d2d")
    (set-face-attribute 'avy-lead-face-1 nil :foreground "yellow" :background "#2d2d2d")
-   (set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d")
-  )
+   (set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d"))
 
 
 (defun rl--set-up-cursor ()
@@ -73,7 +71,8 @@
     :ensure t
     :config
     (require 'spaceline-config)
-    (spaceline-emacs-theme)))
+    (when (fboundp 'spaceline-emacs-theme)
+      (spaceline-emacs-theme))))
 
 
 (provide 'module-gui)
