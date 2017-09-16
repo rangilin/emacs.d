@@ -34,7 +34,6 @@
   (rl--set-up-pairs)
   (rl--set-up-revert-buffer)
   (rl--set-up-undo)
-  (rl--set-up-abbrev)
   (rl--set-up-indentation)
   (rl--set-up-multiple-cursors)
   (rl--set-up-hungry-delete)
@@ -43,6 +42,7 @@
   (rl--set-up-tabs)
   (rl--set-up-bookmark)
   (rl--set-up-subword)
+  (rl--set-up-whitespace)
   (rl--set-up-yasnippet))
 
 
@@ -187,7 +187,6 @@
   (bind-key "C-S-l" 'rl-horizontal-recenter)
   (bind-key "C-a" 'rl-back-to-indentation-or-beginning))
 
-
 (defun rl--set-up-pairs ()
   (show-paren-mode 1)
   (electric-pair-mode 1))
@@ -226,13 +225,6 @@
     (bind-key "C-/" nil undo-tree-map)
     (bind-key "C-?" nil undo-tree-map)))
 
-
-(defun rl--set-up-abbrev ()
-  (use-package abbrev
-    :diminish abbrev-mode
-    :config
-    (if (file-exists-p abbrev-file-name)
-        (quietly-read-abbrebv-file))))
 
 
 (defun rl--set-up-multiple-cursors ()
@@ -287,6 +279,27 @@
   :diminish ""
   :config
   (global-subword-mode)))
+
+
+(defun rl--set-up-whitespace ()
+
+  (set-face-attribute 'trailing-whitespace nil :background "gray35")
+
+  ;; show trailing whitespace in following mode
+  (add-hook 'prog-mode-hook 'rl-show-trailing-whitespace)
+
+  ;; hide trailing whitespace in following mode
+  (add-hook 'minibuffer-inactive-mode-hook 'rl-hide-trailing-whitespace)
+
+  ;; clean trailing whitespace on save
+  (add-hook 'before-save-hook 'delete-trailing-whitespace))
+
+
+(defun rl-show-trailing-whitespace ()
+  (setq show-trailing-whitespace t))
+
+(defun rl-hide-trailing-whitespace ()
+  (setq show-trailing-whitespace nil))
 
 
 
