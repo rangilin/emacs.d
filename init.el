@@ -19,6 +19,7 @@
 
 ;; load modules
 (add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
+(require 'module-browse)
 (require 'module-editor)
 (require 'module-file)
 (require 'module-font)
