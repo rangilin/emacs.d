@@ -43,6 +43,7 @@
   (rl--set-up-bookmark)
   (rl--set-up-subword)
   (rl--set-up-whitespace)
+  (rl--set-up-scratch-buffer)
   (rl--set-up-yasnippet))
 
 
@@ -300,5 +301,7 @@
   (setq show-trailing-whitespace nil))
 
 
+(defun rl--set-up-scratch-buffer ()
+  (setq initial-major-mode 'text-mode))
 
 (provide 'module-editor)
