@@ -65,10 +65,12 @@
   (use-package color-theme-sanityinc-tomorrow :ensure t)
   (load-theme 'sanityinc-tomorrow-eighties t)
 
-   (set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d")
-   (set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1" :background "#2d2d2d")
-   (set-face-attribute 'avy-lead-face-1 nil :foreground "yellow" :background "#2d2d2d")
-   (set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d"))
+  (set-face-background 'fringe (face-attribute 'default :background))
+  (set-face-attribute 'trailing-whitespace nil :background "gray35")
+  (set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d")
+  (set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1" :background "#2d2d2d")
+  (set-face-attribute 'avy-lead-face-1 nil :foreground "yellow" :background "#2d2d2d")
+  (set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d"))
 
 
 (defun rl--set-up-cursor ()
@@ -86,8 +88,7 @@
 
 (defun rl--set-up-fringe ()
   (setq-default indicate-buffer-boundaries 'left)
-  (setq-default indicate-empty-lines +1)
-  (set-face-background 'fringe (face-attribute 'default :background)))
+  (setq-default indicate-empty-lines +1))
 
 
 (provide 'module-gui)

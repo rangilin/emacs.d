@@ -283,8 +283,6 @@
 
 (defun rl--set-up-whitespace ()
 
-  (set-face-attribute 'trailing-whitespace nil :background "gray35")
-
   ;; show trailing whitespace in following mode
   (add-hook 'prog-mode-hook 'rl-show-trailing-whitespace)
 
