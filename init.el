@@ -19,7 +19,9 @@
 
 ;; load modules
 (add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
+(require 'module-adoc)
 (require 'module-browse)
+(require 'module-buffer)
 (require 'module-editor)
 (require 'module-file)
 (require 'module-font)
@@ -36,7 +38,6 @@
 
 
 ;; initialize modules
-(rl-init-module-editor)
 (rl-init-module-file)
 (rl-init-module-font)
 (rl-init-module-gui)
@@ -70,6 +71,8 @@
 
 ;; TODO
 ;;
+;; => dired failed handle unicode file name during compressing/decompressing
+;; => make whitespace mode dispaly unicode zero width whitespace (or just all unicode whitespace)
 ;; => daemon / emacsclent integration
 ;; => psysh
 ;; => https://github.com/abo-abo/auto-yasnippet

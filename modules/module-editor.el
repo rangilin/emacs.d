@@ -1,54 +1,44 @@
-(defvar rl--ibuffer-filter-groups
-  `(("default"
-     ("Dired" (mode . dired-mode))
-     ("Emacs" (or (name . "\*Messages\*")
-                  (name . "\*Warnings\*")
-                  (name . "\*Completions\*")
-                  (name . "\*Compile-Log\*")
-                  (name . "\*Backtrace\*")))
-     ("Help" (or (mode . man-mode)
-                 (mode . woman-mode)
-                 (mode . info-mode)
-                 (mode . help-mode)))
-     ("Org" (mode . org-mode))
-     ("SQL client" (mode . sql-interactive-mode))
-     ("Terminal" (or (mode . term-mode)
-                     (mode . shell-mode)
-                     (mode . eshell-mode)))
-     ("Temporary" (name . "\*.*\*")))))
+;; -------------------------------------------------------------------
+;;
+;; #cursor
+;;
+;; -------------------------------------------------------------------
 
 
-(defvar rl--ibuffer-format
-  '((mark modified read-only
-          " " (name 24 24 :left :elide)
-          " " (readable-size 9 -1 :right)
-          " " (mode 16 16 :left :elide)
-          " " filename-and-process)))
+(defun rl-multiple-cursors (arg)
+  (interactive "p")
+  (message "Multiple cursors is activated...")
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (kbd ">") 'mc/mark-all-like-this)
+     (define-key map (kbd "n") 'mc/mark-next-like-this)
+     (define-key map (kbd "N") 'mc/skip-to-next-like-this)
+     (define-key map (kbd "M-n") 'mc/unmark-next-like-this)
+     (define-key map (kbd "p") 'mc/mark-previous-like-this)
+     (define-key map (kbd "P") 'mc/skip-to-previous-like-this)
+     (define-key map (kbd "M-p") 'mc/unmark-previous-like-this)
+     (define-key map (kbd "l") 'mc/edit-lines)
+     map)
+   t))
 
 
-(defun rl-init-module-editor ()
-  "Initialize editor module."
-  (rl--load-editor-packages)
-  (rl--set-up-navigation)
-  (rl--set-up-marks)
-  (rl--set-up-pairs)
-  (rl--set-up-revert-buffer)
-  (rl--set-up-undo)
-  (rl--set-up-indentation)
-  (rl--set-up-multiple-cursors)
-  (rl--set-up-hungry-delete)
-  (rl--set-up-expand-region)
-  (rl--set-up-kill-ring)
-  (rl--set-up-tabs)
-  (rl--set-up-bookmark)
-  (rl--set-up-subword)
-  (rl--set-up-whitespace)
-  (rl--set-up-scratch-buffer)
-  (rl--set-up-yasnippet))
+(use-package multiple-cursors
+  :ensure t
+  :bind ("C->" . rl-multiple-cursors)
+  :init (setq-default mc/list-file (expand-file-name ".mc-lists.el" (file-name-as-directory (expand-file-name "autogen" user-emacs-directory)))))
 
 
-(defun rl-yas-ivy-prompt (prompt choices &optional display-fn)
-  (yas-completing-prompt prompt choices display-fn #'ivy-completing-read))
+(use-package subword
+  :diminish ""
+  :config
+  (global-subword-mode))
+
+
+;; -------------------------------------------------------------------
+;;
+;; #selection
+;;
+;; -------------------------------------------------------------------
 
 
 (defun rl-mark-line (&optional arg)
@@ -69,15 +59,64 @@
   (mark-end-of-sentence arg))
 
 
-(defun rl-refresh-buffer ()
-  "Referesh current buffer."
-  (interactive)
-  (revert-buffer nil t nil)
-  (message "buffer is refreshed"))
+;; Make marked characters will be replaced when changed.
+(delete-selection-mode 1)
 
 
-(defun rl-ibuffer-mode-hook ()
-  (ibuffer-switch-to-saved-filter-groups "default"))
+;; Set up some marking keybindings.
+(bind-key "M-L" 'rl-mark-line)
+(bind-key "M-S" 'rl-mark-sentence)
+(bind-key "M-X" 'mark-sexp)
+(bind-key "M-D" 'mark-defun)
+
+
+(use-package expand-region
+  :ensure t
+  :bind ("C-'" . er/expand-region))
+
+
+;; -------------------------------------------------------------------
+;;
+;; #yasnippet
+;;
+;; -------------------------------------------------------------------
+
+
+(require 'yasnippet)
+
+(defun rl-yas-ivy-prompt (prompt choices &optional display-fn)
+  (yas-completing-prompt prompt choices display-fn #'ivy-completing-read))
+
+
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :ensure t
+  :config
+  (setq yas-snippet-dirs (concat (file-name-as-directory user-emacs-directory) "snippets"))
+  (yas-global-mode 1))
+
+
+;; -------------------------------------------------------------------
+;;
+;; #undo/redo
+;;
+;; -------------------------------------------------------------------
+
+
+(use-package undo-tree
+  :ensure t
+  :diminish undo-tree-mode
+  :config
+  (global-undo-tree-mode 1)
+  (bind-key "C-/" nil undo-tree-map)
+  (bind-key "C-?" nil undo-tree-map))
+
+
+;; -------------------------------------------------------------------
+;;
+;; #navigation
+;;
+;; -------------------------------------------------------------------
 
 
 ;; http://www.emacswiki.org/emacs/BackToIndentationOrBeginning
@@ -86,9 +125,8 @@
   (interactive "^")
   (if (bound-and-true-p visual-line-mode)
       (beginning-of-visual-line)
-      (when (= (point) (progn (back-to-indentation) (point)))
-        (beginning-of-line))))
-
+    (when (= (point) (progn (back-to-indentation) (point)))
+      (beginning-of-line))))
 
 ;; http://stackoverflow.com/a/1249665/554279
 (defun rl-horizontal-recenter ()
@@ -98,6 +136,41 @@
         (line-len (save-excursion (end-of-line) (current-column)))
         (cur (current-column)))
     (if (< mid cur) (set-window-hscroll (selected-window) (- cur mid)))))
+
+
+(use-package ace-window
+  :ensure t
+  :init
+  (setq-default aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+
+(use-package avy
+  :ensure t
+  :init
+  (setq avy-background t))
+
+;; move cursor to top or bottom when it can not scroll
+(setq-default scroll-error-top-bottom t)
+
+(bind-key "C-S-l" 'rl-horizontal-recenter)
+(bind-key "C-a" 'rl-back-to-indentation-or-beginning)
+
+
+;; -------------------------------------------------------------------
+;;
+;; #pairs
+;;
+;; -------------------------------------------------------------------
+
+
+(show-paren-mode 1)
+(electric-pair-mode 1)
+
+
+;; -------------------------------------------------------------------
+;;
+;; #indentation
+;;
+;; -------------------------------------------------------------------
 
 
 (defun rl-insert-newline-above ()
@@ -117,191 +190,67 @@
   (indent-according-to-mode))
 
 
-(defun rl-multiple-cursors (arg)
-  (interactive "p")
-  (message "Multiple cursors is activated...")
-  (set-transient-map
-   (let ((map (make-sparse-keymap)))
-     (define-key map (kbd ">") 'mc/mark-all-like-this)
-     (define-key map (kbd "n") 'mc/mark-next-like-this)
-     (define-key map (kbd "N") 'mc/skip-to-next-like-this)
-     (define-key map (kbd "M-n") 'mc/unmark-next-like-this)
-     (define-key map (kbd "p") 'mc/mark-previous-like-this)
-     (define-key map (kbd "P") 'mc/skip-to-previous-like-this)
-     (define-key map (kbd "M-p") 'mc/unmark-previous-like-this)
-     (define-key map (kbd "l") 'mc/edit-lines)
-     map)
-   t))
+(bind-key "<M-S-return>" 'rl-insert-newline-above)
+(bind-key "<S-return>" 'rl-insert-newline-below)
 
 
-(defun rl--load-editor-packages ()
-  "Load editor packages."
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 2)
+(setq-default tab-always-indent 'complete)
 
-  ;; Make emacs trim whitespace smartly.
-  (use-package ws-butler
-    :ensure t
-    :diminish ws-butler-mode
-    :config
-    (ws-butler-global-mode 1))
-
-  ;; use ibuffer
-  (use-package ibuffer
-    :bind ("C-x C-b" . ibuffer)
-    :config
-    (setq-default ibuffer-show-empty-filter-groups nil)
-    (setq-default ibuffer-saved-filter-groups rl--ibuffer-filter-groups)
-    (setq-default ibuffer-formats rl--ibuffer-format)
-
-    ;; make size column show human-readable description
-    (define-ibuffer-column readable-size
-      (:name "Size" :inline t)
-      (cond
-       ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-     ((> (buffer-size) 1000) (format "%7.1fK" (/ (buffer-size) 1000.0)))
-     (t (format "%8d" (buffer-size)))))
-
-  (add-hook 'ibuffer-mode-hook 'rl-ibuffer-mode-hook)))
+;; -------------------------------------------------------------------
+;;
+;; #whitespace
+;;
+;; -------------------------------------------------------------------
 
 
-(defun rl--set-up-tabs ()
-  "Set up tab behaviors."
-  (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 2)
-  (setq-default tab-always-indent 'complete))
-
-
-(defun rl--set-up-navigation ()
-  "Set up navigation."
-
-  (use-package ace-window
-    :ensure t
-    :init
-    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
-  (use-package avy
-    :ensure t
-    :init
-    (setq avy-background t))
-
-  ;; move cursor to top or bottom when it can not scroll
-  (setq-default scroll-error-top-bottom t)
-
-  (bind-key "C-S-l" 'rl-horizontal-recenter)
-  (bind-key "C-a" 'rl-back-to-indentation-or-beginning))
-
-(defun rl--set-up-pairs ()
-  (show-paren-mode 1)
-  (electric-pair-mode 1))
-
-
-(defun rl--set-up-marks ()
-  "Set up marks."
-
-  ;; Make marked characters will be replaced when changed.
-  (delete-selection-mode 1)
-  ;; Set up some marking keybindings.
-  (bind-key "M-L" 'rl-mark-line)
-  (bind-key "M-S" 'rl-mark-sentence)
-  (bind-key "M-X" 'mark-sexp)
-  (bind-key "M-D" 'mark-defun))
-
-
-(defun rl--set-up-revert-buffer ()
-  "Set up buffer revert behaviors."
-  (use-package autorevert
-    :diminish auto-revert-mode
-    :init
-    (setq auto-revert-verbose nil)
-    (setq global-auto-revert-non-file-buffers t)
-    :config
-    (global-auto-revert-mode 1)
-    (bind-key "<f5>" 'rl-refresh-buffer)))
-
-
-(defun rl--set-up-undo ()
-  (use-package undo-tree
-    :ensure t
-    :diminish undo-tree-mode
-    :config
-    (global-undo-tree-mode 1)
-    (bind-key "C-/" nil undo-tree-map)
-    (bind-key "C-?" nil undo-tree-map)))
-
-
-
-(defun rl--set-up-multiple-cursors ()
-  (use-package multiple-cursors
-    :ensure t
-    :bind ("C->" . rl-multiple-cursors)
-    :init (setq-default mc/list-file (expand-file-name ".mc-lists.el" rl-dir-autogen))))
-
-
-(defun rl--set-up-indentation ()
-  (bind-key "<M-S-return>" 'rl-insert-newline-above)
-  (bind-key "<S-return>" 'rl-insert-newline-below))
-
-
-(defun rl--set-up-hungry-delete ()
-  (use-package hungry-delete
-    :ensure t
-    :diminish hungry-delete-mode
-    :config
-    (global-hungry-delete-mode)))
-
-
-(defun rl--set-up-expand-region ()
-  (use-package expand-region
-    :ensure t
-    :bind ("C-'" . er/expand-region)))
-
-
-(defun rl--set-up-kill-ring ()
-  (use-package browse-kill-ring
-    :ensure t
-    :config
-    (browse-kill-ring-default-keybindings)))
-
-
-(defun rl--set-up-yasnippet ()
-  (use-package yasnippet
-    :diminish yas-minor-mode
-    :ensure t
-    :config
-    (setq yas-snippet-dirs (concat (file-name-as-directory user-emacs-directory) "snippets"))
-    (yas-global-mode 1)))
-
-
-(defun rl--set-up-bookmark ()
-  (use-package bookmark
-    :config
-    (setq bookmark-default-file (expand-file-name "bookmarks" rl-dir-autogen))))
-
-(defun rl--set-up-subword ()
-  (use-package subword
-  :diminish ""
+(use-package hungry-delete
+  :ensure t
+  :diminish hungry-delete-mode
   :config
-  (global-subword-mode)))
+  (global-hungry-delete-mode))
 
 
-(defun rl--set-up-whitespace ()
-
-  ;; show trailing whitespace in following mode
-  (add-hook 'prog-mode-hook 'rl-show-trailing-whitespace)
-
-  ;; hide trailing whitespace in following mode
-  (add-hook 'minibuffer-inactive-mode-hook 'rl-hide-trailing-whitespace)
-
-  ;; clean trailing whitespace on save
-  (add-hook 'before-save-hook 'delete-trailing-whitespace))
-
-
+;; show trailing whitespace in following mode
 (defun rl-show-trailing-whitespace ()
   (setq show-trailing-whitespace t))
+(add-hook 'prog-mode-hook 'rl-show-trailing-whitespace)
 
+
+;; hide trailing whitespace in following mode
 (defun rl-hide-trailing-whitespace ()
   (setq show-trailing-whitespace nil))
+(add-hook 'minibuffer-inactive-mode-hook 'rl-hide-trailing-whitespace)
 
 
-(defun rl--set-up-scratch-buffer ()
-  (setq initial-major-mode 'text-mode))
+;; clean trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+
+;; -------------------------------------------------------------------
+;;
+;; kill ring
+;;
+;; -------------------------------------------------------------------
+
+
+(use-package browse-kill-ring
+  :ensure t
+  :config
+  (browse-kill-ring-default-keybindings))
+
+
+;; -------------------------------------------------------------------
+;;
+;; bookmark
+;;
+;; -------------------------------------------------------------------
+
+
+(use-package bookmark
+  :config
+  (setq bookmark-default-file (expand-file-name "bookmarks" (file-name-as-directory (expand-file-name "autogen" user-emacs-directory)))))
+
 
 (provide 'module-editor)
