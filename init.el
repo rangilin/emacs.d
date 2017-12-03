@@ -19,7 +19,6 @@
 
 ;; load modules
 (add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
-(require 'module-adoc)
 (require 'module-browse)
 (require 'module-buffer)
 (require 'module-editor)
@@ -70,11 +69,11 @@
 
 
 ;; TODO
-;;
+;; => create scratch in fundamental mode
+;; => disable C-b list recent files
 ;; => dired failed handle unicode file name during compressing/decompressing
 ;; => make whitespace mode dispaly unicode zero width whitespace (or just all unicode whitespace)
 ;; => daemon / emacsclent integration
 ;; => psysh
 ;; => https://github.com/abo-abo/auto-yasnippet
-;; => scratch in text mode
 ;; => eval & replace lisp
