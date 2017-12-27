@@ -79,7 +79,7 @@
 ;; -------------------------------------------------------------------
 
 
-(setq initial-major-mode 'text-mode)
+(setq initial-major-mode 'fundamental-mode)
 
 
 
