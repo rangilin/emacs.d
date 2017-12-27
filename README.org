@@ -1,3 +1,1 @@
-#+TITLE: My Emacs Configurations
-
-Just my emacs configruations
+#+TITLE: My Emacs Configuration
