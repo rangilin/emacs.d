@@ -1,1 +1,3 @@
 #+TITLE: My Emacs Configuration
+
+This is the Emacs configurations I use daily.
