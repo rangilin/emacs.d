@@ -42,17 +42,13 @@
 (setq-default indicate-empty-lines +1)
 
 ;; load theme
-(require-package 'zenburn-theme)
-(load-theme 'zenburn t)
+(require-package 'color-theme-sanityinc-tomorrow)
+(load-theme 'sanityinc-tomorrow-day t)
 
 ;; use spaceline
 (require-package 'spaceline)
 (require 'spaceline-config)
 (spaceline-emacs-theme)
-(require-package 'spaceline-all-the-icons)
 
-;; use icons on spaceline
-(require 'spaceline-all-the-icons)
-(with-eval-after-load 'spaceline (spaceline-all-the-icons-theme))
 
 (provide 'init-gui)

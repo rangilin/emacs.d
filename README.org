@@ -3,15 +3,3 @@
 This is the Emacs configurations I use daily.
 
 
-# Installation
-
-
-Download and put configs in your `~/.emacs.d`, then:
-
-
-## Install All the Icons fonts
-
-
-```
-M-x all-the-icons-install-fonts
-```
