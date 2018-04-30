@@ -42,5 +42,3 @@
   (server-start))
 
 
-;;; Next:
-;; - Confirm exit emacs

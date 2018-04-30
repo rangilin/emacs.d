@@ -45,5 +45,14 @@
 (require-package 'zenburn-theme)
 (load-theme 'zenburn t)
 
+;; use spaceline
+(require-package 'spaceline)
+(require 'spaceline-config)
+(spaceline-emacs-theme)
+(require-package 'spaceline-all-the-icons)
+
+;; use icons on spaceline
+(require 'spaceline-all-the-icons)
+(with-eval-after-load 'spaceline (spaceline-all-the-icons-theme))
 
 (provide 'init-gui)
