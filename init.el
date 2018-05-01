@@ -9,14 +9,6 @@
 (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
 
 
-;; increase garbage collection threshold during startup, and thereafter
-(let ((normal-gc-cons-threshold (* 20 1024 1024))
-      (init-gc-cons-threshold (* 128 1024 1024)))
-  (setq gc-cons-threshold init-gc-cons-threshold)
-  (add-hook 'after-init-hook
-            (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
-
-
 ;; Set up directory for auto-generated files
 (defconst rangi-generated-files-directory
   (file-name-as-directory (expand-file-name "gen" user-emacs-directory))
@@ -36,6 +28,7 @@
 (require 'init-package)
 
 ;; then initalize rest of the packages
+(require 'init-autosave-and-backup)
 (require 'init-gui)
 (require 'init-editor)
 (when (eq system-type 'darwin)
@@ -53,5 +46,11 @@
   (server-start))
 
 
-;; close compile log window automatically
-(delete-windows-on "*Compile-Log*")
+;; do stuff after emacs is started
+(defun rangi-emacs-startup ()
+  ;; close compile log window automatically
+  (delete-windows-on "*Compile-Log*"))
+
+(add-hook 'emacs-startup-hook 'rangi-emacs-startup)
+
+
