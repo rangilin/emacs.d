@@ -131,7 +131,7 @@
 
 
 
-;;;; Whiespaces
+;;;; Whitespaces
 
 ;; clean trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -141,5 +141,12 @@
 
 ;; hide trailing whiespace in minibuffer
 (add-hook 'minibuffer-inactive-mode-hook (lambda () (setq show-trailing-whitespace nil)))
+
+
+;; delete whitespaces more aggresively
+(require-package 'hungry-delete)
+(require 'hungry-delete)
+(global-hungry-delete-mode)
+
 
 (provide 'init-editor)
