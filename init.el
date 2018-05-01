@@ -49,8 +49,8 @@
 ;; do stuff after emacs is started
 (defun rangi-emacs-startup ()
   ;; close compile log window automatically
-  (delete-windows-on "*Compile-Log*"))
+  (let ((log "*Compile-Log*"))
+    (when (get-buffer log)
+      (delete-windows-on "*Compile-Log*")))
 
 (add-hook 'emacs-startup-hook 'rangi-emacs-startup)
-
-
