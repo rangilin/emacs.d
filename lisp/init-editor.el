@@ -71,6 +71,7 @@
    t))
 (global-set-key (kbd "C->") 'rangi-active-multiple-cursors)
 
+
 ;; set cursor color
 (set-face-background 'cursor "maroon1")
 
@@ -81,6 +82,7 @@
 
 ;; replaces the selection when typed
 (delete-selection-mode 1)
+
 
 ;; Use expand-region
 (require-package 'expand-region)
@@ -95,8 +97,10 @@
 ;; enable subword mode
 (global-subword-mode)
 
+
 ;; move cursor to top or bottom of the buffer when it cannot be scrolled anymore
 (setq-default scroll-error-top-bottom t)
+
 
 ;; smarter back-to-beginning behavior
 ;; http://www.emacswiki.org/emacs/BackToIndentationOrBeginning
@@ -109,6 +113,21 @@
       (beginning-of-line))))
 
 (global-set-key (kbd "C-a") 'rangi-back-to-indentation-or-beginning)
+
+
+;; recenter in the center of a horizontal line
+;; http://stackoverflow.com/a/1249665/554279
+(defun rangi-horizontal-recenter ()
+  "make the point horizontally centered in the window"
+  (interactive)
+  (let ((mid (/ (window-width) 2))
+        (line-len (save-excursion (end-of-line) (current-column)))
+        (cur (current-column)))
+    (if (< mid cur) (set-window-hscroll (selected-window) (- cur mid)))))
+
+(global-set-key (kbd "C-S-l") 'rangi-horizontal-recenter)
+
+
 
 
 
