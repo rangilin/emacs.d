@@ -41,13 +41,16 @@
 
 
 
-;;;; Multiple Cursors
+;;;; Cursors
 
 (require-package 'multiple-cursors)
 (require 'multiple-cursors)
 
 ;; save mc file in autogen directory
 (setq-default mc/list-file (expand-file-name "mc-lists.el" rangi-generated-files-directory))
+
+;; make enter in multiple cursors mode insert enter instead of quitting it
+(define-key mc/keymap (kbd "<return>") nil)
 
 ;; use this function to active multiple cursor mode
 (defun rangi-active-multiple-cursors (arg)
@@ -66,14 +69,11 @@
      (define-key map (kbd "'") 'er/expand-region)
      map)
    t))
-
-
 (global-set-key (kbd "C->") 'rangi-active-multiple-cursors)
 
-;; make enter in multiple cursors mode insert enter instead of quitting it
-(define-key mc/keymap (kbd "<return>") nil)
 
-
+;; set cursor color
+(set-face-background 'cursor "maroon1")
 
 
 ;;;; Selection
