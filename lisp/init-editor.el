@@ -149,4 +149,22 @@
 (global-hungry-delete-mode)
 
 
+
+
+;;;; Yank & Kill
+
+(require-package 'browse-kill-ring)
+(require 'browse-kill-ring)
+(browse-kill-ring-default-keybindings)
+
+
+
+
+
+;;;; Undo & Redo
+
+(require-package 'undo-tree)
+(require 'undo-tree)
+(global-undo-tree-mode 1)
+
 (provide 'init-editor)
