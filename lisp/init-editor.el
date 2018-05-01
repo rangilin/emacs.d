@@ -66,4 +66,44 @@
 
 (global-set-key (kbd "C->") 'rangi-active-multiple-cursors)
 
+
+
+
+
+;;;; Selection
+
+;; replaces the selection when typed
+(delete-selection-mode 1)
+
+;; Use expand-region
+(require-package 'expand-region)
+(require 'expand-region)
+(global-set-key (kbd "C-'") 'er/expand-region)
+
+
+
+
+;;;; Navigation
+
+;; enable subword mode
+(global-subword-mode)
+
+;; move cursor to top or bottom of the buffer when it cannot be scrolled anymore
+(setq-default scroll-error-top-bottom t)
+
+
+
+
+
+;;;; Whiespaces
+
+;; clean trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; show trailing whitespace in prog-mode
+(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+
+;; hide trailing whiespace in minibuffer
+(add-hook 'minibuffer-inactive-mode-hook (lambda () (setq show-trailing-whitespace nil)))
+
 (provide 'init-editor)
