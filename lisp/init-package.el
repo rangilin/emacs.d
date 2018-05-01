@@ -2,8 +2,7 @@
 
 ;;; install into separate directories for each Emacs version, to prevent bytecode incompatibility
 (let ((versioned-package-dir
-       (expand-file-name (format "%s.%s" emacs-major-version emacs-minor-version)
-			 (expand-file-name "elpa" user-emacs-directory))))
+       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version) rangi-generated-files-directory)))
   (setq package-user-dir versioned-package-dir))
 
 
