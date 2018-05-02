@@ -35,6 +35,7 @@
 (require 'init-editor)
 (require 'init-gui)
 (require 'init-ivy)
+(require 'init-recentf)
 (require 'init-vc)
 
 (when (eq system-type 'darwin)
