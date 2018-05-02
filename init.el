@@ -33,6 +33,7 @@
 (require 'init-autosave-and-backup)
 (require 'init-editor)
 (require 'init-gui)
+(require 'init-ivy)
 (require 'init-vc)
 
 (when (eq system-type 'darwin)
