@@ -49,9 +49,6 @@
 ;; save mc file in autogen directory
 (setq-default mc/list-file (expand-file-name "mc-lists.el" rangi-generated-files-directory))
 
-;; make enter in multiple cursors mode insert enter instead of quitting it
-(define-key mc/keymap (kbd "<return>") nil)
-
 ;; use this function to active multiple cursor mode
 (defun rangi-active-multiple-cursors (arg)
   (interactive "p")
