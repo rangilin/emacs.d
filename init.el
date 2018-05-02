@@ -31,6 +31,7 @@
 (require-package 'diminish)
 
 (require 'init-autosave-and-backup)
+(require 'init-buffer)
 (require 'init-editor)
 (require 'init-gui)
 (require 'init-ivy)
