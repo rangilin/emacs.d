@@ -96,6 +96,7 @@
 
 ;; enable subword mode
 (global-subword-mode)
+(diminish 'subword-mode)
 
 
 ;; move cursor to top or bottom of the buffer when it cannot be scrolled anymore
@@ -147,6 +148,7 @@
 (require-package 'hungry-delete)
 (require 'hungry-delete)
 (global-hungry-delete-mode)
+(diminish 'hungry-delete-mode)
 
 
 
@@ -162,9 +164,11 @@
 
 
 ;;;; Undo & Redo
-
 (require-package 'undo-tree)
 (require 'undo-tree)
-(global-undo-tree-mode 1)
+(add-hook 'after-init-hook 'global-undo-tree-mode)
+(with-eval-after-load 'undo-tree
+  (diminish 'undo-tree-mode))
+
 
 (provide 'init-editor)

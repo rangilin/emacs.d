@@ -28,9 +28,13 @@
 (require 'init-package)
 
 ;; then initalize rest of the packages
+(require-package 'diminish)
+
 (require 'init-autosave-and-backup)
-(require 'init-gui)
 (require 'init-editor)
+(require 'init-gui)
+(require 'init-vc)
+
 (when (eq system-type 'darwin)
   (require 'init-mac-os))
 
@@ -51,6 +55,6 @@
   ;; close compile log window automatically
   (let ((log "*Compile-Log*"))
     (when (get-buffer log)
-      (delete-windows-on "*Compile-Log*")))
+      (delete-windows-on "*Compile-Log*"))))
 
 (add-hook 'emacs-startup-hook 'rangi-emacs-startup)
