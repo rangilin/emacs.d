@@ -50,6 +50,7 @@
 ;; set up fringe
 (setq-default indicate-buffer-boundaries 'left)
 (setq-default indicate-empty-lines +1)
+(set-face-background 'fringe (face-attribute 'default :background) ; make fringe looks like part of the buffer
 
 
 ;; load theme
