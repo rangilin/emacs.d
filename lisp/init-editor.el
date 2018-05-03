@@ -126,6 +126,38 @@
 (global-set-key (kbd "C-S-l") 'rangi-horizontal-recenter)
 
 
+;; jump between characters/words
+(require-package 'avy)
+(require 'avy)
+(setq avy-background t)
+
+(set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d")
+(set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1" :background "#2d2d2d")
+(set-face-attribute 'avy-lead-face-1 nil :foreground "yellow" :background "#2d2d2d")
+(set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d")
+
+
+;; jump between windows
+(require-package 'ace-window)
+(require 'ace-window)
+(setq-default aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+(set-face-attribute 'aw-leading-char-face nil :foreground "red" :weight 'extra-bold :height 200)
+(global-set-key (kbd "C-x o") 'ace-window)
+
+
+;; use this function to active jump
+(defun rangi-active-cursor-jump (arg)
+  (interactive "p")
+  (message "Jump: (g):word, (G):character, (l):line")
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (kbd "g") 'avy-goto-word-1)
+     (define-key map (kbd "G") 'avy-goto-char)
+     (define-key map (kbd "l") 'avy-goto-line)
+   map)
+  t))
+(global-set-key (kbd "M-g") 'rangi-active-cursor-jump)
+
 
 
 
