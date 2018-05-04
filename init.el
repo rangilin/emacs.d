@@ -19,6 +19,8 @@
 ;; Make emacs save all customizations into 'custom.el'
 (setq custom-file (expand-file-name "custom.el" rangi-generated-files-directory))
 
+;; enable all disabled commands
+(setq disabled-command-function nil)
 
 ;; add our config files into load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
@@ -26,6 +28,7 @@
 
 ;; initialize package.el first (package-initialize) so we can install packages
 (require 'init-package)
+
 ;; then get environment variables from shell into Emacs, so we can handle it properly
 (require 'init-exec-path)
 
