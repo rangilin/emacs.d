@@ -57,6 +57,15 @@
 (require-package 'color-theme-sanityinc-tomorrow)
 (load-theme 'sanityinc-tomorrow-night t)
 
+;; set custom faces
+;; avy
+(set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d")
+(set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1" :background "#2d2d2d")
+(set-face-attribute 'avy-lead-face-1 nil :foreground "yellow" :background "#2d2d2d")
+(set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d")
+;; ace window faces
+(set-face-attribute 'aw-leading-char-face nil :foreground "red" :weight 'extra-bold :height 200)
+
 
 ;; use spaceline
 (require-package 'spaceline)
