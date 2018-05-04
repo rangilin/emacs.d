@@ -9,3 +9,7 @@ This is the Emacs configurations I use daily.
 `M-x package-list-packages`, then `U` followed by `x`.
 
 Remember to restart Emacs after updating so package can be reloaded.
+
+* Referecnes
+
+- https://github.com/purcell/emacs.d
