@@ -24,14 +24,18 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
 
-;; initialize package.el first (package-initialize)
+;; initialize package.el first (package-initialize) so we can install packages
 (require 'init-package)
+;; then get environment variables from shell into Emacs, so we can handle it properly
+(require 'init-exec-path)
 
-;; then initalize rest of the packages
+;; load these packages first because they used by other configs
 (require-package 'diminish)
 
+;; then initalize rest of the packages
 (require 'init-autosave-and-backup)
 (require 'init-buffer)
+(require 'init-dired)
 (require 'init-editor)
 (require 'init-gui)
 (require 'init-ivy)
