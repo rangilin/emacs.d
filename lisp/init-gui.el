@@ -65,12 +65,20 @@
 (set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d")
 ;; ace window faces
 (set-face-attribute 'aw-leading-char-face nil :foreground "red" :weight 'extra-bold :height 200)
+;; cursor color
+(set-face-background 'cursor "gold")
+
+
+
 
 
 ;; use spaceline
 (require-package 'spaceline)
 (require 'spaceline-config)
 (spaceline-emacs-theme)
+
+;; make highlight change color according to modified states
+(setq spaceline-highlight-face-func 'spaceline-highlight-face-modified)
 
 
 (provide 'init-gui)

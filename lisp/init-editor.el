@@ -69,10 +69,6 @@
 (global-set-key (kbd "C->") 'rangi-active-multiple-cursors)
 
 
-;; set cursor color
-(set-face-background 'cursor "maroon1")
-
-
 
 
 ;;;; Selection
