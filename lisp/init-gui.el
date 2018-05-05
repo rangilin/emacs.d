@@ -93,11 +93,12 @@
 ;; set powerline theme
 (powerline-default-theme)
 
+;; incraese modeline height
+(setq powerline-height 25)
+
 ;; fix separator color not matching issue
 ;; https://github.com/milkypostman/powerline/issues/54
 (setq powerline-image-apple-rgb t)
-
-
 
 
 
