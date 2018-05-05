@@ -90,15 +90,14 @@
 (require-package 'powerline)
 (require 'powerline)
 
-;; set separator to wave
-(setq powerline-default-separator 'wave)
+;; set powerline theme
+(powerline-default-theme)
 
 ;; fix separator color not matching issue
 ;; https://github.com/milkypostman/powerline/issues/54
 (setq powerline-image-apple-rgb t)
 
-;; set powerline theme
-(powerline-default-theme)
+
 
 
 
