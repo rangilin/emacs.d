@@ -66,4 +66,14 @@
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+
+
+
+;;;; auto revert
+(global-auto-revert-mode 1)
+(diminish 'auto-revert-mode)
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
+
+
 (provide 'init-buffer)
