@@ -43,6 +43,7 @@
 (require 'init-gui)
 (require 'init-ivy)
 (require 'init-recentf)
+(require 'init-neotree)
 (require 'init-tramp)
 (require 'init-vc)
 
