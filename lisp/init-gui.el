@@ -72,7 +72,7 @@
 
 
 
-;; use spaceline
+;;;; Spaceline
 (require-package 'spaceline)
 (require 'spaceline-config)
 (spaceline-emacs-theme)
@@ -80,5 +80,14 @@
 ;; make highlight change color according to modified states
 (setq spaceline-highlight-face-func 'spaceline-highlight-face-modified)
 
+
+
+
+;;;; which-key
+(require-package 'which-key)
+
+(which-key-mode)
+(which-key-setup-side-window-right-bottom)
+(diminish 'which-key-mode)
 
 (provide 'init-gui)
