@@ -181,13 +181,23 @@
 
 
 
-
 ;;;; Undo & Redo
 (require-package 'undo-tree)
 (require 'undo-tree)
 (add-hook 'after-init-hook 'global-undo-tree-mode)
 (with-eval-after-load 'undo-tree
   (diminish 'undo-tree-mode))
+
+
+
+
+;;;; Move stuff
+(require-package 'move-text)
+(require 'move-text)
+(global-set-key (kbd "M-P") 'move-text-up)
+(global-set-key (kbd "M-N") 'move-text-down)
+
+
 
 
 (provide 'init-editor)
