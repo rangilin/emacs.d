@@ -7,4 +7,9 @@
 ;; sort dired list
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
+;; open current folder
+(global-set-key (kbd "<f12>") 'dired-jump-other-window)
+;; open home folder
+(global-set-key (kbd "<S-f12>") (lambda () (interactive) (dired-other-window "~/")))
+
 (provide 'init-dired)
