@@ -40,6 +40,7 @@
 (require 'init-buffer)
 (require 'init-dired)
 (require 'init-editor)
+(require 'init-font)
 (require 'init-gui)
 (require 'init-ivy)
 (require 'init-recentf)
