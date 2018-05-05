@@ -53,6 +53,18 @@
 (set-face-background 'fringe (face-attribute 'default :background)) ; make fringe looks like part of the buffer
 
 
+
+
+;;;; which-key
+(require-package 'which-key)
+
+(which-key-mode)
+(which-key-setup-side-window-right-bottom)
+(diminish 'which-key-mode)
+
+
+
+
 ;; load theme
 (require-package 'color-theme-sanityinc-tomorrow)
 (load-theme 'sanityinc-tomorrow-night t)
@@ -71,23 +83,24 @@
 
 
 
+;;;; powerline
+;; powerline should be loaded  *after* emacs theme,
+;; otherwise the separator color will looks weird
 
-;;;; Spaceline
-(require-package 'spaceline)
-(require 'spaceline-config)
-(spaceline-emacs-theme)
+(require-package 'powerline)
+(require 'powerline)
 
-;; make highlight change color according to modified states
-(setq spaceline-highlight-face-func 'spaceline-highlight-face-modified)
+;; set separator to wave
+(setq powerline-default-separator 'wave)
+
+;; fix separator color not matching issue
+;; https://github.com/milkypostman/powerline/issues/54
+(setq powerline-image-apple-rgb t)
+
+;; set powerline theme
+(powerline-default-theme)
 
 
 
-
-;;;; which-key
-(require-package 'which-key)
-
-(which-key-mode)
-(which-key-setup-side-window-right-bottom)
-(diminish 'which-key-mode)
 
 (provide 'init-gui)
