@@ -86,29 +86,11 @@
   '((t (:background "RoyalBlue4" :inherit mode-line-inactive)))
   "Face used when editing local file")
 
-(defface rangi-modeline-unmodified-font-face
-  '((t (:foreground "#3E3D31" :background "DarkGoldenrod2" :inherit mode-line-inactive)))
-  "Face used when buffer is unmodified")
-
-(defface rangi-modeline-modified-font-face
-  '((t (:foreground "#3E3D31" :background "SkyBlue2" :inherit mode-line-inactive)))
-  "Face used when buffer is modified")
-
-(defface rangi-modeline-readonly-font-face
-  '((t (:foreground "#3E3D31" :background "plum3" :inherit mode-line-inactive)))
-  "Face used when buffer is readonly")
-
 (defun rangi-modeline-primary-face ()
   (let ((file (buffer-file-name)))
     (if (and file (file-remote-p file))
         'rangi-modeline-remote-file-font-face
       'rangi-modeline-local-file-font-face)))
-
-(defun rangi-modeline-buffer-status-face ()
-  (cond
-   (buffer-read-only 'rangi-modeline-readonly-font-face)
-   ((buffer-modified-p) 'rangi-modeline-modified-font-face)
-   (t 'rangi-modeline-unmodified-font-face)))
 
 
 ;; customized mode line format based on powerline
@@ -130,9 +112,6 @@
                        (if active 'powerline-active2 'powerline-inactive2))
                       (rangi-primary-face
                        (if active (funcall 'rangi-modeline-primary-face)
-                         'powerline-inactive0))
-                      (rangi-buffer-status-face
-                       (if active (funcall 'rangi-modeline-buffer-status-face)
                          'powerline-inactive0))
                       (separator-left
                        (intern
@@ -190,9 +169,9 @@
                         (powerline-raw "%4l" face1 'l)
                         (powerline-raw ":" face1 'l)
                         (powerline-raw "%3c" face1 'r)
-                        (funcall separator-right face1 rangi-buffer-status-face)
-                        (powerline-raw " " rangi-buffer-status-face)
-                        (powerline-raw "%6p" rangi-buffer-status-face 'r))))
+                        (funcall separator-right face1 rangi-primary-face)
+                        (powerline-raw " " rangi-primary-face)
+                        (powerline-raw "%6p" rangi-primary-face 'r))))
                    (concat
                     (powerline-render lhs)
                     (powerline-fill face2
@@ -216,9 +195,6 @@
 
 ;; ace window faces
 (set-face-attribute 'aw-leading-char-face nil :foreground "red" :weight 'extra-bold :height 200)
-
-;; cursor color
-(set-face-background 'cursor "gold")
 
 
 
