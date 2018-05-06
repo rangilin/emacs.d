@@ -64,29 +64,7 @@
 
 
 
-
-;; load theme
-(require-package 'color-theme-sanityinc-tomorrow)
-(load-theme 'sanityinc-tomorrow-night t)
-
-;; set custom faces
-;; avy
-(set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d")
-(set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1" :background "#2d2d2d")
-(set-face-attribute 'avy-lead-face-1 nil :foreground "yellow" :background "#2d2d2d")
-(set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d")
-;; ace window faces
-(set-face-attribute 'aw-leading-char-face nil :foreground "red" :weight 'extra-bold :height 200)
-;; cursor color
-(set-face-background 'cursor "gold")
-
-
-
-
 ;;;; powerline
-;; powerline should be loaded  *after* emacs theme,
-;; otherwise the separator color will looks weird
-
 (require-package 'powerline)
 (require 'powerline)
 
@@ -99,6 +77,148 @@
 ;; fix separator color not matching issue
 ;; https://github.com/milkypostman/powerline/issues/54
 (setq powerline-image-apple-rgb t)
+
+(defface rangi-modeline-remote-file-font-face
+  '((t (:background "OrangeRed4" :inherit mode-line-inactive)))
+  "Face used when editing remote file")
+
+(defface rangi-modeline-local-file-font-face
+  '((t (:background "RoyalBlue4" :inherit mode-line-inactive)))
+  "Face used when editing local file")
+
+(defface rangi-modeline-unmodified-font-face
+  '((t (:foreground "#3E3D31" :background "DarkGoldenrod2" :inherit mode-line-inactive)))
+  "Face used when buffer is unmodified")
+
+(defface rangi-modeline-modified-font-face
+  '((t (:foreground "#3E3D31" :background "SkyBlue2" :inherit mode-line-inactive)))
+  "Face used when buffer is modified")
+
+(defface rangi-modeline-readonly-font-face
+  '((t (:foreground "#3E3D31" :background "plum3" :inherit mode-line-inactive)))
+  "Face used when buffer is readonly")
+
+(defun rangi-modeline-primary-face ()
+  (let ((file (buffer-file-name)))
+    (if (and file (file-remote-p file))
+        'rangi-modeline-remote-file-font-face
+      'rangi-modeline-local-file-font-face)))
+
+(defun rangi-modeline-buffer-status-face ()
+  (cond
+   (buffer-read-only 'rangi-modeline-readonly-font-face)
+   ((buffer-modified-p) 'rangi-modeline-modified-font-face)
+   (t 'rangi-modeline-unmodified-font-face)))
+
+
+;; customized mode line format based on powerline
+(setq-default mode-line-format
+              '("%e"
+                (:eval
+                 (let*
+                     ((active
+                       (powerline-selected-window-active))
+                      (mode-line-buffer-id
+                       (if active 'mode-line-buffer-id 'mode-line-buffer-id-inactive))
+                      (mode-line
+                       (if active 'mode-line 'mode-line-inactive))
+                      (face0
+                       (if active 'powerline-active0 'powerline-inactive0))
+                      (face1
+                       (if active 'powerline-active1 'powerline-inactive1))
+                      (face2
+                       (if active 'powerline-active2 'powerline-inactive2))
+                      (rangi-primary-face
+                       (if active (funcall 'rangi-modeline-primary-face)
+                         'powerline-inactive0))
+                      (rangi-buffer-status-face
+                       (if active (funcall 'rangi-modeline-buffer-status-face)
+                         'powerline-inactive0))
+                      (separator-left
+                       (intern
+                        (format "powerline-%s-%s"
+                                (powerline-current-separator)
+                                (car powerline-default-separator-dir))))
+                      (separator-right
+                       (intern
+                        (format "powerline-%s-%s"
+                                (powerline-current-separator)
+                                (cdr powerline-default-separator-dir))))
+                      (lhs
+                       (list
+                        (powerline-raw "%*" rangi-primary-face 'l)
+                        (when powerline-display-buffer-size
+                          (powerline-buffer-size rangi-primary-face 'l))
+                        (when powerline-display-mule-info
+                          (powerline-raw mode-line-mule-info rangi-primary-face 'l))
+                        (powerline-buffer-id
+                         `(mode-line-buffer-id ,rangi-primary-face)
+                         'l)
+                        (when
+                            (and
+                             (boundp 'which-func-mode)
+                             which-func-mode)
+                          (powerline-raw which-func-format rangi-primary-face 'l))
+                        (powerline-raw " " rangi-primary-face)
+                        (funcall separator-left rangi-primary-face face1)
+                        (when
+                            (and
+                             (boundp 'erc-track-minor-mode)
+                             erc-track-minor-mode)
+                          (powerline-raw erc-modified-channels-object face1 'l))
+                        (powerline-major-mode face1 'l)
+                        (powerline-process face1)
+                        (powerline-minor-modes face1 'l)
+                        (powerline-narrow face1 'l)
+                        (powerline-raw " " face1)
+                        (funcall separator-left face1 face2)
+                        (powerline-vc face2 'r)
+                        (when
+                            (bound-and-true-p nyan-mode)
+                          (powerline-raw
+                           (list
+                            (nyan-create))
+                           face2 'l))))
+                      (rhs
+                       (list
+                        (powerline-raw global-mode-string face2 'r)
+                        (funcall separator-right face2 face1)
+                        (unless window-system
+                          (powerline-raw
+                           (char-to-string 57505)
+                           face1 'l))
+                        (powerline-raw "%4l" face1 'l)
+                        (powerline-raw ":" face1 'l)
+                        (powerline-raw "%3c" face1 'r)
+                        (funcall separator-right face1 rangi-buffer-status-face)
+                        (powerline-raw " " rangi-buffer-status-face)
+                        (powerline-raw "%6p" rangi-buffer-status-face 'r))))
+                   (concat
+                    (powerline-render lhs)
+                    (powerline-fill face2
+                                    (powerline-width rhs))
+                    (powerline-render rhs))))))
+
+
+
+
+;;;; theme
+(require-package 'color-theme-sanityinc-tomorrow)
+(load-theme 'sanityinc-tomorrow-night t)
+
+;;; set custom faces
+
+;; avy
+(set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d")
+(set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1" :background "#2d2d2d")
+(set-face-attribute 'avy-lead-face-1 nil :foreground "yellow" :background "#2d2d2d")
+(set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d")
+
+;; ace window faces
+(set-face-attribute 'aw-leading-char-face nil :foreground "red" :weight 'extra-bold :height 200)
+
+;; cursor color
+(set-face-background 'cursor "gold")
 
 
 
