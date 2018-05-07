@@ -196,7 +196,8 @@
 ;; ace window faces
 (set-face-attribute 'aw-leading-char-face nil :foreground "red" :weight 'extra-bold :height 200)
 
-
+;; change selection
+(set-face-attribute 'region nil :background "#444444")
 
 
 (provide 'init-gui)
