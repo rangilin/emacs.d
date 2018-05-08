@@ -76,4 +76,11 @@
 (setq auto-revert-verbose nil)
 
 
+
+
+;;;; use text mode as default major mode of new buffer
+(setq-default major-mode 'text-mode)
+(setq initial-major-mode 'text-mode)
+
+
 (provide 'init-buffer)
