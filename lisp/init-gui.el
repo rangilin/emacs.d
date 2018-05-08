@@ -87,8 +87,9 @@
   "Face used when editing local file")
 
 (defun rangi-modeline-primary-face ()
-  (let ((file (buffer-file-name)))
-    (if (and file (file-remote-p file))
+  (let ((path (if (buffer-file-name) (buffer-file-name)
+                (expand-file-name default-directory))))
+    (if (and path (file-remote-p path))
         'rangi-modeline-remote-file-font-face
       'rangi-modeline-local-file-font-face)))
 
