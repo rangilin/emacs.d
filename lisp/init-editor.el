@@ -145,8 +145,10 @@
      (define-key map (kbd "G") 'avy-goto-char)
      (define-key map (kbd "l") 'avy-goto-line)
    map)
-  t))
-(global-set-key (kbd "M-g") 'rangi-active-cursor-jump)
+   t))
+
+(global-set-key (kbd "M-g") 'avy-goto-word-1)
+(global-set-key (kbd "M-G") 'rangi-active-cursor-jump)
 
 
 
@@ -173,7 +175,6 @@
 
 
 ;;;; Yank & Kill
-
 (require-package 'browse-kill-ring)
 (require 'browse-kill-ring)
 (browse-kill-ring-default-keybindings)
@@ -201,7 +202,6 @@
 
 
 ;;;; zap
-
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-Z") 'zap-to-char)
 
