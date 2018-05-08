@@ -32,6 +32,9 @@
 ;; then get environment variables from shell into Emacs, so we can handle it properly
 (require 'init-exec-path)
 
+;; load misc
+(require 'misc)
+
 ;; load these packages first because they used by other configs
 (require-package 'diminish)
 

@@ -200,4 +200,12 @@
 
 
 
+;;;; zap
+
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "M-Z") 'zap-to-char)
+
+
+
+
 (provide 'init-editor)
