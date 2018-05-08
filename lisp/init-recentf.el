@@ -7,8 +7,8 @@
 
 (setq recentf-max-menu-items 25)
 
-;; save recent files every 5 mins instead of on exiting
-(run-at-time nil (* 5 60) 'recentf-save-list)
+;; save recent files every 30 mins instead of on exiting
+(run-at-time nil (* 30 60) 'recentf-save-list)
 
 (recentf-mode 1)
 
