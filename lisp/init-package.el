@@ -32,4 +32,16 @@ re-downloaded in order to locate PACKAGE."
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+
+;; remind me to update package on 1st & 15th every month on start up
+(defun rangi-package-update-reminder ()
+  (interactive)
+  (when (or (string= (format-time-string "%d") "01")
+            (string= (format-time-string "%d") "15"))
+            (when (y-or-n-p "It has been a while since last reminder, do you want to check package update ?")
+              (package-list-packages))))
+
+(add-hook 'emacs-startup-hook 'rangi-package-update-reminder)
+
+
 (provide 'init-package)
