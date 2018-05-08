@@ -43,6 +43,7 @@
 (require 'init-font)
 (require 'init-gui)
 (require 'init-ivy)
+(require 'init-org)
 (require 'init-recentf)
 (require 'init-shell)
 (require 'init-tramp)
