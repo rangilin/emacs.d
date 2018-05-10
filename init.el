@@ -59,19 +59,3 @@
 ;; Load customazations after packages is initalized
 (when (file-exists-p custom-file)
   (load custom-file))
-
-
-;; start emacs daemon if not already
-(require 'server)
-(unless (server-running-p)
-  (server-start))
-
-
-;; do stuff after emacs is started
-(defun rangi-emacs-startup ()
-  ;; close compile log window automatically
-  (let ((log "*Compile-Log*"))
-    (when (get-buffer log)
-      (delete-windows-on "*Compile-Log*"))))
-
-(add-hook 'emacs-startup-hook 'rangi-emacs-startup)
