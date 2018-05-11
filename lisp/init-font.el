@@ -18,22 +18,22 @@
 (defvar rangi-font-alist-hack-hiragino-sans
   '((english-font . "Hack")
     (cjk-font . "Hiragino Sans GB")
-    (default-size-pair . (13 . 16))
-    (size-pairs . ((10 . 12) (12 . 14) (13 . 16) (15 . 18) (17 . 20) (19 . 22) (20 . 24)
-                   (21 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
+    (default-size-pair . (14 . 16))
+    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
+                   (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
 
 (defvar rangi-font-alist-monaco-hiragino-sans
   '((english-font . "Monaco")
     (cjk-font . "Hiragino Sans GB W3")
-    (default-size-pair . (13 . 16))
-    (size-pairs . ((10 . 12) (11 . 14) (13 . 16) (15 . 18) (17 . 20) (19 . 22) (20 . 24)
-                   (21 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
+    (default-size-pair . (14 . 16))
+    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
+                   (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
 
 (defvar rangi-font-alist rangi-font-alist-hack-hiragino-sans "Current font set")
 
-(defvar rangi-font-size-pair '(13 . 16) "Current font size pair")
+(defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist)) "Current font size pair")
 
 
 (defun rangi-font-exist-p (fontname)
@@ -48,6 +48,7 @@ return nil since you can't set font for emacs on it."
 
 (defun rangi-set-font-size (size-pair)
   "Set size of current font set"
+  (message "font size set to (%d . %d)" (car size-pair) (cdr size-pair))
   (let ((english (cdr (assoc 'english-font rangi-font-alist)))
         (cjk (cdr (assoc 'cjk-font rangi-font-alist))))
 
@@ -70,21 +71,29 @@ return nil since you can't set font for emacs on it."
           (or (cadr (member rangi-font-size-pair scale-steps))
               rangi-font-size-pair))
     (when rangi-font-size-pair
-      (message "font size set to %.1f" (car rangi-font-size-pair))
       (rangi-set-font-size rangi-font-size-pair))))
 
 
 (defun rangi-increase-emacs-font-size ()
-  "Decrease emacs's font-size acording font set."
-  (interactive) (rangi-step-font-size 1))
+  "Decrease emacs's font size acording font set."
+  (interactive)
+  (rangi-step-font-size 1))
 
 (defun rangi-decrease-emacs-font-size ()
-  "Increase emacs's font-size acording font set."
-  (interactive) (rangi-step-font-size -1))
+  "Increase emacs's font size acording font set."
+  (interactive)
+  (rangi-step-font-size -1))
 
+(defun rangi-reset-emacs-font-size ()
+  "Reset emacs's font size to default size of current font set."
+  (interactive)
+  (let ((pair (cdr (assoc 'default-size-pair rangi-font-alist))))
+    (setq rangi-font-size-pair pair)
+    (rangi-set-font-size pair)))
 
 (global-set-key (kbd "C-=") 'rangi-increase-emacs-font-size)
 (global-set-key (kbd "C--") 'rangi-decrease-emacs-font-size)
+(global-set-key (kbd "C-\\") 'rangi-reset-emacs-font-size)
 
 (rangi-set-font-size rangi-font-size-pair)
 
