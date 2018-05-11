@@ -1,3 +1,6 @@
+;; show keystroke right away
+(setq echo-keystrokes 0.1)
+
 ;; Use y/n to confirm dialog.
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -66,6 +69,10 @@
 (diminish 'which-key-mode)
 
 
+
+
+;;;; mode line
+;; (set-face-attribute 'mode-line nil :box '(:line-width 6 :color "gray20"))
 
 
 
