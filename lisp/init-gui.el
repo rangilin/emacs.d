@@ -52,6 +52,10 @@
 (setq-default indicate-empty-lines +1)
 
 
+;; split window vertically if window width is more than 80, otherwise do it horizontally
+(setq split-height-threshold nil)
+(setq split-width-threshold 120)
+
 
 
 ;;;; which-key
@@ -70,10 +74,10 @@
 (load-theme 'sanityinc-tomorrow-night t)
 
 ;; avy
-(set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d")
-(set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1" :background "#2d2d2d")
-(set-face-attribute 'avy-lead-face-1 nil :foreground "yellow" :background "#2d2d2d")
-(set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d")
+(set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d" :weight 'bold)
+(set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1" :background "#2d2d2d" :weight 'bold)
+(set-face-attribute 'avy-lead-face-1 nil :foreground "yellow" :background "#2d2d2d" :weight 'bold)
+(set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d" :weight 'bold)
 
 ;; ace window faces
 (set-face-attribute 'aw-leading-char-face nil :foreground "red" :weight 'extra-bold :height 200)
