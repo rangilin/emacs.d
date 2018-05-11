@@ -36,16 +36,13 @@
                                  (mode . eshell-mode)))
                  ("Temporary" (name . "\*.*\*")))))
 
-
 ;; but don't show empty group
 (setq-default ibuffer-show-empty-filter-groups nil)
-
 
 ;; switch group on active
 (add-hook 'ibuffer-mode-hook
           (lambda ()
             (ibuffer-switch-to-saved-filter-groups "default")))
-
 
 ;; define a ibuffer column that show human readable size of the buffer
 (define-ibuffer-column readable-size
@@ -54,7 +51,6 @@
    ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
    ((> (buffer-size) 1000) (format "%7.1fK" (/ (buffer-size) 1000.0)))
    (t (format "%8d" (buffer-size)))))
-
 
 ;; define ibuffer columns
 (setq-default ibuffer-formats
@@ -81,6 +77,14 @@
 ;;;; use text mode as default major mode of new buffer
 (setq-default major-mode 'text-mode)
 (setq initial-major-mode 'text-mode)
+
+
+
+
+;;;; switch buffer
+(global-set-key (kbd "C-<tab>") 'mode-line-other-buffer)
+
+
 
 
 (provide 'init-buffer)
