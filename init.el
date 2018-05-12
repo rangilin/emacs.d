@@ -47,9 +47,11 @@
 (require 'init-gui)
 (require 'init-ivy)
 (require 'init-org)
+(require 'init-php)
 (require 'init-recentf)
 (require 'init-shell)
 (require 'init-tramp)
+(require 'init-web-mode)
 (require 'init-vc)
 
 (when (eq system-type 'darwin)

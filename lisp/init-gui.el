@@ -94,6 +94,16 @@
 ;; make fringe looks like part of the buffer
 (set-face-background 'fringe (face-attribute 'default :background))
 
+(with-eval-after-load 'web-mode
+
+  (set-face-attribute 'web-mode-current-element-highlight-face nil
+                      :foreground "orchid1"
+                      :background (face-attribute 'default :background)
+                      :weight 'bold)
+
+  (set-face-attribute 'web-mode-current-column-highlight-face nil
+                      :background "gray30"))
+
 
 
 
