@@ -72,7 +72,9 @@
 
 
 ;;;; mode line
-;; (set-face-attribute 'mode-line nil :box '(:line-width 6 :color "gray20"))
+(set-face-attribute 'mode-line nil :box '(:line-width 6 :color "#515151"))
+(set-face-attribute 'mode-line-inactive nil :box '(:line-width 6 :color "#393939"))
+
 
 
 ;;;; theme
