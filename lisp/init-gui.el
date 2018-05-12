@@ -75,10 +75,9 @@
 ;; (set-face-attribute 'mode-line nil :box '(:line-width 6 :color "gray20"))
 
 
-
 ;;;; theme
 (require-package 'color-theme-sanityinc-tomorrow)
-(load-theme 'sanityinc-tomorrow-night t)
+(load-theme 'sanityinc-tomorrow-eighties t)
 
 ;; avy
 (set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d" :weight 'bold)
