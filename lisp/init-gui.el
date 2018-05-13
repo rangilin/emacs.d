@@ -37,8 +37,8 @@
 (setq visible-bell nil)
 (setq ring-bell-function
       (lambda ()
-	(invert-face 'mode-line)
-	(run-with-timer 0.05 nil 'invert-face 'mode-line)))
+        (invert-face 'mode-line)
+        (run-with-timer 0.05 nil 'invert-face 'mode-line)))
 
 
 ;; stop cursor jumping around while scrolling
@@ -71,11 +71,6 @@
 
 
 
-;;;; mode line
-(set-face-attribute 'mode-line nil :box '(:line-width 6 :color "#515151"))
-(set-face-attribute 'mode-line-inactive nil :box '(:line-width 6 :color "#393939"))
-
-
 
 ;;;; theme
 (require-package 'color-theme-sanityinc-tomorrow)
@@ -96,16 +91,37 @@
 ;; make fringe looks like part of the buffer
 (set-face-background 'fringe (face-attribute 'default :background))
 
+;; web mode
 (with-eval-after-load 'web-mode
-
   (set-face-attribute 'web-mode-current-element-highlight-face nil
                       :foreground "orchid1"
                       :background (face-attribute 'default :background)
                       :weight 'bold)
-
   (set-face-attribute 'web-mode-current-column-highlight-face nil
                       :background "gray30"))
 
+
+
+
+;;;; mode line
+
+;; don't inherit mode-line face so we can change mode-line easily
+(set-face-attribute 'mode-line-inactive nil
+                    :inherit nil
+                    :box '(:line-width 6 :color "#393939"))
+
+
+;; change mode-line dynamically
+(defun rangi-set-mode-line ()
+  (if (file-remote-p default-directory)
+      (progn
+        (set-face-attribute 'mode-line nil :background "OrangeRed4" :box '(:line-width 6 :color "OrangeRed4")))
+    (progn
+      (set-face-attribute 'mode-line nil :background "RoyalBlue4" :box '(:line-width 6 :color "RoyalBlue4")))))
+
+(rangi-set-mode-line)
+(add-hook 'find-file-hook 'rangi-set-mode-line)
+(add-hook 'dired-mode-hook 'rangi-set-mode-line)
 
 
 
