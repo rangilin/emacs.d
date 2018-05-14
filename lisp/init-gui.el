@@ -33,12 +33,9 @@
 (setq-default frame-title-format '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b"))))
 
 
-;; flash mode line when bell ring
+;; no alarm bell
 (setq visible-bell nil)
-(setq ring-bell-function
-      (lambda ()
-        (invert-face 'mode-line)
-        (run-with-timer 0.05 nil 'invert-face 'mode-line)))
+(setq ring-bell-function 'ignore)
 
 
 ;; stop cursor jumping around while scrolling
