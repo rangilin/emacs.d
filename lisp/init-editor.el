@@ -154,22 +154,35 @@
 
 
 ;;;; Whitespaces
-
-;; clean trailing whitespace on save
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 ;; show trailing whitespace in prog-mode
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
 
 ;; hide trailing whiespace in minibuffer
 (add-hook 'minibuffer-inactive-mode-hook (lambda () (setq show-trailing-whitespace nil)))
 
-
 ;; delete whitespaces more aggresively
 (require-package 'hungry-delete)
 (require 'hungry-delete)
 (global-hungry-delete-mode)
 (diminish 'hungry-delete-mode)
+
+
+
+
+;;;; Clean & Indent
+(require-package 'clean-aindent-mode)
+(require 'clean-aindent-mode)
+
+;; disable other indent mode
+(electric-indent-mode -1)
+
+;; clean whitespace smartly
+(clean-aindent-mode t)
+
+;; use simple indent
+(setq clean-aindent-is-simple-indent t)
+
+(define-key global-map (kbd "RET") 'newline-and-indent)
 
 
 
