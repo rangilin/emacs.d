@@ -48,8 +48,9 @@
 
 
 ;; set up fringe
-(setq-default indicate-buffer-boundaries 'left)
-(setq-default indicate-empty-lines +1)
+(fringe-mode '(nil . 12))
+(setq-default indicate-buffer-boundaries 'right)
+(setq-default indicate-empty-lines t)
 
 
 ;; split window vertically if window width is more than 80, otherwise do it horizontally
