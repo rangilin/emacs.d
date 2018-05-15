@@ -91,23 +91,14 @@
 (global-subword-mode)
 (diminish 'subword-mode)
 
+;; move where I mean
+(require-package 'mwim)
+(global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
+(global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)
+
 
 ;; move cursor to top or bottom of the buffer when it cannot be scrolled anymore
 (setq-default scroll-error-top-bottom t)
-
-
-;; smarter back-to-beginning behavior
-;; http://www.emacswiki.org/emacs/BackToIndentationOrBeginning
-(defun rangi-back-to-indentation-or-beginning ()
-  "Back to indentation or beginning of current line"
-  (interactive "^")
-  (if (bound-and-true-p visual-line-mode)
-      (beginning-of-visual-line)
-    (when (= (point) (progn (back-to-indentation) (point)))
-      (beginning-of-line))))
-
-(global-set-key (kbd "C-a") 'rangi-back-to-indentation-or-beginning)
-
 
 ;; recenter in the center of a horizontal line
 ;; http://stackoverflow.com/a/1249665/554279
