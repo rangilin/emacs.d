@@ -97,4 +97,10 @@ return nil since you can't set font for emacs on it."
 
 (rangi-set-font-size rangi-font-size-pair)
 
+
+;; allow emacs to display most unicode emoji properly
+(set-fontset-font t 'symbol (font-spec :family "Symbola") nil 'prepend)
+
+
+
 (provide 'init-font)
