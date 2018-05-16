@@ -67,6 +67,8 @@
 ;;;; golden ratio
 (require-package 'golden-ratio)
 (require 'golden-ratio)
+
+(diminish 'golden-ratio-mode)
 (golden-ratio-mode 1)
 
 ;; https://github.com/roman/golden-ratio.el/issues/68
