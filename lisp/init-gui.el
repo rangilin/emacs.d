@@ -58,6 +58,9 @@
 (setq split-width-threshold 120)
 
 
+;; show current line
+(hl-line-mode t)
+
 
 
 
@@ -141,9 +144,17 @@
 ;; make trailing whitespace more clear
 (set-face-attribute 'trailing-whitespace nil :background  "#771313")
 
+;; change current highlight line color
+(set-face-attribute 'hl-line nil :background "gray20")
+
+;; change cursor color
+(set-face-attribute 'cursor nil :background "gray80")
+
+
+
+
 
 ;;;; mode line
-
 ;; don't inherit mode-line face so we can change mode-line easily
 (set-face-attribute 'mode-line-inactive nil
                     :inherit nil
