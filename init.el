@@ -41,6 +41,7 @@
 ;; then initalize rest of the packages
 (require 'init-autosave-and-backup)
 (require 'init-buffer)
+(require 'init-browse)
 (require 'init-dired)
 (require 'init-editor)
 (require 'init-font)
