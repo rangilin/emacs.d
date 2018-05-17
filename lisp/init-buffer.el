@@ -14,35 +14,21 @@
 
 ;;;; ibuffer
 
+(require-package 'ibuffer-vc)
+(require-package 'ibuffer-tramp)
+
 (require 'ibuffer)
 
-;; set up how buffers is grouped in the ibuffer
-(setq-default ibuffer-saved-filter-groups
-              `(("default"
-                 ("Dired" (mode . dired-mode))
-                 ("Emacs" (or (name . "\*Messages\*")
-                              (name . "\*Warnings\*")
-                              (name . "\*Completions\*")
-                              (name . "\*Compile-Log\*")
-                              (name . "\*Backtrace\*")))
-                 ("Help" (or (mode . man-mode)
-                             (mode . woman-mode)
-                             (mode . info-mode)
-                             (mode . help-mode)))
-                 ("Org" (mode . org-mode))
-                 ("SQL client" (mode . sql-interactive-mode))
-                 ("Terminal" (or (mode . term-mode)
-                                 (mode . shell-mode)
-                                 (mode . eshell-mode)))
-                 ("Temporary" (name . "\*.*\*")))))
-
-;; but don't show empty group
+;; don't show empty group
 (setq-default ibuffer-show-empty-filter-groups nil)
 
+
 ;; switch group on active
-(add-hook 'ibuffer-mode-hook
+(add-hook 'ibuffer-hook
           (lambda ()
-            (ibuffer-switch-to-saved-filter-groups "default")))
+            (ibuffer-vc-set-filter-groups-by-vc-root)
+            (unless (eq ibuffer-sorting-mode 'alphabetic)
+              (ibuffer-do-sort-by-alphabetic))))
 
 ;; define a ibuffer column that show human readable size of the buffer
 (define-ibuffer-column readable-size
@@ -54,13 +40,24 @@
 
 ;; define ibuffer columns
 (setq-default ibuffer-formats
-              '((mark modified read-only
+              '((mark modified read-only vc-status-mini
                       " " (name 36 36 :left :elide)
                       " " (readable-size 9 -1 :right)
                       " " (mode 16 16 :left :elide)
                       " " filename-and-process)))
 
+(defun rangi-switch-ibuffer-filter-groups (arg)
+  (interactive "p")
+  (message "Group by: (m): major mode (v): version control")
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (kbd "m") 'ibuffer-set-filter-groups-by-mode)
+     (define-key map (kbd "v") 'ibuffer-vc-set-filter-groups-by-vc-root)
+     map)
+   t))
+
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+(define-key ibuffer-mode-map (kbd "C-c s") 'rangi-switch-ibuffer-filter-groups)
 
 
 
