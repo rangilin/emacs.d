@@ -59,7 +59,7 @@
 
 
 ;; show current line
-(hl-line-mode t)
+(global-hl-line-mode)
 
 
 
@@ -116,64 +116,71 @@
 
 
 ;;;; theme
+
 (require-package 'color-theme-sanityinc-tomorrow)
-(load-theme 'sanityinc-tomorrow-eighties t)
 
-;; avy
-(set-face-attribute 'avy-lead-face nil :foreground "red" :background "#2d2d2d" :weight 'bold)
-(set-face-attribute 'avy-lead-face-0 nil :foreground "DeepSkyBlue1" :background "#2d2d2d" :weight 'bold)
-(set-face-attribute 'avy-lead-face-1 nil :foreground "yellow" :background "#2d2d2d" :weight 'bold)
-(set-face-attribute 'avy-lead-face-2 nil :foreground "orange" :background "#2d2d2d" :weight 'bold)
+(defun rangi-set-common-face-attribute ()
+  (let ((fg (face-attribute 'default :foreground))
+        (bg (face-attribute 'default :background)))
 
-;; ace window faces
-(set-face-attribute 'aw-leading-char-face nil :foreground "red" :weight 'extra-bold :height 200)
+    ;; make ace window faces clear
+    (set-face-attribute 'aw-leading-char-face nil :foreground "red" :weight 'extra-bold :height 300)
 
-;; change selection
-(set-face-attribute 'region nil :background "#444444")
+    ;; make fringe looks like part of the buffer
+    (set-face-background 'fringe bg)
 
-;; make fringe looks like part of the buffer
-(set-face-background 'fringe (face-attribute 'default :background))
+    ;; set web mode highlight
+    (with-eval-after-load 'web-mode
+      (set-face-attribute 'web-mode-current-element-highlight-face nil
+                          :foreground "MediumOrchid1"
+                          :background (face-attribute 'default :background)
+                          :weight 'bold))
 
-;; set web mode highlight
-(with-eval-after-load 'web-mode
-  (set-face-attribute 'web-mode-current-element-highlight-face nil
-                      :foreground "orchid1"
-                      :background (face-attribute 'default :background)
-                      :weight 'bold)
-  (set-face-attribute 'web-mode-current-column-highlight-face nil
-                      :background "gray30"))
-
-;; make trailing whitespace more clear
-(set-face-attribute 'trailing-whitespace nil :background  "#771313")
-
-;; change current highlight line color
-(set-face-attribute 'hl-line nil :background "gray20")
-
-;; change cursor color
-(set-face-attribute 'cursor nil :background "gray80")
+    ;; increase mode line height
+    (set-face-attribute 'mode-line nil :box `(:line-width 5 :color ,(face-attribute 'mode-line :background)))
+    (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-attribute 'mode-line-inactive :background)))))
 
 
+(defun rangi-set-theme-sanityinc-tomorrow-eighties ()
+  (load-theme 'sanityinc-tomorrow-eighties t)
+  (rangi-set-common-face-attribute)
+
+
+  ;; make trailing whitespace more clear
+  (set-face-attribute 'trailing-whitespace nil :background "#771313")
+  ;; change selection
+  (set-face-attribute 'region nil :background "#444444")
+  ;; change current highlight line color
+  (set-face-attribute 'hl-line nil :background "gray20")
+  ;; change cursor color
+  (set-face-attribute 'cursor nil :background "gray80"))
+
+
+(defun rangi-set-theme-sanityinc-tomorrow-day ()
+  (load-theme 'sanityinc-tomorrow-day t)
+  (set-face-attribute 'default nil :background "gray97")
+  (rangi-set-common-face-attribute)
+
+  ;; set web mode highlight
+  (with-eval-after-load 'web-mode
+    (set-face-attribute 'web-mode-current-element-highlight-face nil
+                        :foreground "MediumOrchid1"
+                        :background (face-attribute 'default :background)
+                        :weight 'bold))
+
+  ;; make trailing whitespace more clear
+  (set-face-attribute 'trailing-whitespace nil :background "IndianRed1")
+  ;; change current highlight line color
+  (set-face-attribute 'hl-line nil :background "gray92")
+  ;; change cursor color
+  (set-face-attribute 'cursor nil :background "gray20"))
 
 
 
-;;;; mode line
-;; don't inherit mode-line face so we can change mode-line easily
-(set-face-attribute 'mode-line-inactive nil
-                    :inherit nil
-                    :box '(:line-width 6 :color "#393939"))
+;; (rangi-set-theme-sanityinc-tomorrow-day)
+(rangi-set-theme-sanityinc-tomorrow-eighties)
 
 
-;; change mode-line dynamically
-(defun rangi-set-mode-line ()
-  (if (file-remote-p default-directory)
-      (progn
-        (set-face-attribute 'mode-line nil :background "OrangeRed4" :box '(:line-width 6 :color "OrangeRed4")))
-    (progn
-      (set-face-attribute 'mode-line nil :background "RoyalBlue4" :box '(:line-width 6 :color "RoyalBlue4")))))
-
-(rangi-set-mode-line)
-(add-hook 'find-file-hook 'rangi-set-mode-line)
-(add-hook 'dired-mode-hook 'rangi-set-mode-line)
 
 
 
