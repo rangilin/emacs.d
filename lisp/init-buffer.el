@@ -57,7 +57,7 @@
    t))
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-(define-key ibuffer-mode-map (kbd "C-c s") 'rangi-switch-ibuffer-filter-groups)
+(define-key ibuffer-mode-map (kbd "C-c m s") 'rangi-switch-ibuffer-filter-groups)
 
 
 
