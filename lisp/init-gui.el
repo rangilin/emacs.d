@@ -175,6 +175,8 @@
 
   ;; make trailing whitespace more clear
   (set-face-attribute 'trailing-whitespace nil :background "IndianRed1")
+  ;; change selection
+  (set-face-attribute 'region nil :background "#444444")
   ;; change current highlight line color
   (set-face-attribute 'hl-line nil :background "gray92")
   ;; change cursor color
