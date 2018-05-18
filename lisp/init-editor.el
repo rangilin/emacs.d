@@ -212,11 +212,4 @@
 
 
 
-;;;; editable grep
-(require-package 'wgrep)
-(require 'wgrep)
-
-
-
-
 (provide 'init-editor)
