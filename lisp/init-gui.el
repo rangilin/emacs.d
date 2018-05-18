@@ -136,6 +136,11 @@
                           :background (face-attribute 'default :background)
                           :weight 'bold))
 
+    (set-face-attribute 'avy-lead-face nil :foreground "dark orange" :background bg :weight 'bold)
+    (set-face-attribute 'avy-lead-face-0 nil :foreground "DarkOrchid1" :background bg :weight 'bold)
+    (set-face-attribute 'avy-lead-face-1 nil :foreground "red" :background bg :weight 'bold)
+    (set-face-attribute 'avy-lead-face-2 nil :foreground "deep pink" :background bg :weight 'bold)
+
     ;; increase mode line height
     (set-face-attribute 'mode-line nil :box `(:line-width 5 :color ,(face-attribute 'mode-line :background)))
     (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-attribute 'mode-line-inactive :background)))))
@@ -177,7 +182,6 @@
 
 
 
-;; (rangi-set-theme-sanityinc-tomorrow-day)
 (rangi-set-theme-sanityinc-tomorrow-eighties)
 
 
