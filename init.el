@@ -29,15 +29,21 @@
 ;; initialize package.el first (package-initialize) so we can install packages
 (require 'init-package)
 
-;; then get environment variables from shell into Emacs, so we can handle it properly
-(require 'init-exec-path)
-
-;; load misc
-(require 'misc)
-
 ;; load these packages first because they used by other configs
+(require 'misc)
+(require 'init-exec-path)
 (require-package 'diminish)
 (require-package 'hydra)
+(require-package 'f)
+(require 'f)
+(require-package 'dash)
+(require 'dash)
+
+;; add maunal installed packages into load path
+;; (add-to-list 'load-path (f-directories (expand-file-name "site-lisp" user-emacs-directory)))
+(--each (f-directories (expand-file-name "site-lisp" user-emacs-directory))
+  (add-to-list 'load-path it))
+
 
 ;; then initalize rest of the packages
 (require 'init-ag)

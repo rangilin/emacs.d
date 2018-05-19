@@ -220,4 +220,9 @@
 
 
 
+;;;; duplicate stuff
+(require 'duplicator)
+(global-set-key (kbd "M-D") 'duplicator/duplicate-lines)
+
+
 (provide 'init-editor)
