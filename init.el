@@ -1,51 +1,86 @@
-;;; -*- lexical-binding: t; -*-
+;; -*- lexical-binding: t; -*-
 
-;; always show debug message on error
-(setq debug-on-error t)
 
+(defconst rangi-generated-files-directory
+  (file-name-as-directory (expand-file-name "gen" user-emacs-directory))
+  "Path of directory where we put file that generated automatically by packages or Emacs itself")
+
+
+
+
+;;----------------------------------------------------------------------------
+;; bootstrap
+;;----------------------------------------------------------------------------
+
+;; set up directories
+(unless (file-exists-p rangi-generated-files-directory) (make-directory rangi-generated-files-directory))
 
 ;; add more updated root certification to make Emacs trust Let's Encrypt
 (require 'gnutls)
 (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
 
+;; enable all disabled commands
+(setq disabled-command-function nil)
 
-;; Set up directory for auto-generated files
-(defconst rangi-generated-files-directory
-  (file-name-as-directory (expand-file-name "gen" user-emacs-directory))
-  "Path of directory where we put file that generated automatically by packages or Emacs itself")
-(unless (file-exists-p rangi-generated-files-directory) (make-directory rangi-generated-files-directory))
 
+
+
+;;----------------------------------------------------------------------------
+;; customization
+;;----------------------------------------------------------------------------
 
 ;; Make emacs save all customizations into 'custom.el'
 (setq custom-file (expand-file-name "custom.el" rangi-generated-files-directory))
+(when (file-exists-p custom-file) (load custom-file))
 
-;; enable all disabled commands
-(setq disabled-command-function nil)
+
+
+
+;;----------------------------------------------------------------------------
+;; load-path
+;;----------------------------------------------------------------------------
 
 ;; add our config files into load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+;; add manual installed packages into load path
+(let ((base (expand-file-name "site-lisp" user-emacs-directory)))
+  (dolist (f (directory-files base))
+    (let ((name (concat base "/" f)))
+      (when (and (file-directory-p name)
+                 (not (equal f ".."))
+                 (not (equal f ".")))
+        (add-to-list 'load-path name)))))
+
+
+
+
+;;----------------------------------------------------------------------------
+;; bootstrap packages
+;;----------------------------------------------------------------------------
 
 ;; initialize package.el first (package-initialize) so we can install packages
 (require 'init-package)
 
+
 ;; load these packages first because they used by other configs
-(require 'misc)
-(require 'init-exec-path)
-(require-package 'diminish)
-(require-package 'hydra)
-(require-package 'f)
-(require 'f)
 (require-package 'dash)
+(require-package 'diminish)
+(require-package 'f)
+(require-package 'hydra)
+
 (require 'dash)
-
-;; add maunal installed packages into load path
-;; (add-to-list 'load-path (f-directories (expand-file-name "site-lisp" user-emacs-directory)))
-(--each (f-directories (expand-file-name "site-lisp" user-emacs-directory))
-  (add-to-list 'load-path it))
+(require 'f)
+(require 'init-exec-path)
+(require 'misc)
 
 
-;; then initalize rest of the packages
+
+
+;;----------------------------------------------------------------------------
+;; set up packages
+;;----------------------------------------------------------------------------
+
 (require 'init-ag)
 (require 'init-autosave-and-backup)
 (require 'init-buffer)
@@ -65,8 +100,3 @@
 
 (when (eq system-type 'darwin)
   (require 'init-mac-os))
-
-
-;; Load customazations after packages is initalized
-(when (file-exists-p custom-file)
-  (load custom-file))
