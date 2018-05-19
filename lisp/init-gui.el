@@ -63,42 +63,28 @@
 
 
 
+;;; window/buffer arrangement
+(require-package 'buffer-move)
+(defhydra hydra-window-buffer-arrangement (:color amaranth :hint nil)
+  "Arranging window & buffer ..."
 
-;;;; golden ratio
-(require-package 'golden-ratio)
-(require 'golden-ratio)
+  ("_" shrink-window-horizontally)
+  ("+" enlarge-window-horizontally)
+  ("-" shrink-window)
+  ("=" enlarge-window)
 
-(diminish 'golden-ratio-mode)
-(golden-ratio-mode 1)
+  ("J" buf-move-down)
+  ("K" buf-move-up)
+  ("L" buf-move-right)
+  ("H" buf-move-left)
 
-;; https://github.com/roman/golden-ratio.el/issues/68
-(defvar golden-ratio-selected-window
-  (frame-selected-window)
-  "Selected window.")
+  ("j" windmove-down)
+  ("k" windmove-up)
+  ("l" windmove-right)
+  ("h" windmove-left)
+  ("q" nil "Quit"))
 
-(defun golden-ratio-set-selected-window
-    (&optional window)
-  "Set selected window to WINDOW."
-  (setq-default
-    golden-ratio-selected-window (or window (frame-selected-window))))
-
-(defun golden-ratio-selected-window-p
-    (&optional window)
-  "Return t if WINDOW is selected window."
-  (eq (or window (selected-window))
-      (default-value 'golden-ratio-selected-window)))
-
-(defun golden-ratio-maybe
-    (&optional arg)
-  "Run `golden-ratio' if `golden-ratio-selected-window-p' returns nil."
-  (interactive "p")
-  (unless (golden-ratio-selected-window-p)
-    (golden-ratio-set-selected-window)
-    (golden-ratio arg)))
-
-(add-hook 'buffer-list-update-hook #'golden-ratio-maybe)
-(add-hook 'focus-in-hook #'golden-ratio)
-(add-hook 'focus-out-hook #'golden-ratio)
+(global-set-key (kbd "C-c a") 'hydra-window-buffer-arrangement/body)
 
 
 
