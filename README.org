@@ -15,5 +15,5 @@ Remember to restart Emacs after updating so package can be reloaded.
 
 ** Referecnes
 
-- Most of package related stuff:  https://github.com/purcell/emacs.d
-- CJK fonts set up http://coldnew.github.io/coldnew-emacs/
+- Most of package related stuff: https://github.com/purcell/emacs.d
+- CJK fonts set up: http://coldnew.github.io/coldnew-emacs/
