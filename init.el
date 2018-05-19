@@ -37,6 +37,7 @@
 
 ;; load these packages first because they used by other configs
 (require-package 'diminish)
+(require-package 'hydra)
 
 ;; then initalize rest of the packages
 (require 'init-ag)
