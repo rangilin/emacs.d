@@ -44,30 +44,37 @@
 ;;;; Cursors
 
 (require-package 'multiple-cursors)
-(require 'multiple-cursors)
 
 ;; save mc file in autogen directory
 (setq-default mc/list-file (expand-file-name "mc-lists.el" rangi-generated-files-directory))
 
-;; use this function to active multiple cursor mode
+(require 'multiple-cursors)
+
+;; ;; use this function to active multiple cursor mode
 (defun rangi-active-multiple-cursors (arg)
   (interactive "p")
   (message "Multiple cursors is activated...")
   (set-transient-map
    (let ((map (make-sparse-keymap)))
      (define-key map (kbd ">") 'mc/mark-all-like-this)
+     (define-key map (kbd "l") 'mc/edit-lines)
+     (define-key map (kbd "r") 'mc/mark-all-in-region-regexp)
+
+     (define-key map (kbd "<down-mouse-1>") 'ignore)
+     (define-key map (kbd "<mouse-1>") 'mc/toggle-cursor-on-click)
+
      (define-key map (kbd "n") 'mc/mark-next-like-this)
      (define-key map (kbd "N") 'mc/skip-to-next-like-this)
      (define-key map (kbd "M-n") 'mc/unmark-next-like-this)
+
      (define-key map (kbd "p") 'mc/mark-previous-like-this)
      (define-key map (kbd "P") 'mc/skip-to-previous-like-this)
      (define-key map (kbd "M-p") 'mc/unmark-previous-like-this)
-     (define-key map (kbd "l") 'mc/edit-lines)
+
      (define-key map (kbd "'") 'er/expand-region)
      map)
    t))
 (global-set-key (kbd "C->") 'rangi-active-multiple-cursors)
-
 
 
 
