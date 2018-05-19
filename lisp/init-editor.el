@@ -161,9 +161,10 @@
 ;; delete whitespaces more aggresively
 (require-package 'hungry-delete)
 (require 'hungry-delete)
+(setq hungry-delete-chars-to-skip " \t\f\v") ; but don't delete newline
+
 (global-hungry-delete-mode)
 (diminish 'hungry-delete-mode)
-
 
 
 
