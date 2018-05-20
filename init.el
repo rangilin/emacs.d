@@ -83,8 +83,8 @@
 
 (require 'init-ag)
 (require 'init-autosave-and-backup)
-(require 'init-buffer)
 (require 'init-browse)
+(require 'init-buffer)
 (require 'init-dired)
 (require 'init-editor)
 (require 'init-font)
@@ -94,9 +94,10 @@
 (require 'init-php)
 (require 'init-recentf)
 (require 'init-shell)
+(require 'init-sql)
 (require 'init-tramp)
-(require 'init-web-mode)
 (require 'init-vc)
+(require 'init-web-mode)
 
 (when (eq system-type 'darwin)
   (require 'init-mac-os))
