@@ -9,4 +9,9 @@
 
 
 
+
+;;;; Apache mode
+(require-package 'apache-mode)
+
+
 (provide 'init-php)
