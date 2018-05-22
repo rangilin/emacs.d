@@ -7,6 +7,9 @@
 ;; sort dired list
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
+;; smart target
+(setq dired-dwim-target t)
+
 ;; open current folder
 (global-set-key (kbd "<f12>") 'dired-jump-other-window)
 ;; open home folder
