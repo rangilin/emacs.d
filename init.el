@@ -92,6 +92,7 @@
 (require 'init-ivy)
 (require 'init-org)
 (require 'init-php)
+(require 'init-project)
 (require 'init-recentf)
 (require 'init-shell)
 (require 'init-sql)
