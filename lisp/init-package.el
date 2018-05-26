@@ -39,7 +39,11 @@ re-downloaded in order to locate PACKAGE."
             (string= (format-time-string "%d") "15"))
             (when (y-or-n-p "It has been a while since last reminder, do you want to check package update ?")
               (package-list-packages))))
-(add-hook 'emacs-startup-hook 'rangi-package-update-reminder)
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (package-refresh-contents)
+            (rangi-package-update-reminder)))
 
 
 (provide 'init-package)
