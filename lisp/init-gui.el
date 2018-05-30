@@ -63,10 +63,12 @@
 
 
 
-;;; window/buffer arrangement
+;;; frame/window/buffer arrangement
 (require-package 'buffer-move)
-(defhydra hydra-window-buffer-arrangement (:color amaranth :hint nil)
-  "Arranging window & buffer ..."
+(require-package 'transpose-frame)
+
+(defhydra hydra-fwb-arrangement (:color amaranth :hint nil)
+  "Arranging window & buffer & frame ..."
 
   ("_" shrink-window-horizontally)
   ("+" enlarge-window-horizontally)
@@ -82,9 +84,16 @@
   ("k" windmove-up)
   ("l" windmove-right)
   ("h" windmove-left)
+
+  ("d" rotate-frame-clockwise)
+  ("a" rotate-frame-anticlockwise)
+  ("w" flip-frame)
+  ("s" flop-frame)
+  ("e" transpose-frame)
+
   ("q" nil "Quit"))
 
-(global-set-key (kbd "C-c a") 'hydra-window-buffer-arrangement/body)
+(global-set-key (kbd "C-c a") 'hydra-fwb-arrangement/body)
 
 
 
