@@ -136,12 +136,13 @@
 ;; use this function to active jump
 (defun rangi-active-cursor-jump (arg)
   (interactive "p")
-  (message "Jump: (g):word, (G):character, (l):line")
+  (message "Jump: (g):word, (G):character, (l):line, (L):line in view")
   (set-transient-map
    (let ((map (make-sparse-keymap)))
      (define-key map (kbd "g") 'avy-goto-word-1)
      (define-key map (kbd "G") 'avy-goto-char)
-     (define-key map (kbd "l") 'avy-goto-line)
+     (define-key map (kbd "l") 'goto-line)
+     (define-key map (kbd "L") 'avy-goto-line)
    map)
    t))
 
