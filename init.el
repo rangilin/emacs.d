@@ -98,7 +98,7 @@
 (require 'init-sql)
 (require 'init-tramp)
 (require 'init-vc)
-(require 'init-web-mode)
+(require 'init-web)
 
 (when (eq system-type 'darwin)
   (require 'init-mac-os))

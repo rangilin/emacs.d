@@ -1,3 +1,10 @@
+;;;; JS2 mode
+(require-package 'js2-mode)
+
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+
+
 ;;;; Web mode
 (require-package 'web-mode)
 
@@ -7,12 +14,10 @@
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
 
-
 ;; change indent offset
 (setq-default web-mode-markup-indent-offset 4)
 (setq-default web-mode-css-indent-offset 4)
 (setq-default web-mode-code-indent-offset 4)
-
 
 ;; highlight
 (setq web-mode-enable-current-element-highlight t)
@@ -20,4 +25,4 @@
 
 
 
-(provide 'init-web-mode)
+(provide 'init-web)
