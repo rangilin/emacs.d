@@ -6,6 +6,7 @@ This is the Emacs configurations I use daily.
 ** External Packages
 
 - The Sliver Searcher:  https://geoff.greer.fm/ag/
+- JS Beautifier: https://github.com/beautify-web/js-beautify
  
 ** Update installed packages
 

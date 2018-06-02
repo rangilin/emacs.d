@@ -5,6 +5,8 @@
 
 
 
+
+
 ;;;; Web mode
 (require-package 'web-mode)
 
@@ -23,6 +25,16 @@
 (setq web-mode-enable-current-element-highlight t)
 
 
+
+
+
+;;;; web beautifier
+(require-package 'web-beautify)
+
+(eval-after-load 'css-mode
+  '(add-hook 'css-mode-hook
+             (lambda ()
+               (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
 
 
 (provide 'init-web)
