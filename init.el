@@ -63,16 +63,21 @@
 (require 'init-package)
 
 
-;; load these packages first because they used by other configs
-(require-package 'dash)
+;; install and load these libaries/packages first because they used by other configs
 (require-package 'diminish)
+(require-package 'dash)
 (require-package 'f)
+(require-package 's)
 (require-package 'hydra)
 
 (require 'dash)
 (require 'f)
-(require 'init-exec-path)
+(require 's)
 (require 'misc)
+
+
+;; load these setups first, because they too used by other configs
+(require 'init-exec-path)
 
 
 
