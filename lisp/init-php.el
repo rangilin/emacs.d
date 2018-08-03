@@ -9,6 +9,14 @@
 
 
 
+;;;; Psysh
+
+(require-package 'psysh)
+
+(defvar psysh-doc-buffer-color 'only-emacs)
+
+
+
 
 ;;;; Apache mode
 (require-package 'apache-mode)
