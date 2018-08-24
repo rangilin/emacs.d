@@ -26,7 +26,7 @@
 (setq dumb-jump-selector 'ivy)
 (setq dumb-jump-force-searcher 'ag)
 
-(defhydra hydra-dumb-jump (global-map "C-c j" :color pink :columns 3)
+(defhydra hydra-dumb-jump (:color pink :columns 3)
   "Dumb Jump"
   ("j" dumb-jump-go "Go")
   ("o" dumb-jump-go-other-window "Other window")
@@ -36,6 +36,8 @@
   ("l" dumb-jump-quick-look "Quick look")
   ("b" dumb-jump-back "Back")
   ("q" nil "Quit"))
+
+(global-set-key (kbd "C-c j") 'hydra-dumb-jump/body)
 
 
 (provide 'init-ag)
