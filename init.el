@@ -101,6 +101,7 @@
 (require 'init-recentf)
 (require 'init-shell)
 (require 'init-sql)
+(require 'init-theme)
 (require 'init-tramp)
 (require 'init-vc)
 (require 'init-web)
