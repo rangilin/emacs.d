@@ -25,5 +25,22 @@
 ;; allow entering a note upon closing a task
 (setq org-log-done 'note)
 
+;; don't allow edit inivisbe characters
+(setq org-catch-invisible-edits 'error)
+
+;; make shift selection works in org mode navigation commands
+(defadvice org-beginning-of-line
+    (before advice-org-beginning-of-line activate)
+  (handle-shift-selection))
+(defadvice org-end-of-line
+    (before advice-org-end-of-line activate)
+  (handle-shift-selection))
+(defadvice org-table-beginning-of-field
+    (before advice-org-table-beginning-of-field activate)
+  (handle-shift-selection))
+(defadvice org-table-end-of-field
+    (before advice-org-table-end-of-field activate)
+  (handle-shift-selection))
+
 
 (provide 'init-org)
