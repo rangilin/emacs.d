@@ -26,9 +26,10 @@
   (set-face-attribute 'mode-line nil :box `(:line-width 5 :color ,(face-attribute 'mode-line :background)))
   (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-attribute 'mode-line-inactive :background)))
 
-  (set-face-attribute 'org-level-1 nil :height 1.0)
-  (set-face-attribute 'org-level-2 nil :height 1.0)
-  (set-face-attribute 'org-level-3 nil :height 1.0))
+  (with-eval-after-load 'org
+    (set-face-attribute 'org-level-1 nil :height 1.0)
+    (set-face-attribute 'org-level-2 nil :height 1.0)
+    (set-face-attribute 'org-level-3 nil :height 1.0)))
 
 
 
