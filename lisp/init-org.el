@@ -43,4 +43,9 @@
   (handle-shift-selection))
 
 
+;; unset M-h
+(define-key org-mode-map (kbd "M-h") nil)
+
+
+
 (provide 'init-org)
