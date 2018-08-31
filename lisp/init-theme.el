@@ -1,6 +1,7 @@
 ;; install themes
 (require-package 'color-theme-sanityinc-tomorrow)
 (require-package 'solarized-theme)
+(require-package 'zenburn-theme)
 
 
 (defun rangi-load-solarized-dark-theme ()
@@ -10,8 +11,11 @@
   (load-theme 'solarized-dark t))
 
 
+
 ;; load theme
-(rangi-load-solarized-dark-theme)
+;; (rangi-load-solarized-dark-theme)
+
+(load-theme 'zenburn t)
 
 
 ;; some customization
