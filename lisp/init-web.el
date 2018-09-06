@@ -15,6 +15,7 @@
 ;; open with web-mode in these files
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 
 ;; change indent offset
 (setq-default web-mode-markup-indent-offset 4)
