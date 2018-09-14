@@ -6,7 +6,8 @@
 ;; pairing parenthesis automatically
 (electric-pair-mode 1)
 
-
+;; toggle truncate lines
+(global-set-key (kbd "C-c e t") 'toggle-truncate-lines)
 
 
 ;;;; Indentations
