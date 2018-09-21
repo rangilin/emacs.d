@@ -45,7 +45,8 @@
 
 ;; unset M-h
 (with-eval-after-load 'org
-  (define-key org-mode-map (kbd "M-h") nil))
+  (define-key org-mode-map (kbd "M-h") nil)
+  (define-key org-mode-map (kbd "C-'") nil))
 
 
 (provide 'init-org)
