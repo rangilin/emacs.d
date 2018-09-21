@@ -86,7 +86,6 @@
 ;; set up packages
 ;;----------------------------------------------------------------------------
 
-(require 'init-ag)
 (require 'init-autosave-and-backup)
 (require 'init-browse)
 (require 'init-buffer)
@@ -99,6 +98,7 @@
 (require 'init-php)
 (require 'init-project)
 (require 'init-recentf)
+(require 'init-search)
 (require 'init-shell)
 (require 'init-sql)
 (require 'init-theme)

@@ -40,4 +40,17 @@
 (global-set-key (kbd "C-c j") 'hydra-dumb-jump/body)
 
 
-(provide 'init-ag)
+
+
+;; search
+(defhydra hydra-search (:color teal :columns 3)
+  "Search ..."
+  ("a" ag "Ag")
+  ("f" find-name-dired "Find")
+  ("q" nil "Quit"))
+
+(global-set-key (kbd "C-c s") 'hydra-search/body)
+
+
+
+(provide 'init-search)
