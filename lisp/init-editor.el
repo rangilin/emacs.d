@@ -201,6 +201,7 @@
 (require 'undo-tree)
 (add-hook 'after-init-hook 'global-undo-tree-mode)
 (with-eval-after-load 'undo-tree
+  (define-key undo-tree-map (kbd "C-/") nil)
   (diminish 'undo-tree-mode))
 
 
@@ -270,7 +271,6 @@
 
 
 
-
 ;;;; randomize region
 (defun rangi-randomize-region (beg end)
   "Randomize lines in region from BEG to END."
@@ -283,6 +283,11 @@
            (mapcar 'cdr
                    (sort (mapcar (lambda (x) (cons (random) (concat x "\n"))) lines)
                          (lambda (a b) (< (car a) (car b))))))))
+
+
+
+;; comment
+(global-set-key (kbd "C-/") 'comment-dwim)
 
 
 (provide 'init-editor)
