@@ -227,6 +227,10 @@
 (global-set-key (kbd "M-D") 'duplicator/duplicate-lines)
 
 
+;; make sure stuff in clipboard always saved in kill ring
+(setq-default save-interprogram-paste-before-kill t)
+
+
 (defun rangi-copy-current-path (&optional prefix)
   "Copy file path of the current buffer"
   (interactive "p")
