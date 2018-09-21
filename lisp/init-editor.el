@@ -290,4 +290,12 @@
 (global-set-key (kbd "C-/") 'comment-dwim)
 
 
+
+
+;; generate linear ranges
+(require-package 'tiny)
+(require 'tiny)
+(tiny-setup-default)
+
+
 (provide 'init-editor)
