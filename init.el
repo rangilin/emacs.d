@@ -77,7 +77,7 @@
 
 
 ;; load these setups first, because they too used by other configs
-(require 'init-exec-path)
+(require 'init-env)
 
 
 
