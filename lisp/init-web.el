@@ -38,4 +38,12 @@
                (add-hook 'before-save-hook 'web-beautify-css-buffer t t))))
 
 
+
+
+;;;; restclient
+(require-package 'restclient)
+(require 'restclient)
+
+
+
 (provide 'init-web)
