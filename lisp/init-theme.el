@@ -10,12 +10,18 @@
   (setq x-underline-at-descent-line t)
   (load-theme 'solarized-dark t))
 
+(defun rangi-load-solarized-light-theme ()
+  (setq solarized-use-variable-pitch nil)
+  (setq solarized-scale-org-headlines nil)
+  (setq x-underline-at-descent-line t)
+  (load-theme 'solarized-light t))
+
 
 
 ;; load theme
-;; (rangi-load-solarized-dark-theme)
-
-(load-theme 'zenburn t)
+(rangi-load-solarized-dark-theme)
+;; (rangi-load-solarized-light-theme)
+;; (load-theme 'zenburn t)
 
 
 ;; some customization
