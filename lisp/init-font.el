@@ -10,6 +10,7 @@
 ;; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (40 chars)
 ;; 測測測測測測測測測測測測測測測測測測測測 (20 chars)
 ;; あいうえおあいうえおあいうえおあいうえお (20 chars)
+;; 한한한한한한한한한한한한한한한한한한한한 (20 chars)
 
 
 
@@ -30,8 +31,15 @@
     (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
                    (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
+(defvar rangi-font-alist-noto
+  '((english-font . "Noto Sans Mono")
+    (cjk-font . "Noto Sans Mono CJK TC")
+    (default-size-pair . (14 . 16))
+    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
+                   (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
-(defvar rangi-font-alist rangi-font-alist-hack-hiragino-sans "Current font set")
+
+(defvar rangi-font-alist rangi-font-alist-noto "Current font set")
 
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist)) "Current font size pair")
 
@@ -57,7 +65,7 @@ return nil since you can't set font for emacs on it."
       (message "font %s does not exist" english))
 
     (if (rangi-font-exist-p cjk)
-        (dolist (charset '(kana han cjk-misc bopomofo))
+        (dolist (charset '(kana han hangul cjk-misc bopomofo))
           (set-fontset-font (frame-parameter nil 'font) charset
                             (font-spec :family cjk :size (cdr size-pair))))
       (message "font %s does not exist" cjk))))
