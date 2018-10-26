@@ -312,7 +312,7 @@
 
 
 
-;; emmet-mode
+;; Emmet
 ;; cheatsheet: https://docs.emmet.io/cheatsheet-a5.pdf
 (require-package 'emmet-mode)
 (require 'emmet-mode)
@@ -322,6 +322,13 @@
   (add-hook 'web-mode-hook 'emmet-mode))
 
 (define-key emmet-mode-keymap (kbd "C-c C-c p") 'emmet-preview-mode)
+
+
+
+;; highlight keywords
+(require-package 'hl-todo)
+(global-hl-todo-mode)
+
 
 
 (provide 'init-editor)
