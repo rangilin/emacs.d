@@ -298,4 +298,30 @@
 (tiny-setup-default)
 
 
+
+
+;; yasnippet
+;; document: http://joaotavora.github.io/yasnippet/
+(require-package 'yasnippet)
+(require-package 'yasnippet-snippets)
+(require 'yasnippet)
+(yas-global-mode 1)
+(diminish 'yas-minor-mode)
+
+
+
+
+
+;; emmet-mode
+;; cheatsheet: https://docs.emmet.io/cheatsheet-a5.pdf
+(require-package 'emmet-mode)
+(require 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook 'emmet-mode)
+(with-eval-after-load 'web-mode
+  (add-hook 'web-mode-hook 'emmet-mode))
+
+(define-key emmet-mode-keymap (kbd "C-c C-c p") 'emmet-preview-mode)
+
+
 (provide 'init-editor)
