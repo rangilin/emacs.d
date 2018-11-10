@@ -36,6 +36,8 @@
 
 
 (global-set-key (kbd "C-c B s") 'rangi-search)
+(global-set-key (kbd "C-c B p") 'browse-url-at-point)
+(global-set-key (kbd "C-c B <mouse-1>") 'browse-url-at-mouse)
 
 
 (provide 'init-browse)
