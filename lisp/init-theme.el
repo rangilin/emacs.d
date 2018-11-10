@@ -22,8 +22,8 @@
 ;; load theme
 ;; (rangi-load-solarized-dark-theme)
 ;; (rangi-load-solarized-light-theme)
-;; (load-theme 'zenburn t)
-(load-theme 'gruvbox-dark-soft t)
+(load-theme 'zenburn t)
+;; (load-theme 'gruvbox-dark-soft t)
 ;; (load-theme 'gruvbox-light-soft t)
 
 
