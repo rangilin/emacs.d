@@ -10,6 +10,12 @@
 
 
 
+;; term
+(setq term-buffer-maximum-size 262144)
+(setq term-suppress-hard-newline t)
+(setq term-scroll-to-bottom-on-output t)
+
+
 
 
 (provide 'init-shell)
