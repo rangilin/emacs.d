@@ -3,6 +3,8 @@
 (require-package 'solarized-theme)
 (require-package 'zenburn-theme)
 (require-package 'gruvbox-theme)
+(require-package 'gruvbox-theme)
+(require-package 'spacemacs-theme)
 
 
 (defun rangi-load-solarized-dark-theme ()
@@ -22,9 +24,10 @@
 ;; load theme
 ;; (rangi-load-solarized-dark-theme)
 ;; (rangi-load-solarized-light-theme)
-(load-theme 'zenburn t)
+;; (load-theme 'zenburn t)
 ;; (load-theme 'gruvbox-dark-soft t)
 ;; (load-theme 'gruvbox-light-soft t)
+(load-theme 'spacemacs-dark t)
 
 
 ;; some customization
