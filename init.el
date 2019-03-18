@@ -94,6 +94,7 @@
 (require 'init-font)
 (require 'init-gui)
 (require 'init-ivy)
+(require 'init-misc)
 (require 'init-org)
 (require 'init-php)
 (require 'init-project)
