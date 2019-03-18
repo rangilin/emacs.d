@@ -1,3 +1,11 @@
+;;;; URL package
+(require 'url)
+
+;; set up user directory for url package
+(setq url-configuration-directory (expand-file-name "url/" rangi-generated-files-directory))
+(unless (file-exists-p url-configuration-directory) (make-directory url-configuration-directory))
+
+
 ;;;; JS2 mode
 (require-package 'js2-mode)
 
