@@ -303,7 +303,6 @@
 ;; yasnippet
 ;; document: http://joaotavora.github.io/yasnippet/
 (require-package 'yasnippet)
-(require-package 'yasnippet-snippets)
 (require 'yasnippet)
 (yas-global-mode 1)
 (diminish 'yas-minor-mode)
