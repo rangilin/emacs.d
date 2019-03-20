@@ -1,0 +1,25 @@
+#+TITLE: Rangi's Emacs configruation
+
+My Emacs configuration on MacOS.
+
+** External Packages
+
+Use =gnutls= — GNU Transport Layer Security (TLS) Library to support new TLS
+
+#+BEGIN_SRC sh
+brew install gnutls
+#+END_SRC
+
+
+Use [[https://geoff.greer.fm/ag/][The Silver Searcher]] to search stuff
+
+#+BEGIN_SRC sh
+brew install the_silver_searcher
+#+END_SRC
+
+
+Use =aspell= spellchecker
+
+#+BEGIN_SRC sh
+brew install aspell
+#+END_SRC
