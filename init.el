@@ -40,8 +40,14 @@
 ;; ---------------------------------------------------------------------------
 ;;
 
-;; set up packages and archives
 (require 'package)
+
+;; install into separate directories for each Emacs version, to prevent bytecode incompatibility
+(let ((versioned-package-dir
+       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version) rangi-generated-files-directory)))
+  (setq package-user-dir versioned-package-dir))
+
+;; set up archives
 (add-to-list 'package-archives '( "melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
@@ -57,7 +63,7 @@
 (setq use-package-always-ensure t)
 
 
-;; remind me to update packages 
+;; remind me to update packages
 (add-hook 'emacs-startup-hook
           (lambda ()
 	    (interactive)
