@@ -80,6 +80,7 @@
 
 (require 'init-autosave-and-backup)
 (require 'init-browse)
+(require 'init-buffer)
 (require 'init-editor)
 (require 'init-gui)
 (require 'init-macos)
