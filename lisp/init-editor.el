@@ -38,20 +38,14 @@
 ;; force ask y/n instead of yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; remove selected text when inserting new text
-(delete-selection-mode 1)
-
 ;; toggle truncate lines
 (global-set-key (kbd "C-c e t") 'toggle-truncate-lines)
-
-;; move cursor to top or bottom of the buffer when it cannot be scrolled anymore
-(setq-default scroll-error-top-bottom t)
 
 
 
 ;;
 ;; Whitespace
-;;----------------------------------------------------------------------------
+;; ----------------------------------------------------------------------------
 ;;
 
 ;; show trailing whitespace in prog-mode
@@ -65,6 +59,156 @@
 
 ;; delete trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; delete whitespaces more aggresively
+(use-package hungry-delete
+  :diminish hunger-delete-mode
+  :config
+  ;; don't delete newline
+  (setq hungry-delete-chars-to-skip " \t\f\v")
+  (global-hungry-delete-mode))
+
+
+
+;;
+;; Indentations
+;; ----------------------------------------------------------------------------
+;;
+
+;; make it easier to insert new line on specific position
+(defun rangi-insert-newline-above ()
+  "Insert a newline above the current line."
+  (interactive)
+  (beginning-of-line)
+  (newline)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun rangi-insert-newline-below ()
+  "Insert a newline below the current line."
+  (interactive)
+  (end-of-line)
+  (newline)
+  (indent-according-to-mode))
+
+(global-set-key (kbd "<C-S-return>") 'rangi-insert-newline-above)
+(global-set-key (kbd "<C-return>") 'rangi-insert-newline-below)
+
+;; always indent with space
+(setq-default indent-tabs-mode nil)
+
+;; indent 2 space by default
+(setq-default tab-width 2)
+
+;; try to complete thing-at-point after current line is indented
+(setq tab-always-indent 'complete)
+
+;; indent automatically
+(electric-indent-mode 1)
+
+
+
+;;
+;; Selection
+;; ----------------------------------------------------------------------------
+;;
+
+;; remove selected text when inserting new text
+(delete-selection-mode 1)
+
+;; expand-region
+(use-package expand-region
+  :bind
+  (("s-'" . er/expand-region)
+   ("s-\"" . er/contract-region)))
+
+
+
+;;
+;; Cursors
+;; ----------------------------------------------------------------------------
+;;
+
+(use-package multiple-cursors
+  :init
+  ;; save mc file in autogen directory
+  (setq-default mc/list-file (expand-file-name "mc-lists.el" rangi-generated-files-directory))
+
+  :config
+  (global-set-key (kbd "s-d") 'mc/mark-next-like-this)
+  (global-set-key (kbd "s-D") 'mc/mark-all-dwim)
+  (global-set-key (kbd "M-s-d") 'mc/edit-lines))
+
+
+
+;;
+;; Navigation
+;; ----------------------------------------------------------------------------
+;;
+
+;; enable subword mode
+(use-package subword
+  :diminish subword-mode
+  :config
+  (global-subword-mode))
+
+
+;; move where I mean
+(use-package mwim
+  :bind
+  (("C-a" . mwim-beginning-of-code-or-line)
+   ("C-e" . mwim-end-of-code-or-line)))
+
+;; move cursor to top or bottom of the buffer when it cannot be scrolled anymore
+(setq-default scroll-error-top-bottom t)
+
+;; recenter in the center of a horizontal line
+;; http://stackoverflow.com/a/1249665/554279
+(defun rangi-horizontal-recenter ()
+  "make the point horizontally centered in the window"
+  (interactive)
+  (let ((mid (/ (window-width) 2))
+        (line-len (save-excursion (end-of-line) (current-column)))
+        (cur (current-column)))
+    (if (< mid cur) (set-window-hscroll (selected-window) (- cur mid)))))
+
+(global-set-key (kbd "C-S-l") 'rangi-horizontal-recenter)
+
+
+
+;;
+;; Yank & Kill
+;; ----------------------------------------------------------------------------
+;;
+
+(use-package browse-kill-ring
+  :config
+  (browse-kill-ring-default-keybindings))
+
+
+
+;;
+;; Undo & Redo
+;; ----------------------------------------------------------------------------
+;;
+
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :bind (("s-z" . undo-tree-undo)
+         ("s-Z" . undo-tree-redo))
+  :config
+  ;; show time differences in visualizer
+  (setq undo-tree-visualizer-timestamps t)
+  ;; show diff between changes in visualizer
+  (setq undo-tree-visualizer-diff t)
+
+  ;; store undo histories
+  (setq undo-tree-auto-save-history t)
+  (let ((dir (expand-file-name "undo" rangi-generated-files-directory)))
+    (unless (file-exists-p dir) (make-directory dir))
+    (setq undo-tree-history-directory-alist `(("." . ,dir))))
+  (global-undo-tree-mode))
+
 
 
 (provide 'init-editor)
