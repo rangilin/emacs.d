@@ -31,6 +31,8 @@
 ;; resize frame by pixel
 (setq frame-resize-pixelwise t)
 
+;; adjust scrolling speed of mouse/trackpad
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control))))
 
 ;;
 ;; Fonts

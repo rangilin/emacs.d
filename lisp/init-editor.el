@@ -60,6 +60,11 @@
 ;; hide trailing whiespace in minibuffer
 (add-hook 'minibuffer-inactive-mode-hook (lambda () (setq show-trailing-whitespace nil)))
 
+;; add newline at EOF
+(setq require-final-newline t)
+
+;; delete trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
 (provide 'init-editor)
