@@ -28,6 +28,8 @@
 ;; show current line
 (global-hl-line-mode)
 
+;; resize frame by pixel
+(setq frame-resize-pixelwise t)
 
 
 ;;
