@@ -23,3 +23,10 @@ Use =aspell= spellchecker
 #+BEGIN_SRC sh
 brew install aspell
 #+END_SRC
+
+
+Use =gls= to sort files in Emacs
+
+#+BEGIN_SRC sh
+brew install coreutils
+#+END_SRC
