@@ -1,8 +1,3 @@
-;;
-;; Random stuff
-;;----------------------------------------------------------------------------
-;;
-
 ;; warn when open file larger than 100MB
 (setq large-file-warning-threshold 100000000)
 

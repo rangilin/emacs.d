@@ -1,8 +1,3 @@
-;;
-;; Random stuff
-;;----------------------------------------------------------------------------
-;;
-
 ;; stop cursor jumping around while scrolling
 (setq scroll-conservatively 10000)
 (setq scroll-preserve-screen-position t)
@@ -139,12 +134,12 @@ on terminal it just return nil since you can't set font for emacs on it."
 ;;----------------------------------------------------------------------------
 ;;
 
-;; TODO: 1. change san-serif font
 (use-package solarized-theme
   :config
-  (set-face-font 'variable-pitch "Noto Sans CJK TC")
   (load-theme 'solarized-light t))
 
+
+;; some customizations
 (let ((fg (face-attribute 'default :foreground))
       (bg (face-attribute 'default :background)))
 
