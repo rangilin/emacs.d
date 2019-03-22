@@ -34,6 +34,11 @@
 ;; adjust scrolling speed of mouse/trackpad
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control))))
 
+;; split window vertically if window width is more than 120, otherwise do it horizontally
+(setq split-height-threshold nil)
+(setq split-width-threshold 120)
+
+
 ;;
 ;; Fonts
 ;;----------------------------------------------------------------------------
