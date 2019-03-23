@@ -56,10 +56,11 @@
 ;; set up 'use-package' to install packages
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
+  (package-install 'delight)
   (package-install 'use-package))
 (eval-when-compile (require 'use-package))
 
-;; install delight to allow use-package to hide stuff in modeline
+;; use delight to allow use-package to hide stuff in modeline
 (use-package delight)
 
 ;; always install package if not exist
