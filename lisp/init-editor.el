@@ -41,6 +41,15 @@
 ;; toggle truncate lines
 (global-set-key (kbd "C-c e t") 'toggle-truncate-lines)
 
+;; treat Esc like C-g
+(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
+
+;; move file to trash when deleted
+(setq-default delete-by-moving-to-trash t)
+
+;; zap
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "M-Z") 'zap-to-char)
 
 
 ;;
@@ -212,17 +221,31 @@
 
 
 ;;
-;; Yank & Kill & Zap
+;; Clipboard & Kill Ring
 ;; ----------------------------------------------------------------------------
 ;;
 
+;; allow us to select kill ring content from a list
 (use-package browse-kill-ring
   :config
   (browse-kill-ring-default-keybindings))
 
-;; zap
-(global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "M-Z") 'zap-to-char)
+;; ;; make stuff in system clipboard always saved in kill ring
+;; (setq-default save-interprogram-paste-before-kill t)
+
+;; separate system clipboard and kill ring
+(use-package simpleclip
+  :config
+  (simpleclip-mode 1)
+
+  (defun rangi-simpleclip-copy (beg end)
+    "Call `simpleclip-copy', then deactive mark."
+    (interactive "r")
+    (call-interactively 'simpleclip-copy)
+    (deactivate-mark))
+
+  (bind-key "s-c" 'rangi-simpleclip-copy simpleclip-mode-map)
+  (bind-key "C-<insert>" 'rangi-simpleclip-copy simpleclip-mode-map))
 
 
 ;;
