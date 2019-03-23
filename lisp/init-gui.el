@@ -186,7 +186,7 @@ on terminal it just return nil since you can't set font for emacs on it."
         (cjk (cdr (assoc 'cjk-font rangi-font-alist))))
 
     (if (rangi-font-exist-p english)
-        (set-frame-font (format "%s:pixelsize=%d" english (car size-pair)) t)
+        (set-frame-font (format "%s:pixelsize=%d" english (car size-pair)) t t)
       (message "font %s does not exist" english))
 
     (if (rangi-font-exist-p cjk)
