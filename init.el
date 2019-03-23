@@ -66,14 +66,6 @@
 (setq use-package-always-ensure t)
 
 
-;; remind me to update packages
-(add-hook 'emacs-startup-hook
-          (lambda ()
-	    (interactive)
-	    (when (y-or-n-p "Do you want to check package update ?")
-	      (package-list-packages))))
-
-
 
 ;;
 ;; Configurations

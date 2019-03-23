@@ -347,10 +347,10 @@
 
 
 
-;;
-;; Recent files
-;; ----------------------------------------------------------------------------
-;;
+;; ;;
+;; ;; Recent files
+;; ;; ----------------------------------------------------------------------------
+;; ;;
 
 (use-package recentf
   :config
@@ -359,7 +359,9 @@
   (setq recentf-auto-cleanup 'never)
   ;; only store 50 items
   (setq recentf-max-menu-items 50)
-  ;; save recent files every 5 mins, and do it silently
+
+  ;; save recent files every 5 mins and do it silently
+  ;; NOTE: due to how (save-silently t) works, message in minibuffer disappear when recentf save
   (run-at-time nil (* 5 60)
                (lambda ()
                  (let ((save-silently t))
