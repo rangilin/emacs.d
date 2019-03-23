@@ -222,6 +222,9 @@
 ;; ----------------------------------------------------------------------------
 ;;
 
+(global-set-key (kbd "s-<backspace>") 'kill-whole-line)
+(global-set-key (kbd "M-S-<backspace>") 'kill-word)
+
 ;; allow us to select kill ring content from a list
 (use-package browse-kill-ring
   :config

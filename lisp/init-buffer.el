@@ -1,3 +1,11 @@
+(global-set-key (kbd "s-<") 'previous-buffer)
+(global-set-key (kbd "s->") 'next-buffer)
+
+;;
+;; Revert buffer
+;; ----------------------------------------------------------------------------
+;;
+
 ;; refresh buffer
 (defun rangi-refresh-buffer ()
   "Referesh current buffer."
