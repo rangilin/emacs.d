@@ -34,9 +34,95 @@
 ;; adjust scrolling speed of mouse/trackpad
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control))))
 
+
+
+;;
+;; Windows
+;;----------------------------------------------------------------------------
+;;
+
 ;; split window vertically if window width is more than 120, otherwise do it horizontally
 (setq split-height-threshold nil)
 (setq split-width-threshold 120)
+
+;; change window with simpler keystroke
+(global-set-key (kbd "s-1") (kbd "C-x 1"))
+(global-set-key (kbd "s-2") (kbd "C-x 2"))
+(global-set-key (kbd "s-3") (kbd "C-x 3"))
+(global-set-key (kbd "s-0") (kbd "C-x 0"))
+(global-set-key (kbd "s-w") (kbd "C-x 0"))
+
+
+;; restore window configurations easiler
+(use-package winner
+  :bind (("M-s-[" . winner-undo)
+         ("M-s-]" . winner-redo)
+         ;; workaround for accented characters
+         ("M-s-“" . winner-undo)
+         ("M-s-‘" . winner-redo))
+  :config
+  (winner-mode 1))
+
+
+(use-package windmove
+  :config
+  (global-set-key (kbd "<C-s-left>")  'windmove-left)
+  (global-set-key (kbd "s-[")  'windmove-left)
+  (global-set-key (kbd "<C-s-right>") 'windmove-right)
+  (global-set-key (kbd "s-]")  'windmove-right)
+  (global-set-key (kbd "<C-s-up>")    'windmove-up)
+  (global-set-key (kbd "s-{")  'windmove-up)
+  (global-set-key (kbd "<C-s-down>")  'windmove-down)
+  (global-set-key (kbd "s-}")  'windmove-down))
+
+
+;;
+;; Search Completion
+;;----------------------------------------------------------------------------
+;;
+
+;; use ivy to do do completion everywhere
+(use-package ivy
+  :diminish
+  :bind
+  (("s-b" . ivy-switch-buffer)
+   ("C-c C-r" . ivy-resume))
+  :config
+  (ivy-mode 1)
+  (setq enable-recursive-minibuffers t)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "%d/%d "))
+
+
+;; use swiper to search local file
+(use-package swiper
+  :config
+  :bind
+  (("C-s" . swiper)
+   ("s-f" . swiper)))
+
+;; use ivy for emacs command
+(use-package counsel
+  :bind
+  (("M-x" . counsel-M-x)
+   ("s-P" . counsel-M-x)
+   ("C-x C-f" . counsel-find-file)
+   ("s-o" . counsel-find-file)
+   ("M-s-f" . counsel-ag)
+   ("M-s-ƒ" . counsel-ag)
+   ("<f1> f" . counsel-describe-function)
+   ("<f1> v" . counsel-describe-variable)
+   ("<f1> l" . counsel-find-library)
+   ("<f2> i" . counsel-info-lookup-symbol)
+   ("<f2> u" . counsel-unicode-char)))
+
+
+(use-package ivy-rich
+  :config
+  (ivy-rich-mode 1)
+  ;; use abbrevation file path
+  (setq ivy-rich-path-style 'abbrev))
+
 
 
 ;;

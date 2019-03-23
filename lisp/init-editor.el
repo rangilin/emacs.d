@@ -62,7 +62,7 @@
 
 ;; delete whitespaces more aggresively
 (use-package hungry-delete
-  :diminish hunger-delete-mode
+  :diminish
   :config
   ;; don't delete newline
   (setq hungry-delete-chars-to-skip " \t\f\v")
@@ -148,7 +148,7 @@
 
 ;; enable subword mode
 (use-package subword
-  :diminish subword-mode
+  :diminish
   :config
   (global-subword-mode))
 
@@ -175,16 +175,42 @@
 (global-set-key (kbd "C-S-l") 'rangi-horizontal-recenter)
 
 
+;; jump between characters/words
+(use-package avy
+  :config
+  (setq avy-background t)
+
+  ;; use this function to active jump
+  (defun rangi-active-cursor-jump (arg)
+    (interactive "p")
+    (message "Jump: (g): character (w): word (l): line (L): line in view")
+    (set-transient-map
+     (let ((map (make-sparse-keymap)))
+       (define-key map (kbd "g") 'avy-goto-char-timer)
+       (define-key map (kbd "w") 'avy-goto-word-or-subword-1)
+       (define-key map (kbd "l") 'goto-line)
+       (define-key map (kbd "L") 'avy-goto-line)
+       map)
+     t))
+
+  (bind-key "s-g" 'avy-goto-char-timer)
+  (bind-key "M-g c" 'avy-goto-char-timer)
+  (bind-key "s-G" 'rangi-active-cursor-jump))
+
+
 
 ;;
-;; Yank & Kill
+;; Yank & Kill & Zap
 ;; ----------------------------------------------------------------------------
 ;;
 
-(use-package browse-kill-ring
+(Use-package browse-kill-ring
   :config
   (browse-kill-ring-default-keybindings))
 
+;; zap
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "M-Z") 'zap-to-char)
 
 
 ;;
@@ -193,7 +219,7 @@
 ;;
 
 (use-package undo-tree
-  :diminish undo-tree-mode
+  :diminish
   :bind (("s-z" . undo-tree-undo)
          ("s-Z" . undo-tree-redo))
   :config

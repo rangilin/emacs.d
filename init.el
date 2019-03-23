@@ -77,13 +77,19 @@
 ;; ----------------------------------------------------------------------------
 ;;
 
+;; some libraries used in the configurations
+(use-package f)
+(use-package s)
+
 ;; load first to set up environment
 (require 'init-env)
 
 (require 'init-autosave-and-backup)
 (require 'init-browse)
 (require 'init-buffer)
+(require 'init-copy)
 (require 'init-dired)
 (require 'init-editor)
 (require 'init-gui)
 (require 'init-macos)
+(require 'init-misc)

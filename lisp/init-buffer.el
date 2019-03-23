@@ -10,7 +10,7 @@
 
 ;; auto refresh buffer
 (use-package autorevert
-  :diminish auto-revert-mode
+  :diminish
   :config
   (global-auto-revert-mode 1)
 
@@ -32,7 +32,6 @@
 
 (use-package ibuffer
   :config
-
   (use-package ibuffer-vc)
   (use-package ibuffer-tramp)
 
@@ -73,6 +72,7 @@
        map)
      t))
 
+  (bind-key "s-B" 'ibuffer)
   (bind-key "C-x C-b" 'ibuffer)
   (bind-key "C-c m s" 'rangi-switch-ibuffer-filter-groups ibuffer-mode-map))
 
