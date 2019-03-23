@@ -12,5 +12,11 @@
   (setq tldr-directory-path (expand-file-name "tldr/" rangi-generated-files-directory)))
 
 
+;; csv mode
+(use-package csv-mode
+  :mode "\\.csv\\'"
+  :config
+  (setq csv-separators '("," ";" "|" " " "\t")))
+
 
 (provide 'init-misc)
