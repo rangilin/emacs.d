@@ -309,10 +309,13 @@
   (setq recentf-save-file (expand-file-name "recentf" rangi-generated-files-directory))
   ;; avoid accidentally access remote file during cleanup
   (setq recentf-auto-cleanup 'never)
-  ;; only store 25 items
-  (setq recentf-max-menu-items 25)
-  ;; save recent files every 30 mins instead of on exiting
-  (run-at-time nil (* 30 60) 'recentf-save-list)
+  ;; only store 50 items
+  (setq recentf-max-menu-items 50)
+  ;; save recent files every 5 mins, and do it silently
+  (run-at-time nil (* 5 60)
+               (lambda ()
+                 (let ((save-silently t))
+                   (recentf-save-list))))
   (recentf-mode 1))
 
 

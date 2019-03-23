@@ -99,5 +99,6 @@
 (require 'init-gui)
 (require 'init-macos)
 (require 'init-misc)
+(require 'init-org)
 (require 'init-shell)
 (require 'init-vc)
