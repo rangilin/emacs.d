@@ -3,7 +3,7 @@
 My Emacs configuration on MacOS.
 
 
-** External Packages
+** Install External Packages
 
 Use =gnutls= — GNU Transport Layer Security (TLS) Library to support new TLS
 
@@ -30,4 +30,10 @@ Use =gls= to sort files in Emacs
 
 #+BEGIN_SRC sh
 brew install coreutils
+#+END_SRC
+
+** Install Configuration
+
+#+BEGIN_SRC sh
+git clone --recursive git@github.com:rangilin/emacs.d.git
 #+END_SRC
