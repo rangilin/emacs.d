@@ -2,6 +2,7 @@
 
 My Emacs configuration on MacOS.
 
+
 ** External Packages
 
 Use =gnutls= — GNU Transport Layer Security (TLS) Library to support new TLS
