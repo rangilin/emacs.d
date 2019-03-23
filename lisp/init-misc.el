@@ -6,5 +6,11 @@
   (which-key-setup-side-window-bottom))
 
 
+;; tldr client
+(use-package tldr
+  :config
+  (setq tldr-directory-path (expand-file-name "tldr/" rangi-generated-files-directory)))
+
+
 
 (provide 'init-misc)
