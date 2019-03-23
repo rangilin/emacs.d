@@ -1,3 +1,6 @@
+;; maximize frame
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 ;; stop cursor jumping around while scrolling
 (setq scroll-conservatively 10000)
 (setq scroll-preserve-screen-position t)
