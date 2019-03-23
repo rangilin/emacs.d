@@ -245,6 +245,12 @@
   (bind-key "C-<insert>" 'rangi-simpleclip-copy simpleclip-mode-map))
 
 
+;; home-made package tp duplicate lines
+(use-package duplicator
+  :load-path "site-lisp/duplicator"
+  :bind ("M-D" . duplicator/duplicate-lines))
+
+
 ;;
 ;; Undo & Redo
 ;; ----------------------------------------------------------------------------
