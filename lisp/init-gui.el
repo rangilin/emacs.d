@@ -83,7 +83,7 @@
 
 ;; use ivy to do do completion everywhere
 (use-package ivy
-  :diminish
+  :delight
   :bind
   (("s-b" . ivy-switch-buffer)
    ("C-c C-r" . ivy-resume))

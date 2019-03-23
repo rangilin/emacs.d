@@ -10,7 +10,7 @@
 
 ;; auto refresh buffer
 (use-package autorevert
-  :diminish
+  :delight auto-revert-mode
   :config
   (global-auto-revert-mode 1)
 

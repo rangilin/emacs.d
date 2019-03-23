@@ -1,6 +1,6 @@
 ;; show hotkey when input incomplete command
 (use-package which-key
-  :diminish
+  :delight
   :config
   (which-key-mode)
   (which-key-setup-side-window-bottom))

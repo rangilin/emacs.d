@@ -59,6 +59,9 @@
   (package-install 'use-package))
 (eval-when-compile (require 'use-package))
 
+;; install delight to allow use-package to hide stuff in modeline
+(use-package delight)
+
 ;; always install package if not exist
 (setq use-package-always-ensure t)
 
@@ -90,6 +93,7 @@
 (require 'init-copy)
 (require 'init-dired)
 (require 'init-editor)
+(require 'init-emacs-lisp)
 (require 'init-gui)
 (require 'init-macos)
 (require 'init-misc)

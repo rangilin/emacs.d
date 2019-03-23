@@ -1,3 +1,8 @@
+;;
+;; Copy file related info
+;; ----------------------------------------------------------------------------
+;;
+
 (defun rangi-copy-current-path (&optional prefix)
   "Copy file path of the current buffer"
   (interactive "p")
@@ -8,7 +13,6 @@
             (kill-new result)
             (message "Copied '%s' to the clipboard." result)))
       (message "Not in a file or directory, do nothing"))))
-
 
 (defun rangi-current-path ()
   "Return full path of current buffer"
@@ -35,6 +39,18 @@
 ;; prefix: s-C
 (global-unset-key (kbd "s-C"))
 (global-set-key (kbd "s-C f") 'rangi-copy-current-path)
+
+
+;;
+;; Sequence Generate
+;; ----------------------------------------------------------------------------
+;;
+
+;; generate linear ranges
+(use-package tiny
+  :config
+  (tiny-setup-default))
+
 
 
 (provide 'init-copy)

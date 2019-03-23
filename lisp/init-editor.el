@@ -62,7 +62,7 @@
 
 ;; delete whitespaces more aggresively
 (use-package hungry-delete
-  :diminish
+  :delight
   :config
   ;; don't delete newline
   (setq hungry-delete-chars-to-skip " \t\f\v")
@@ -123,6 +123,19 @@
    ("s-\"" . er/contract-region)))
 
 
+;; randomize region
+(defun rangi-randomize-region (beg end)
+  "Randomize lines in region from BEG to END."
+  (interactive "*r")
+  (let ((lines (split-string
+                (delete-and-extract-region beg end) "\n")))
+    (when (string-equal "" (car (last lines 1)))
+      (setq lines (butlast lines 1)))
+    (apply 'insert
+           (mapcar 'cdr
+                   (sort (mapcar (lambda (x) (cons (random) (concat x "\n"))) lines)
+                         (lambda (a b) (< (car a) (car b))))))))
+
 
 ;;
 ;; Cursors
@@ -148,10 +161,9 @@
 
 ;; enable subword mode
 (use-package subword
-  :diminish
+  :delight
   :config
   (global-subword-mode))
-
 
 ;; move where I mean
 (use-package mwim
@@ -204,7 +216,7 @@
 ;; ----------------------------------------------------------------------------
 ;;
 
-(Use-package browse-kill-ring
+(use-package browse-kill-ring
   :config
   (browse-kill-ring-default-keybindings))
 
@@ -219,7 +231,7 @@
 ;;
 
 (use-package undo-tree
-  :diminish
+  :delight
   :bind (("s-z" . undo-tree-undo)
          ("s-Z" . undo-tree-redo))
   :config
