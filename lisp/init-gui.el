@@ -108,6 +108,7 @@
    ("s-P" . counsel-M-x)
    ("C-x C-f" . counsel-find-file)
    ("s-o" . counsel-find-file)
+   ("C-x C-r" . counsel-recentf)
    ("M-s-f" . counsel-ag)
    ("M-s-ƒ" . counsel-ag)
    ("<f1> f" . counsel-describe-function)
