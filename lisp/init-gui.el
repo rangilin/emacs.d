@@ -233,7 +233,6 @@ on terminal it just return nil since you can't set font for emacs on it."
   :config
   (load-theme 'solarized-light t))
 
-
 ;; some customizations
 (let ((fg (face-attribute 'default :foreground))
       (bg (face-attribute 'default :background)))
@@ -244,6 +243,13 @@ on terminal it just return nil since you can't set font for emacs on it."
 
   ;; put underline below the font bottomline so mode line looks better
   (setq x-underline-at-descent-line t))
+
+
+;; highlight keywords
+(use-package hl-todo
+  :config
+  (global-hl-todo-mode))
+
 
 
 (provide 'init-gui)

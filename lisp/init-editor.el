@@ -47,9 +47,6 @@
 ;; move file to trash when deleted
 (setq-default delete-by-moving-to-trash t)
 
-;; zap
-(global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "M-Z") 'zap-to-char)
 
 
 ;;
@@ -269,6 +266,36 @@
     (unless (file-exists-p dir) (make-directory dir))
     (setq undo-tree-history-directory-alist `(("." . ,dir))))
   (global-undo-tree-mode))
+
+
+;;
+;; Editing actions
+;; ----------------------------------------------------------------------------
+;;
+
+;; zap
+(global-set-key (kbd "M-z") 'zap-up-to-char)
+(global-set-key (kbd "M-Z") 'zap-to-char)
+
+;; comment smartly
+(global-set-key (kbd "C-/") 'comment-dwim)
+
+;; change case smartly
+(global-set-key (kbd "M-u") 'upcase-dwim)
+(global-set-key (kbd "M-l") 'downcase-dwim)
+(global-set-key (kbd "M-c") 'capitalize-dwim)
+
+;; move text
+(use-package move-text
+  :config
+  (move-text-default-bindings))
+
+;; regex replace with visual guide
+(use-package visual-regexp
+  :config
+  (bind-key "C-S-s-d" 'vr/mc-mark)
+  (bind-key "M-%" 'vr/query-replace)
+  (bind-key "s-r" 'vr/query-replace))
 
 
 

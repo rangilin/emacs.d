@@ -83,6 +83,8 @@
 ;; some libraries used in the configurations
 (use-package f)
 (use-package s)
+(use-package dash)
+(use-package hydra)
 
 ;; load first to set up environment
 (require 'init-env)
@@ -97,3 +99,5 @@
 (require 'init-gui)
 (require 'init-macos)
 (require 'init-misc)
+(require 'init-shell)
+(require 'init-vc)
