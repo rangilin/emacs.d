@@ -5,8 +5,8 @@
 
 (use-package magit
   :bind
-  (("s-g" . magit-status)
-   ("s-G" . magit-dispatch-popup))
+  (("C-c v g" . magit-status)
+   ("C-c v G" . magit-dispatch-popup))
 
   :init
   (setq-default transient-levels-file (locate-user-emacs-file (convert-standard-filename "gen/transient/levels.el")))
@@ -16,6 +16,16 @@
   :config
   (setq-default magit-diff-refine-hunk t))
 
+
+
+;;
+;; Subversion
+;; ----------------------------------------------------------------------------
+;;
+
+(use-package dsvn
+  :bind
+  (("C-c v s" . svn-status)))
 
 
 (provide 'init-vc)
