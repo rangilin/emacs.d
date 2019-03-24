@@ -35,9 +35,29 @@
     (when word (substring-no-properties word))))
 
 
-(global-set-key (kbd "s-b s") 'rangi-search)
-(global-set-key (kbd "s-b p") 'browse-url-at-point)
-(global-set-key (kbd "s-b <mouse-1>") 'browse-url-at-mouse)
+;; modify based on http://ergoemacs.org/emacs/emacs_dired_open_file_in_ext_apps.html
+(defun rangi-browse-in-external-app (&optional filename)
+  "Open the current file or dired marked files in external app"
+  (interactive)
+  (let* ((file-list
+          (if filename
+              (progn (list filename))
+            (if (string-equal major-mode "dired-mode")
+                (dired-get-marked-files)
+              (list (buffer-file-name)))))
+         (do-it-p (if (<= (length file-list) 5)
+                       t
+                     (y-or-n-p "Open more than 5 files? "))))
+    (when do-it-p
+      (mapc
+       (lambda (fpath)
+         (shell-command
+          (concat "open " (shell-quote-argument fpath))))  file-list))))
 
+
+(global-set-key (kbd "C-c b s") 'rangi-search)
+(global-set-key (kbd "C-c b p") 'browse-url-at-point)
+(global-set-key (kbd "C-c b <mouse-1>") 'browse-url-at-mouse)
+(global-set-key (kbd "C-c b o") 'rangi-browse-in-external-app)
 
 (provide 'init-browse)
