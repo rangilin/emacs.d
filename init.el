@@ -34,6 +34,20 @@
         (add-to-list 'load-path name)))))
 
 
+;; inrcease gc threshold before configuration to decrease time
+;; redunce after to reduce GC pause
+(defun rangi-before-config-hook ()
+  (eval-and-compile
+    (setq gc-cons-threshold 8000000)
+    (setq gc-cons-percentage 0.6)))
+
+(defun rangi-after-config-hook ()
+  (setq gc-cons-threshold 80000)
+  (setq gc-cons-percentage 0.1))
+
+(add-hook 'before-init-hook #'rangi-before-config-hook)
+(add-hook 'after-init-hook  #'rangi-after-config-hook)
+
 
 ;;
 ;; Packages
@@ -52,7 +66,6 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
-
 ;; set up 'use-package' to install packages
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -60,8 +73,9 @@
   (package-install 'use-package))
 (eval-when-compile (require 'use-package))
 
-;; use delight to allow use-package to hide stuff in modeline
-(use-package delight)
+
+;; prefer to load newer version package
+(setq load-prefer-newer t)
 
 ;; always install package if not exist
 (setq use-package-always-ensure t)
@@ -77,7 +91,11 @@
 (use-package f)
 (use-package s)
 (use-package dash)
+(use-package async)
 (use-package hydra)
+
+;; use delight to allow use-package to hide stuff in modeline
+(use-package delight)
 
 ;; load first to set up environment
 (require 'init-env)
