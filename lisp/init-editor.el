@@ -392,4 +392,30 @@
 
 
 
+;;
+;; Spelling
+;; ----------------------------------------------------------------------------
+;;
+
+;; use aspell as ispell's program
+(use-package ispell
+  :config
+  (setq ispell-program-name "aspell")
+  (setq ispell-personal-dictionary "~/Documents/aspell-dictionaries/aspell.en_US.pws")
+  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
+
+
+;; on-the-fly spell checking
+(use-package flyspell
+  :delight (flyspell-mode " ✓")
+  :init
+  (setq-default flyspell-issue-message-flag nil)
+  (setq-default flyspell-issue-welcome-flag nil)
+
+  ;; enable flyspell-prog-mode in all prog-modes
+  (add-hook 'prog-mode-hook (lambda () (flyspell-prog-mode))))
+
+
+
+
 (provide 'init-editor)
