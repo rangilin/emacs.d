@@ -48,7 +48,8 @@
     (font-lock-mode -1)))
 (add-hook 'find-file-hook 'rangi-disable-font-lock-hook)
 
-
+;; unset print buffer key
+(global-unset-key (kbd "s-p"))
 
 ;;
 ;; Windows
