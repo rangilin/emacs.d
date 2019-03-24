@@ -48,6 +48,7 @@
 (add-hook 'find-file-hook 'rangi-disable-font-lock-hook)
 
 
+
 ;;
 ;; Windows
 ;;----------------------------------------------------------------------------
@@ -87,11 +88,6 @@
   (global-set-key (kbd "<C-s-down>")  'windmove-down)
   (global-set-key (kbd "s-}")  'windmove-down))
 
-
-;; make title bar match with emacs theme, cool !
-(use-package ns-auto-titlebar
-  :config
-  (ns-auto-titlebar-mode))
 
 
 ;;
@@ -244,7 +240,7 @@ on terminal it just return nil since you can't set font for emacs on it."
 
 
 ;;
-;; Themes
+;; Themes & Appearances
 ;;----------------------------------------------------------------------------
 ;;
 
@@ -264,10 +260,23 @@ on terminal it just return nil since you can't set font for emacs on it."
   (setq x-underline-at-descent-line t))
 
 
+;; highlight numbers in prog-mode
+(use-package highlight-numbers
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook #'highlight-numbers-mode))
+
 ;; highlight keywords
 (use-package hl-todo
+  :init
+  (add-hook 'prog-mode-hook #'hl-todo-mode)
+  (add-hook 'markdown-mode-hook #'hl-todo-mode))
+
+;; make title bar match with emacs theme, cool !
+(use-package ns-auto-titlebar
   :config
-  (global-hl-todo-mode))
+  (ns-auto-titlebar-mode))
+
 
 
 
