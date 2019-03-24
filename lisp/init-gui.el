@@ -8,6 +8,7 @@
 ;; turn off these UIs
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(tooltip-mode -1)
 
 ;; show column & line number in mode line
 (column-number-mode t)
