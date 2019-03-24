@@ -48,6 +48,16 @@
 (setq-default delete-by-moving-to-trash t)
 
 
+;;
+;; Prettify Symbol
+;; ----------------------------------------------------------------------------
+;;
+
+(setq prettify-symbols-unprettify-at-point t)
+(setq prettify-symbols-alist
+      '(("lambda" . 955)))
+(global-prettify-symbols-mode t)
+
 
 ;;
 ;; Whitespace
