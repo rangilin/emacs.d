@@ -1,6 +1,6 @@
 #+TITLE: Rangi's Emacs configruation
 
-My configuration for GUI Emacs on MacOS. Feel free to steal the ideas from it. :)
+My configuration for GUI Emacs on MacOS.
 
 
 ** Install External Packages
