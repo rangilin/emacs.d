@@ -19,4 +19,10 @@
   (setq csv-separators '("," ";" "|" " " "\t")))
 
 
+(use-package lorem-ipsum
+  :config
+  (lorem-ipsum-use-default-bindings))
+
+
+
 (provide 'init-misc)
