@@ -42,7 +42,6 @@
   (when (>= (count-lines (buffer-end -1) (buffer-end +1)) 25000)
     (message "`font-lock-mode' is disabled automatically due to large file")
     (font-lock-mode -1)))
-
 (add-hook 'find-file-hook 'rangi-disable-font-lock-hook)
 
 
@@ -84,6 +83,12 @@
   (global-set-key (kbd "s-{")  'windmove-up)
   (global-set-key (kbd "<C-s-down>")  'windmove-down)
   (global-set-key (kbd "s-}")  'windmove-down))
+
+
+;; make title bar match with emacs theme, cool !
+(use-package ns-auto-titlebar
+  :config
+  (ns-auto-titlebar-mode))
 
 
 ;;
