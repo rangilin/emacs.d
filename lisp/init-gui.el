@@ -48,8 +48,7 @@
     (font-lock-mode -1)))
 (add-hook 'find-file-hook 'rangi-disable-font-lock-hook)
 
-;; unset print buffer key
-(global-unset-key (kbd "s-p"))
+
 
 ;;
 ;; Windows
@@ -248,7 +247,7 @@ on terminal it just return nil since you can't set font for emacs on it."
 
 (use-package solarized-theme
   :config
-  (load-theme 'solarized-light t))
+  (load-theme 'solarized-dark t))
 
 ;; some customizations
 (let ((fg (face-attribute 'default :foreground))
