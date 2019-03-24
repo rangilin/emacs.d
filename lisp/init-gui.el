@@ -12,6 +12,9 @@
 ;; show column & line number in mode line
 (column-number-mode t)
 (line-number-mode t)
+;; but don't count line number if line width is more than 1000
+(setq line-number-display-limit-width 1000)
+
 
 ;; display path of current buffer in the frame title
 (setq-default frame-title-format '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b"))))
