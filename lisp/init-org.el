@@ -50,6 +50,11 @@
 
 (setq org-support-shift-select nil)
 
+(setq org-directory "~/Documents/OrgFiles")
+(setq org-default-notes-file (concat org-directory "/memo.org"))
+(setq org-archive-location (concat org-directory "/Archives/"))
+
+
 
 (use-package org-bullets
   :config
