@@ -64,7 +64,7 @@
 (global-set-key (kbd "C-2") (kbd "C-x 2"))
 (global-set-key (kbd "C-3") (kbd "C-x 3"))
 (global-set-key (kbd "C-0") (kbd "C-x 0"))
-(global-set-key (kbd "C-w") (kbd "C-x 0"))
+
 
 
 ;; restore window configurations easiler
