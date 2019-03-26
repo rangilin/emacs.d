@@ -60,11 +60,11 @@
 (setq split-width-threshold 120)
 
 ;; change window with simpler keystroke
-(global-set-key (kbd "s-1") (kbd "C-x 1"))
-(global-set-key (kbd "s-2") (kbd "C-x 2"))
-(global-set-key (kbd "s-3") (kbd "C-x 3"))
-(global-set-key (kbd "s-0") (kbd "C-x 0"))
-(global-set-key (kbd "s-w") (kbd "C-x 0"))
+(global-set-key (kbd "C-1") (kbd "C-x 1"))
+(global-set-key (kbd "C-2") (kbd "C-x 2"))
+(global-set-key (kbd "C-3") (kbd "C-x 3"))
+(global-set-key (kbd "C-0") (kbd "C-x 0"))
+(global-set-key (kbd "C-w") (kbd "C-x 0"))
 
 
 ;; restore window configurations easiler
@@ -247,18 +247,45 @@ on terminal it just return nil since you can't set font for emacs on it."
 
 (use-package solarized-theme
   :config
-  (load-theme 'solarized-dark t))
 
-;; some customizations
-(let ((fg (face-attribute 'default :foreground))
-      (bg (face-attribute 'default :background)))
+  (defun rangi-light-theme ()
+    (interactive)
+    (load-theme 'solarized-light t)
+    (rangi--common-theme))
 
-  ;; increase mode line height
-  (set-face-attribute 'mode-line nil :box `(:line-width 5 :color ,(face-attribute 'mode-line :background)))
-  (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-attribute 'mode-line-inactive :background)))
+  (defun rangi-dark-theme ()
+    (interactive)
+    (load-theme 'solarized-dark t)
+    (rangi--common-theme))
 
-  ;; put underline below the font bottomline so mode line looks better
-  (setq x-underline-at-descent-line t))
+  (defun rangi--common-theme()
+    (let ((fg (face-attribute 'default :foreground))
+          (bg (face-attribute 'default :background)))
+
+      ;; increase mode line height
+      (set-face-attribute 'mode-line nil :box `(:line-width 5 :color ,(face-attribute 'mode-line :background)))
+      (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-attribute 'mode-line-inactive :background)))
+
+      ;; put underline below the font bottom line so mode line looks better
+      (setq x-underline-at-descent-line t)))
+
+  (defun rangi--disable-all-themes ()
+    "disable all themes."
+    (dolist (i custom-enabled-themes)
+      (disable-theme i)))
+
+  ;; ;; auto switch theme at sunrise/sunset
+  ;; (use-package solar
+  ;;   :ensure nil
+  ;;   :config
+
+  ;;   (setq calendar-location-name "Taipei, Taiwan")
+  ;;   (setq calendar-latitude 25.04)
+  ;;   (setq calendar-longitude 121.51)
+
+  ;;   (defun rangie-get-sunrise)
+
+  (rangi-light-theme))
 
 
 ;; highlight numbers in prog-mode
