@@ -307,5 +307,33 @@ on terminal it just return nil since you can't set font for emacs on it."
 
 
 
+;;
+;; Treemacs
+;;----------------------------------------------------------------------------
+;;
+
+
+(use-package treemacs
+  :config
+  (setq treemacs-persist-file (expand-file-name "treemacs-persist" rangi-generated-files-directory))
+  (setq treemacs-no-png-images t)
+
+  (defun rangi-toggle-treemacs ()
+    (interactive)
+    (pcase (treemacs-current-visibility)
+      ('visible
+       (if (treemacs-is-treemacs-window-selected?)
+           (delete-window (treemacs-get-local-window))
+         (treemacs-select-window)))
+      ('exists (treemacs-select-window))
+      ('none (treemacs--init))))
+
+  (bind-key "s-1" 'rangi-toggle-treemacs)
+  (bind-key "<left>" 'treemacs-collapse-parent-node treemacs-mode-map)
+  (bind-key "<right>" 'treemacs-TAB-action treemacs-mode-map))
+
+
+
+
 
 (provide 'init-gui)
