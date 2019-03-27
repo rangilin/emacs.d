@@ -115,3 +115,4 @@
 (require 'init-php)
 (require 'init-shell)
 (require 'init-vc)
+(require 'init-web)
