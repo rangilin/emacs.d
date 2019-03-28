@@ -24,5 +24,13 @@
   (lorem-ipsum-use-default-bindings))
 
 
+(use-package synosaurus
+  :bind (("C-c e s l" . synosaurus-lookup)
+         ("C-c e s r" . synosaurus-choose-and-replace)
+         ("C-c e s i" . synosaurus-choose-and-insert))
+  :config
+  (setq synosaurus-choose-method 'ivy-read)
+  (setq synosaurus-backend 'synosaurus-backend-wordnet))
+
 
 (provide 'init-misc)
