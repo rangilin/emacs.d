@@ -33,4 +33,13 @@
   (setq synosaurus-backend 'synosaurus-backend-wordnet))
 
 
+(use-package ag
+  :bind (("s-F" . ag)
+         ("C-c s s" . ag)
+         ("C-c s f" . ag-dired))
+  :config
+  (setq ag-highlight-search t))
+
+
+
 (provide 'init-misc)
