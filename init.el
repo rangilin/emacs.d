@@ -103,6 +103,7 @@
 (require 'init-autosave-and-backup)
 (require 'init-browse)
 (require 'init-buffer)
+(require 'init-company)
 (require 'init-copy)
 (require 'init-dired)
 (require 'init-editor)
