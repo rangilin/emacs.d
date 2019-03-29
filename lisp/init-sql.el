@@ -5,8 +5,7 @@
     "Set MySQL SQLi buffer for a buffer in SQL mode"
     (interactive)
     (sql-set-product "mysql")
-    (sql-set-sqli-buffer))
-  (add-hook 'sql-mode-hook #'rangi-set-mysql-sqli-buffer))
+    (sql-set-sqli-buffer)))
 
 
 (use-package sql-indent
