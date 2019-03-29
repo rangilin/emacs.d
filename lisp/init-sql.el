@@ -11,6 +11,18 @@
 (use-package sql-indent
   :delight
   :config
+  (defvar my-sql-indentation-offsets-alist
+    `((select-clause 0)
+      (insert-clause 0)
+      (delete-clause 0)
+      (update-clause 0)
+      ,@sqlind-default-indentation-offsets-alist))
+
+  (add-hook 'sqlind-minor-mode-hook
+            (lambda ()
+              (setq sqlind-indentation-offsets-alist
+                    my-sql-indentation-offsets-alist)))
+
   (add-hook 'sql-mode-hook 'sqlind-minor-mode))
 
 
