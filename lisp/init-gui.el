@@ -108,6 +108,8 @@
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "%d/%d "))
 
+;; install ivy-hydra for additional hydra keybindings
+(use-package ivy-hydra)
 
 ;; use swiper to search local file
 (use-package swiper
