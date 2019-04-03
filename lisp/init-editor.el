@@ -426,7 +426,9 @@
   (setq-default flyspell-issue-welcome-flag nil)
 
   ;; enable flyspell-prog-mode in all prog-modes
-  (add-hook 'prog-mode-hook (lambda () (flyspell-prog-mode))))
+  (add-hook 'prog-mode-hook (lambda () (flyspell-prog-mode)))
+  ;; enable flyspell in text mode
+  (add-hook 'text-mode-hook (lambda () (turn-on-flyspell))))
 
 
 
