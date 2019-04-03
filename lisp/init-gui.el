@@ -41,14 +41,6 @@
 ;; adjust scrolling speed of mouse/trackpad
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 5) ((control))))
 
-;; disable font-lock-mode when open large file to increase performance
-(defun rangi-disable-font-lock-hook ()
-  (when (>= (count-lines (buffer-end -1) (buffer-end +1)) 25000)
-    (message "`font-lock-mode' is disabled automatically due to large file")
-    (font-lock-mode -1)))
-(add-hook 'find-file-hook 'rangi-disable-font-lock-hook)
-
-
 
 ;;
 ;; Windows

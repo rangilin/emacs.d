@@ -47,6 +47,19 @@
 ;; move file to trash when deleted
 (setq-default delete-by-moving-to-trash t)
 
+;; adjust settings when open large file to increase performance
+(defun rangi-open-large-file-hook ()
+  (let ((line-count (count-lines (buffer-end -1) (buffer-end +1))))
+    (when (>= line-count 25000)
+      (message "settings are adjusted for large file")
+      (font-lock-mode -1)
+      (turn-off-flyspell))
+    (when (>= line-count 100000)
+      (fundamental-mode))))
+
+(add-hook 'find-file-hook 'rangi-open-large-file-hook)
+
+
 
 ;;
 ;; Prettify Symbol
