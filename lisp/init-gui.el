@@ -309,6 +309,9 @@ on terminal it just return nil since you can't set font for emacs on it."
   :config
   (setq treemacs-persist-file (expand-file-name "treemacs-persist" rangi-generated-files-directory))
   (setq treemacs-no-png-images t)
+  (setq treemacs-is-never-other-window t)
+  (setq treemacs-recenter-after-file-follow t)
+  (setq treemacs-no-delete-other-windows t)
 
   (defun rangi-toggle-treemacs ()
     (interactive)
@@ -320,7 +323,30 @@ on terminal it just return nil since you can't set font for emacs on it."
       ('exists (treemacs-select-window))
       ('none (treemacs--init))))
 
+  (defun rangi-toggle-treemacs ()
+    (interactive)
+    (pcase (treemacs-current-visibility)
+      ('visible
+       (if (treemacs-is-treemacs-window-selected?)
+           (delete-window (treemacs-get-local-window))
+         (treemacs-select-window)))
+      ('exists (treemacs-select-window))
+      ('none (treemacs))))
+
+  (defun rangi-deselect-treemacs ()
+    (interactive)
+    (when (treemacs-is-treemacs-window-selected?)
+      (other-window 1)))
+
+  (defun rangi-close-treemacs ()
+    (interactive)
+    (when (eq (treemacs-current-visibility) 'visible)
+      (delete-window (treemacs-get-local-window))))
+
   (bind-key "s-1" 'rangi-toggle-treemacs)
+  (bind-key "<S-escape>" 'rangi-close-treemacs)
+
+  (bind-key "<escape>" 'rangi-deselect-treemacs treemacs-mode-map)
   (bind-key "<left>" 'treemacs-collapse-parent-node treemacs-mode-map)
   (bind-key "<right>" 'treemacs-TAB-action treemacs-mode-map))
 
