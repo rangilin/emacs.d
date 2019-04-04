@@ -350,6 +350,8 @@
 
 ;; comment smartly
 (global-set-key (kbd "C-/") 'comment-dwim)
+;; always comment empty lines
+(setq comment-empty-lines t)
 
 ;; change case smartly
 (global-set-key (kbd "M-u") 'upcase-dwim)
