@@ -105,6 +105,7 @@
 (require 'init-buffer)
 (require 'init-company)
 (require 'init-copy)
+(require 'init-devop)
 (require 'init-dired)
 (require 'init-editor)
 (require 'init-emacs-lisp)
