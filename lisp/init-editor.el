@@ -280,43 +280,6 @@
 
 
 ;;
-;; Clipboard & Kill Ring
-;; ----------------------------------------------------------------------------
-;;
-
-(global-set-key (kbd "s-<backspace>") 'kill-whole-line)
-(global-set-key (kbd "M-S-<backspace>") 'kill-word)
-
-;; allow us to select kill ring content from a list
-(use-package browse-kill-ring
-  :config
-  (browse-kill-ring-default-keybindings))
-
-;; ;; make stuff in system clipboard always saved in kill ring
-;; (setq-default save-interprogram-paste-before-kill t)
-
-;; separate system clipboard and kill ring
-(use-package simpleclip
-  :config
-  (simpleclip-mode 1)
-
-  (defun rangi-simpleclip-copy (beg end)
-    "Call `simpleclip-copy', then deactive mark."
-    (interactive "r")
-    (call-interactively 'simpleclip-copy)
-    (deactivate-mark))
-
-  (bind-key "s-c" 'rangi-simpleclip-copy simpleclip-mode-map)
-  (bind-key "C-<insert>" 'rangi-simpleclip-copy simpleclip-mode-map))
-
-
-;; home-made package tp duplicate lines
-(use-package duplicator
-  :load-path "site-lisp/duplicator"
-  :bind ("M-D" . duplicator/duplicate-lines))
-
-
-;;
 ;; Undo & Redo
 ;; ----------------------------------------------------------------------------
 ;;
