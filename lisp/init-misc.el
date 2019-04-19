@@ -9,10 +9,8 @@
 ;; tldr client
 (use-package tldr
   :config
-  (let ((tldr-path (expand-file-name "tldr/" rangi-generated-files-directory)))
-    (unless (file-exists-p tldr-path)
-      (make-directory tldr-path))
-    (setq tldr-directory-path tldr-path)))
+  ;; tldr path, tldr will create it automatically
+  (setq tldr-directory-path (expand-file-name "tldr" rangi-generated-files-directory)))
 
 
 ;; csv mode
