@@ -59,6 +59,9 @@
 
 (add-hook 'find-file-hook 'rangi-open-large-file-hook)
 
+;; backward delete
+(define-key key-translation-map (kbd "C-h") (kbd "DEL"))
+(bind-key "C-M-h" 'backward-kill-word)
 
 
 ;;
@@ -335,10 +338,10 @@
 
 
 
-;; ;;
-;; ;; Recent files
-;; ;; ----------------------------------------------------------------------------
-;; ;;
+;;
+;; Recent files
+;; ----------------------------------------------------------------------------
+;;
 
 (use-package recentf
   :config
