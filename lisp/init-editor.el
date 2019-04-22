@@ -124,7 +124,7 @@
   (indent-according-to-mode))
 
 (global-set-key (kbd "<C-S-return>") 'rangi-insert-newline-above)
-(global-set-key (kbd "<C-return>") 'rangi-insert-newline-below)
+(global-set-key (kbd "<S-return>") 'rangi-insert-newline-below)
 
 ;; always indent with space
 (setq-default indent-tabs-mode nil)
