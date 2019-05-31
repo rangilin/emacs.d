@@ -42,5 +42,11 @@
   (setq ag-highlight-search t))
 
 
+;; editorconfig
+(use-package editorconfig
+  :delight " EC"
+  :config
+  (editorconfig-mode 1))
+
 
 (provide 'init-misc)
