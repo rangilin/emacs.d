@@ -13,6 +13,7 @@
 
 ;; js2-mode
 (use-package js2-mode
+  :delight "JS2"
   :mode "\\.js\\'")
 
 
