@@ -77,9 +77,9 @@
   (global-set-key (kbd "<C-s-right>") 'windmove-right)
   (global-set-key (kbd "s-]")  'windmove-right)
   (global-set-key (kbd "<C-s-up>")    'windmove-up)
-  (global-set-key (kbd "s-{")  'windmove-up)
+  (global-set-key (kbd "s-}")  'windmove-up)
   (global-set-key (kbd "<C-s-down>")  'windmove-down)
-  (global-set-key (kbd "s-}")  'windmove-down))
+  (global-set-key (kbd "s-{")  'windmove-down))
 
 
 
