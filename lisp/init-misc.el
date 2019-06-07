@@ -42,11 +42,15 @@
   (setq ag-highlight-search t))
 
 
-;; editorconfig
 (use-package editorconfig
   :delight " EC"
   :config
   (editorconfig-mode 1))
+
+
+(use-package yaml-mode
+  :mode (("\\.yaml\\'" . yaml-mode)
+         ("\\.yml\\'" . yaml-mode)))
 
 
 (provide 'init-misc)
