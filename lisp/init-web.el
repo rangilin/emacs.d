@@ -1,7 +1,8 @@
 ;; web-mode
 (use-package web-mode
   :mode (("\\.html\\'" . web-mode)
-         ("\\.hbs\\'" . web-mode))
+         ("\\.hbs\\'" . web-mode)
+         ("\\.html.erb\\'" . web-mode))
   :config
   (setq-default web-mode-markup-indent-offset 4)
   (setq-default web-mode-css-indent-offset 4)
