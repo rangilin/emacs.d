@@ -2,6 +2,6 @@
 # name: do
 # key: do
 # --
-do
+do ${1:|${2:pipe}|}
   $0
 end
