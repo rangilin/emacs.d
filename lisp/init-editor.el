@@ -337,6 +337,16 @@
   (bind-key "s-r" 'vr/query-replace))
 
 
+(use-package transpose-mark
+  :bind (("s-t" . transpose-mark))
+  :config
+  (defun rangi-transpose-mark-abort-advice (fn &rest args)
+    (if (transpose-mark-region-overlay-active)
+        (transpose-mark-region-abort)
+      (apply fn args)))
+
+  (advice-add 'keyboard-quit :around #'rangi-transpose-mark-abort-advice))
+
 
 ;;
 ;; Recent files
