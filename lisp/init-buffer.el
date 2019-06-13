@@ -86,4 +86,9 @@
 
 
 
+(use-package buffer-move
+  :config
+  (setq buffer-move-stay-after-swap t))
+
+
 (provide 'init-buffer)
