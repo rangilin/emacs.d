@@ -118,14 +118,20 @@
   :bind
   (("M-x" . counsel-M-x)
    ("s-P" . counsel-M-x)
-   ("C-x C-f" . counsel-find-file)
-   ("s-o" . counsel-find-file)
+   ("C-x C-f" . rangi-counsel-find-file)
+   ("s-o" . rangi-counsel-find-file)
    ("C-x C-r" . counsel-recentf)
    ("<f1> f" . counsel-describe-function)
    ("<f1> v" . counsel-describe-variable)
    ("<f1> l" . counsel-find-library)
    ("<f2> i" . counsel-info-lookup-symbol)
-   ("<f2> u" . counsel-unicode-char)))
+   ("<f2> u" . counsel-unicode-char))
+  :config
+
+  (defun rangi-counsel-find-file (arg)
+    (interactive "P")
+    (if arg (counsel-file-jump)
+      (counsel-find-file))))
 
 
 (use-package ivy-rich
