@@ -322,7 +322,7 @@ on terminal it just return nil since you can't set font for emacs on it."
   (setq treemacs-recenter-after-file-follow t)
   (setq treemacs-no-delete-other-windows t)
 
-  (defun rangi-toggle-treemacs ()
+  (defun rangi-treemacs-toggle ()
     (interactive)
     (pcase (treemacs-current-visibility)
       ('visible
@@ -332,22 +332,12 @@ on terminal it just return nil since you can't set font for emacs on it."
       ('exists (treemacs-select-window))
       ('none (treemacs--init))))
 
-  (defun rangi-toggle-treemacs ()
-    (interactive)
-    (pcase (treemacs-current-visibility)
-      ('visible
-       (if (treemacs-is-treemacs-window-selected?)
-           (delete-window (treemacs-get-local-window))
-         (treemacs-select-window)))
-      ('exists (treemacs-select-window))
-      ('none (treemacs))))
-
-  (defun rangi-deselect-treemacs ()
+  (defun rangi-treemacs-deselect ()
     (interactive)
     (when (treemacs-is-treemacs-window-selected?)
       (other-window 1)))
 
-  (defun rangi-close-treemacs ()
+  (defun rangi-treemacs-close ()
     (interactive)
     (when (eq (treemacs-current-visibility) 'visible)
       (delete-window (treemacs-get-local-window))))
@@ -358,16 +348,25 @@ on terminal it just return nil since you can't set font for emacs on it."
 
   (defun rangi-treemacs-jump-to-file ()
     (interactive)
-    (counsel-file-jump nil (rangi-treemacs-project-root)))
+    (treemacs-select-window)
+    (let ((root (rangi-treemacs-project-root)))
+      (rangi-treemacs-deselect)
+      (counsel-file-jump nil root)))
 
   (defun rangi-treemacs-jump-to-dired ()
     (interactive)
-    (counsel-dired-jump nil (rangi-treemacs-project-root)))
+    (treemacs-select-window)
+    (let ((root (rangi-treemacs-project-root)))
+      (rangi-treemacs-deselect)
+      (counsel-dired-jump nil root)))
+
 
 
   ;; jump actions
   (bind-key "j f" 'rangi-treemacs-jump-to-file treemacs-mode-map)
+  (bind-key "C-c j f" 'rangi-treemacs-jump-to-file)
   (bind-key "j d" 'rangi-treemacs-jump-to-dired treemacs-mode-map)
+  (bind-key "C-c j d" 'rangi-treemacs-jump-to-dired)
 
   ;; workspace actions
   (bind-key "W s" 'treemacs-switch-workspace treemacs-mode-map)
@@ -375,9 +374,9 @@ on terminal it just return nil since you can't set font for emacs on it."
   (bind-key "W e" 'treemacs-edit-workspaces treemacs-mode-map)
 
   ;; window actions
-  (bind-key "s-1" 'rangi-toggle-treemacs)
-  (bind-key "<S-escape>" 'rangi-close-treemacs)
-  (bind-key "<escape>" 'rangi-deselect-treemacs treemacs-mode-map)
+  (bind-key "s-1" 'rangi-treemacs-toggle)
+  (bind-key "<S-escape>" 'rangi-treemacs-close)
+  (bind-key "<escape>" 'rangi-treemacs-deselect treemacs-mode-map)
 
   ;; node traversal actions
   (bind-key "<left>" 'treemacs-collapse-parent-node treemacs-mode-map)
