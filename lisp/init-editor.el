@@ -338,7 +338,7 @@
 
 
 (use-package transpose-mark
-  :bind (("s-t" . transpose-mark))
+  :bind (("M-T" . transpose-mark))
   :config
   (defun rangi-transpose-mark-abort-advice (fn &rest args)
     (if (transpose-mark-region-overlay-active)
