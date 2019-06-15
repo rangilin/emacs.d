@@ -346,9 +346,23 @@ on terminal it just return nil since you can't set font for emacs on it."
     (when (eq (treemacs-current-visibility) 'visible)
       (delete-window (treemacs-get-local-window))))
 
+  (defun rangi-treemacs-project-root ()
+    (treemacs-copy-project-root)
+    (pop kill-ring))
+
+  (defun rangi-treemacs-jump-to-file ()
+    (interactive)
+    (counsel-file-jump nil (rangi-treemacs-project-root)))
+
+  (defun rangi-treemacs-jump-to-dired ()
+    (interactive)
+    (counsel-dired-jump nil (rangi-treemacs-project-root)))
+
   (bind-key "s-1" 'rangi-toggle-treemacs)
   (bind-key "<S-escape>" 'rangi-close-treemacs)
 
+  (bind-key "j f" 'rangi-treemacs-jump-to-file treemacs-mode-map)
+  (bind-key "j d" 'rangi-treemacs-jump-to-dired treemacs-mode-map)
   (bind-key "<escape>" 'rangi-deselect-treemacs treemacs-mode-map)
   (bind-key "<left>" 'treemacs-collapse-parent-node treemacs-mode-map)
   (bind-key "<right>" 'treemacs-TAB-action treemacs-mode-map))
