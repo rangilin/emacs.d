@@ -364,12 +364,22 @@ on terminal it just return nil since you can't set font for emacs on it."
     (interactive)
     (counsel-dired-jump nil (rangi-treemacs-project-root)))
 
-  (bind-key "s-1" 'rangi-toggle-treemacs)
-  (bind-key "<S-escape>" 'rangi-close-treemacs)
 
+  ;; jump actions
   (bind-key "j f" 'rangi-treemacs-jump-to-file treemacs-mode-map)
   (bind-key "j d" 'rangi-treemacs-jump-to-dired treemacs-mode-map)
+
+  ;; workspace actions
+  (bind-key "W s" 'treemacs-switch-workspace treemacs-mode-map)
+  (bind-key "W r" 'treemacs-remove-workspace treemacs-mode-map)
+  (bind-key "W e" 'treemacs-edit-workspaces treemacs-mode-map)
+
+  ;; window actions
+  (bind-key "s-1" 'rangi-toggle-treemacs)
+  (bind-key "<S-escape>" 'rangi-close-treemacs)
   (bind-key "<escape>" 'rangi-deselect-treemacs treemacs-mode-map)
+
+  ;; node traversal actions
   (bind-key "<left>" 'treemacs-collapse-parent-node treemacs-mode-map)
   (bind-key "<right>" 'treemacs-TAB-action treemacs-mode-map))
 
