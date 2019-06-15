@@ -371,7 +371,7 @@ on terminal it just return nil since you can't set font for emacs on it."
 
   ;; workspace actions
   (bind-key "W s" 'treemacs-switch-workspace treemacs-mode-map)
-  (bind-key "W r" 'treemacs-remove-workspace treemacs-mode-map)
+  (bind-key "W d" 'treemacs-remove-workspace treemacs-mode-map)
   (bind-key "W e" 'treemacs-edit-workspaces treemacs-mode-map)
 
   ;; window actions
