@@ -32,8 +32,8 @@
 (setq-default indicate-buffer-boundaries 'right)
 (setq-default indicate-empty-lines t)
 
-;; show current line
-(global-hl-line-mode)
+;; show current line (disabled due to performance problem)
+;; (global-hl-line-mode)
 
 ;; resize frame by pixel
 (setq frame-resize-pixelwise t)
