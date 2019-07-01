@@ -1,6 +1,12 @@
 (global-set-key (kbd "s-<") 'previous-buffer)
 (global-set-key (kbd "s->") 'next-buffer)
 
+(defun rangi-new-buffer ()
+  (interactive)
+  (switch-to-buffer (generate-new-buffer "untitled")))
+
+(bind-key "M-s-b" 'rangi-new-buffer)
+
 ;;
 ;; Revert buffer
 ;; ----------------------------------------------------------------------------
