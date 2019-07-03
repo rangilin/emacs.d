@@ -13,8 +13,12 @@
 ;; show column & line number in mode line
 (column-number-mode t)
 (line-number-mode t)
+
 ;; but don't count line number if line width is more than 1000
 (setq line-number-display-limit-width 1000)
+
+;; allow cursor to act on visual line by default
+(visual-line-mode)
 
 
 ;; display path of current buffer in the frame title
