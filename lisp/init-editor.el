@@ -47,7 +47,18 @@
 ;; move file to trash when deleted
 (setq-default delete-by-moving-to-trash t)
 
+;;
 ;; adjust settings when open large file to increase performance
+;;
+;; Here are some common minor mode that affect Emacs performance
+;;
+;; 1. hl-line-mode
+;; 2. column-number-mode
+;; 3. line-number-mode
+;; 4. linum-mode
+;;
+;; disable them all for a snappy Emacs
+
 (defun rangi-open-large-file-hook ()
   (let ((line-count (count-lines (buffer-end -1) (buffer-end +1)))
         (file-size (f-size (buffer-file-name))))

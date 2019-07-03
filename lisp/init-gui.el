@@ -10,16 +10,12 @@
 (scroll-bar-mode -1)
 (tooltip-mode -1)
 
-;; show column & line number in mode line
-(column-number-mode t)
-(line-number-mode t)
-
-;; but don't count line number if line width is more than 1000
-(setq line-number-display-limit-width 1000)
+;; disable column & line number for performance
+(column-number-mode -1)
+(line-number-mode -1)
 
 ;; allow cursor to act on visual line by default
 (visual-line-mode)
-
 
 ;; display path of current buffer in the frame title
 (setq-default frame-title-format '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b"))))
@@ -35,9 +31,6 @@
 (fringe-mode '(nil . 10))
 (setq-default indicate-buffer-boundaries 'right)
 (setq-default indicate-empty-lines t)
-
-;; show current line (disabled due to performance problem)
-;; (global-hl-line-mode)
 
 ;; resize frame by pixel
 (setq frame-resize-pixelwise t)
@@ -279,16 +272,36 @@ on terminal it just return nil since you can't set font for emacs on it."
     (dolist (i custom-enabled-themes)
       (disable-theme i)))
 
-  ;; ;; auto switch theme at sunrise/sunset
-  ;; (use-package solar
-  ;;   :ensure nil
-  ;;   :config
+  ;;
+  ;; auto switch theme at sunrise/sunset
+  ;;
+  (use-package solar
+    :ensure nil
+    :config
 
-  ;;   (setq calendar-location-name "Taipei, Taiwan")
-  ;;   (setq calendar-latitude 25.04)
-  ;;   (setq calendar-longitude 121.51)
+    (setq calendar-location-name "Taipei, Taiwan")
+    (setq calendar-latitude 25.04)
+    (setq calendar-longitude 121.51)
 
-  ;;   (defun rangie-get-sunrise)
+    (defun rangi-sunrise ()
+      (let* ((sunrise (caar (solar-sunrise-sunset (calendar-current-date))))
+             (sunrise-hour (floor sunrise))
+             (sunrise-minute (floor (* 60 (mod sunrise 1)))))
+        (message "%s %s %s" sunrise sunrise-hour sunrise-minute)))
+
+    (defun rangi-sunset ()
+      (let* ((sunset (caadr (solar-sunrise-sunset (calendar-current-date))))
+             (sunset-hour (floor sunset))
+             (sunset-minute (floor (* 60 (mod sunset 1)))))
+        (message "%s %s %s" sunset sunset-hour sunset-minute))))
+
+
+  ;; TODO: using (current-time) format to calculate
+  (decode-time (time-to-seconds))
+  (time-to-seconds (encode-time 0 5 0 31 1 2000))
+  (format-time-string "%F %T" (time-to-seconds (encode-time 0 5 0 31 1 2000)))
+
+
 
   (rangi-light-theme))
 
