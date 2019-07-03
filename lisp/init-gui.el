@@ -334,7 +334,7 @@ on terminal it just return nil since you can't set font for emacs on it."
            (delete-window (treemacs-get-local-window))
          (treemacs-select-window)))
       ('exists (treemacs-select-window))
-      ('none (treemacs--init))))
+      ('none (treemacs))))
 
   (defun rangi-treemacs-deselect ()
     (interactive)
