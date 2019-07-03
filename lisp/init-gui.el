@@ -5,6 +5,9 @@
 (setq scroll-conservatively 10000)
 (setq scroll-preserve-screen-position t)
 
+;; improve speed when cursor jumping
+(setq auto-window-vscroll nil)
+
 ;; turn off these UIs
 (tool-bar-mode -1)
 (scroll-bar-mode -1)

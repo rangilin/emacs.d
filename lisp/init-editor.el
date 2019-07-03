@@ -50,12 +50,13 @@
 ;;
 ;; adjust settings when open large file to increase performance
 ;;
-;; Here are some common minor mode that affect Emacs performance
+;; Here are some common setting that affect Emacs performance
 ;;
 ;; 1. hl-line-mode
 ;; 2. column-number-mode
 ;; 3. line-number-mode
 ;; 4. linum-mode
+;; 5. non-nil auto-window-vscroll
 ;;
 ;; disable them all for a snappy Emacs
 
