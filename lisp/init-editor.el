@@ -300,6 +300,9 @@
   ;; show diff between changes in visualizer
   (setq undo-tree-visualizer-diff t)
 
+  ;; free up key for others
+  (unbind-key "C-/" undo-tree-map)
+
   ;; store undo histories
   (setq undo-tree-auto-save-history t)
   (let ((dir (expand-file-name "undo" rangi-generated-files-directory)))
