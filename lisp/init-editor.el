@@ -416,7 +416,7 @@
 
 ;; on-the-fly spell checking
 (use-package flyspell
-  :delight (flyspell-mode " ✓")
+  :delight (flyspell-mode " Spell")
   :init
   (setq-default flyspell-issue-message-flag nil)
   (setq-default flyspell-issue-welcome-flag nil)
