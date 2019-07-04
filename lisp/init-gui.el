@@ -107,16 +107,14 @@
 (use-package ivy-hydra)
 
 ;; use swiper to search local file
-(use-package swiper
-  :config
-  :bind
-  (("C-s" . swiper)
-   ("s-f" . swiper)))
+(use-package swiper)
 
-;; use ivy for emacs command
+;; use ivy for emacs commands
 (use-package counsel
   :bind
-  (("M-x" . counsel-M-x)
+  (("C-s" . counsel-grep-or-swiper)
+   ("s-f" . counsel-grep-or-swiper)
+   ("M-x" . counsel-M-x)
    ("s-P" . counsel-M-x)
    ("C-x C-f" . rangi-counsel-find-file)
    ("s-o" . rangi-counsel-find-file)
@@ -127,6 +125,8 @@
    ("<f2> i" . counsel-info-lookup-symbol)
    ("<f2> u" . counsel-unicode-char))
   :config
+
+  (setq counsel-grep-swiper-limit 10000000)
 
   (defun rangi-counsel-find-file (arg)
     (interactive "P")
