@@ -18,11 +18,10 @@
 
 ;; easy access shell
 (use-package shell-pop
-  :config
-  (setq shell-pop-autocd-to-working-dir nil)
-  (custom-set-variables
-   '(shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
-   '(shell-pop-universal-key "s-=")))
+  :init
+  (setq shell-pop-universal-key "s-t")
+  (setq shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
+  (setq shell-pop-autocd-to-working-dir nil))
 
 
 ;; term
