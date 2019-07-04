@@ -19,6 +19,7 @@
 ;; easy access shell
 (use-package shell-pop
   :init
+  (setq shell-pop-full-span t)
   (setq shell-pop-universal-key "s-t")
   (setq shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
   (setq shell-pop-autocd-to-working-dir nil))
