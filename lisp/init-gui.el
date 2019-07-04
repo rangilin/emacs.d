@@ -178,8 +178,14 @@
     (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
                    (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
+(defvar rangi-font-alist-sometype-and-noto-sans
+  '((english-font . "Sometype Mono")
+    (cjk-font . "Noto Sans Mono CJK TC")
+    (default-size-pair . (16 . 18))
+    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 18) (18 . 20) (20 . 24) (22 . 26)
+                   (24 . 28) (26 . 30) (28 . 32) (30 . 34) (32 . 38) (34 . 40)))))
 
-(defvar rangi-font-alist rangi-font-alist-roboto-and-noto-sans "Current font set")
+(defvar rangi-font-alist rangi-font-alist-sometype-and-noto-sans "Current font set")
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist)) "Current font size pair")
 
 (defun rangi-font-exist-p (fontname)
