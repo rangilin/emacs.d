@@ -16,6 +16,8 @@
 ;; disable column & line number for performance
 (column-number-mode -1)
 (line-number-mode -1)
+;; use this when I need to know line number
+(bind-key "s-=" 'what-line)
 
 ;; allow cursor to act on visual line by default
 (visual-line-mode)
