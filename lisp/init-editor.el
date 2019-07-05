@@ -428,5 +428,18 @@
 
 
 
+;;
+;; Help
+;; ----------------------------------------------------------------------------
+;;
+
+(use-package helpful
+  :bind (("<f1> f" . 'helpful-callable)
+         ("<f1> F" . 'helpful-function)
+         ("<f1> v" . 'helpful-variable)
+         ("<f1> k" . 'helpful-key)
+         ("<f1> C" . 'helpful-command)
+         ("C-c C-d" . 'helpful-at-point)))
+
 
 (provide 'init-editor)
