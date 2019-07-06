@@ -452,4 +452,15 @@
          ("C-c C-d" . 'helpful-at-point)))
 
 
+;;
+;; sudo edit
+;; ----------------------------------------------------------------------------
+;;
+
+(use-package sudo-edit
+  :ensure t
+  :bind (:map ctl-x-map
+              ("M-s" . sudo-edit)))
+
+
 (provide 'init-editor)
