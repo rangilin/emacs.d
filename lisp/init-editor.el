@@ -39,7 +39,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; toggle truncate lines
-(global-set-key (kbd "C-c e t") 'toggle-truncate-lines)
+(global-set-key (kbd "C-c e l") 'toggle-truncate-lines)
 
 ;; treat Esc like C-g
 (define-key key-translation-map (kbd "ESC") (kbd "C-g"))

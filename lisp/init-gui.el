@@ -283,6 +283,9 @@ on terminal it just return nil since you can't set font for emacs on it."
     (dolist (i custom-enabled-themes)
       (disable-theme i)))
 
+  (bind-key "C-c e t l" 'rangi-light-theme)
+  (bind-key "C-c e t d" 'rangi-dark-theme)
+
   ;;
   ;; auto switch theme at sunrise/sunset
   ;;
