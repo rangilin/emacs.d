@@ -47,6 +47,16 @@
 ;; move file to trash when deleted
 (setq-default delete-by-moving-to-trash t)
 
+;; unset print buffer key
+(global-unset-key (kbd "s-p"))
+
+;; free up digit keys
+(dotimes (n 10)
+  (global-unset-key (kbd (format "C-%d" n)))
+  (global-unset-key (kbd (format "C-M-%d" n)))
+  (global-unset-key (kbd (format "M-%d" n))))
+
+
 ;;
 ;; adjust settings when open large file to increase performance
 ;;
