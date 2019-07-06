@@ -86,6 +86,7 @@
 
 ;; backward delete
 (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
+(define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
 (bind-key "C-M-h" 'backward-kill-word)
 
 
