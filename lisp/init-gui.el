@@ -166,7 +166,6 @@
 ;; aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa (40 chars)
 ;; 測測測測測測測測測測測測測測測測測測測測 (20 chars)
 ;; あいうえおあいうえおあいうえおあいうえお (20 chars)
-;; 한한한한한한한한한한한한한한한한한한한한 (20 chars) (not aligned by design)
 ;;
 
 ;; predefined font sets
@@ -185,7 +184,14 @@
     (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 18) (18 . 20) (20 . 24) (22 . 26)
                    (24 . 28) (26 . 30) (28 . 32) (30 . 34) (32 . 38) (34 . 40)))))
 
-(defvar rangi-font-alist rangi-font-alist-sometype-and-noto-sans "Current font set")
+(defvar rangi-font-alist-monaco-and-noto-sans
+  '((english-font . "Monaco")
+    (cjk-font . "Noto Sans Mono CJK TC")
+    (default-size-pair . (14 . 16))
+    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 20) (18 . 22) (20 . 24) (22 . 26)))))
+
+
+(defvar rangi-font-alist rangi-font-alist-monaco-and-noto-sans "Current font set")
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist)) "Current font size pair")
 
 (defun rangi-font-exist-p (fontname)
