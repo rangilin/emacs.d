@@ -366,6 +366,9 @@
   (bind-key "s-r" 'vr/query-replace))
 
 
+(use-package regex-tool)
+
+
 (use-package transpose-mark
   :bind (("M-T" . transpose-mark))
   :config
