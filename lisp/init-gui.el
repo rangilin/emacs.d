@@ -353,7 +353,7 @@ on terminal it just return nil since you can't set font for emacs on it."
 
 (use-package treemacs
   :config
-  (setq treemacs-persist-file (expand-file-name "treemacs-persist" rangi-generated-files-directory))
+  (setq treemacs-persist-file (expand-file-name "treemacs-persist" user-emacs-directory))
   (setq treemacs-last-error-persist-file (expand-file-name "treemacs-persist-at-last-error" rangi-generated-files-directory))
   (setq treemacs-no-png-images t)
   (setq treemacs-is-never-other-window t)
