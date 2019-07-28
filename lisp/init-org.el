@@ -10,9 +10,9 @@
 (setq org-special-ctrl-k t)
 (setq org-special-ctrl-o t)
 
-;; always add blank lien for headings but never for list items
+;; never add blank line on heading and list
 (setq org-blank-before-new-entry
-      '((heading . t) (plain-list-item . nil)))
+      '((heading . nil) (plain-list-item . nil)))
 
 ;; prevent edit hidden text accidentally
 (setq org-ctrl-k-protect-subtree t)
