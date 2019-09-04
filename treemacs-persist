@@ -1,17 +1,17 @@
 * Default Workspace
 ** Downloads
- - path :: /Users/rangi/Downloads
+ - path :: ~/Downloads
 ** Workspace
- - path :: /Users/rangi/Workspace
+ - path :: ~/Workspace
 * Personal
 ** Workspace - Personal
- - path :: /Users/rangi/Workspace/Personal
+ - path :: ~/Workspace/Personal
 ** Projects- Personal
- - path :: /Users/rangi/Projects/Personal
+ - path :: ~/Projects/Personal
 ** Emacs
- - path :: /Users/rangi/.emacs.d
+ - path :: ~/.emacs.d
 * Job
 ** Workspace - Job
- - path :: /Users/rangi/Workspace/Job
+ - path :: ~/Workspace/Job
 ** Projects - Job
- - path :: /Users/rangi/Projects/Job
+ - path :: ~/Projects/Job
