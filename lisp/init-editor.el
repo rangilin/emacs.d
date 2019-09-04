@@ -57,6 +57,8 @@
   (global-unset-key (kbd (format "M-%d" n))))
 
 
+(bind-key "C-c r" 'overwrite-mode)
+
 ;;
 ;; adjust settings when open large file to increase performance
 ;;
