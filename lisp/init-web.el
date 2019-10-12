@@ -30,4 +30,9 @@
 ;; REST API client
 (use-package restclient)
 
+
+;; Nginx
+(use-package nginx-mode)
+
+
 (provide 'init-web)
