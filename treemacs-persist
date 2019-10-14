@@ -6,10 +6,10 @@
 * Personal
 ** Workspace - Personal
  - path :: ~/Workspace/Personal
-** Projects- Personal
- - path :: ~/Projects/Personal
 ** Emacs
  - path :: ~/.emacs.d
+** Elwynn
+ - path :: ~/Projects/Personal/Elwynn
 * Job
 ** Workspace - Job
  - path :: ~/Workspace/Job
