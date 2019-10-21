@@ -155,6 +155,9 @@
 ;; make font used by variable-pitch face to make it looks better
 (set-face-font 'variable-pitch "Noto Sans CJK TC")
 
+;; default line spacing
+(setq-default line-spacing 0.2)
+
 ;;
 ;; Match the size of English and CJK fonts so they align.
 ;;
