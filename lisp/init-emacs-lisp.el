@@ -20,7 +20,7 @@
 
 (bind-key "C-c C-e" 'eval-and-replace)
 
-;; restart Emacs
+;; new Emacs
 (defun rangi-new-emacs (&optional prefix)
   "Create a new Emacs instance, mostly for testing purpose"
   (interactive "p")
@@ -31,6 +31,6 @@
                    (t ""))))
     (start-process name nil (executable-find command) arg)))
 
-(global-set-key (kbd "C-c e r") 'rangi-new-emacs)
+(global-set-key (kbd "C-c e n") 'rangi-new-emacs)
 
 (provide 'init-emacs-lisp)
