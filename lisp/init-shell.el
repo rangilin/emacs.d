@@ -29,6 +29,7 @@
 (setq term-buffer-maximum-size 262144)
 (setq term-suppress-hard-newline t)
 (setq term-scroll-to-bottom-on-output t)
+(bind-key "C-c C-y" 'term-paste)
 
 
 (provide 'init-shell)
