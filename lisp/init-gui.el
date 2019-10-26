@@ -156,7 +156,7 @@
 (set-face-font 'variable-pitch "Noto Sans CJK TC")
 
 ;; default line spacing
-(setq-default line-spacing 0.2)
+(setq-default line-spacing 0)
 
 ;;
 ;; Match the size of English and CJK fonts so they align.
@@ -176,7 +176,7 @@
 (defvar rangi-font-alist-roboto-and-noto-sans
   '((english-font . "Roboto Mono")
     (cjk-font . "Noto Sans Mono CJK TC")
-    (default-size-pair . (14 . 16))
+    (default-size-pair . (12 . 14))
     (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
                    (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
@@ -193,14 +193,8 @@
     (default-size-pair . (14 . 16))
     (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 20) (18 . 22) (20 . 24) (22 . 26)))))
 
-(defvar rangi-font-alist-go-and-noto-sans
-  '((english-font . "Go Mono")
-    (cjk-font . "Noto Sans Mono CJK TC")
-    (default-size-pair . (12 . 14))
-    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 20) (18 . 22) (20 . 24) (22 . 26)))))
 
-
-(defvar rangi-font-alist rangi-font-alist-go-and-noto-sans "Current font set")
+(defvar rangi-font-alist rangi-font-alist-roboto-and-noto-sans "Current font set")
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist)) "Current font size pair")
 
 (defun rangi-font-exist-p (fontname)
