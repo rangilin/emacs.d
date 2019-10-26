@@ -362,6 +362,7 @@ on terminal it just return nil since you can't set font for emacs on it."
   (setq treemacs-is-never-other-window t)
   (setq treemacs-recenter-after-file-follow t)
   (setq treemacs-no-delete-other-windows t)
+  (setq treemacs-collapse-dirs 0)
 
   (defun rangi-treemacs-toggle ()
     (interactive)
