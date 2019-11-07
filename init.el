@@ -107,6 +107,7 @@
 (require 'init-copy)
 (require 'init-devop)
 (require 'init-dired)
+(require 'init-docker)
 (require 'init-editor)
 (require 'init-emacs-lisp)
 (require 'init-gui)
