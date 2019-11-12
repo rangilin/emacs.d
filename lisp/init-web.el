@@ -34,5 +34,8 @@
 ;; Nginx
 (use-package nginx-mode)
 
+;; Apache
+(use-package apache-mode)
+
 
 (provide 'init-web)
