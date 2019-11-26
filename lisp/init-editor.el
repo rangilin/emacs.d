@@ -213,11 +213,6 @@
   (global-set-key (kbd "M-s-d") 'mc/edit-lines))
 
 
-;; (use-package beacon
-;;   :delight
-;;   :config
-;;   (beacon-mode 1))
-
 
 ;;
 ;; Navigation
