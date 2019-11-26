@@ -263,70 +263,67 @@ on terminal it just return nil since you can't set font for emacs on it."
 ;;----------------------------------------------------------------------------
 ;;
 
-(use-package solarized-theme
-  :config
+(use-package color-theme-sanityinc-tomorrow)
 
-  (defun rangi-light-theme ()
-    (interactive)
-    (load-theme 'solarized-light t)
-    (rangi--common-theme))
+(defun rangi-light-theme ()
+  (interactive)
+  (load-theme 'sanityinc-tomorrow-day t)
+  (rangi--common-theme))
 
-  (defun rangi-dark-theme ()
-    (interactive)
-    (load-theme 'solarized-dark t)
-    (rangi--common-theme))
+(defun rangi-dark-theme ()
+  (interactive)
+  (load-theme 'sanityinc-tomorrow-night t)
+  (rangi--common-theme))
 
-  (defun rangi--common-theme()
-    (let ((fg (face-attribute 'default :foreground))
-          (bg (face-attribute 'default :background)))
+(defun rangi--common-theme()
+  (let ((fg (face-attribute 'default :foreground))
+        (bg (face-attribute 'default :background)))
 
-      ;; increase mode line height
-      (set-face-attribute 'mode-line nil :box `(:line-width 5 :color ,(face-attribute 'mode-line :background)))
-      (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-attribute 'mode-line-inactive :background)))
+    ;; increase mode line height
+    (set-face-attribute 'mode-line nil :box `(:line-width 5 :color ,(face-attribute 'mode-line :background)))
+    (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-attribute 'mode-line-inactive :background)))
 
-      ;; put underline below the font bottom line so mode line looks better
-      (setq x-underline-at-descent-line t)))
+    ;; put underline below the font bottom line so mode line looks better
+    (setq x-underline-at-descent-line t)))
 
-  (defun rangi--disable-all-themes ()
-    "disable all themes."
-    (dolist (i custom-enabled-themes)
-      (disable-theme i)))
+(defun rangi--disable-all-themes ()
+  "disable all themes."
+  (dolist (i custom-enabled-themes)
+    (disable-theme i)))
 
-  (bind-key "C-c e t l" 'rangi-light-theme)
-  (bind-key "C-c e t d" 'rangi-dark-theme)
+(bind-key "C-c e t l" 'rangi-light-theme)
+(bind-key "C-c e t d" 'rangi-dark-theme)
+(rangi-light-theme)
 
   ;;
   ;; auto switch theme at sunrise/sunset
   ;;
-  (use-package solar
-    :ensure nil
-    :config
+  ;; (use-package solar
+  ;;   :ensure nil
+  ;;   :config
+  ;;
+  ;;   (setq calendar-location-name "Taipei, Taiwan")
+  ;;   (setq calendar-latitude 25.04)
+  ;;   (setq calendar-longitude 121.51)
+  ;;
+  ;;   (defun rangi-sunrise ()
+  ;;     (let* ((sunrise (caar (solar-sunrise-sunset (calendar-current-date))))
+  ;;            (sunrise-hour (floor sunrise))
+  ;;            (sunrise-minute (floor (* 60 (mod sunrise 1)))))
+  ;;       (message "%s %s %s" sunrise sunrise-hour sunrise-minute)))
+  ;;
+  ;;   (defun rangi-sunset ()
+  ;;     (let* ((sunset (caadr (solar-sunrise-sunset (calendar-current-date))))
+  ;;            (sunset-hour (floor sunset))
+  ;;            (sunset-minute (floor (* 60 (mod sunset 1)))))
+  ;;       (message "%s %s %s" sunset sunset-hour sunset-minute))))
+  ;;
+  ;;
+  ;; ;; TODO: using (current-time) format to calculate
+  ;; (decode-time (time-to-seconds))
+  ;; (time-to-seconds (encode-time 0 5 0 31 1 2000))
+  ;; (format-time-string "%F %T" (time-to-seconds (encode-time 0 5 0 31 1 2000)))
 
-    (setq calendar-location-name "Taipei, Taiwan")
-    (setq calendar-latitude 25.04)
-    (setq calendar-longitude 121.51)
-
-    (defun rangi-sunrise ()
-      (let* ((sunrise (caar (solar-sunrise-sunset (calendar-current-date))))
-             (sunrise-hour (floor sunrise))
-             (sunrise-minute (floor (* 60 (mod sunrise 1)))))
-        (message "%s %s %s" sunrise sunrise-hour sunrise-minute)))
-
-    (defun rangi-sunset ()
-      (let* ((sunset (caadr (solar-sunrise-sunset (calendar-current-date))))
-             (sunset-hour (floor sunset))
-             (sunset-minute (floor (* 60 (mod sunset 1)))))
-        (message "%s %s %s" sunset sunset-hour sunset-minute))))
-
-
-  ;; TODO: using (current-time) format to calculate
-  (decode-time (time-to-seconds))
-  (time-to-seconds (encode-time 0 5 0 31 1 2000))
-  (format-time-string "%F %T" (time-to-seconds (encode-time 0 5 0 31 1 2000)))
-
-
-
-  (rangi-light-theme))
 
 
 ;; highlight numbers in prog-mode
