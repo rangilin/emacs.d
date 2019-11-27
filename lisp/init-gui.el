@@ -268,6 +268,7 @@ on terminal it just return nil since you can't set font for emacs on it."
 (defun rangi-light-theme ()
   (interactive)
   (load-theme 'sanityinc-tomorrow-day t)
+  (set-background-color "gray99")
   (rangi--common-theme))
 
 (defun rangi-dark-theme ()
