@@ -59,6 +59,8 @@
 (global-set-key (kbd "C-c b p") 'browse-url-at-point)
 (global-set-key (kbd "C-c b <mouse-1>") 'browse-url-at-mouse)
 (global-set-key (kbd "C-c b o") 'rangi-browse-in-external-app)
-(define-key dired-mode-map (kbd "E") 'rangi-browse-in-external-app)
+(with-eval-after-load "dired"
+  (define-key dired-mode-map "E" 'rangi-browse-in-external-app))
+
 
 (provide 'init-browse)
