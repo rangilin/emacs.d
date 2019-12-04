@@ -3,22 +3,8 @@
 ;; ----------------------------------------------------------------------------
 ;;
 
-;; ;; make stuff in system clipboard always saved in kill ring
-;; (setq-default save-interprogram-paste-before-kill t)
-
-;; separate system clipboard and kill ring
-(use-package simpleclip
-  :config
-  (simpleclip-mode 1)
-
-  (defun rangi-simpleclip-copy (beg end)
-    "Call `simpleclip-copy', then deactive mark."
-    (interactive "r")
-    (call-interactively 'simpleclip-copy)
-    (deactivate-mark))
-
-  (bind-key "s-c" 'rangi-simpleclip-copy simpleclip-mode-map)
-  (bind-key "C-<insert>" 'rangi-simpleclip-copy simpleclip-mode-map))
+;; make stuff in system clipboard always saved in kill ring
+(setq-default save-interprogram-paste-before-kill t)
 
 
 ;;
