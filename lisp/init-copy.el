@@ -1,13 +1,4 @@
 ;;
-;; Clipboard Management
-;; ----------------------------------------------------------------------------
-;;
-
-;; make stuff in system clipboard always saved in kill ring
-(setq-default save-interprogram-paste-before-kill t)
-
-
-;;
 ;; Copy file related info
 ;; ----------------------------------------------------------------------------
 ;;
@@ -57,8 +48,12 @@
 ;; ----------------------------------------------------------------------------
 ;;
 
+;; make stuff in system clipboard always saved in kill ring
+(setq-default save-interprogram-paste-before-kill t)
+
 (global-set-key (kbd "s-<backspace>") 'kill-whole-line)
 (global-set-key (kbd "M-S-<backspace>") 'kill-word)
+(global-set-key (kbd "s-y") 'yank-pop)
 
 ;; allow us to select kill ring content from a list
 (use-package browse-kill-ring
