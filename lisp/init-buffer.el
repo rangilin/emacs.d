@@ -3,7 +3,7 @@
 
 (defun rangi-new-buffer ()
   (interactive)
-  (switch-to-buffer (generate-new-buffer "untitled")))
+  (switch-to-buffer (generate-new-buffer (read-string "Enter buffer name: " "untitled"))))
 
 (bind-key "M-s-b" 'rangi-new-buffer)
 
