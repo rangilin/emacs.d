@@ -28,7 +28,8 @@
 
 
 ;; REST API client
-(use-package restclient)
+(use-package restclient
+  :mode ("\\.restclient$" . restclient-mode))
 
 
 ;; Nginx
