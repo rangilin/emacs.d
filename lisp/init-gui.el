@@ -86,6 +86,41 @@
 
 (use-package transpose-frame)
 
+(defhydra hydra-fwb-arrangement (:color amaranth :hint none)
+  "
+  Arranging window & buffer & frame ... (_q_: Quit)
+  ___: Shrink window horizontally     _j_: Move window down    _J_: Move buffer down    _d_: Rotate frame clockwise ↻
+  _+_: Enlarge window horizontally    _k_: Move window up      _K_: Move buffer up      _a_: Rotate frame anticlockwise ↺
+  _-_: Shrink window                  _l_: Move window right   _L_: Move buffer right   _w_: Flip frame ⇕
+  _=_: Enlarge window                 _h_: Move window left    _H_: Move buffer left    _s_: Flop frame ⟺
+  ^ ^                                 ^ ^                      ^ ^                      _e_: Transpose frame /
+  "
+
+  ("_" shrink-window-horizontally)
+  ("+" enlarge-window-horizontally)
+  ("-" shrink-window)
+  ("=" enlarge-window)
+
+  ("j" windmove-down)
+  ("k" windmove-up)
+  ("l" windmove-right)
+  ("h" windmove-left)
+
+  ("J" buf-move-down)
+  ("K" buf-move-up)
+  ("L" buf-move-right)
+  ("H" buf-move-left)
+
+  ("d" rotate-frame-clockwise)
+  ("a" rotate-frame-anticlockwise)
+  ("w" flip-frame)
+  ("s" flop-frame)
+  ("e" transpose-frame)
+
+  ("q" nil "Quit"))
+
+(global-set-key (kbd "C-c a") 'hydra-fwb-arrangement/body)
+
 
 
 ;;
@@ -423,44 +458,6 @@ on terminal it just return nil since you can't set font for emacs on it."
   (bind-key "<left>" 'treemacs-collapse-parent-node treemacs-mode-map)
   (bind-key "<right>" 'treemacs-TAB-action treemacs-mode-map))
 
-
-
-
-
-(defhydra hydra-fwb-arrangement (:color amaranth :hint none)
-  "
-  Arranging window & buffer & frame ... (_q_: Quit)
-  ___: Shrink window horizontally     _j_: Move window down    _J_: Move buffer down    _d_: Rotate frame clockwise ↻
-  _+_: Enlarge window horizontally    _k_: Move window up      _K_: Move buffer up      _a_: Rotate frame anticlockwise ↺
-  _-_: Shrink window                  _l_: Move window right   _L_: Move buffer right   _w_: Flip frame ⇕
-  _=_: Enlarge window                 _h_: Move window left    _H_: Move buffer left    _s_: Flop frame ⟺
-  ^ ^                                 ^ ^                      ^ ^                      _e_: Transpose frame /
-  "
-
-  ("_" shrink-window-horizontally)
-  ("+" enlarge-window-horizontally)
-  ("-" shrink-window)
-  ("=" enlarge-window)
-
-  ("j" windmove-down)
-  ("k" windmove-up)
-  ("l" windmove-right)
-  ("h" windmove-left)
-
-  ("J" buf-move-down)
-  ("K" buf-move-up)
-  ("L" buf-move-right)
-  ("H" buf-move-left)
-
-  ("d" rotate-frame-clockwise)
-  ("a" rotate-frame-anticlockwise)
-  ("w" flip-frame)
-  ("s" flop-frame)
-  ("e" transpose-frame)
-
-  ("q" nil "Quit"))
-
-(global-set-key (kbd "C-c a") 'hydra-fwb-arrangement/body)
 
 
 (provide 'init-gui)
