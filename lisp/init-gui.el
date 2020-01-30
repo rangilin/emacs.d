@@ -229,7 +229,14 @@
     (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 20) (18 . 22) (20 . 24) (22 . 26)))))
 
 
-(defvar rangi-font-alist rangi-font-alist-roboto-and-noto-sans "Current font set")
+(defvar rangi-font-alist-jetbrains-mono-and-noto-sans
+  '((english-font . "JetBrains Mono")
+    (cjk-font . "Noto Sans Mono CJK TC")
+    (default-size-pair . (14 . 16))
+    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 20) (18 . 22) (20 . 24) (22 . 26)))))
+
+
+(defvar rangi-font-alist rangi-font-alist-jetbrains-mono-and-noto-sans "Current font set")
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist)) "Current font size pair")
 
 (defun rangi-font-exist-p (fontname)
