@@ -208,6 +208,10 @@
   (setq-default mc/list-file (expand-file-name "mc-lists.el" rangi-generated-files-directory))
 
   :config
+  (global-set-key (kbd "C-c e m c l") 'mc/insert-letters)
+  (global-set-key (kbd "C-c e m c n") 'mc/insert-numbers)
+  (global-set-key (kbd "C-c e m c s") 'mc/sort-regions)
+  (global-set-key (kbd "C-c e m c r") 'mc/reverse-regions)
   (global-set-key (kbd "s-d") 'mc/mark-next-like-this)
   (global-set-key (kbd "s-D") 'mc/mark-all-dwim)
   (global-set-key (kbd "M-s-d") 'mc/edit-lines))
