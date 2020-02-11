@@ -327,7 +327,7 @@ on terminal it just return nil since you can't set font for emacs on it."
     (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-attribute 'mode-line-inactive :background)))
 
     ;; reset org mode title size
-    (set-face-attribute 'org-document-title nil :height 1)
+    ;; (set-face-attribute 'org-document-title nil :height 1)
 
 
     ;; put underline below the font bottom line so mode line looks better
