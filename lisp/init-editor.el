@@ -214,7 +214,8 @@
   (global-set-key (kbd "C-c e m c r") 'mc/reverse-regions)
   (global-set-key (kbd "s-d") 'mc/mark-next-like-this)
   (global-set-key (kbd "s-D") 'mc/mark-all-dwim)
-  (global-set-key (kbd "M-s-d") 'mc/edit-lines))
+  (global-set-key (kbd "M-s-d") 'mc/edit-lines)
+  (global-set-key (kbd "s-<mouse-1>") 'mc/add-cursor-on-click))
 
 
 
