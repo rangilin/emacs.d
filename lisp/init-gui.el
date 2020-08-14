@@ -315,7 +315,7 @@ on terminal it just return nil since you can't set font for emacs on it."
 
 (defun rangi-dark-theme ()
   (interactive)
-  (load-theme 'sanityinc-tomorrow-night t)
+  (load-theme 'sanityinc-tomorrow-eighties t)
   (rangi--common-theme))
 
 (defun rangi--common-theme()
