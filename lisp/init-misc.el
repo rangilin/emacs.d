@@ -6,13 +6,6 @@
   (which-key-setup-side-window-bottom))
 
 
-;; tldr client
-(use-package tldr
-  :config
-  ;; tldr path, tldr will create it automatically
-  (setq tldr-directory-path (expand-file-name "tldr" rangi-generated-files-directory)))
-
-
 ;; csv mode
 (use-package csv-mode
   :mode "\\.csv\\'"
