@@ -340,7 +340,7 @@ on terminal it just return nil since you can't set font for emacs on it."
 
 (bind-key "C-c e t l" 'rangi-light-theme)
 (bind-key "C-c e t d" 'rangi-dark-theme)
-(rangi-light-theme)
+(rangi-dark-theme)
 
   ;;
   ;; auto switch theme at sunrise/sunset
