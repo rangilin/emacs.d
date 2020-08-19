@@ -1,12 +1,5 @@
 ;;; -*- lexical-binding: t -*-
 
-
-(defconst rangi-generated-files-directory
-  (file-name-as-directory (expand-file-name "gen" user-emacs-directory))
-  "Path of directory where we put file that generated automatically by packages or Emacs itself")
-
-
-
 ;;
 ;; Bootstrap
 ;;----------------------------------------------------------------------------
@@ -34,8 +27,7 @@
         (add-to-list 'load-path name)))))
 
 
-;; inrcease gc threshold before configuration to decrease time
-;; redunce after to reduce GC pause
+;; inrcease gc threshold before configuration is completed and adjust it back after
 (defun rangi-before-config-hook ()
   (eval-and-compile
     (setq gc-cons-threshold 8000000)
@@ -56,29 +48,32 @@
 
 (require 'package)
 
-;; install into separate directories for each Emacs version, to prevent bytecode incompatibility
-(let ((versioned-package-dir
-       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version) rangi-generated-files-directory)))
-  (setq package-user-dir versioned-package-dir))
-
 ;; set up archives
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-(package-initialize)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
-;; set up 'use-package' to install packages
+;; set up 'use-package' to initialize packages
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'delight)
   (package-install 'use-package))
 (eval-when-compile (require 'use-package))
 
+;; always install package if not exist
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
+;; update package automatically
+(use-package auto-package-update
+  :config
+  (setq auto-package-update-last-update-day-path
+        (expand-file-name auto-package-update-last-update-day-filename rangi-generated-files-directory))
+  (setq auto-package-update-delete-old-versions t)
+  (setq auto-package-update-hide-results t)
+  (auto-package-update-maybe))
 
 ;; prefer to load newer version package
 (setq load-prefer-newer t)
-
-;; always install package if not exist
-(setq use-package-always-ensure t)
 
 
 
