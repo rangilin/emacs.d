@@ -355,6 +355,19 @@
 (global-set-key (kbd "M-l") 'downcase-dwim)
 (global-set-key (kbd "M-c") 'capitalize-dwim)
 
+;; transfer lines of string to array like data
+;; modified based on https://news.ycombinator.com/item?id=22131815
+(defun rangi-arrayify (start end quote)
+  "Turn strings on newlines into a QUOTEd, comma-separated one-liner."
+  (interactive "r\nMQuote: ")
+  (let ((insertion
+         (mapconcat
+          (lambda (x) (format "%s%s%s" quote x quote))
+          (split-string (buffer-substring start end) "\n" t "\s") ", ")))
+    (delete-region start end)
+    (insert insertion)))
+(global-set-key (kbd "C-c e a") 'rangi-arrayify)
+
 ;; move text
 (use-package move-text
   :config
