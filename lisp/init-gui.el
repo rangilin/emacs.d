@@ -25,6 +25,10 @@
 ;; display path of current buffer in the frame title
 (setq-default frame-title-format '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b"))))
 
+;; remove icon from frame title
+(setq-default ns-use-proxy-icon nil)
+
+
 ;; no alarm bell
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
