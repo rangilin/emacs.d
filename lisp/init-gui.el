@@ -185,7 +185,8 @@
 ;;
 
 ;; allow emacs to display most unicode emoji properly
-(set-fontset-font t 'symbol (font-spec :family "Symbola") nil 'prepend)
+(set-fontset-font t 'symbol "Apple Color Emoji")
+(set-fontset-font t 'symbol "Symbola" nil 'append)
 
 ;; make font used by variable-pitch face to make it looks better
 (set-face-font 'variable-pitch "Noto Sans CJK TC")
