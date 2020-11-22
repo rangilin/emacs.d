@@ -310,17 +310,16 @@ on terminal it just return nil since you can't set font for emacs on it."
 ;;----------------------------------------------------------------------------
 ;;
 
-(use-package color-theme-sanityinc-tomorrow)
+(use-package doom-theme)
 
 (defun rangi-light-theme ()
   (interactive)
-  (load-theme 'sanityinc-tomorrow-day t)
-  (set-background-color "gray99")
+  (load-theme 'doom-one-light t)
   (rangi--common-theme))
 
 (defun rangi-dark-theme ()
   (interactive)
-  (load-theme 'sanityinc-tomorrow-eighties t)
+  (load-theme 'doom-one t)
   (rangi--common-theme))
 
 (defun rangi--common-theme()
