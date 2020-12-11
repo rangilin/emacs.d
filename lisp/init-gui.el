@@ -310,7 +310,7 @@ on terminal it just return nil since you can't set font for emacs on it."
 ;;----------------------------------------------------------------------------
 ;;
 
-(use-package doom-theme)
+(use-package doom-themes)
 
 (defun rangi-light-theme ()
   (interactive)
