@@ -55,6 +55,9 @@
 (setq org-archive-location (concat org-directory "/Archives/"))
 
 
+;; remove some keybinding in org mode
+(define-key org-mode-map (kbd "C-c C-e") nil)
+
 
 (use-package org-bullets
   :config
