@@ -216,7 +216,7 @@
 (defvar rangi-font-alist-roboto-and-noto-sans
   '((english-font . "Roboto Mono")
     (cjk-font . "Noto Sans Mono CJK TC")
-    (default-size-pair . (12 . 14))
+    (default-size-pair . (14 . 16))
     (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
                    (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
@@ -241,7 +241,7 @@
     (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 20) (18 . 22) (20 . 24) (22 . 26)))))
 
 
-(defvar rangi-font-alist rangi-font-alist-jetbrains-mono-and-noto-sans "Current font set")
+(defvar rangi-font-alist rangi-font-alist-roboto-and-noto-sans "Current font set")
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist)) "Current font size pair")
 
 (defun rangi-font-exist-p (fontname)
