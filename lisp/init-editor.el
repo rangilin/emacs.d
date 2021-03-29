@@ -41,9 +41,6 @@
 ;; toggle truncate lines
 (global-set-key (kbd "C-c e l") 'toggle-truncate-lines)
 
-;; treat Esc like C-g
-(define-key key-translation-map (kbd "ESC") (kbd "C-g"))
-
 ;; move file to trash when deleted
 (setq-default delete-by-moving-to-trash t)
 
