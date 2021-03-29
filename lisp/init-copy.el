@@ -10,7 +10,6 @@
     (if path
         (progn
           (let ((result (rangi-strip-path (/ prefix 4) path)))
-            (simpleclip-set-contents result)
             (kill-new result)
             (message "Copied '%s' to the clipboard." result)))
       (message "Not in a file or directory, do nothing"))))
