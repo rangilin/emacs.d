@@ -88,6 +88,7 @@
 
   (bind-key "s-B" 'ibuffer)
   (bind-key "C-x C-b" 'ibuffer)
+  (unbind-key "P" ibuffer-mode-map) ; unbind print function so I don't accidentally print all of my buffers
   (bind-key "C-c m s" 'rangi-switch-ibuffer-filter-groups ibuffer-mode-map))
 
 
