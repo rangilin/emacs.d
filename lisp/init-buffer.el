@@ -1,6 +1,5 @@
 (global-set-key (kbd "s-<") 'previous-buffer)
 (global-set-key (kbd "s->") 'next-buffer)
-(global-set-key (kbd "s-k") 'kill-current-buffer)
 
 (defun rangi-new-buffer ()
   (interactive)

@@ -8,6 +8,9 @@
 (setq mac-option-modifier 'meta)
 (setq mac-right-option-modifier 'meta)
 
+;; add MacOS like keys
+(bind-key "s-k" 'kill-current-buffer)
+(bind-key "s-a" 'mark-whole-buffer)
 
 
 (provide 'init-macos)
