@@ -188,9 +188,6 @@
 ;;----------------------------------------------------------------------------
 ;;
 
-;; enable composition mode for ligatures
-(mac-auto-operator-composition-mode)
-
 ;; make font used by variable-pitch face to make it looks better
 (set-face-font 'variable-pitch "Noto Sans CJK TC")
 
@@ -232,15 +229,8 @@
     (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
                    (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
-(defvar rangi-font-alist-jetbrains-mono-and-noto-sans
-  '((english-font . "JetBrains Mono")
-    (cjk-font . "Noto Sans Mono CJK TC")
-    (default-size-pair . (12 . 14))
-    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
-                   (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
-
-(defvar rangi-font-alist rangi-font-alist-jetbrains-mono-and-noto-sans "Current font set")
+(defvar rangi-font-alist rangi-font-alist-meslo-and-noto-sans "Current font set")
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist)) "Current font size pair")
 
 (defun rangi-font-exist-p (fontname)
