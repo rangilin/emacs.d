@@ -11,6 +11,9 @@
 ;; add MacOS like keys
 (bind-key "s-k" 'kill-current-buffer)
 (bind-key "s-a" 'mark-whole-buffer)
+(bind-key "s-v" 'yank)
+(bind-key "s-c" 'copy-region-as-kill)
+(bind-key "s-x" 'kill-region)
 
 
 (provide 'init-macos)
