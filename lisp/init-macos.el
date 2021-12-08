@@ -15,5 +15,8 @@
 (bind-key "s-c" 'copy-region-as-kill)
 (bind-key "s-x" 'kill-region)
 
+;; unbind magnify gesture
+(unbind-key "<magnify-down>")
+(unbind-key "<magnify-up>")
 
 (provide 'init-macos)
