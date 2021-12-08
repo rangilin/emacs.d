@@ -73,13 +73,18 @@
   (let ((line-count (count-lines (buffer-end -1) (buffer-end +1)))
         (file-size (or (f-size (buffer-file-name)) 0)))
     (when (or (>= line-count 25000) (>= file-size 5000000))
-      (message "Settings are adjusted for large file")
-      (font-lock-mode -1)
-      (highlight-numbers-mode -1)
-      (turn-off-flyspell))
+      (rangi-view-large-file))
     (when (or (>= line-count 100000) (>= file-size 20000000))
-      (message "Change to `fundamental-mode' large file")
+      (message "Change to `fundamental-mode' for very large file")
       (fundamental-mode))))
+
+
+(defun rangi-view-large-file ()
+  (interactive)
+  (message "Settings are adjusted for large file")
+  (font-lock-mode -1)
+  (highlight-numbers-mode -1)
+  (turn-off-flyspell))
 
 (add-hook 'find-file-hook 'rangi-open-large-file-hook)
 
