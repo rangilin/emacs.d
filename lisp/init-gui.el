@@ -188,9 +188,8 @@
 ;;----------------------------------------------------------------------------
 ;;
 
-;; allow emacs to display most unicode emoji properly
-(set-fontset-font t 'symbol "Apple Color Emoji")
-(set-fontset-font t 'symbol "Symbola" nil 'append)
+;; enable composition mode for ligatures
+(mac-auto-operator-composition-mode)
 
 ;; make font used by variable-pitch face to make it looks better
 (set-face-font 'variable-pitch "Noto Sans CJK TC")
@@ -212,36 +211,36 @@
 ;;
 
 ;; predefined font sets
-
 (defvar rangi-font-alist-roboto-and-noto-sans
   '((english-font . "Roboto Mono")
     (cjk-font . "Noto Sans Mono CJK TC")
-    (default-size-pair . (14 . 16))
+    (default-size-pair . (12 . 14))
     (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
                    (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
-
-(defvar rangi-font-alist-sometype-and-noto-sans
-  '((english-font . "Sometype Mono")
-    (cjk-font . "Noto Sans Mono CJK TC")
-    (default-size-pair . (16 . 18))
-    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 18) (18 . 20) (20 . 24) (22 . 26)
-                   (24 . 28) (26 . 30) (28 . 32) (30 . 34) (32 . 38) (34 . 40)))))
 
 (defvar rangi-font-alist-monaco-and-noto-sans
   '((english-font . "Monaco")
     (cjk-font . "Noto Sans Mono CJK TC")
-    (default-size-pair . (14 . 16))
-    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 20) (18 . 22) (20 . 24) (22 . 26)))))
+    (default-size-pair . (12 . 14))
+    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
+                   (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
+(defvar rangi-font-alist-meslo-and-noto-sans
+  '((english-font . "MesloLGS NF")
+    (cjk-font . "Noto Sans Mono CJK TC")
+    (default-size-pair . (12 . 14))
+    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
+                   (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
 (defvar rangi-font-alist-jetbrains-mono-and-noto-sans
   '((english-font . "JetBrains Mono")
     (cjk-font . "Noto Sans Mono CJK TC")
-    (default-size-pair . (14 . 16))
-    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (16 . 20) (18 . 22) (20 . 24) (22 . 26)))))
+    (default-size-pair . (12 . 14))
+    (size-pairs . ((10 . 12) (12 . 14) (14 . 16) (15 . 18) (16 . 20) (18 . 22) (20 . 24)
+                   (22 . 26) (24 . 28) (26 . 32) (28 . 34) (30 . 36) (34 . 40) (36 . 44)))))
 
 
-(defvar rangi-font-alist rangi-font-alist-roboto-and-noto-sans "Current font set")
+(defvar rangi-font-alist rangi-font-alist-jetbrains-mono-and-noto-sans "Current font set")
 (defvar rangi-font-size-pair (cdr (assoc 'default-size-pair rangi-font-alist)) "Current font size pair")
 
 (defun rangi-font-exist-p (fontname)
@@ -346,34 +345,34 @@ on terminal it just return nil since you can't set font for emacs on it."
 (bind-key "C-c e t d" 'rangi-dark-theme)
 (rangi-dark-theme)
 
-  ;;
-  ;; auto switch theme at sunrise/sunset
-  ;;
-  ;; (use-package solar
-  ;;   :ensure nil
-  ;;   :config
-  ;;
-  ;;   (setq calendar-location-name "Taipei, Taiwan")
-  ;;   (setq calendar-latitude 25.04)
-  ;;   (setq calendar-longitude 121.51)
-  ;;
-  ;;   (defun rangi-sunrise ()
-  ;;     (let* ((sunrise (caar (solar-sunrise-sunset (calendar-current-date))))
-  ;;            (sunrise-hour (floor sunrise))
-  ;;            (sunrise-minute (floor (* 60 (mod sunrise 1)))))
-  ;;       (message "%s %s %s" sunrise sunrise-hour sunrise-minute)))
-  ;;
-  ;;   (defun rangi-sunset ()
-  ;;     (let* ((sunset (caadr (solar-sunrise-sunset (calendar-current-date))))
-  ;;            (sunset-hour (floor sunset))
-  ;;            (sunset-minute (floor (* 60 (mod sunset 1)))))
-  ;;       (message "%s %s %s" sunset sunset-hour sunset-minute))))
-  ;;
-  ;;
-  ;; ;; TODO: using (current-time) format to calculate
-  ;; (decode-time (time-to-seconds))
-  ;; (time-to-seconds (encode-time 0 5 0 31 1 2000))
-  ;; (format-time-string "%F %T" (time-to-seconds (encode-time 0 5 0 31 1 2000)))
+;;
+;; auto switch theme at sunrise/sunset
+;;
+;; (use-package solar
+;;   :ensure nil
+;;   :config
+;;
+;;   (setq calendar-location-name "Taipei, Taiwan")
+;;   (setq calendar-latitude 25.04)
+;;   (setq calendar-longitude 121.51)
+;;
+;;   (defun rangi-sunrise ()
+;;     (let* ((sunrise (caar (solar-sunrise-sunset (calendar-current-date))))
+;;            (sunrise-hour (floor sunrise))
+;;            (sunrise-minute (floor (* 60 (mod sunrise 1)))))
+;;       (message "%s %s %s" sunrise sunrise-hour sunrise-minute)))
+;;
+;;   (defun rangi-sunset ()
+;;     (let* ((sunset (caadr (solar-sunrise-sunset (calendar-current-date))))
+;;            (sunset-hour (floor sunset))
+;;            (sunset-minute (floor (* 60 (mod sunset 1)))))
+;;       (message "%s %s %s" sunset sunset-hour sunset-minute))))
+;;
+;;
+;; ;; TODO: using (current-time) format to calculate
+;; (decode-time (time-to-seconds))
+;; (time-to-seconds (encode-time 0 5 0 31 1 2000))
+;; (format-time-string "%F %T" (time-to-seconds (encode-time 0 5 0 31 1 2000)))
 
 
 
