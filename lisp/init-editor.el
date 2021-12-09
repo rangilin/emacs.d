@@ -45,13 +45,16 @@
 (setq-default delete-by-moving-to-trash t)
 
 ;; unset print buffer key
-(global-unset-key (kbd "s-p"))
+(unbind-key "s-p")
 
 ;; free up digit keys
 (dotimes (n 10)
   (global-unset-key (kbd (format "C-%d" n)))
   (global-unset-key (kbd (format "C-M-%d" n)))
   (global-unset-key (kbd (format "M-%d" n))))
+
+;; unbind C-z
+(unbind-key "C-z")
 
 
 (bind-key "C-c r" 'overwrite-mode)
