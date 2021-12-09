@@ -1,9 +1,14 @@
 ;; tab in source blocks should act like in major mode
 (setq org-src-tab-acts-natively t)
+
 ;; code highlight in source blocks
 (setq org-src-fontify-natively t)
+
 ;; store logs in drawer
 (setq org-log-into-drawer t)
+
+;; opened org file started show only overview
+(setq org-startup-folded t)
 
 ;; better behaviors for these key
 (setq org-special-ctrl-a/e t)
