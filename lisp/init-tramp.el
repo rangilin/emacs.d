@@ -10,7 +10,8 @@
   (defun rangi-tramp-cleanup-all ()
     (interactive)
     (tramp-cleanup-all-buffers)
-    (tramp-cleanup-all-connections))
+    (tramp-cleanup-all-connections)
+    (message "Cleaned up all tramp buffers & connections"))
 
   (bind-key "C-c t c" 'rangi-tramp-cleanup-all)
 
