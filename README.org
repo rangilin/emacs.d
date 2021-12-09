@@ -1,44 +1,46 @@
-#+TITLE: Rangi's Emacs configruation
+#+TITLE: Rangi's Emacs configuration
 
-My configuration for GUI Emacs on MacOS.
+My Emacs configuration.
 
+
+** Install Emacs
+
+I'm using development build of  "Mac Port"  Emacs:
+https://ports.macports.org/port/emacs-mac-app-devel/details/
+
+#+BEGIN_SRC sh
+sudo port install emacs-mac-app-devel
+#+END_SRC
 
 ** Install External Packages
 
 Use =gnutls= — GNU Transport Layer Security (TLS) Library to support new TLS
 
 #+BEGIN_SRC sh
-  brew install gnutls
+sudo port install gnutls
 #+END_SRC
-
 
 Use [[https://geoff.greer.fm/ag/][The Silver Searcher]] to search stuff
 
 #+BEGIN_SRC sh
-  brew install the_silver_searcher
+sudo port install the_silver_searcher
 #+END_SRC
-
 
 Use =aspell= spellchecker
 
 #+BEGIN_SRC sh
-  brew install aspell
+sudo port install aspell
 #+END_SRC
-
 
 Use =gls= to sort files in Emacs
 
 #+BEGIN_SRC sh
-  brew install coreutils
+sudo port install coreutils
 #+END_SRC
 
-Use =wordnet= to look up thesaurus
-#+BEGIN_SRC sh
-  brew install wordnet
-#+END_SRC
 
 ** Install Configuration
 
 #+BEGIN_SRC sh
-  git clone --recursive git@github.com:rangilin/emacs.d.git
+git clone --recursive git@github.com:rangilin/emacs.d.git
 #+END_SRC
