@@ -25,10 +25,6 @@
 ;; display path of current buffer in the frame title
 (setq-default frame-title-format '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b"))))
 
-;; remove icon from frame title
-(setq-default ns-use-proxy-icon nil)
-
-
 ;; no alarm bell
 (setq visible-bell nil)
 (setq ring-bell-function 'ignore)
@@ -381,11 +377,6 @@ on terminal it just return nil since you can't set font for emacs on it."
   :init
   (add-hook 'prog-mode-hook #'hl-todo-mode)
   (add-hook 'markdown-mode-hook #'hl-todo-mode))
-
-;; make title bar match with emacs theme, cool !
-(use-package ns-auto-titlebar
-  :config
-  (ns-auto-titlebar-mode))
 
 
 
