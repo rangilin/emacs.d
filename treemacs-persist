@@ -1,13 +1,5 @@
 * Default Workspace
 ** Downloads
  - path :: ~/Downloads
-* Personal
-** Downloads
- - path :: ~/Downloads
-** Emacs
- - path :: ~/.emacs.d
-* Work
-** Downloads
- - path :: ~/Downloads
-** 12CM
- - path :: ~/Workspaces/12CM
+** Workspaces
+ - path :: ~/Workspaces
