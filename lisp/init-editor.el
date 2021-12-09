@@ -322,8 +322,6 @@
 
 (use-package undo-tree
   :delight
-  ;; :bind (("s-z" . undo-tree-undo)
-  ;;        ("s-Z" . undo-tree-redo))
   :config
   ;; show time differences in visualizer
   (setq undo-tree-visualizer-timestamps t)

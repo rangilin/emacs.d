@@ -335,37 +335,6 @@ on terminal it just return nil since you can't set font for emacs on it."
 (bind-key "C-c e t d" 'rangi-dark-theme)
 (rangi-dark-theme)
 
-;;
-;; auto switch theme at sunrise/sunset
-;;
-;; (use-package solar
-;;   :ensure nil
-;;   :config
-;;
-;;   (setq calendar-location-name "Taipei, Taiwan")
-;;   (setq calendar-latitude 25.04)
-;;   (setq calendar-longitude 121.51)
-;;
-;;   (defun rangi-sunrise ()
-;;     (let* ((sunrise (caar (solar-sunrise-sunset (calendar-current-date))))
-;;            (sunrise-hour (floor sunrise))
-;;            (sunrise-minute (floor (* 60 (mod sunrise 1)))))
-;;       (message "%s %s %s" sunrise sunrise-hour sunrise-minute)))
-;;
-;;   (defun rangi-sunset ()
-;;     (let* ((sunset (caadr (solar-sunrise-sunset (calendar-current-date))))
-;;            (sunset-hour (floor sunset))
-;;            (sunset-minute (floor (* 60 (mod sunset 1)))))
-;;       (message "%s %s %s" sunset sunset-hour sunset-minute))))
-;;
-;;
-;; ;; TODO: using (current-time) format to calculate
-;; (decode-time (time-to-seconds))
-;; (time-to-seconds (encode-time 0 5 0 31 1 2000))
-;; (format-time-string "%F %T" (time-to-seconds (encode-time 0 5 0 31 1 2000)))
-
-
-
 ;; highlight numbers in prog-mode
 (use-package highlight-numbers
   :defer t
