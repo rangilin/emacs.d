@@ -1,9 +1,21 @@
 (global-set-key (kbd "s-<") 'previous-buffer)
 (global-set-key (kbd "s->") 'next-buffer)
 
+
+;;
+;; New buffer
+;; ----------------------------------------------------------------------------
+;;
+
+;; new buffer start with text mode
+(setq-default major-mode 'text-mode)
+
+;; helper function for create new buffer with assigned start major mode
 (defun rangi-new-buffer ()
   (interactive)
-  (switch-to-buffer (generate-new-buffer (read-string "Enter buffer name: " "*scratch*"))))
+  (let ((buffer (generate-new-buffer (read-string "Enter buffer name: " "*scratch*"))))
+    (set-buffer-major-mode buffer)
+    (switch-to-buffer buffer)))
 
 (bind-key "M-s-b" 'rangi-new-buffer)
 
