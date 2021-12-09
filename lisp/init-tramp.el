@@ -5,6 +5,15 @@
   ;; backup remote file in local machine instead of remote server
   (setq tramp-backup-directory-alist backup-directory-alist)
 
+
+  ;; clean all tramp connections & buffers
+  (defun rangi-tramp-cleanup-all ()
+    (interactive)
+    (tramp-cleanup-all-buffers)
+    (tramp-cleanup-all-connections))
+
+  (bind-key "C-c t c" 'rangi-tramp-cleanup-all)
+
   ;; for debugging tramp
   ;; (setq-default tramp-debug-buffer t)
   ;; (setq-default tramp-verbose 10)
