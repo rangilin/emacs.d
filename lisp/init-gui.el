@@ -93,11 +93,11 @@
 (defhydra hydra-fwb-arrangement (:color amaranth :hint none)
   "
   Arranging window & buffer & frame ... (_q_: Quit)
-  ___: Shrink window horizontally     _j_: Move window down    _J_: Move buffer down    _d_: Rotate frame clockwise ↻
-  _+_: Enlarge window horizontally    _k_: Move window up      _K_: Move buffer up      _a_: Rotate frame anticlockwise ↺
-  _-_: Shrink window                  _l_: Move window right   _L_: Move buffer right   _w_: Flip frame ⇕
-  _=_: Enlarge window                 _h_: Move window left    _H_: Move buffer left    _s_: Flop frame ⟺
-  ^ ^                                 ^ ^                      ^ ^                      _e_: Transpose frame /
+  ___: Shrink window horizontally     _j_: Move window down    _J_: Move buffer down    _d_: Rotate frame clockwise
+  _+_: Enlarge window horizontally    _k_: Move window up      _K_: Move buffer up      _a_: Rotate frame anticlockwise
+  _-_: Shrink window                  _l_: Move window right   _L_: Move buffer right   _w_: Flip frame (up/down)
+  _=_: Enlarge window                 _h_: Move window left    _H_: Move buffer left    _s_: Flop frame (left/right)
+  ^ ^                                 ^ ^                      ^ ^                      _e_: Transpose frame (diagonally)
   "
 
   ("_" shrink-window-horizontally)
