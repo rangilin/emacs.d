@@ -142,7 +142,11 @@
   (ivy-mode 1)
   (setq enable-recursive-minibuffers t)
   (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "%d/%d "))
+  (setq ivy-count-format "%d/%d ")
+  (setq ivy-height-alist
+      '((t
+         lambda (_caller)
+         (min 20 (/ (frame-height) 3))))))
 
 ;; install ivy-hydra for additional hydra keybindings
 (use-package ivy-hydra)
