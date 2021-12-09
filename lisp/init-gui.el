@@ -146,7 +146,7 @@
   (setq ivy-height-alist
       '((t
          lambda (_caller)
-         (min 20 (/ (frame-height) 3))))))
+         (max 5 (min 20 (/ (frame-height) 3)))))))
 
 ;; install ivy-hydra for additional hydra keybindings
 (use-package ivy-hydra)
