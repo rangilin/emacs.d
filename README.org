@@ -38,7 +38,6 @@ Use =gls= to sort files in Emacs
 sudo port install coreutils
 #+END_SRC
 
-
 ** Install Configuration
 
 #+BEGIN_SRC sh
