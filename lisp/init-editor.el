@@ -131,6 +131,8 @@
   :config
   ;; don't delete newline
   (setq hungry-delete-chars-to-skip " \t\f\v")
+  ;; disable in mini-buffer to workaround read-only text issue in counsel-find-file
+  (add-to-list 'hungry-delete-except-modes 'minibuffer-mode)
   (global-hungry-delete-mode))
 
 
