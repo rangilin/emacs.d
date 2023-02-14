@@ -26,6 +26,8 @@
       (when (and (file-directory-p name) (not (equal f "..")) (not (equal f ".")))
         (add-to-list 'load-path name)))))
 
+;; only display compile log when log level is error
+(setq warning-minimum-level :error)
 
 ;; inrcease gc threshold before configuration is completed and adjust it back after
 (defun rangi-before-config-hook ()
