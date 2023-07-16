@@ -297,13 +297,37 @@ on terminal it just return nil since you can't set font for emacs on it."
 (rangi-set-font-size rangi-font-size-pair)
 
 
-;; enable some ligatures
+;; enable some ligatures, this configuration is for Berkeley Mono font
+;; https://github.com/mickeynp/ligature.el/wiki#berkeley-mono
 (use-package ligature
   :load-path "path-to-ligature-repo"
   :config
-  (ligature-set-ligatures 't '("->"))
-  (global-ligature-mode t))
 
+  (ligature-set-ligatures
+   'prog-mode
+   '(; Group A
+     ".." ".=" "..." "..<" "::" ":::" ":=" "::=" ";;" ";;;" "??" "???"
+     ".?" "?." ":?" "?:" "?=" "**" "***" "/*" "*/" "/**"
+     ; Group B
+     "<-" "->" "-<" ">-" "<--" "-->" "<<-" "->>" "-<<" ">>-" "<-<" ">->"
+     "<-|" "|->" "-|" "|-" "||-" "<!--" "<#--" "<=" "=>" ">=" "<==" "==>"
+     "<<=" "=>>" "=<<" ">>=" "<=<" ">=>" "<=|" "|=>" "<=>" "<==>" "||="
+     "|=" "//=" "/="
+     ; Group C
+     "<<" ">>" "<<<" ">>>" "<>" "<$" "$>" "<$>" "<+" "+>" "<+>" "<:" ":<"
+     "<:<" ">:" ":>" "<~" "~>" "<~>" "<<~" "<~~" "~~>" "~~" "<|" "|>"
+     "<|>" "<||" "||>" "<|||" "|||>" "</" "/>" "</>" "<*" "*>" "<*>" ":?>"
+     ; Group D
+     "#(" "#{" "#[" "]#" "#!" "#?" "#=" "#_" "#_(" "##" "###" "####"
+     ; Group E
+     "[|" "|]" "[<" ">]" "{!!" "!!}" "{|" "|}" "{{" "}}" "{{--" "--}}"
+     "{!--" "//" "///" "!!"
+     ; Group F
+     "www" "@_" "&&" "&&&" "&=" "~@" "++" "+++" "/\\" "\\/" "_|_" "||"
+     ; Group G
+     "=:" "=:=" "=!=" "==" "===" "=/=" "=~" "~-" "^=" "__" "!=" "!==" "-~"
+     "--" "---"))
+  (global-ligature-mode t))
 
 
 ;;
