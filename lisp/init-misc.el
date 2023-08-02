@@ -46,4 +46,7 @@
          ("\\.yml\\'" . yaml-mode)))
 
 
+(use-package fireplace)
+
+
 (provide 'init-misc)
