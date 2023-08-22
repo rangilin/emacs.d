@@ -43,7 +43,8 @@
 
 (use-package yaml-mode
   :mode (("\\.yaml\\'" . yaml-mode)
-         ("\\.yml\\'" . yaml-mode)))
+         ("\\.yml\\'" . yaml-mode)
+         ("\\.ansible-lint\\'" . yaml-mode)))
 
 
 (use-package fireplace)
