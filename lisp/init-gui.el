@@ -16,6 +16,11 @@
 ;; use this when I need to know line number
 (bind-key "s-=" 'what-line)
 
+;; add a nyan cat progress bar because why not
+(use-package nyan-mode
+  :config
+  (nyan-mode 1))
+
 ;; allow cursor to act on visual line by default
 (visual-line-mode)
 
@@ -336,18 +341,20 @@ on terminal it just return nil since you can't set font for emacs on it."
 ;;
 
 ;; (use-package doom-themes)
-(use-package spacemacs-theme
-  :init
-  (setq-default spacemacs-theme-org-height nil))
+;; (use-package spacemacs-theme
+;;   :init
+;;   (setq-default spacemacs-theme-org-height nil))
+
+(use-package color-theme-sanityinc-tomorrow)
 
 (defun rangi-light-theme ()
   (interactive)
-  (load-theme 'spacemacs-light t)
+  (load-theme 'sanityinc-tomorrow-day t)
   (rangi--common-theme))
 
 (defun rangi-dark-theme ()
   (interactive)
-  (load-theme 'spacemacs-dark t)
+  (load-theme 'sanityinc-tomorrow-night t)
   (rangi--common-theme))
 
 (defun rangi--common-theme()
