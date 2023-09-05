@@ -305,9 +305,7 @@ on terminal it just return nil since you can't set font for emacs on it."
 ;; enable some ligatures, this configuration is for Berkeley Mono font
 ;; https://github.com/mickeynp/ligature.el/wiki#berkeley-mono
 (use-package ligature
-  :load-path "path-to-ligature-repo"
   :config
-
   (ligature-set-ligatures
    'prog-mode
    '(; Group A
