@@ -338,21 +338,16 @@ on terminal it just return nil since you can't set font for emacs on it."
 ;;----------------------------------------------------------------------------
 ;;
 
-;; (use-package doom-themes)
-;; (use-package spacemacs-theme
-;;   :init
-;;   (setq-default spacemacs-theme-org-height nil))
-
-(use-package color-theme-sanityinc-tomorrow)
+(use-package modus-themes)
 
 (defun rangi-light-theme ()
   (interactive)
-  (load-theme 'sanityinc-tomorrow-day t)
+  (load-theme 'modus-operandi-tinted t)
   (rangi--common-theme))
 
 (defun rangi-dark-theme ()
   (interactive)
-  (load-theme 'sanityinc-tomorrow-night t)
+  (load-theme 'modus-vivendi-tinted t)
   (rangi--common-theme))
 
 (defun rangi--common-theme()
