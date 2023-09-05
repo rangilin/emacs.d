@@ -36,7 +36,7 @@
 
 
 (use-package editorconfig
-  :delight " EC"
+  :delight editorconfig-mode
   :config
   (editorconfig-mode 1))
 

@@ -450,7 +450,7 @@
 
 ;; on-the-fly spell checking
 (use-package flyspell
-  :delight (flyspell-mode " Spell")
+  :delight flyspell-mode
   :init
   (setq-default flyspell-issue-message-flag nil)
   (setq-default flyspell-issue-welcome-flag nil)
