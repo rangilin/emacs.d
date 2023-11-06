@@ -52,12 +52,7 @@
 (defadvice org-table-end-of-field
     (before advice-org-table-end-of-field activate)
   (handle-shift-selection))
-
 (setq org-support-shift-select nil)
-
-(setq org-directory "~/Documents/OrgFiles")
-(setq org-default-notes-file (concat org-directory "/memo.org"))
-(setq org-archive-location (concat org-directory "/Archives/"))
 
 
 ;; remove some keybinding in org mode
