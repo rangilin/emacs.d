@@ -97,6 +97,7 @@
 ;; load first to set up environment
 (require 'init-env)
 
+(require 'init-accounting)
 (require 'init-autosave-and-backup)
 (require 'init-browse)
 (require 'init-buffer)
