@@ -338,6 +338,12 @@
   (let ((dir (expand-file-name "undo" rangi-generated-files-directory)))
     (unless (file-exists-p dir) (make-directory dir))
     (setq undo-tree-history-directory-alist `(("." . ,dir))))
+
+  ;; compress history files
+  (defadvice undo-tree-make-history-save-file-name
+      (after undo-tree activate)
+    (setq ad-return-value (concat ad-return-value ".gz")))
+
   (global-undo-tree-mode))
 
 
