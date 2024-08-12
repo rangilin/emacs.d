@@ -13,7 +13,7 @@
 (setq insert-directory-program (executable-find "gls"))
 
 ;; sort dired list
-(setq dired-listing-switches "-aBhl  --group-directories-first")
+(setq dired-listing-switches "-ahl  --group-directories-first")
 
 ;; don't ask about killing buffer visiting file
 (setq dired-clean-confirm-killing-deleted-buffers t)
