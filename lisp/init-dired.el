@@ -9,9 +9,6 @@
 ;; open home folder
 (global-set-key (kbd "<S-f12>") (lambda () (interactive) (dired-other-window "~/")))
 
-;; Prefer g-prefixed coreutils version of standard utilities when available
-(setq insert-directory-program (executable-find "gls"))
-
 ;; sort dired list
 (setq dired-listing-switches "-alF")
 
