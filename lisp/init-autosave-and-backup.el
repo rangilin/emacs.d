@@ -29,8 +29,11 @@
 ;; put backup files into backup directory
 (setq backup-directory-alist `((".*" . ,rangi-backup-directory)))
 
-;; use copy to backup file
+;; use copy to backup files
 (setq backup-by-copying t)
+
+;; number version backup files
+(setq version-control t)
 
 
 
