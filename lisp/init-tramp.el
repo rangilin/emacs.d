@@ -1,5 +1,10 @@
 (use-package tramp
   :config
+
+  ;; for debugging tramp
+  ;; (setq-default tramp-debug-buffer t)
+  ;; (setq-default tramp-verbose 10)
+
   ;; assign tramp file location
   (setq-default tramp-persistency-file-name(expand-file-name "tramp" rangi-generated-files-directory))
 
@@ -10,15 +15,7 @@
     (tramp-cleanup-all-connections)
     (message "Cleaned up all tramp buffers & connections"))
 
-  (bind-key "C-c t c" 'rangi-tramp-cleanup-all)
-
-  ;; for debugging tramp
-  ;; (setq-default tramp-debug-buffer t)
-  ;; (setq-default tramp-verbose 10)
-
-  ;; ssh is faster then default scp
-  (setq tramp-default-method "ssh"))
-
+  (bind-key "C-c t c" 'rangi-tramp-cleanup-all))
 
 
 (provide 'init-tramp)
