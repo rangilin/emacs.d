@@ -107,6 +107,7 @@
 (require 'init-docker)
 (require 'init-editor)
 (require 'init-emacs-lisp)
+(require 'init-go)
 (require 'init-gui)
 (require 'init-macos)
 (require 'init-markdown)
