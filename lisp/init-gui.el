@@ -20,8 +20,7 @@
 (use-package nyan-mode
   :config
   (setq nyan-animate-nyancat t)
-  (setq nyan-wavy-trail t)
-  (setq nyan-cat-face-number t)
+  (setq nyan-wavy-trail nil)
   (setq nyan-minimum-window-width 128)
   (setq nyan-bar-length 16)
   (nyan-mode 1))
