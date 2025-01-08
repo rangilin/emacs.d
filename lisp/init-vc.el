@@ -11,9 +11,9 @@
    ("C-c v G" . magit-dispatch-popup))
 
   :init
-  (setq-default transient-levels-file (locate-user-emacs-file (convert-standard-filename "gen/transient/levels.el")))
-  (setq-default transient-values-file (locate-user-emacs-file (convert-standard-filename "gen/transient/values.el")))
-  (setq-default transient-history-file (locate-user-emacs-file (convert-standard-filename "gen/transient/history.el")))
+  (setq-default transient-levels-file (expand-file-name "transient-levels.el" rangi-emacs-cache-directory))
+  (setq-default transient-values-file (expand-file-name "transient-values.el" rangi-emacs-cache-directory))
+  (setq-default transient-history-file (expand-file-name "transient-history.el" rangi-emacs-cache-directory))
 
   :config
   (setq-default magit-diff-refine-hunk t))
