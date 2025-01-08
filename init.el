@@ -109,6 +109,7 @@
 (require 'init-emacs-lisp)
 (require 'init-go)
 (require 'init-gui)
+(require 'init-lps)
 (require 'init-macos)
 (require 'init-markdown)
 (require 'init-misc)
