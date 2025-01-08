@@ -23,7 +23,7 @@
   :ensure nil
   :config
   ;; set up user directory for url package
-  (setq url-configuration-directory (expand-file-name "url/" rangi-generated-files-directory))
+  (setq url-configuration-directory (expand-file-name "url/" rangi-emacs-cache-directory))
   (unless (file-exists-p url-configuration-directory) (make-directory url-configuration-directory)))
 
 

@@ -4,7 +4,7 @@
 ;;
 
 ;; set eshell directory
-(setq rangi-eshell-directory (expand-file-name "eshell" rangi-generated-files-directory))
+(setq rangi-eshell-directory (expand-file-name "eshell" rangi-emacs-cache-directory))
 (unless (file-exists-p rangi-eshell-directory)
   (make-directory rangi-eshell-directory))
 

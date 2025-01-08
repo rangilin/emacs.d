@@ -64,13 +64,6 @@
   ;; don't show empty group
   (setq-default ibuffer-show-empty-filter-groups nil)
 
-  ;; ;; set filter group by vc on active
-  ;; (add-hook 'ibuffer-hook
-  ;;           (lambda ()
-  ;;             (ibuffer-set-filter-groups-by-mode)
-  ;;             (unless (eq ibuffer-sorting-mode 'alphabetic)
-	;; 	(ibuffer-do-sort-by-alphabetic))))
-
   ;; define a ibuffer column that show human readable size of the buffer
   (define-ibuffer-column readable-size
     (:name "Size" :inline t)

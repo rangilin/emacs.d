@@ -4,7 +4,7 @@
 ;;
 
 ;; set up autosave directory
-(setq rangi-autosave-directory (expand-file-name "autosave" rangi-generated-files-directory))
+(setq rangi-autosave-directory (expand-file-name "autosave" rangi-emacs-cache-directory))
 (unless (file-exists-p rangi-autosave-directory)
   (make-directory rangi-autosave-directory))
 
@@ -22,7 +22,7 @@
 ;;
 
 ;; set up backup directory
-(setq rangi-backup-directory (expand-file-name "backup" rangi-generated-files-directory))
+(setq rangi-backup-directory (expand-file-name "backup" rangi-emacs-cache-directory))
 (unless (file-exists-p rangi-backup-directory)
   (make-directory rangi-backup-directory))
 
@@ -34,7 +34,11 @@
 
 ;; number version backup files
 (setq version-control t)
+(setq kept-old-versions 3)
+(setq kept-new-versions 5)
 
+;; delete old version of backup automatically
+(setq delete-old-versions t)
 
 
 (provide 'init-autosave-and-backup)

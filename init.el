@@ -5,15 +5,12 @@
 ;;----------------------------------------------------------------------------
 ;;
 
-;; create generated file directory
-(unless (file-exists-p rangi-generated-files-directory)
-  (make-directory rangi-generated-files-directory))
+;; create cache directory if not exist
+(unless (file-exists-p rangi-emacs-cache-directory)
+  (make-directory rangi-emacs-cache-directory))
 
-;; enable all disabled commands
-(setq disabled-command-function nil)
-
-;; make emacs save all customizations into 'custom.el'
-(setq custom-file (expand-file-name "custom.el" rangi-generated-files-directory))
+;; make emacs save all customizations into 'custom.el', also load it if it exist
+(setq custom-file (expand-file-name "custom.el" rangi-emacs-cache-directory))
 (when (file-exists-p custom-file) (load custom-file))
 
 ;; add files in 'lisp' directory into load path
@@ -29,18 +26,13 @@
 ;; only display compile log when log level is error
 (setq warning-minimum-level :error)
 
-;; inrcease gc threshold before configuration is completed and adjust it back after
-(defun rangi-before-config-hook ()
-  (eval-and-compile
-    (setq gc-cons-threshold 8000000)
-    (setq gc-cons-percentage 0.6)))
+;; use more memory so set a larger threshold
+(setq gc-cons-threshold (* 128 1024 1024))
 
-(defun rangi-after-config-hook ()
-  (setq gc-cons-threshold 80000)
-  (setq gc-cons-percentage 0.1))
+;; improve performance reading from process
+(setq read-process-output-max (* 64 1024 1024))
+(setq process-adaptive-read-buffering nil)
 
-(add-hook 'before-init-hook #'rangi-before-config-hook)
-(add-hook 'after-init-hook  #'rangi-after-config-hook)
 
 
 ;;
@@ -54,10 +46,18 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 
+;; compile package during installation
+(setq package-native-compile t)
+
+;; prefer to load newer version of file if multiple exist
+(setq load-prefer-newer t)
+
+;; initialize package
+(package-initialize)
+
 ;; set up 'use-package' to initialize packages
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
-  (package-install 'delight)
   (package-install 'use-package))
 (eval-when-compile (require 'use-package))
 
@@ -69,13 +69,10 @@
 (use-package auto-package-update
   :config
   (setq auto-package-update-last-update-day-path
-        (expand-file-name auto-package-update-last-update-day-filename rangi-generated-files-directory))
+        (expand-file-name auto-package-update-last-update-day-filename rangi-emacs-cache-directory))
   (setq auto-package-update-delete-old-versions t)
   (setq auto-package-update-hide-results t)
   (auto-package-update-maybe))
-
-;; prefer to load newer version package
-(setq load-prefer-newer t)
 
 
 
@@ -97,6 +94,7 @@
 ;; load first to set up environment
 (require 'init-env)
 
+;; rest of the packages and configurations
 (require 'init-accounting)
 (require 'init-autosave-and-backup)
 (require 'init-browse)

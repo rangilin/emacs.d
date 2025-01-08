@@ -6,7 +6,7 @@
   ;; (setq-default tramp-verbose 10)
 
   ;; assign tramp file location
-  (setq-default tramp-persistency-file-name(expand-file-name "tramp" rangi-generated-files-directory))
+  (setq-default tramp-persistency-file-name(expand-file-name "tramp" rangi-emacs-cache-directory))
 
   ;; clean all tramp connections & buffers
   (defun rangi-tramp-cleanup-all ()

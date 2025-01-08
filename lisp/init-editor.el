@@ -212,7 +212,7 @@
 (use-package multiple-cursors
   :init
   ;; save mc file in autogen directory
-  (setq-default mc/list-file (expand-file-name "mc-lists.el" rangi-generated-files-directory))
+  (setq-default mc/list-file (expand-file-name "mc-lists.el" rangi-emacs-cache-directory))
 
   :config
   (global-set-key (kbd "C-c e m c l") 'mc/insert-letters)
@@ -335,7 +335,7 @@
 
   ;; store undo histories
   (setq undo-tree-auto-save-history t)
-  (let ((dir (expand-file-name "undo" rangi-generated-files-directory)))
+  (let ((dir (expand-file-name "undo" rangi-emacs-cache-directory)))
     (unless (file-exists-p dir) (make-directory dir))
     (setq undo-tree-history-directory-alist `(("." . ,dir))))
 
@@ -413,7 +413,7 @@
 
 (use-package recentf
   :config
-  (setq recentf-save-file (expand-file-name "recentf" rangi-generated-files-directory))
+  (setq recentf-save-file (expand-file-name "recentf" rangi-emacs-cache-directory))
   ;; avoid accidentally access remote file during cleanup
   (setq recentf-auto-cleanup 'never)
   ;; only store 50 items

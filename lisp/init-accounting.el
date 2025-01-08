@@ -1,3 +1,4 @@
+;; package to edit beancount file
 (use-package beancount
   :load-path "site-lisp/beancount-mode"
   :mode ("\\.beancount\\'" . beancount-mode))
