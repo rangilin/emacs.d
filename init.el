@@ -23,7 +23,8 @@
       (when (and (file-directory-p name) (not (equal f "..")) (not (equal f ".")))
         (add-to-list 'load-path name)))))
 
-;; only display compile log when log level is error
+;; only display compile error log
+(setq warning-minimum-log-level :error)
 (setq warning-minimum-level :error)
 
 ;; use more memory so set a larger threshold
