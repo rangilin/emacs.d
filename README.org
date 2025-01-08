@@ -32,12 +32,6 @@ Use =aspell= spellchecker
 sudo port install aspell
 #+END_SRC
 
-Use =gls= to sort files in Emacs
-
-#+BEGIN_SRC sh
-sudo port install coreutils
-#+END_SRC
-
 ** Install Configuration
 
 #+BEGIN_SRC sh
