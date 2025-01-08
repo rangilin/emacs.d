@@ -12,21 +12,6 @@
   :config
   (setq csv-separators '("," ";" "|" " " "\t")))
 
-
-(use-package lorem-ipsum
-  :config
-  (lorem-ipsum-use-default-bindings))
-
-
-(use-package synosaurus
-  :bind (("C-c e s l" . synosaurus-lookup)
-         ("C-c e s r" . synosaurus-choose-and-replace)
-         ("C-c e s i" . synosaurus-choose-and-insert))
-  :config
-  (setq synosaurus-choose-method 'ivy-read)
-  (setq synosaurus-backend 'synosaurus-backend-wordnet))
-
-
 (use-package ag
   :bind (("s-F" . ag)
          ("C-c s s" . ag)
@@ -45,9 +30,6 @@
   :mode (("\\.yaml\\'" . yaml-mode)
          ("\\.yml\\'" . yaml-mode)
          ("\\.ansible-lint\\'" . yaml-mode)))
-
-
-(use-package fireplace)
 
 
 (provide 'init-misc)
