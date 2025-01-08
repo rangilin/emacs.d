@@ -187,7 +187,9 @@
 (use-package expand-region
   :bind
   (("s-'" . er/expand-region)
-   ("s-\"" . er/contract-region)))
+   ("s-\"" . er/contract-region))
+  :config
+  (setq expand-region-fast-keys-enabled nil))
 
 
 ;; randomize region
