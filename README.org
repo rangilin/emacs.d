@@ -1,11 +1,11 @@
 #+TITLE: Rangi's Emacs configuration
 
-My Emacs configuration.
+My Emacs configuration, used on MacOS with Macports.
 
 
 ** Install Emacs
 
-I'm using development build of  "Mac Port"  Emacs:
+Use this port for better MacOS integration
 https://ports.macports.org/port/emacs-mac-app-devel/details/
 
 #+BEGIN_SRC sh
@@ -14,29 +14,31 @@ https://ports.macports.org/port/emacs-mac-app-devel/details/
 
 ** Install External Packages
 
-Use =gnutls= — GNU Transport Layer Security (TLS) Library to support new TLS
+*** GNU Transport Layer Security (TLS) Library
 
 #+BEGIN_SRC sh
   sudo port install gnutls
 #+END_SRC
 
-Use [[https://geoff.greer.fm/ag/][The Silver Searcher]] to search stuff
+*** The Silver Searcher
 
 #+BEGIN_SRC sh
   sudo port install the_silver_searcher
 #+END_SRC
 
-Use =aspell= spellchecker
+*** Aspell
 
 #+BEGIN_SRC sh
   sudo port install aspell
 #+END_SRC
 
-Use Language Protocol Server
+*** Language Protocol Server
+
 #+BEGIN_SRC sh
   # golang
   go install golang.org/x/tools/gopls@latest
 #+END_SRC
+
 ** Install Configuration
 
 #+BEGIN_SRC sh
