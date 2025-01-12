@@ -5,6 +5,7 @@
 ;; set up path info from shell environment to emacs
 (use-package exec-path-from-shell
   :config
+  (setq exec-path-from-shell-arguments nil)
   (exec-path-from-shell-initialize))
 
 ;; assign locale
