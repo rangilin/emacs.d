@@ -114,6 +114,7 @@
 (require 'init-markdown)
 (require 'init-misc)
 (require 'init-org)
+(require 'init-perl)
 (require 'init-php)
 (require 'init-project)
 (require 'init-ruby)

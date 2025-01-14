@@ -8,7 +8,7 @@ My Emacs configuration, used on MacOS with Macports.
 Use this port for better MacOS integration
 https://ports.macports.org/port/emacs-mac-app-devel/details/
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC
   sudo port install emacs-mac-app-devel
 #+END_SRC
 
@@ -16,27 +16,30 @@ https://ports.macports.org/port/emacs-mac-app-devel/details/
 
 *** GNU Transport Layer Security (TLS) Library
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC
   sudo port install gnutls
 #+END_SRC
 
 *** The Silver Searcher
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC
   sudo port install the_silver_searcher
 #+END_SRC
 
 *** Aspell
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC
   sudo port install aspell
 #+END_SRC
 
 *** Language Protocol Server
 
-#+BEGIN_SRC sh
+#+BEGIN_SRC
   # golang
   go install golang.org/x/tools/gopls@latest
+
+  # perl (with perlbrew/cpanm)
+  cpanm Perl::LanguageServer
 #+END_SRC
 
 ** Install Configuration
