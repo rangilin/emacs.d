@@ -32,5 +32,6 @@
     (start-process name nil (executable-find command) arg)))
 
 (global-set-key (kbd "C-c e n") 'rangi-new-emacs)
+(global-set-key (kbd "C-c e r") 'restart-emacs)
 
 (provide 'init-emacs-lisp)
