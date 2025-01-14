@@ -18,6 +18,4 @@
   (add-hook 'php-mode-hook 'rangi-set-php-mode))
 
 
-(use-package psysh)
-
 (provide 'init-php)
