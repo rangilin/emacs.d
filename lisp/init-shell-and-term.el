@@ -32,4 +32,4 @@
 (bind-key "C-c C-y" 'term-paste)
 
 
-(provide 'init-shell)
+(provide 'init-shell-and-term)
