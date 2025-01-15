@@ -55,6 +55,22 @@
 ;;----------------------------------------------------------------------------
 ;;
 
+;; focus to new window after split
+(defun rangi-split-window-below ()
+  "split a window below and focus it"
+  (interactive)
+  (split-window-below)
+  (other-window 1))
+
+(defun rangi-split-window-right ()
+  "split a window to the right and focus it"
+  (interactive)
+  (split-window-right)
+  (other-window 1))
+
+(global-set-key (kbd "C-x 2") 'rangi-split-window-below)
+(global-set-key (kbd "C-x 3") 'rangi-split-window-right)
+
 ;; split window vertically if window width is more than 120, otherwise do it horizontally
 (setq split-height-threshold nil)
 (setq split-width-threshold 120)
@@ -64,6 +80,7 @@
 (global-set-key (kbd "C-2") (kbd "C-x 2"))
 (global-set-key (kbd "C-3") (kbd "C-x 3"))
 (global-set-key (kbd "C-0") (kbd "C-x 0"))
+
 
 
 
