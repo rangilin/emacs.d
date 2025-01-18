@@ -55,12 +55,31 @@
           (concat "open " (shell-quote-argument fpath))))  file-list))))
 
 
+(defun rangi-shell-command-with-prompt (prompt url-format)
+  "Browse URL with prompt as format arguments"
+  (interactive)
+  (let* ((result (rangi-prompt prompt))
+         (url (format url-format result)))
+    (unless (zerop (length result))
+      (browse-url url)
+      (message "Send %s to browser" url))))
+
+
+(defun rangi-browse-dictionary ()
+  (interactive)
+  (let ((result (rangi-prompt "Search in macOS dictionary: ")))
+    (unless (zerop (length result))
+      (shell-command (format "open dict://%s" result))
+      (message "Send %s to dictionary" result))))
+
+
 (global-set-key (kbd "C-c b s") 'rangi-search)
 (global-set-key (kbd "C-c b p") 'browse-url-at-point)
 (global-set-key (kbd "C-c b <mouse-1>") 'browse-url-at-mouse)
 (global-set-key (kbd "C-c b o") 'rangi-browse-in-external-app)
 (with-eval-after-load "dired"
   (define-key dired-mode-map "E" 'rangi-browse-in-external-app))
+(global-set-key (kbd "C-c b d") 'rangi-browse-dictionary)
 
 
 (provide 'init-browse)
