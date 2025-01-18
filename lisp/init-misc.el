@@ -11,6 +11,24 @@
   (which-key-mode))
 
 
+;; control Emacs program
+(defun rangi-new-emacs (&optional prefix)
+  "Create a new Emacs instance, mostly for testing purpose"
+  (interactive "p")
+  (let ((name "Emacs")
+        (command "emacs")
+        (arg (cond ((equal prefix 4) "--debug-init")
+                   ((equal prefix 16) "-Q")
+                   (t nil))))
+    (if arg
+        (start-process name nil (executable-find command) arg)
+      (start-process name nil (executable-find command)))))
+
+(global-set-key (kbd "C-c e n") 'rangi-new-emacs)
+(global-set-key (kbd "C-c e r") 'restart-emacs)
+
+
+
 ;; csv mode
 (use-package csv-mode
   :mode "\\.csv\\'"
