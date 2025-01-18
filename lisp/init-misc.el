@@ -2,8 +2,13 @@
 (use-package which-key
   :delight
   :config
-  (which-key-mode)
-  (which-key-setup-side-window-bottom))
+  (setq which-key-side-window-max-width 0.5)
+  (setq which-key-max-description-length 50)
+  (setq which-key-show-early-on-C-h t)
+  (setq which-key-idle-delay 3600)
+  (setq which-key-idle-secondary-delay 0.05)
+  (which-key-setup-side-window-bottom)
+  (which-key-mode))
 
 
 ;; csv mode
