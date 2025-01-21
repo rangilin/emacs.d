@@ -415,17 +415,17 @@
 
 (use-package recentf
   :config
+  ;; put recentf file in designated cache directory
   (setq recentf-save-file (expand-file-name "recentf" rangi-emacs-cache-directory))
-  ;; avoid accidentally access remote file during cleanup
-  (setq recentf-auto-cleanup 'never)
-  ;; only store 50 items
-  (setq recentf-max-menu-items 50)
 
-  ;; save recent files every 5 mins and do it silently
-  ;; NOTE: due to how (save-silently t) works, message in minibuffer disappear when recentf save
+  ;; store 200 items
+  (setq recentf-max-menu-items 200)
+
+  ;; save recent files every 5 mins and do it silently, and don't display it
   (run-at-time nil (* 5 60)
                (lambda ()
-                 (let ((save-silently t))
+                 (let ((save-silently t)
+                       (inhibit-message t))
                    (recentf-save-list))))
   (recentf-mode 1))
 
