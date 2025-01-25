@@ -1,12 +1,12 @@
 ;; web-mode
 (use-package web-mode
   :mode (("\\.html\\'" . web-mode)
-         ("\\.hbs\\'" . web-mode)
+         ("\\.gohtml\\'" . web-mode)
          ("\\.erb\\'" . web-mode))
   :config
-  (setq-default web-mode-markup-indent-offset 4)
-  (setq-default web-mode-css-indent-offset 4)
-  (setq-default web-mode-code-indent-offset 4)
+  (setq-default web-mode-markup-indent-offset 2)
+  (setq-default web-mode-css-indent-offset 2)
+  (setq-default web-mode-code-indent-offset 2)
 
   ;; highlight
   (setq web-mode-enable-current-element-highlight t))
