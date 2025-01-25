@@ -3,6 +3,7 @@
   :mode (("\\.html\\'" . web-mode)
          ("\\.gohtml\\'" . web-mode)
          ("\\.erb\\'" . web-mode))
+  :hook (web-mode . rangi-set-web-mode)
   :config
   (setq-default web-mode-markup-indent-offset 2)
   (setq-default web-mode-css-indent-offset 2)
@@ -10,6 +11,10 @@
 
   ;; highlight
   (setq web-mode-enable-current-element-highlight t))
+
+(defun rangi-set-web-mode ()
+  (electric-pair-local-mode -1))
+
 
 
 ;; js2-mode
