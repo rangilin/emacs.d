@@ -6,6 +6,10 @@
               ("4 f" . rangi-project-find-file-other-window)
               ("v" . rangi-project-vc-dir))
   :config
+  (setq project-switch-commands '((project-find-file "Find file")
+                                 (project-find-regexp "Find regexp")
+                                 (project-find-dir "Find directory")
+                                 (rangi-project-vc-dir "VC-Dir")))
   (setq project-list-file (expand-file-name "projects" rangi-emacs-cache-directory)))
 
 
