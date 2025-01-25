@@ -26,7 +26,7 @@
   (interactive)
   (let ((p (project-current)))
     (cond ((and p (string-equal "Git" (nth 1 p)))
-           (magit-status))
+           (magit-status (nth 2 p)))
           (p
            (vc-dir (project-root p)))
           (t (message "Currently not in a project")))))
