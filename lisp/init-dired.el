@@ -10,7 +10,7 @@
 (global-set-key (kbd "<S-f12>") (lambda () (interactive) (dired-other-window "~/")))
 
 ;; sort dired list
-(setq dired-listing-switches "-alhBF")
+(setq dired-listing-switches "-alhBp")
 
 ;; don't ask about killing buffer visiting file
 (setq dired-clean-confirm-killing-deleted-buffers t)
