@@ -43,5 +43,8 @@
 ;; Apache
 (use-package apache-mode)
 
+;; Sass
+(use-package sass-mode)
+
 
 (provide 'init-web)
