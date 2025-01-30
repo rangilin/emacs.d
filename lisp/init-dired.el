@@ -19,6 +19,7 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 
-
+;; enable find alternate file command ('a' to open directory/file in Dired buffer)
+(put 'dired-find-alternate-file 'disabled nil)
 
 (provide 'init-dired)
