@@ -20,7 +20,9 @@
 ;; js2-mode
 (use-package js2-mode
   :delight "JS2"
-  :mode "\\.js\\'")
+  :mode "\\.js\\'"
+  :config
+  (setq js2-basic-offset 2))
 
 
 ;; URL package
