@@ -202,7 +202,11 @@
   :config
   (ivy-rich-mode 1)
   ;; use abbrevation file path
-  (setq ivy-rich-path-style 'abbrev))
+  (setq ivy-rich-path-style 'abbrev)
+  ;; cache project info
+  (ivy-rich-project-root-cache-mode 1)
+  ;; don't parse remote buffer
+  (setq ivy-rich-parse-remote-buffer nil))
 
 
 
