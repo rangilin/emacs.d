@@ -48,5 +48,15 @@
 ;; Sass
 (use-package sass-mode)
 
+;; Caddy
+(use-package caddyfile-mode
+  :mode (("Caddyfile\\'" . caddyfile-mode))
+  :hook (caddyfile-mode . rangi-caddyfile-mode-hook)
+  :config
+  (defun rangi-caddyfile-mode-hook ()
+    ;; caddy format file like golang, and this mode already set it up
+    ;; here I keep tab character but adjust its width to my liking.
+    (setq-local tab-width 2)))
+
 
 (provide 'init-web)
