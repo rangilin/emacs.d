@@ -118,6 +118,7 @@
 (require 'init-php)
 (require 'init-project)
 (require 'init-ruby)
+(require 'init-rust)
 (require 'init-shell-and-term)
 (require 'init-sql)
 (require 'init-tramp)
