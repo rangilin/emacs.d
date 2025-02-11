@@ -18,7 +18,7 @@
 (setq inhibit-startup-screen t)
 
 ;; hide cursor in inactive windows
-(setq cursor-in-non-selected-windows t)
+(setq cursor-in-non-selected-windows nil)
 
 ;; make scratch buffer empty
 (setq initial-scratch-message nil)
