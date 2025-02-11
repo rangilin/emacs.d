@@ -1,7 +1,8 @@
 (use-package elisp-mode
   :ensure nil
   :delight
-  (emacs-lisp-mode "Elisp" :major))
+  (emacs-lisp-mode "Elisp" :major)
+  :hook ((emacs-lisp-mode . prettify-symbols-mode)))
 
 
 (defun eval-and-replace ()
