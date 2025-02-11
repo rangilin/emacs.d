@@ -96,18 +96,6 @@
 (define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
 (bind-key "C-M-h" 'backward-kill-word)
 
-
-;;
-;; Prettify Symbol
-;; ----------------------------------------------------------------------------
-;;
-
-(setq prettify-symbols-unprettify-at-point t)
-(setq prettify-symbols-alist
-      '(("lambda" . 955)))
-(global-prettify-symbols-mode t)
-
-
 ;;
 ;; Whitespace
 ;; ----------------------------------------------------------------------------

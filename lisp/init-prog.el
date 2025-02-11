@@ -13,13 +13,22 @@
 
 (use-package company
   :delight
-  :config
-  (global-company-mode)
   :bind
-  ("M-." . company-auto-complete)
+  ("M-." . company-complete)
   (:map company-active-map
         ("C-n" . company-select-next)
-        ("C-p" . company-select-previous)))
+        ("C-p" . company-select-previous))
+  :config
+  (setq company-tooltip-align-annotations t)
+  (setq company-tooltip-annotation-padding 5)
+  (setq company-tooltip-minimum-width 80)
+  (setq company-tooltip-maximum-width 80)
+  (setq company-format-margin-function 'company-text-icons-margin)
+  (setq company-text-face-extra-attributes '(:weight bold :slant italic))
+  (setq company-show-quick-access t)
+
+
+  (global-company-mode))
 
 
 (use-package eglot
