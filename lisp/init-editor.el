@@ -300,8 +300,8 @@
   (call-interactively 'pop-global-mark)
   (setq global-mark-ring (nreverse global-mark-ring)))
 
-(global-set-key (kbd "s-,") 'backward-global-mark)
-(global-set-key (kbd "s-.") 'forward-global-mark)
+(global-set-key (kbd "s-<left>") 'backward-global-mark)
+(global-set-key (kbd "s-<right>") 'forward-global-mark)
 
 
 ;;
