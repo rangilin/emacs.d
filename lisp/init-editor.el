@@ -167,9 +167,6 @@
 ;; indent 2 space by default
 (setq-default tab-width 2)
 
-;; try to complete thing-at-point after current line is indented
-(setq tab-always-indent 'complete)
-
 ;; indent automatically
 (electric-indent-mode 1)
 
