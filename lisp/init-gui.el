@@ -407,5 +407,10 @@ on terminal it just return nil since you can't set font for emacs on it."
   (add-hook 'prog-mode-hook #'hl-todo-mode)
   (add-hook 'markdown-mode-hook #'hl-todo-mode))
 
+;; highlight current line
+(global-hl-line-mode)
+(use-package lin
+  :config
+  (lin-global-mode 1))
 
 (provide 'init-gui)
