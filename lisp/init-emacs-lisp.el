@@ -4,10 +4,6 @@
   (emacs-lisp-mode "Elisp" :major))
 
 
-(use-package eldoc
-  :delight eldoc-mode)
-
-
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)

@@ -31,6 +31,9 @@
   (global-company-mode))
 
 
+(use-package eldoc
+  :delight eldoc-mode)
+
 (use-package eglot
   :bind (:map eglot-mode-map
 	            ("C-c l h" . eldoc)
