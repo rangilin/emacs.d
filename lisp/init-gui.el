@@ -30,7 +30,7 @@
 (blink-cursor-mode -1)
 
 ;; set up fringe
-(fringe-mode '(nil . 10))
+(fringe-mode '(nil . 15))
 (setq-default indicate-buffer-boundaries 'right)
 (setq-default indicate-empty-lines t)
 
