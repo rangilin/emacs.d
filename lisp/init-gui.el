@@ -86,16 +86,7 @@
   (winner-mode 1))
 
 
-(use-package windmove
-  :config
-  (global-set-key (kbd "<C-s-left>")  'windmove-left)
-  (global-set-key (kbd "s-[")  'windmove-left)
-  (global-set-key (kbd "<C-s-right>") 'windmove-right)
-  (global-set-key (kbd "s-]")  'windmove-right)
-  (global-set-key (kbd "<C-s-up>")    'windmove-up)
-  (global-set-key (kbd "s-}")  'windmove-up)
-  (global-set-key (kbd "<C-s-down>")  'windmove-down)
-  (global-set-key (kbd "s-{")  'windmove-down))
+(use-package windmove)
 
 
 (use-package transpose-frame)
