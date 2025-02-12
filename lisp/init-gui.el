@@ -100,9 +100,9 @@
 
 (use-package transpose-frame)
 
-(defhydra hydra-fwb-arrangement (:color amaranth :hint none)
+(defhydra hydra-fwb-arrangement (:color red :hint none)
   "
-  Arranging window & buffer & frame ... (_q_: Quit)
+  Arranging window & buffer & frame ...
   ___: Shrink window horizontally     _j_: Move window down    _J_: Move buffer down    _d_: Rotate frame clockwise
   _+_: Enlarge window horizontally    _k_: Move window up      _K_: Move buffer up      _a_: Rotate frame anticlockwise
   _-_: Shrink window                  _l_: Move window right   _L_: Move buffer right   _w_: Flip frame (up/down)
@@ -129,9 +129,7 @@
   ("a" rotate-frame-anticlockwise)
   ("w" flip-frame)
   ("s" flop-frame)
-  ("e" transpose-frame)
-
-  ("q" nil "Quit"))
+  ("e" transpose-frame))
 
 
 (defhydra hydra-other-window-or-arrangement ()
@@ -151,8 +149,9 @@
   (other-window -1)
   (hydra-other-window-or-arrangement/body))
 
-(bind-key "C-<tab>" 'rangi-next-other-window-or-arrangement)
-(bind-key "C-S-<tab>" 'rangi-previous-other-window-or-arrangement)
+(bind-key "C-c a" 'hydra-fwb-arrangement/body)
+(bind-key "C-c <tab>" 'rangi-next-other-window-or-arrangement)
+(bind-key "C-c S-<tab>" 'rangi-previous-other-window-or-arrangement)
 
 
 
