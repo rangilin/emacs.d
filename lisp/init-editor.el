@@ -482,3 +482,23 @@
 
 
 (provide 'init-editor)
+
+
+;;
+;; better keyboard quit
+;; ----------------------------------------------------------------------------
+;;
+
+;; https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration/#h:1e468b2a-9bee-4571-8454-e3f5462d9321
+
+(defun rangi-keyboard-quit-dwim ()
+  (interactive)
+  (cond ((region-active-p)
+         (keyboard-quit))
+        ((derived-mode-p 'completion-list-mode)
+         (delete-completion-window))
+        ((> (minibuffer-depth) 0)
+         (abort-recursive-edit))
+        (t (keyboard-quit))))
+
+(bind-key "C-g" 'rangi-keyboard-quit-dwim)
