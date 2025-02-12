@@ -1,5 +1,8 @@
-(global-set-key (kbd "s-<") 'previous-buffer)
-(global-set-key (kbd "s->") 'next-buffer)
+;;; init-buffer.el --- Buffer stuff  -*- lexical-binding: t -*-
+
+;; quickly change buffers
+(bind-key "s-<" 'previous-buffer)
+(bind-key "s->" 'next-buffer)
 
 
 ;;
@@ -19,6 +22,7 @@
 
 (bind-key "M-s-b" 'rangi-new-buffer)
 
+
 ;;
 ;; Revert buffer
 ;; ----------------------------------------------------------------------------
@@ -31,7 +35,8 @@
   (revert-buffer nil t nil)
   (message "buffer is refreshed"))
 
-(global-set-key (kbd "<f5>") 'rangi-refresh-buffer)
+(bind-key "<f5>" 'rangi-refresh-buffer)
+
 
 
 ;; auto refresh buffer
@@ -45,10 +50,6 @@
 
   ;; don't print anything after refresh
   (setq auto-revert-verbose nil))
-
-
-;; switch between buffer
-(global-set-key (kbd "C-<tab>") 'mode-line-other-buffer)
 
 
 ;;
@@ -75,7 +76,7 @@
   ;; define ibuffer columns
   (setq-default ibuffer-formats
 		'((mark modified read-only vc-status-mini
-			" " (name 36 36 :left :elide)
+			" " (name 60 60 :left :elide)
 			" " (readable-size 9 -1 :right)
 			" " (mode 16 16 :left :elide)
 			" " filename-and-process)))
