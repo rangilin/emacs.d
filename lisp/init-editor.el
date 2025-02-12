@@ -166,7 +166,8 @@
 ;;
 
 ;; remove selected text when inserting new text
-(delete-selection-mode 1)
+(use-package delsel
+  :hook (after-init . delete-selection-mode))
 
 ;; expand-region
 (use-package expand-region
