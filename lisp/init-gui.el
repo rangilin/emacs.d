@@ -133,7 +133,26 @@
 
   ("q" nil "Quit"))
 
-(global-set-key (kbd "C-c a") 'hydra-fwb-arrangement/body)
+
+(defhydra hydra-other-window-or-arrangement ()
+  "switch between other window, or call arrangement"
+  ("<tab>" (other-window 1) "next other window")
+  ("S-<tab>" (other-window -1) "previous other window")
+  ("a" (hydra-fwb-arrangement/body) "arrange" :color blue))
+
+
+(defun rangi-next-other-window-or-arrangement ()
+  (interactive)
+  (other-window 1)
+  (hydra-other-window-or-arrangement/body))
+
+(defun rangi-previous-other-window-or-arrangement ()
+  (interactive)
+  (other-window -1)
+  (hydra-other-window-or-arrangement/body))
+
+(bind-key "C-<tab>" 'rangi-next-other-window-or-arrangement)
+(bind-key "C-S-<tab>" 'rangi-previous-other-window-or-arrangement)
 
 
 
