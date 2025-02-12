@@ -358,33 +358,28 @@ on terminal it just return nil since you can't set font for emacs on it."
 
 (defun rangi-light-theme ()
   (interactive)
-  (load-theme 'modus-operandi-tinted t)
+  (load-theme 'modus-operandi t)
   (rangi--common-theme))
 
 (defun rangi-dark-theme ()
   (interactive)
-  (load-theme 'modus-vivendi-tinted t)
+  (load-theme 'modus-vivendi t)
   (rangi--common-theme))
 
-(defun rangi--common-theme()
-  (let ((fg (face-attribute 'default :foreground))
-        (bg (face-attribute 'default :background)))
-
-    ;; increase mode line height
-    (set-face-attribute 'mode-line nil :box `(:line-width 5 :color ,(face-attribute 'mode-line :background)))
-    (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-attribute 'mode-line-inactive :background)))
-
-    ;; put underline below the font bottom line so mode line looks better
-    (setq x-underline-at-descent-line t)))
-
-(defun rangi--disable-all-themes ()
+(defun rangi-disable-all-themes ()
   "disable all themes."
   (dolist (i custom-enabled-themes)
     (disable-theme i)))
 
+(defun rangi--common-theme()
+  ;; make fatty mode-line, this will override theme's mode line style but that's fine
+  (set-face-attribute 'mode-line nil :box `(:line-width 6 :color ,(face-attribute 'mode-line :background)))
+  (set-face-attribute 'mode-line-inactive nil :box `(:line-width 6 :color ,(face-attribute 'mode-line-inactive :background))))
+
 (bind-key "C-c e t l" 'rangi-light-theme)
 (bind-key "C-c e t d" 'rangi-dark-theme)
 (rangi-dark-theme)
+
 
 ;; highlight numbers in prog-mode
 (use-package highlight-numbers
