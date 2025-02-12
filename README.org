@@ -40,6 +40,14 @@ https://ports.macports.org/port/emacs-mac-app-devel/details/
 
   # perl (with perlbrew/cpanm)
   cpanm Perl::LanguageServer
+
+  # rust
+  rustup component add rust-src
+  rustup component add rust-analyzer
+
+  # javscript/typescript
+  deno install -g npm:typescript
+  deno install -g npm:typescript-language-server
 #+END_SRC
 
 ** Install Configuration
