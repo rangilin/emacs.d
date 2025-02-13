@@ -22,9 +22,6 @@
   (setq company-tooltip-align-annotations t)
   (setq company-format-margin-function 'company-text-icons-margin)
   (setq company-text-face-extra-attributes '(:weight bold :slant italic))
-  (setq company-show-quick-access t)
-
-
   (global-company-mode))
 
 
