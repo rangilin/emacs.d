@@ -20,9 +20,6 @@
         ("C-p" . company-select-previous))
   :config
   (setq company-tooltip-align-annotations t)
-  (setq company-tooltip-annotation-padding 3)
-  (setq company-tooltip-minimum-width 80)
-  (setq company-tooltip-maximum-width 120)
   (setq company-format-margin-function 'company-text-icons-margin)
   (setq company-text-face-extra-attributes '(:weight bold :slant italic))
   (setq company-show-quick-access t)
