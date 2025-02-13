@@ -16,6 +16,7 @@
       (insert-clause 0)
       (delete-clause 0)
       (update-clause 0)
+      (create-statement 0)
       ,@sqlind-default-indentation-offsets-alist))
 
   (add-hook 'sqlind-minor-mode-hook
