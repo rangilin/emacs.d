@@ -62,9 +62,6 @@
 (global-set-key (kbd "C-x 2") 'rangi-split-window-below)
 (global-set-key (kbd "C-x 3") 'rangi-split-window-right)
 
-;; split window vertically if window width is more than 120, otherwise do it horizontally
-(setq split-height-threshold nil)
-(setq split-width-threshold 120)
 
 ;; change window with simpler keystroke
 (global-set-key (kbd "C-1") (kbd "C-x 1"))
