@@ -33,7 +33,7 @@
 	            ("C-c l h" . eldoc)
 	            ("C-c l f" . eglot-format)
 	            ("C-c l r" . eglot-rename))
-  :hook ((eglot-managed-mod . rangi-set-eglot-managed-mode))
+  :hook ((eglot-managed-mode . rangi-set-eglot-managed-mode))
   :config
   (setq eglot-autoshutdown t))
 
