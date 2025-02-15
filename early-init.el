@@ -1,15 +1,20 @@
-(defconst rangi-emacs-cache-directory
-  (file-name-as-directory (expand-file-name ".cache" user-emacs-directory))
-  "Path of directory where we put file that generated automatically by packages or Emacs itself")
+;;; early-init.el --- Early initialization file -*- lexical-binding: t -*-
 
-;; install into separate directories for each Emacs version, to prevent bytecode incompatibility
-(let ((versioned-package-dir
-       (expand-file-name (format "elpa-%s.%s" emacs-major-version emacs-minor-version) rangi-emacs-cache-directory)))
-  (setq package-user-dir versioned-package-dir)
-  (setq package-gnupghome-dir (expand-file-name "gnupg" package-user-dir)))
+;; set Emacs user directory to the directory where this file is in
+;; this make it easier to organize generated files when opening different
+;; Emacs instances
+(setq user-emacs-directory default-directory)
 
+;; this is the directory to put generated files
+(setq rangi-emacs-cache-directory
+      (file-name-as-directory (expand-file-name ".cache" user-emacs-directory)))
+(unless (file-exists-p rangi-emacs-cache-directory)
+  (make-directory rangi-emacs-cache-directory))
 
-;; package will be loaded later
+;; don't load packages at startup
 (setq package-enable-at-startup nil)
 
+;; move natively-compiled stuff to cache directory
 (startup-redirect-eln-cache rangi-emacs-cache-directory)
+
+;;; early-init.el ends here
