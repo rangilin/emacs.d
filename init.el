@@ -5,12 +5,19 @@
 ;;---------------------------------------------------------------------------
 ;;
 
-;; use more memory during start-up
-(setq gc-cons-threshold (* 128 1024 1024))
+
+
+;; set up garbage collect
+(use-package gcmh
+  :config
+  (setq gcmh-high-cons-threshold (* 128 1024 1024))
+  (gcmh-mode))
+
 ;; read from sub-process in larger chunk
 (setq read-process-output-max (* 4 1024 1024))
 ;; no delay when reading from sub-process
 (setq process-adaptive-read-buffering nil)
+
 
 ;; compile lisp libaries to native code asynchronously and load it up when ready
 ;; (native-compile-async
