@@ -376,6 +376,7 @@ on terminal it just return nil since you can't set font for emacs on it."
 (use-package hl-todo
   :init
   (add-hook 'prog-mode-hook #'hl-todo-mode)
+  (add-hook 'yaml-mode-hook #'hl-todo-mode)
   (add-hook 'markdown-mode-hook #'hl-todo-mode))
 
 ;; highlight current line
