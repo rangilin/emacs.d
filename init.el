@@ -5,10 +5,18 @@
 ;;---------------------------------------------------------------------------
 ;;
 
+;; hide mode line stuff, enabled earilier to use with use-package
+(use-package diminish)
 
+;;
+;; Performance
+;; ---------------------------------------------------------------------------
+;;
 
 ;; set up garbage collect
 (use-package gcmh
+  :diminish 'gcmh-mode
+  :load-path "site-lisp/gcmh/"
   :config
   (setq gcmh-high-cons-threshold (* 128 1024 1024))
   (gcmh-mode))
@@ -39,16 +47,6 @@
 ;; ---------------------------------------------------------------------------
 ;;
 
-
-;; ;;
-;; ;; Bootstrap
-;; ;;----------------------------------------------------------------------------
-;; ;;
-
-;; ;;
-;; ;; Packages
-;; ;; ---------------------------------------------------------------------------
-;; ;;
 
 ;; ;; install into separate directories for each Emacs version, to prevent bytecode incompatibility
 ;; (let ((versioned-package-dir
@@ -91,6 +89,14 @@
 ;;   (setq auto-package-update-hide-results t)
 ;;   (auto-package-update-maybe))
 ;;
+
+
+
+;; ;; add "lisp" directory to load-path
+;; (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+
+
 ;;
 ;;
 ;; ;;
