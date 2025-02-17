@@ -7,14 +7,6 @@
 (unless (file-exists-p rangi-emacs-cache-directory)
   (make-directory rangi-emacs-cache-directory))
 
-;; add "lisp" directory to load-path
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
-;; add all sub directories in "site-lisp" directory to load-path
-(dolist (f (directory-files (expand-file-name "site-lisp" user-emacs-directory) t "^[^\\.]"))
-  (when (file-directory-p f)
-    (add-to-list 'load-path f)))
-
 ;; don't load packages at startup
 (setq package-enable-at-startup nil)
 
