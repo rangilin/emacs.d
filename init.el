@@ -6,7 +6,9 @@
 ;;
 
 ;; hide mode line stuff, enabled earilier to use with use-package
-(use-package diminish)
+(use-package diminish
+  :load-path "site-lisp/diminish")
+
 
 ;;
 ;; Performance
@@ -16,7 +18,7 @@
 ;; set up garbage collect
 (use-package gcmh
   :diminish 'gcmh-mode
-  :load-path "site-lisp/gcmh/"
+  :load-path "site-lisp/gcmh"
   :config
   (setq gcmh-high-cons-threshold (* 128 1024 1024))
   (gcmh-mode))
