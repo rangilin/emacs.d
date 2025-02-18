@@ -15,6 +15,3 @@
 
 ;; prefer to load newer version of file if multiple exist
 (setq load-prefer-newer t)
-
-
-;;; early-init.el ends here
