@@ -22,6 +22,24 @@
 (bind-key "s-=" 'rangi-what-line-column)
 
 
+;; set font
+(set-frame-font "M PLUS 1 Code 14" nil t)
+
+
+;; configure theme
+(require-theme 'modus-themes)
+(setq modus-themes-mode-line '(borderless accented (padding . 5)))
+(setq modus-themes-region '(accented))
+
+;; load theme according to time
+(let ((hour (string-to-number (format-time-string "%H"))))
+  (if (and (>= hour 8) (<= hour 18))
+      (load-theme 'modus-operandi)
+    (load-theme 'modus-vivendi)))
+
+(bind-key "C-c t t" 'modus-themes-toggle)
+
+
 
 (provide 'init-gui)
 
