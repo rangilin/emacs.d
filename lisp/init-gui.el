@@ -30,14 +30,17 @@
 (require-theme 'modus-themes)
 (setq modus-themes-mode-line '(borderless accented (padding . 5)))
 (setq modus-themes-region '(accented))
+  
+;; load theme automatically according to macos system theme
+(defun rangi-update-theme-according-to-macos ()
+  (let ((appearance (plist-get (mac-application-state) :appearance)))
+    (if (string-equal appearance "NSAppearanceNameDarkAqua")
+        (load-theme 'modus-vivendi)
+      (load-theme 'modus-operandi))))
+(add-hook 'mac-effective-appearance-change-hook 'cc/reconfigure-nsappearance)
+(rangi-update-theme-according-to-macos)
 
-;; load theme according to time
-(let ((hour (string-to-number (format-time-string "%H"))))
-  (if (and (>= hour 8) (<= hour 18))
-      (load-theme 'modus-operandi)
-    (load-theme 'modus-vivendi)))
-
-;; toggle between light/dark
+;; toggle between light/dark theme
 (bind-key "C-c t t" 'modus-themes-toggle)
 
 

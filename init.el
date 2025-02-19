@@ -68,10 +68,9 @@
 ;; prepare to load rest of the configurations
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-(when (eq system-type 'darwin)
-  (require 'init-macos))
 
 (require 'init-gui)
+(require 'init-macos)
 
 
 
