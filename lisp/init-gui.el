@@ -37,6 +37,7 @@
       (load-theme 'modus-operandi)
     (load-theme 'modus-vivendi)))
 
+;; toggle between light/dark
 (bind-key "C-c t t" 'modus-themes-toggle)
 
 
