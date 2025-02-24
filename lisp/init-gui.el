@@ -6,12 +6,18 @@
 (scroll-bar-mode -1)
 
 
-;; disable showing line & column number for performance in larger file
+
+;; show no stuff on startup
+(setq inhibit-startup-message t)
+(setq inhibit-startup-echo-area-message nil)
+(setq inhibit-startup-screen t)
+
+
+
+;; show lines and columns on demand
 (column-number-mode -1)
 (line-number-mode -1)
 
-
-;; use this to know line & column number instead
 (defun rangi-what-line-column ()
   "Show line and column"
   (interactive)
@@ -22,16 +28,13 @@
 (bind-key "s-=" 'rangi-what-line-column)
 
 
-;; set font
-(set-frame-font "M PLUS 1 Code 14" nil t)
-
 
 ;; configure theme
 (require-theme 'modus-themes)
 (setq modus-themes-mode-line '(borderless accented (padding . 5)))
 (setq modus-themes-region '(accented))
   
-;; load theme automatically according to macos system theme
+;; set automatically according to macos system theme
 (defun rangi-update-theme-according-to-macos ()
   (let ((appearance (plist-get (mac-application-state) :appearance)))
     (if (string-equal appearance "NSAppearanceNameDarkAqua")
