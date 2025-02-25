@@ -6,12 +6,14 @@
 (scroll-bar-mode -1)
 
 
+;; show file path on frame title if it's a file
+(setq-default frame-title-format '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b"))))
+
 
 ;; show no stuff on startup
 (setq inhibit-startup-message t)
 (setq inhibit-startup-echo-area-message nil)
 (setq inhibit-startup-screen t)
-
 
 
 ;; show lines and columns on demand
@@ -26,7 +28,6 @@
     (message "Line: %d, Column: %d" l c)))
 
 (bind-key "s-=" 'rangi-what-line-column)
-
 
 
 ;; configure theme
@@ -47,39 +48,12 @@
 (bind-key "C-c t t" 'modus-themes-toggle)
 
 
+;; don't blink cursor
+(blink-cursor-mode -1)
+
+
 
 (provide 'init-gui)
-
-;; ;; stop cursor jumping around while scrolling
-;; (setq scroll-conservatively 10000)
-;; (setq scroll-preserve-screen-position t)
-
-;; ;; improve speed when cursor jumping
-;; (setq auto-window-vscroll nil)
-
-;; ;; ;; turn off these UIs
-;; ;; (tool-bar-mode -1)
-;; ;; (scroll-bar-mode -1)
-;; ;; (tooltip-mode -1)
-
-;; ;; Disable column & line number for performance
-;; (column-number-mode -1)
-;; (line-number-mode -1)
-;; ;; use this when I need to know line number
-;; (bind-key "s-=" 'what-line)
-
-;; ;; allow cursor to act on visual line by default
-;; (visual-line-mode -1)
-
-;; ;; display path of current buffer in the frame title
-;; (setq-default frame-title-format '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b"))))
-
-;; ;; no alarm bell
-;; (setq visible-bell nil)
-;; (setq ring-bell-function 'ignore)
-
-;; ;; don't blink cursor
-;; (blink-cursor-mode -1)
 
 ;; ;; set up fringe
 ;; (fringe-mode '(nil . 15))
