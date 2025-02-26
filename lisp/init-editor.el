@@ -1,7 +1,14 @@
 ;;; init-editor.el --- Editor configurations -*- lexical-binding: t -*-
 
-;; set font
-(set-frame-font "M PLUS 1 Code 14" nil t)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Miscellaneous editor settings ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package emacs
+  :config
+  (set-frame-font "M PLUS 1 Code 14" nil t))
+
+
 
 
 (provide 'init-editor)

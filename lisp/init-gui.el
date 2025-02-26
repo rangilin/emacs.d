@@ -26,9 +26,6 @@
   ;; show buffer name and size on frame title
   (setq frame-title-format '("%b (%I)"))
 
-  ;; set font
-  (set-frame-font "M PLUS 1 Code 14" nil t)
-
   ;; show no stuff on startup
   (setq inhibit-startup-message t)
   (setq inhibit-startup-echo-area-message nil)
