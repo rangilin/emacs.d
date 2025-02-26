@@ -1,59 +1,87 @@
 ;;; init-gui.el --- GUI configuration file -*- lexical-binding: t -*-
 
-;; turn off these
-(tool-bar-mode -1)
-(tooltip-mode -1)
-(scroll-bar-mode -1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Miscellaneous GUI settings ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package emacs
+  :bind (("s-=" . rangi-what-line-column))
+  :config
+  ;; show lines and columns on demand
+  (defun rangi-what-line-column ()
+    (interactive)
+    (let ((l (line-number-at-pos))
+	  (c (current-column)))
+      (message "Line: %d, Column: %d" l c)))
+
+  ;; turn off these
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+  (scroll-bar-mode -1)
+  (blink-cursor-mode -1)
+  (column-number-mode -1)
+  (line-number-mode -1)
+
+  ;; show buffer name and size on frame title
+  (setq frame-title-format '("%b (%I)"))
+
+  ;; show no stuff on startup
+  (setq inhibit-startup-message t)
+  (setq inhibit-startup-echo-area-message nil)
+  (setq inhibit-startup-screen t))
 
 
-;; show file path on frame title if it's a file
-(setq-default frame-title-format '((:eval (if (buffer-file-name) (abbreviate-file-name (buffer-file-name)) "%b"))))
 
+;;;;;;;;;;;
+;; Theme ;;
+;;;;;;;;;;;
 
-;; show no stuff on startup
-(setq inhibit-startup-message t)
-(setq inhibit-startup-echo-area-message nil)
-(setq inhibit-startup-screen t)
+(use-package emacs
+  :bind (("C-c t t" . modus-themes-toggle))
+  :config
+  (defun rangi-load-theme-accordingly ()
+    (if (fboundp 'mac-application-state)
+	(rangi-load-theme-according-to-macos)
+      (rangi-load-theme-according-to-time)))
 
+  (defun rangi-load-theme-according-to-macos ()
+    (let ((appearance (plist-get (mac-application-state) :appearance)))
+      (if (string-equal appearance "NSAppearanceNameDarkAqua")
+          (load-theme 'modus-vivendi)
+	(load-theme 'modus-operandi))))
 
-;; show lines and columns on demand
-(column-number-mode -1)
-(line-number-mode -1)
+  (defun rangi-load-theme-according-to-time ()
+    (let ((hour (string-to-number (format-time-string "%H"))))
+      (if (and (>= hour 8) (<= hour 18))
+	  (load-theme 'modus-operandi)
+	(load-theme 'modus-vivendi))))
 
-(defun rangi-what-line-column ()
-  "Show line and column"
-  (interactive)
-  (let ((l (line-number-at-pos))
-	(c (current-column)))
-    (message "Line: %d, Column: %d" l c)))
+  (defun rangi-modus-themes-custom-faces (&rest _)
+    (modus-themes-with-colors
+      (custom-set-faces
+       `(mode-line ((,c :box (:line-width 5 :color ,bg-mode-line-active))))
+       `(mode-line-inactive ((,c :box (:line-width 5 :color ,bg-mode-line-inactive)))))))
 
-(bind-key "s-=" 'rangi-what-line-column)
+  (require-theme 'modus-themes)
 
+  ;; disable border on mode line
+  (setq modus-themes-common-palette-overrides
+	'((border-mode-line-active unspecified) (border-mode-line-inactive unspecified)))
 
-;; configure theme
-(require-theme 'modus-themes)
-(setq modus-themes-mode-line '(borderless accented (padding . 5)))
-(setq modus-themes-region '(accented))
-  
-;; set automatically according to macos system theme
-(defun rangi-update-theme-according-to-macos ()
-  (let ((appearance (plist-get (mac-application-state) :appearance)))
-    (if (string-equal appearance "NSAppearanceNameDarkAqua")
-        (load-theme 'modus-vivendi)
-      (load-theme 'modus-operandi))))
-(add-hook 'mac-effective-appearance-change-hook 'cc/reconfigure-nsappearance)
-(rangi-update-theme-according-to-macos)
+  ;; update theme faces after theme loaded
+  (add-hook 'modus-themes-after-load-theme-hook #'rangi-modus-themes-custom-faces)
 
-;; toggle between light/dark theme
-(bind-key "C-c t t" 'modus-themes-toggle)
-
-
-;; don't blink cursor
-(blink-cursor-mode -1)
+  ;; load theme when macos change appearance, if available
+  (when (fboundp 'mac-effective-appearance-change-hook)
+    (add-hook 'mac-effective-appearance-change-hook #'rangi-load-theme-accordingly))
+  (rangi-load-theme-accordingly)
+  (rangi-modus-themes-custom-faces))
 
 
 
 (provide 'init-gui)
+
 
 ;; ;; set up fringe
 ;; (fringe-mode '(nil . 15))

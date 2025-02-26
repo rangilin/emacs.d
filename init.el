@@ -1,9 +1,9 @@
 ;;; init.el --- Emacs initialization file -*- lexical-binding: t; no-byte-compile: t -*-
 
-;;
-;; Bootstrap
-;;---------------------------------------------------------------------------
-;;
+
+;;;;;;;;;;;;;;;
+;; Bootstrap ;;
+;;;;;;;;;;;;;;;
 
 ;; hide mode line stuff, enabled earilier to use with use-package
 (use-package diminish
@@ -11,37 +11,37 @@
 
 
 
-;;
-;; Performance
-;; ---------------------------------------------------------------------------
-;;
+;;;;;;;;;;;;;;;;;
+;; Performance ;;
+;;;;;;;;;;;;;;;;;
 
-;; set up garbage collect
-(use-package gcmh
-  :diminish 'gcmh-mode
-  :load-path "site-lisp/gcmh"
+(use-package emacs
   :config
-  (setq gcmh-high-cons-threshold (* 128 1024 1024))
-  (gcmh-mode))
+  ;; set up garbage collect
+  (use-package gcmh
+    :diminish 'gcmh-mode
+    :load-path "site-lisp/gcmh"
+    :config
+    (setq gcmh-high-cons-threshold (* 128 1024 1024))
+    (gcmh-mode))
+
+  ;; read from sub-process in larger chunk
+  (setq read-process-output-max (* 4 1024 1024))
+  
+  ;; no delay when reading from sub-process
+  (setq process-adaptive-read-buffering nil)
+
+  ;; compile lisp libaries to native code asynchronously and load it up when ready
+  (when (native-comp-available-p)
+    (native-compile-async
+     (list (expand-file-name "site-lisp" user-emacs-directory)
+	   (expand-file-name "lisp" user-emacs-directory)) :recursively :load "\\.el$")))
 
 
-;; read from sub-process in larger chunk
-(setq read-process-output-max (* 4 1024 1024))
-;; no delay when reading from sub-process
-(setq process-adaptive-read-buffering nil)
 
-
-;; compile lisp libaries to native code asynchronously and load it up when ready
-;; (native-compile-async
-;;  (list (expand-file-name "site-lisp" user-emacs-directory)
-;;        (expand-file-name "lisp" user-emacs-directory)) :recursively :load "\\.el$")
-
-
-
-;;
-;; Environments
-;; ---------------------------------------------------------------------------
-;;
+;;;;;;;;;;;;;;;;;;
+;; Environments ;;
+;;;;;;;;;;;;;;;;;;
 
 ;; set up path info from shell environment to emacs
 (use-package exec-path-from-shell
@@ -54,28 +54,22 @@
 
 
 
-;;
-;; Configurations
-;; ---------------------------------------------------------------------------
-;;
+;;;;;;;;;;;;;;;;;;;;
+;; Configurations ;;
+;;;;;;;;;;;;;;;;;;;;
 
-;; save customization to cache directory
-(setq custom-file (expand-file-name "custom.el" rangi-emacs-cache-directory))
-;; load customization if there is one
-(when (file-exists-p custom-file) (load custom-file))
+(use-package emacs
+  :config
+  ;; save customization to cache directory
+  (setq custom-file (expand-file-name "custom.el" rangi-emacs-cache-directory))
+  ;; load customization if there is one
+  (when (file-exists-p custom-file) (load custom-file))
+  ;; prepare to load rest of the configurations
+  (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-
-;; prepare to load rest of the configurations
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-
-
-(require 'init-editor)
-(require 'init-gui)
-(require 'init-macos)
-
-
-
-
+  ;; (require 'init-editor)
+  (require 'init-gui)
+  (require 'init-macos))
 
 
 

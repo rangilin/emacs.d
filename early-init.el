@@ -11,7 +11,9 @@
 (setq package-enable-at-startup nil)
 
 ;; move natively-compiled stuff to cache directory
-(startup-redirect-eln-cache rangi-emacs-cache-directory)
+(if (native-comp-available-p)
+    (startup-redirect-eln-cache rangi-emacs-cache-directory)
+  (warn "native compile is not available"))
 
 ;; prefer to load newer version of file if multiple exist
 (setq load-prefer-newer t)
