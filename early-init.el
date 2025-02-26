@@ -14,6 +14,3 @@
 (if (native-comp-available-p)
     (startup-redirect-eln-cache rangi-emacs-cache-directory)
   (warn "native compile is not available"))
-
-;; prefer to load newer version of file if multiple exist
-(setq load-prefer-newer t)
