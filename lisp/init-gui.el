@@ -64,17 +64,14 @@
        `(mode-line-inactive ((,c :box (:line-width 5 :color ,bg-mode-line-inactive)))))))
 
   (require-theme 'modus-themes)
-
-  ;; disable border on mode line
-  (setq modus-themes-common-palette-overrides
-	'((border-mode-line-active unspecified) (border-mode-line-inactive unspecified)))
-
+  
   ;; update theme faces after theme loaded
   (add-hook 'modus-themes-after-load-theme-hook #'rangi-modus-themes-custom-faces)
 
   ;; load theme when macos change appearance, if available
   (when (fboundp 'mac-effective-appearance-change-hook)
     (add-hook 'mac-effective-appearance-change-hook #'rangi-load-theme-accordingly))
+  
   (rangi-load-theme-accordingly)
   (rangi-modus-themes-custom-faces))
 
