@@ -26,6 +26,10 @@
   ;; show buffer name and size on frame title
   (setq frame-title-format '("%b (%I)"))
 
+  ;; show keystrokes right away
+  (setq echo-keystrokes 0.1)
+
+
   ;; show no stuff on startup
   (setq inhibit-startup-message t)
   (setq inhibit-startup-echo-area-message nil)
@@ -74,6 +78,33 @@
   
   (rangi-load-theme-accordingly)
   (rangi-modus-themes-custom-faces))
+
+
+;;;;;;;;;;
+;; Bell ;;
+;;;;;;;;;;
+
+(defun rangi-cursor-visual-bell ()
+  "a custom visual bell that change cursor color"
+  (let ((frame (selected-frame))
+	(before-color (face-attribute 'cursor :background))
+	(after-color "tomato2"))
+
+    ;; if bell function is called when color is still waiting to be change
+    ;; it will cause cursor color remain `after-color'
+    ;; so we only switch color when cursor color is not the color we use
+    (unless (string-equal before-color after-color)
+      (run-with-timer 0.1 nil
+		      #'(lambda (frame)
+			  (let ((inhibit-quit)
+				(inhibit-redisplay t))
+			    (set-cursor-color before-color))) frame)
+      (let ((inhibit-quit)
+            (inhibit-redisplay t))
+	(set-cursor-color after-color)))))
+
+(setq visible-bell nil)
+(setq ring-bell-function 'rangi-cursor-visual-bell)
 
 
 
