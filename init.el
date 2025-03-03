@@ -54,6 +54,10 @@
   (setq read-process-output-max (* 4 1024 1024))
   ;; no delay when reading from sub-process
   (setq process-adaptive-read-buffering nil)
+  ;; defer fontification until input is stopped
+  (setq jit-lock-defer-time 0)
+  ;; fast scroll
+  (setq fast-but-imprecise-scrolling t)
   ;; compile lisp libaries to native code asynchronously and load it up when ready
   (when (native-comp-available-p)
     (native-compile-async
