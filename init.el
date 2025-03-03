@@ -92,7 +92,9 @@
 
 ;; load the rest of the configurations
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
 (require 'init-editor)
+(require 'init-file)
 (require 'init-gui)
 (require 'init-macos)
 (require 'init-prog)
