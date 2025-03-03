@@ -29,6 +29,15 @@
   ;; show keystrokes right away
   (setq echo-keystrokes 0.1)
 
+  ;; unbind keys
+  (unbind-key "C-z") ; suspend frame
+
+  ;; make initial scratch buffer empty
+  (setq initial-scratch-message nil)
+
+  ;; make emacs resize UI by pixel
+  (setq window-resize-pixelwise t)
+  (setq frame-resize-pixelwise t)
 
   ;; show no stuff on startup
   (setq inhibit-startup-message t)
