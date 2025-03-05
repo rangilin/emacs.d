@@ -89,6 +89,7 @@
   (rangi-modus-themes-custom-faces))
 
 
+
 ;;;;;;;;;;
 ;; Bell ;;
 ;;;;;;;;;;
@@ -114,6 +115,17 @@
 
 (setq visible-bell nil)
 (setq ring-bell-function 'rangi-cursor-visual-bell)
+
+
+
+;;;;;;;;;;
+;; Help ;;
+;;;;;;;;;;
+
+(use-package which-key
+  :diminish
+  :config
+  (which-key-mode))
 
 
 
