@@ -15,5 +15,7 @@
 (bind-key "s-c" 'copy-region-as-kill)
 (bind-key "s-x" 'kill-region)
 
+;; use `mdfind' on MacOS instead of `locate'
+(setq-default locate-command "mdfind")
 
 (provide 'init-macos)
