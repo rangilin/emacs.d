@@ -6,7 +6,13 @@
 
 (use-package emacs
   :config
-  (set-frame-font "M PLUS 1 Code 14" nil t))
+
+  ;; enable subword
+  (global-subword-mode)
+  (diminish 'subword-mode)
+
+  ;; fonts
+  (set-frame-font "M PLUS 1 Code 14" nil))
 
 
 ;;;;;;;;;;;;
