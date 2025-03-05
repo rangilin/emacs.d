@@ -1,16 +1,36 @@
 #+TITLE: Rangi's Emacs configuration
 
-My Emacs configuration, used on MacOS with Macports.
+This is my personal Emacs configuration.
+
+** Rewrite
+
+The latest rewrite is in 2025, based on Emacs 30.1.
+
+In this rewrite I focus on a few things:
+
+1. Keep it simple: Reduce the amount of opinioned customizations as reasonably as I can, according to my own needs and opinions. Use built-in features when it's good enough, only rely on 3rd-party packages when it is necessary. This also encourage me to learn more about Emacs.
+
+2. Keep it fast: Keep it simple helps a lot. I intentionally add very little performance tweaks this time and dropped most old one I had. Will add more if I actually need it.
+
+3. Keep it safe: Again, keep it simple helps a lot. Now I don't need many packages, only those in Elpa(GNU/NonGNU) repositories are installed via package.el, others are installed manually. All packages are updated manually when I need to.
 
 
-** Install Emacs
+** Emacs
 
-Use this port for better MacOS integration
+I'm using Mac port addition to GNU Emacs, which provided better integration with MacOS.
+https://bitbucket.org/mituharu/emacs-mac/
+
+Homebrew:
+https://github.com/railwaycat/homebrew-emacsmacport
+Macport:
 https://ports.macports.org/port/emacs-mac-app-devel/details/
 
-#+BEGIN_SRC
-  sudo port install emacs-mac-app-devel
-#+END_SRC
+
+** Font
+
+I'm using "M PLUS 1 Code", it's a great CJK characters supported programming monospace font.
+https://mplusfonts.github.io
+
 
 ** Install External Packages
 
