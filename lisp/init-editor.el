@@ -11,6 +11,9 @@
   (global-subword-mode)
   (diminish 'subword-mode)
 
+  ;; delete selection
+  (delete-selection-mode)
+
   ;; fonts
   (set-frame-font "M PLUS 1 Code 14" nil))
 
