@@ -17,4 +17,15 @@
 
 
 
+;;;;;;;;;;;;
+;; Search ;;
+;;;;;;;;;;;;
+
+;; editing grep result on grep buffer
+(use-package wgrep
+  :ensure t
+  :pin nongnu)
+
+
+
 (provide 'init-file)
