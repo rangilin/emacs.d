@@ -14,8 +14,16 @@
   ;; delete selection
   (delete-selection-mode)
 
+  ;; add newline at EOF
+  (setq require-final-newline t)
+  ;; delete trailing whitespace on save
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  ;; hide trailing whiespace in minibuffer when inactive
+  (add-hook 'minibuffer-inactive-mode-hook (lambda () (setq show-trailing-whitespace nil)))
+
   ;; fonts
   (set-frame-font "M PLUS 1 Code 14" nil))
+
 
 
 ;;;;;;;;;;;;
