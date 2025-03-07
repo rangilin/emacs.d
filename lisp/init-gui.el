@@ -29,6 +29,9 @@
   ;; show keystrokes right away
   (setq echo-keystrokes 0.1)
 
+  ;; no icon on title
+  (setq ns-use-proxy-icon nil)
+
   ;; unbind keys
   (unbind-key "C-z") ; suspend frame
 
@@ -77,14 +80,14 @@
        `(mode-line-inactive ((,c :box (:line-width 5 :color ,bg-mode-line-inactive)))))))
 
   (require-theme 'modus-themes)
-  
+
   ;; update theme faces after theme loaded
   (add-hook 'modus-themes-after-load-theme-hook #'rangi-modus-themes-custom-faces)
 
   ;; load theme when macos change appearance, if available
   (when (fboundp 'mac-effective-appearance-change-hook)
     (add-hook 'mac-effective-appearance-change-hook #'rangi-load-theme-accordingly))
-  
+
   (rangi-load-theme-accordingly)
   (rangi-modus-themes-custom-faces))
 
@@ -488,4 +491,3 @@
 ;;   (lin-global-mode 1))
 
 ;; (provide 'init-gui)
-
