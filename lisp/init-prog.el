@@ -1,12 +1,26 @@
 ;;; init-prog.el --- Generic programming related configurations -*- lexical-binding: t -*-
 
-;; source control
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Miscellaneous programming settings ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; show trailing whitespace in prog-mode
+(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+
+
+
+;;;;;;;;;;;;;;;;;;;
+;; Source Contrl ;;
+;;;;;;;;;;;;;;;;;;;
+
 (use-package vc
   :config
-  ;; only use git
+  ;; only check git
   (setq vc-handled-backends `(Git)))
 
 
+
+;; use magit
 (use-package magit
   :ensure t
   :pin nongnu
@@ -29,6 +43,7 @@
 
   :config
   (setq-default magit-diff-refine-hunk t))
+
 
 
 ;; (use-package flymake
