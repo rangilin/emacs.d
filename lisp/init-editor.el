@@ -173,6 +173,17 @@
 
 
 
+;;;;;;;;;;;;;;;;
+;; Duplicator ;;
+;;;;;;;;;;;;;;;;
+
+;; home-made package to duplicate lines
+(use-package duplicator
+  :load-path "site-lisp/duplicator"
+  :bind ("C-c c d" . duplicator/duplicate-lines))
+
+
+
 (provide 'init-editor)
 
 
