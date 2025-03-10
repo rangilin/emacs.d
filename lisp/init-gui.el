@@ -159,8 +159,17 @@
 
 
 
-(provide 'init-gui)
+;;;;;;;;;;;;
+;; Fringe ;;
+;;;;;;;;;;;;
 
+(fringe-mode 9)
+(setq-default indicate-buffer-boundaries 'right)
+(setq-default indicate-empty-lines t)
+
+
+
+(provide 'init-gui)
 
 ;; ;; set up fringe
 ;; (fringe-mode '(nil . 15))
