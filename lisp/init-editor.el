@@ -21,6 +21,9 @@
   ;; hide trailing whiespace in minibuffer when inactive
   (add-hook 'minibuffer-inactive-mode-hook (lambda () (setq show-trailing-whitespace nil)))
 
+  ;; auto pair
+  (electric-pair-mode 1)
+
   ;; fonts
   (set-frame-font "M PLUS 1 Code 14" nil))
 
