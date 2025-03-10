@@ -162,6 +162,14 @@
   :config
   (winner-mode 1))
 
+(use-package windmove
+  :bind-keymap ("C-c w" . rangi-windmove-repeat-map)
+  :bind
+  (:repeat-map rangi-windmove-repeat-map
+               ("k" . windmove-up)
+               ("j" . windmove-down)
+               ("l" . windmove-right)
+               ("h" . windmove-left)))
 
 
 ;;;;;;;;;;;;
