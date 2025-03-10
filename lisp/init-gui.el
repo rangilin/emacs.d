@@ -147,6 +147,18 @@
   (lin-global-mode 1))
 
 
+
+;;;;;;;;;;;;
+;; Window ;;
+;;;;;;;;;;;;
+
+;; winner for saving windows configurations
+(use-package winner
+  :config
+  (winner-mode 1))
+
+
+
 (provide 'init-gui)
 
 
