@@ -140,6 +140,39 @@
 (bind-key "C-S-l" 'rangi-horizontal-recenter)
 
 
+
+;;;;;;;;;;;;;;;;;
+;; Indentation ;;
+;;;;;;;;;;;;;;;;;
+
+;; make it easier to insert new line on specific position
+(defun rangi-insert-newline-above ()
+  "Insert a newline above the current line."
+  (interactive)
+  (beginning-of-line)
+  (newline)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun rangi-insert-newline-below ()
+  "Insert a newline below the current line."
+  (interactive)
+  (end-of-line)
+  (newline)
+  (indent-according-to-mode))
+
+(bind-key "<C-S-return>" 'rangi-insert-newline-above)
+(bind-key "<S-return>" 'rangi-insert-newline-below)
+
+;; indent with space by default
+(setq-default indent-tabs-mode nil)
+;; indent 2 spaces by default
+(setq-default tab-width 2)
+;; indent automatically
+(electric-indent-mode 1)
+
+
+
 (provide 'init-editor)
 
 
