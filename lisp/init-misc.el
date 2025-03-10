@@ -6,6 +6,13 @@
   :mode ("\\.beancount\\'" . beancount-mode))
 
 
+;; enable repeat mode
+(use-package repeat
+  :config
+  (setq set-mark-command-repeat-pop t)
+  (repeat-mode))
+
+
 
 (provide 'init-misc)
 
