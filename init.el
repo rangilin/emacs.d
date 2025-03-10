@@ -97,6 +97,7 @@
 (require 'init-file)
 (require 'init-gui)
 (require 'init-macos)
+(require 'init-misc)
 (require 'init-prog)
 
 
