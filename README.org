@@ -72,6 +72,9 @@ https://mplusfonts.github.io
 
 ** Install Configuration
 
+There is a git submodule  https://github.com/rangilin/duplicator in this repository, which is a small package I wrote.
+Because of this, you will need to run git clone recursively like this:
+
 #+BEGIN_SRC sh
   git clone --recursive git@github.com:rangilin/emacs.d.git
 #+END_SRC
