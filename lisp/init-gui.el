@@ -36,6 +36,11 @@
   (unbind-key "C-z") ; suspend frame
   (unbind-key "s-p") ; print buffer
 
+  ;; confirm before quit
+  (setq confirm-kill-emacs 'y-or-n-p)
+  ;; force ask y/n instead of yes/no
+  (fset 'yes-or-no-p 'y-or-n-p)
+
   ;; make initial scratch buffer empty
   (setq initial-scratch-message nil)
 
