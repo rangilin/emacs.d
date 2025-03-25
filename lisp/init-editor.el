@@ -73,6 +73,15 @@
 
 
 
+;; refresh buffer
+(defun rangi-refresh-buffer ()
+  "Referesh current buffer."
+  (interactive)
+  (revert-buffer nil t nil)
+  (message "buffer is refreshed"))
+
+(bind-key "C-c b r" 'rangi-refresh-buffer)
+
 ;;;;;;;;;;;;;;;
 ;; Auto Save ;;
 ;;;;;;;;;;;;;;;
