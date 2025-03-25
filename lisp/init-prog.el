@@ -45,6 +45,31 @@
   (setq-default magit-diff-refine-hunk t))
 
 
+;;;;;;;;;;;;;;
+;; Web Mode ;;
+;;;;;;;;;;;;;;
+
+;; web-mode
+(use-package web-mode
+  :ensure t
+  :pin nongnu
+  :mode (("\\.html\\'" . web-mode)
+         ("\\.gohtml\\'" . web-mode)
+         ("\\.erb\\'" . web-mode))
+  :hook (web-mode . rangi-set-web-mode)
+  :config
+  (setq-default web-mode-markup-indent-offset 2)
+  (setq-default web-mode-css-indent-offset 2)
+  (setq-default web-mode-code-indent-offset 2)
+
+  (defun rangi-set-web-mode ()
+    (electric-pair-local-mode -1))
+
+  ;; highlight
+  (setq web-mode-enable-current-element-highlight t))
+
+
+
 
 ;; (use-package flymake
 ;;   :bind (("M-n" . flymake-goto-next-error)
