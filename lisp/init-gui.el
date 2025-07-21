@@ -12,7 +12,7 @@
   (defun rangi-what-line-column ()
     (interactive)
     (let ((l (line-number-at-pos))
-	  (c (current-column)))
+	        (c (current-column)))
       (message "Line: %d, Column: %d" l c)))
 
   ;; turn off these
@@ -62,40 +62,45 @@
 (use-package emacs
   :bind (("C-c t t" . modus-themes-toggle))
   :config
-  (defun rangi-load-theme-accordingly ()
-    (if (fboundp 'mac-application-state)
-	(rangi-load-theme-according-to-macos)
-      (rangi-load-theme-according-to-time)))
+  (require-theme 'modus-themes)
 
-  (defun rangi-load-theme-according-to-macos ()
-    (let ((appearance (plist-get (mac-application-state) :appearance)))
-      (if (string-equal appearance "NSAppearanceNameDarkAqua")
-          (load-theme 'modus-vivendi)
-	(load-theme 'modus-operandi))))
+  ;; toggle between tinted version of theme
+  (setq modus-themes-to-toggle '(modus-operandi-tinted modus-vivendi-tinted))
 
-  (defun rangi-load-theme-according-to-time ()
-    (let ((hour (string-to-number (format-time-string "%H"))))
-      (if (and (>= hour 8) (<= hour 18))
-	  (load-theme 'modus-operandi)
-	(load-theme 'modus-vivendi))))
-
+  ;; my customizations
   (defun rangi-modus-themes-custom-faces (&rest _)
     (modus-themes-with-colors
       (custom-set-faces
        `(mode-line ((,c :box (:line-width 5 :color ,bg-mode-line-active))))
        `(mode-line-inactive ((,c :box (:line-width 5 :color ,bg-mode-line-inactive)))))))
 
-  (require-theme 'modus-themes)
-
   ;; update theme faces after theme loaded
   (add-hook 'modus-themes-after-load-theme-hook #'rangi-modus-themes-custom-faces)
+
+
+  ;; load theme according to certain criteria
+  (defun rangi-load-theme-accordingly ()
+    (if (fboundp 'mac-application-state)
+	      (rangi-load-theme-according-to-macos)
+      (rangi-load-theme-according-to-time)))
+
+  (defun rangi-load-theme-according-to-macos ()
+    (let ((appearance (plist-get (mac-application-state) :appearance)))
+      (if (string-equal appearance "NSAppearanceNameDarkAqua")
+          (modus-themes-load-theme 'modus-vivendi-tinted)
+	      (modus-themes-load-theme 'modus-operandi-tinted))))
+
+  (defun rangi-load-theme-according-to-time ()
+    (let ((hour (string-to-number (format-time-string "%H"))))
+      (if (and (>= hour 8) (<= hour 18))
+	        (modus-themes-load-theme 'modus-operandi-tinted)
+	      (modus-themes-load-theme 'modus-vivendi-tinted))))
 
   ;; load theme when macos change appearance, if available
   (when (fboundp 'mac-effective-appearance-change-hook)
     (add-hook 'mac-effective-appearance-change-hook #'rangi-load-theme-accordingly))
 
-  (rangi-load-theme-accordingly)
-  (rangi-modus-themes-custom-faces))
+  (rangi-load-theme-accordingly))
 
 
 
@@ -106,21 +111,21 @@
 (defun rangi-cursor-visual-bell ()
   "a custom visual bell that change cursor color"
   (let ((frame (selected-frame))
-	(before-color (face-attribute 'cursor :background))
-	(after-color "tomato2"))
+	      (before-color (face-attribute 'cursor :background))
+	      (after-color "tomato2"))
 
     ;; if bell function is called when color is still waiting to be change
     ;; it will cause cursor color remain `after-color'
     ;; so we only switch color when cursor color is not the color we use
     (unless (string-equal before-color after-color)
       (run-with-timer 0.1 nil
-		      #'(lambda (frame)
-			  (let ((inhibit-quit)
-				(inhibit-redisplay t))
-			    (set-cursor-color before-color))) frame)
+		                  #'(lambda (frame)
+			                    (let ((inhibit-quit)
+				                        (inhibit-redisplay t))
+			                      (set-cursor-color before-color))) frame)
       (let ((inhibit-quit)
             (inhibit-redisplay t))
-	(set-cursor-color after-color)))))
+	      (set-cursor-color after-color)))))
 
 (setq visible-bell nil)
 (setq ring-bell-function 'rangi-cursor-visual-bell)
