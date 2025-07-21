@@ -15,6 +15,11 @@
     (error (message "Invalid expression")
            (insert (current-kill 0)))))
 
+;; keybinding
 (bind-key "C-c C-e" 'eval-and-replace)
+
+;; preserve keybinding in other modes
+(define-key org-mode-map (kbd "C-c C-e") nil)
+
 
 (provide 'init-emacs-lisp)

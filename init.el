@@ -99,7 +99,7 @@
 (require 'init-macos)
 (require 'init-misc)
 (require 'init-prog)
-
+(require 'init-org)
 
 
 
