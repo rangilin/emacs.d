@@ -13,6 +13,21 @@
   (repeat-mode))
 
 
+;; docker
+(use-package dockerfile-mode
+  :ensure t
+  :pin nongnu
+  :mode "Dockerfile\\'")
+
+
+;; yaml
+(use-package yaml-mode
+  :ensure t
+  :pin nongnu
+  :mode (("\\.yaml\\'" . yaml-mode)
+         ("\\.yml\\'" . yaml-mode)
+         ("\\.ansible-lint\\'" . yaml-mode)))
+
 
 (provide 'init-misc)
 
@@ -59,15 +74,3 @@
 ;;          ("C-c s f" . ag-dired))
 ;;   :config
 ;;   (setq ag-highlight-search t))
-
-
-;; (use-package editorconfig
-;;   :delight editorconfig-mode
-;;   :config
-;;   (editorconfig-mode 1))
-
-
-;; (use-package yaml-mode
-;;   :mode (("\\.yaml\\'" . yaml-mode)
-;;          ("\\.yml\\'" . yaml-mode)
-;;          ("\\.ansible-lint\\'" . yaml-mode)))
