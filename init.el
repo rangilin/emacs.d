@@ -57,12 +57,7 @@
   ;; defer fontification until input is stopped
   (setq jit-lock-defer-time 0)
   ;; fast scroll
-  (setq fast-but-imprecise-scrolling t)
-  ;; compile lisp libaries to native code asynchronously and load it up when ready
-  (when (native-comp-available-p)
-    (native-compile-async
-     (list (expand-file-name "site-lisp" user-emacs-directory)
-	   (expand-file-name "lisp" user-emacs-directory)) :recursively :load "\\.el$")))
+  (setq fast-but-imprecise-scrolling t))
 
 
 
