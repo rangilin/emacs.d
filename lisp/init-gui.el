@@ -1,6 +1,5 @@
 ;;; init-gui.el --- GUI configuration file -*- lexical-binding: t -*-
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Miscellaneous GUI settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -203,69 +202,19 @@
 
 
 
+;;;;;;;;;;;;;;;;
+;; Completion ;;
+;;;;;;;;;;;;;;;;
+
+(use-package minibuffer
+  :config
+  ;; sort completion vertically
+  (setq completions-format "vertical")
+  ;; control completion list from minibuffer
+  (setq minibuffer-visible-completions t)
+  ;; change default completeion styles
+  (setq completion-styles '(initials partial-completion)))
+
+
+
 (provide 'init-gui)
-
-
-
-
-;; ;;
-;; ;; Search Completion
-;; ;;----------------------------------------------------------------------------
-;; ;;
-
-;; ;; use ivy to do do completion everywhere
-;; (use-package ivy
-;;   :delight
-;;   :bind
-;;   (("s-b" . ivy-switch-buffer)
-;;    ("C-c C-r" . ivy-resume))
-;;   :config
-;;   (ivy-mode 1)
-;;   (setq enable-recursive-minibuffers t)
-;;   (setq ivy-use-virtual-buffers t)
-;;   (setq ivy-count-format "%d/%d ")
-;;   (setq ivy-height-alist
-;;       '((t
-;;          lambda (_caller)
-;;          (max 5 (min 20 (/ (frame-height) 3)))))))
-
-;; ;; install ivy-hydra for additional hydra keybindings
-;; (use-package ivy-hydra)
-
-;; ;; use swiper to search local file
-;; (use-package swiper)
-
-;; ;; use ivy for emacs commands
-;; (use-package counsel
-;;   :bind
-;;   (("C-s" . counsel-grep-or-swiper)
-;;    ("s-f" . counsel-grep-or-swiper)
-;;    ("M-x" . counsel-M-x)
-;;    ("s-P" . counsel-M-x)
-;;    ("C-x C-f" . rangi-counsel-find-file)
-;;    ("s-o" . rangi-counsel-find-file)
-;;    ("C-x C-r" . counsel-recentf)
-;;    ("<f1> f" . counsel-describe-function)
-;;    ("<f1> v" . counsel-describe-variable)
-;;    ("<f1> l" . counsel-find-library)
-;;    ("<f2> i" . counsel-info-lookup-symbol)
-;;    ("<f2> u" . counsel-unicode-char))
-;;   :config
-
-;;   (setq counsel-grep-swiper-limit 10000000)
-
-;;   (defun rangi-counsel-find-file (arg)
-;;     (interactive "P")
-;;     (if arg (counsel-file-jump)
-;;       (counsel-find-file))))
-
-
-;; (use-package ivy-rich
-;;   :config
-;;   (ivy-rich-mode 1)
-;;   ;; use abbrevation file path
-;;   (setq ivy-rich-path-style 'abbrev)
-;;   ;; cache project info
-;;   (ivy-rich-project-root-cache-mode 1)
-;;   ;; don't parse remote buffer
-;;   (setq ivy-rich-parse-remote-buffer nil))
