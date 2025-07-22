@@ -24,6 +24,14 @@
   ;; auto pair
   (electric-pair-mode 1)
 
+  ;; overwrite mode
+  (bind-key "C-c r" 'overwrite-mode)
+
+  ;; backward delete
+  (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
+  (define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
+  (bind-key "C-M-h" 'backward-kill-word)
+
   ;; fonts
   (set-frame-font "M PLUS 1 Code 14" nil))
 
@@ -42,7 +50,6 @@
     (switch-to-buffer buffer)))
 
 (bind-key "C-c b n" 'rangi-new-buffer)
-
 
 
 ;; set up ibuffer
@@ -72,7 +79,6 @@
   (unbind-key "P" ibuffer-mode-map))
 
 
-
 ;; refresh buffer
 (defun rangi-refresh-buffer ()
   "Referesh current buffer."
@@ -81,6 +87,8 @@
   (message "buffer is refreshed"))
 
 (bind-key "C-c b r" 'rangi-refresh-buffer)
+
+
 
 ;;;;;;;;;;;;;;;
 ;; Auto Save ;;
@@ -185,230 +193,67 @@
 ;;;;;;;;;;;;;;;;
 ;; Duplicator ;;
 ;;;;;;;;;;;;;;;;
+;; FIXME: can this be replaced with functions and archive the package?
 
 ;; home-made package to duplicate lines
 (use-package duplicator
   :load-path "site-lisp/duplicator"
-  :bind ("C-c c d" . duplicator/duplicate-lines))
+  :bind ("C-c d" . duplicator/duplicate-lines))
+
+
+
+;;;;;;;;;;;;;;;
+;; Selection ;;
+;;;;;;;;;;;;;;;
+
+;; expand region
+(use-package expand-region
+  :ensure t
+  :pin gnu
+  :bind
+  (("C-=" . er/expand-region)))
+
+
+;; randomize region
+(defun rangi-randomize-region (beg end)
+  "Randomize lines in region from BEG to END."
+  (interactive "*r")
+  (let ((lines (split-string
+                (delete-and-extract-region beg end) "\n")))
+    (when (string-equal "" (car (last lines 1)))
+      (setq lines (butlast lines 1)))
+    (apply 'insert
+           (mapcar 'cdr
+                   (sort (mapcar (lambda (x) (cons (random) (concat x "\n"))) lines)
+                         (lambda (a b) (< (car a) (car b))))))))
+
+
+
+;;;;;;;;;;;;
+;; Cursor ;;
+;;;;;;;;;;;;
+
+
+(use-package multiple-cursors
+  :ensure t
+  :pin nongnu
+  :init
+  ;; save mc file in cache directory
+  (setq-default mc/list-file (expand-file-name "mc-lists.el" rangi-emacs-cache-directory))
+  :bind-keymap (("C-c c" . rangi-mc-repeat-map))
+  :bind
+  (("s-<mouse-1>" . mc/add-cursor-on-click)
+   (:repeat-map rangi-mc-repeat-map
+                ("a" . mc/mark-all-dwim)
+                ("." . mc/mark-next-like-this)
+                ("," . mc/mark-previous-like-this)
+                (">" . mc/unmark-next-like-this)
+                ("<" . mc/unmark-previous-like-this))))
 
 
 
 (provide 'init-editor)
 
-
-;; ;; warn when open file larger than 100MB
-;; (setq large-file-warning-threshold 100000000)
-
-;; ;; highlight matching parentheses
-;; (show-paren-mode 1)
-
-;; ;; pairing parenthesis automatically
-;; (electric-pair-mode 1)
-
-;; ;; show keystrokes right away
-;; (setq echo-keystrokes 0.1)
-
-;; ;; no startup messages
-;; (setq inhibit-startup-message t)
-;; (setq inhibit-startup-echo-area-message nil)
-
-;; ;; no start up screen
-;; (setq inhibit-startup-screen t)
-
-;; ;; hide cursor in inactive windows
-;; (setq cursor-in-non-selected-windows nil)
-
-;; ;; make scratch buffer empty
-;; (setq initial-scratch-message nil)
-
-;; ;; open scratch buffer in text mode
-;; (setq initial-major-mode 'text-mode)
-
-;; ;; sentence end after one space line
-;; (setq sentence-end-double-space nil)
-
-;; ;; ask before quit emacs
-;; (setq confirm-kill-emacs 'y-or-n-p)
-
-;; ;; select help window automatically, so it is easier to close it with `q`
-;; (setq help-window-select t)
-
-;; ;; force ask y/n instead of yes/no
-;; (fset 'yes-or-no-p 'y-or-n-p)
-
-;; ;; toggle truncate lines
-;; (global-set-key (kbd "C-c e l") 'toggle-truncate-lines)
-
-;; ;; move file to trash when deleted
-;; (setq-default delete-by-moving-to-trash t)
-
-;; ;; unset print buffer key
-;; (unbind-key "s-p")
-
-;; ;; free up digit keys
-;; (dotimes (n 10)
-;;   (global-unset-key (kbd (format "C-%d" n)))
-;;   (global-unset-key (kbd (format "C-M-%d" n)))
-;;   (global-unset-key (kbd (format "M-%d" n))))
-
-;; ;; unbind C-z
-;; (unbind-key "C-z")
-
-
-;; (bind-key "C-c r" 'overwrite-mode)
-
-;; ;;
-;; ;; adjust settings when open large file to increase performance
-;; ;;
-;; ;; Here are some common setting that affect Emacs performance
-;; ;;
-;; ;; 1. hl-line-mode
-;; ;; 2. column-number-mode
-;; ;; 3. line-number-mode
-;; ;; 4. linum-mode
-;; ;; 5. non-nil auto-window-vscroll
-;; ;;
-;; ;; disable them all for a snappy Emacs
-
-;; (defun rangi-open-large-file-hook ()
-;;   (let ((line-count (count-lines (buffer-end -1) (buffer-end +1)))
-;;         (file-size (or (f-size (buffer-file-name)) 0)))
-;;     (when (or (>= line-count 25000) (>= file-size 5000000))
-;;       (rangi-view-large-file))
-;;     (when (or (>= line-count 100000) (>= file-size 20000000))
-;;       (message "Change to `fundamental-mode' for very large file")
-;;       (fundamental-mode))))
-
-
-;; (defun rangi-view-large-file ()
-;;   (interactive)
-;;   (message "Settings are adjusted for large file")
-;;   (font-lock-mode -1)
-;;   (highlight-numbers-mode -1)
-;;   (turn-off-flyspell))
-
-;; (add-hook 'find-file-hook 'rangi-open-large-file-hook)
-
-;; ;; backward delete
-;; (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
-;; (define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
-;; (bind-key "C-M-h" 'backward-kill-word)
-
-;; ;;
-;; ;; Whitespace
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; ;; show trailing whitespace in prog-mode
-;; (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
-
-;; ;; hide trailing whiespace in minibuffer
-;; (add-hook 'minibuffer-inactive-mode-hook (lambda () (setq show-trailing-whitespace nil)))
-
-;; ;; add newline at EOF
-;; (setq require-final-newline t)
-
-;; ;; delete trailing whitespace on save
-;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;; ;; delete whitespaces more aggresively
-;; (use-package hungry-delete
-;;   :delight
-;;   :config
-;;   ;; don't delete newline
-;;   (setq hungry-delete-chars-to-skip " \t\f\v")
-;;   ;; disable in mini-buffer to workaround read-only text issue in counsel-find-file
-;;   (add-to-list 'hungry-delete-except-modes 'minibuffer-mode)
-;;   (global-hungry-delete-mode))
-
-
-
-;; ;;
-;; ;; Indentations
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; ;; make it easier to insert new line on specific position
-;; (defun rangi-insert-newline-above ()
-;;   "Insert a newline above the current line."
-;;   (interactive)
-;;   (beginning-of-line)
-;;   (newline)
-;;   (forward-line -1)
-;;   (indent-according-to-mode))
-
-;; (defun rangi-insert-newline-below ()
-;;   "Insert a newline below the current line."
-;;   (interactive)
-;;   (end-of-line)
-;;   (newline)
-;;   (indent-according-to-mode))
-
-;; (global-set-key (kbd "<C-S-return>") 'rangi-insert-newline-above)
-;; (global-set-key (kbd "<S-return>") 'rangi-insert-newline-below)
-
-;; ;; always indent with space
-;; (setq-default indent-tabs-mode nil)
-
-;; ;; indent 2 space by default
-;; (setq-default tab-width 2)
-
-;; ;; indent automatically
-;; (electric-indent-mode 1)
-
-
-
-;; ;;
-;; ;; Selection
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; ;; remove selected text when inserting new text
-;; (use-package delsel
-;;   :hook (after-init . delete-selection-mode))
-
-;; ;; expand-region
-;; (use-package expand-region
-;;   :bind
-;;   (("s-'" . er/expand-region)
-;;    ("s-\"" . er/contract-region))
-;;   :config
-;;   (setq expand-region-fast-keys-enabled nil))
-
-
-;; ;; randomize region
-;; (defun rangi-randomize-region (beg end)
-;;   "Randomize lines in region from BEG to END."
-;;   (interactive "*r")
-;;   (let ((lines (split-string
-;;                 (delete-and-extract-region beg end) "\n")))
-;;     (when (string-equal "" (car (last lines 1)))
-;;       (setq lines (butlast lines 1)))
-;;     (apply 'insert
-;;            (mapcar 'cdr
-;;                    (sort (mapcar (lambda (x) (cons (random) (concat x "\n"))) lines)
-;;                          (lambda (a b) (< (car a) (car b))))))))
-
-
-;; ;;
-;; ;; Cursors
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; (use-package multiple-cursors
-;;   :init
-;;   ;; save mc file in autogen directory
-;;   (setq-default mc/list-file (expand-file-name "mc-lists.el" rangi-emacs-cache-directory))
-
-;;   :config
-;;   (global-set-key (kbd "C-c e m c l") 'mc/insert-letters)
-;;   (global-set-key (kbd "C-c e m c n") 'mc/insert-numbers)
-;;   (global-set-key (kbd "C-c e m c s") 'mc/sort-regions)
-;;   (global-set-key (kbd "C-c e m c r") 'mc/reverse-regions)
-;;   (global-set-key (kbd "s-d") 'mc/mark-next-like-this)
-;;   (global-set-key (kbd "s-D") 'mc/mark-all-dwim)
-;;   (global-set-key (kbd "M-s-d") 'mc/edit-lines)
-;;   (global-set-key (kbd "s-<mouse-1>") 'mc/add-cursor-on-click))
 
 
 
@@ -417,32 +262,6 @@
 ;; ;; ----------------------------------------------------------------------------
 ;; ;;
 
-;; ;; enable subword mode
-;; (use-package subword
-;;   :delight
-;;   :config
-;;   (global-subword-mode))
-
-;; ;; move where I mean
-;; (use-package mwim
-;;   :bind
-;;   (("C-a" . mwim-beginning-of-code-or-line)
-;;    ("C-e" . mwim-end-of-code-or-line)))
-
-;; ;; move cursor to top or bottom of the buffer when it cannot be scrolled anymore
-;; (setq-default scroll-error-top-bottom t)
-
-;; ;; recenter in the center of a horizontal line
-;; ;; http://stackoverflow.com/a/1249665/554279
-;; (defun rangi-horizontal-recenter ()
-;;   "make the point horizontally centered in the window"
-;;   (interactive)
-;;   (let ((mid (/ (window-width) 2))
-;;         (line-len (save-excursion (end-of-line) (current-column)))
-;;         (cur (current-column)))
-;;     (if (< mid cur) (set-window-hscroll (selected-window) (- cur mid)))))
-
-;; (global-set-key (kbd "C-S-l") 'rangi-horizontal-recenter)
 
 
 ;; ;; jump between characters/words
