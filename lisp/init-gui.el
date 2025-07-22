@@ -41,6 +41,9 @@
   ;; force ask y/n instead of yes/no
   (fset 'yes-or-no-p 'y-or-n-p)
 
+  ;; select help window automatically, so it is easier to close it with `q`
+  (setq help-window-select t)
+
   ;; make initial scratch buffer empty
   (setq initial-scratch-message nil)
 
@@ -184,6 +187,19 @@
 (fringe-mode 9)
 (setq-default indicate-buffer-boundaries 'right)
 (setq-default indicate-empty-lines t)
+
+
+
+;;;;;;;;;;;;;;;;
+;; Breadcrumb ;;
+;;;;;;;;;;;;;;;;
+
+(use-package breadcrumb
+  :diminish
+  :ensure t
+  :pin gnu
+  :config
+  (breadcrumb-mode))
 
 
 
