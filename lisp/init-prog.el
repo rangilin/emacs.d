@@ -99,6 +99,8 @@
 	            ("C-c l r" . eglot-rename))
   :hook ((eglot-managed-mode . rangi-set-eglot-managed-mode))
   :config
+  ;; don't like inlay hint, eldoc can help
+  (eglot-inlay-hints-mode -1)
 
   ;; Make eglot/eldoc works better with flymake diagnostics.
   ;; https://github.com/joaotavora/eglot/discussions/898
