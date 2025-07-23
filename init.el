@@ -1,5 +1,6 @@
 ;;; init.el --- Emacs initialization file -*- lexical-binding: t; no-byte-compile: t -*-
 
+;; TODO: fix recompiling https://emacs.stackexchange.com/questions/82010/why-is-emacs-recompiling-some-packages-on-every-startup
 
 ;;;;;;;;;;;;;;;
 ;; Bootstrap ;;
@@ -94,6 +95,7 @@
 (require 'init-macos)
 (require 'init-misc)
 (require 'init-prog)
+(require 'init-project)
 (require 'init-org)
 
 

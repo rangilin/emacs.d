@@ -1,25 +1,15 @@
 (use-package project
-  :bind-keymap (("s-p" . project-prefix-map)
-                ("C-c p" . project-prefix-map))
-  :bind (:map project-prefix-map
-              ("s" . rangi-project-ag)
-              ("4 f" . rangi-project-find-file-other-window)
-              ("v" . rangi-project-vc-dir))
+  :bind (("C-x p v" . rangi-project-vc-dir))
   :config
+  ;; use ibuffer when list project buffers
+  (setq project-buffers-viewer 'project-list-buffers-ibuffer)
+  ;; commands to choose after switching to a project
   (setq project-switch-commands '((project-find-file "Find file")
-                                 (project-find-regexp "Find regexp")
-                                 (project-find-dir "Find directory")
-                                 (rangi-project-vc-dir "VC-Dir")))
+                                  (project-find-regexp "Find regexp")
+                                  (project-find-dir "Find directory")
+                                  (rangi-project-vc-dir "VC-Dir")))
+  ;; store projects data in cache directory
   (setq project-list-file (expand-file-name "projects" rangi-emacs-cache-directory)))
-
-
-(defun rangi-project-ag ()
-  "use ag search current files in project"
-  (interactive)
-  (let ((p (project-current)))
-    (if p
-        (counsel-ag nil (project-root p))
-      (message "Currently not in a project"))))
 
 (defun rangi-project-vc-dir ()
   "open magit or vc-dir"
@@ -30,13 +20,6 @@
           (p
            (vc-dir (project-root p)))
           (t (message "Currently not in a project")))))
-
-(defun rangi-project-find-file-other-window ()
-  "find project file but open it in other window"
-  (interactive)
-  (split-window-right)
-  (other-window 1)
-  (project-find-file))
 
 
 (provide 'init-project)
