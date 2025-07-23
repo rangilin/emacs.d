@@ -13,9 +13,9 @@
 
 
 
-;;;;;;;;;;;;;;;;;;;
-;; Source Contrl ;;
-;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;
+;; Source Control ;;
+;;;;;;;;;;;;;;;;;;;;
 
 (use-package vc
   :config
@@ -50,31 +50,6 @@
 
 
 
-;;;;;;;;;;;;;;
-;; Web Mode ;;
-;;;;;;;;;;;;;;
-
-;; web-mode
-(use-package web-mode
-  :ensure t
-  :pin nongnu
-  :mode (("\\.html\\'" . web-mode)
-         ("\\.gohtml\\'" . web-mode)
-         ("\\.erb\\'" . web-mode))
-  :hook (web-mode . rangi-set-web-mode)
-  :config
-  (setq-default web-mode-markup-indent-offset 2)
-  (setq-default web-mode-css-indent-offset 2)
-  (setq-default web-mode-code-indent-offset 2)
-
-  (defun rangi-set-web-mode ()
-    (electric-pair-local-mode -1))
-
-  ;; highlight
-  (setq web-mode-enable-current-element-highlight t))
-
-
-
 ;;;;;;;;;;;;;;;;;
 ;; Error Check ;;
 ;;;;;;;;;;;;;;;;;
@@ -92,19 +67,25 @@
 
 
 
+;;;;;;;;;
+;; LSP ;;
+;;;;;;;;;
+
 (use-package eglot
   :bind (:map eglot-mode-map
-	            ("C-c l h" . eldoc)
+              ("C-c l a" . eglot-code-actions)
 	            ("C-c l f" . eglot-format)
+	            ("C-c l h" . eldoc)
 	            ("C-c l r" . eglot-rename))
   :hook ((eglot-managed-mode . rangi-set-eglot-managed-mode))
   :config
-  ;; don't like inlay hint, eldoc can help
-  (eglot-inlay-hints-mode -1)
 
-  ;; Make eglot/eldoc works better with flymake diagnostics.
-  ;; https://github.com/joaotavora/eglot/discussions/898
   (defun rangi-set-eglot-managed-mode ()
+    ;; Turn off inlay hints
+    (eglot-inlay-hints-mode -1)
+
+    ;; Make eglot/eldoc works better with flymake diagnostics.
+    ;; https://github.com/joaotavora/eglot/discussions/898
     (setq eldoc-documentation-functions
           (cons #'flymake-eldoc-function (remove #'flymake-eldoc-function eldoc-documentation-functions)))
     (setq eldoc-documentation-strategy #'eldoc-documentation-compose))
@@ -122,15 +103,15 @@
   :ensure t
   :pin gnu
   :bind
-  ("M-." . company-complete)
   (:map company-active-map
         ("C-n" . company-select-next)
         ("C-p" . company-select-previous))
+  :hook
+  ((prog-mode . company-mode))
   :config
   (setq company-tooltip-align-annotations t)
   (setq company-format-margin-function 'company-text-icons-margin)
-  (setq company-text-face-extra-attributes '(:weight bold :slant italic))
-  (global-company-mode))
+  (setq company-text-face-extra-attributes '(:weight bold :slant italic)))
 
 
 
@@ -151,6 +132,27 @@
     (add-to-list 'eglot-server-programs
                  '((rust-ts-mode rust-mode) .
                    ("rust-analyzer" :initializationOptions (:check (:command "clippy")))))))
+
+
+;; Web (HTML/CSS Template)
+(use-package web-mode
+  :ensure t
+  :pin nongnu
+  :mode (("\\.html\\'" . web-mode)
+         ("\\.gohtml\\'" . web-mode)
+         ("\\.erb\\'" . web-mode))
+  :hook (web-mode . rangi-set-web-mode)
+  :config
+  (setq-default web-mode-markup-indent-offset 2)
+  (setq-default web-mode-css-indent-offset 2)
+  (setq-default web-mode-code-indent-offset 2)
+
+  (defun rangi-set-web-mode ()
+    (electric-pair-local-mode -1))
+
+  ;; highlight
+  (setq web-mode-enable-current-element-highlight t))
+
 
 
 
