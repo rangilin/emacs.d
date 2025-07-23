@@ -1,3 +1,4 @@
+;;; init-project.el --- Project management related configuration -*- lexical-binding: t; no-byte-compile: t -*-
 (use-package project
   :bind (("C-x p v" . rangi-project-vc-dir))
   :config
@@ -7,7 +8,8 @@
   (setq project-switch-commands '((project-find-file "Find file")
                                   (project-find-regexp "Find regexp")
                                   (project-find-dir "Find directory")
-                                  (rangi-project-vc-dir "VC-Dir")))
+                                  (rangi-project-vc-dir "Magit/VC-Dir")
+                                  (project-any-command "Other")))
   ;; store projects data in cache directory
   (setq project-list-file (expand-file-name "projects" rangi-emacs-cache-directory)))
 
