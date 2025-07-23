@@ -141,6 +141,7 @@
 (use-package which-key
   :diminish
   :config
+  (setq which-key-idle-delay 0.5)
   (which-key-mode))
 
 
