@@ -111,10 +111,10 @@
 ;;;;;;;;;;
 
 (defun rangi-cursor-visual-bell ()
-  "a custom visual bell that change cursor color"
+  "a custom visual bell that make cursor blink"
   (let ((frame (selected-frame))
 	      (before-color (face-attribute 'cursor :background))
-	      (after-color "tomato2"))
+	      (after-color (face-attribute 'default :background)))
 
     ;; if bell function is called when color is still waiting to be change
     ;; it will cause cursor color remain `after-color'
