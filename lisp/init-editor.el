@@ -24,9 +24,6 @@
   ;; auto pair
   (electric-pair-mode 1)
 
-  ;; overwrite mode
-  (bind-key "C-c r" 'overwrite-mode)
-
   ;; backward delete
   (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
   (define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
