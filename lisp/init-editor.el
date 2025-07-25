@@ -199,18 +199,6 @@
 
 
 
-;;;;;;;;;;;;;;;;
-;; Duplicator ;;
-;;;;;;;;;;;;;;;;
-;; FIXME: can this be replaced with functions and archive the package?
-
-;; home-made package to duplicate lines
-(use-package duplicator
-  :load-path "site-lisp/duplicator"
-  :bind ("C-c d" . duplicator/duplicate-lines))
-
-
-
 ;;;;;;;;;;;;;;;
 ;; Selection ;;
 ;;;;;;;;;;;;;;;
