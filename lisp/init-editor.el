@@ -33,7 +33,9 @@
   (bind-key "C-M-h" 'backward-kill-word)
 
   ;; fonts
-  (set-frame-font "M PLUS 1 Code 14" nil))
+  (let ((f "M PLUS 1 Code 16"))
+    (set-frame-font f nil)
+    (add-to-list 'default-frame-alist `(font . ,f))))
 
 
 
