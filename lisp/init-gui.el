@@ -165,6 +165,9 @@
 ;; Window ;;
 ;;;;;;;;;;;;
 
+;; switch windows, use with s-', no more c-x o o o
+(bind-key "s-\"" 'previous-window-any-frame)
+
 ;; winner for saving windows configurations
 (use-package winner
   :config
