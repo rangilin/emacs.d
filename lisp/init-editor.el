@@ -81,6 +81,16 @@
   (unbind-key "P" ibuffer-mode-map))
 
 
+;; auto refresh buffer
+(use-package autorevert
+  :diminish auto-revert-mode
+  :config
+  (global-auto-revert-mode 1)
+
+  ;; don't print anything after refresh
+  (setq auto-revert-verbose nil))
+
+
 ;; refresh buffer
 (defun rangi-refresh-buffer ()
   "Referesh current buffer."
