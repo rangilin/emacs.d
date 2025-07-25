@@ -57,13 +57,8 @@
 (use-package flymake
   :bind (("M-n" . flymake-goto-next-error)
          ("M-p" . flymake-goto-prev-error)
-         ("C-c l e" . rangi-flymake-show-buffer-diagnostics))
-  :config
-  (defun rangi-flymake-show-buffer-diagnostics ()
-    (interactive)
-    (let ((split-height-threshold 1))
-      (flymake-show-buffer-diagnostics)
-      (other-window 1))))
+         ("C-c l e" . flymake-show-buffer-diagnostics)
+         ("C-c l E" . flymake-show-project-diagnostics)))
 
 
 
