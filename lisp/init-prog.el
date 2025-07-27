@@ -110,6 +110,19 @@
 
 
 
+;;;;;;;;;;;;;;;;;;
+;; Code Snippet ;;
+;;;;;;;;;;;;;;;;;;
+
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :ensure t
+  :pin gnu
+  :config
+  (yas-global-mode 1))
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Miscellaneous programming modes ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
