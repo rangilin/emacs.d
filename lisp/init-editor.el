@@ -145,6 +145,18 @@
 ;; Navigation ;;
 ;;;;;;;;;;;;;;;;
 
+;; keys for navigation around
+(defvar rangi-navigation-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "c" 'avy-goto-char-timer)
+    (define-key map "i" 'imenu)
+    (define-key map "l" 'goto-line)
+    (define-key map "L" 'avy-goto-line)
+    map)
+  "Keymap for navigation in the editor.")
+
+(bind-key "M-g" rangi-navigation-map)
+
 ;; move where I meant
 (use-package mwim
   :load-path "site-lisp/mwim"
@@ -165,6 +177,13 @@
     (if (< mid cur) (set-window-hscroll (selected-window) (- cur mid)))))
 (bind-key "C-S-l" 'rangi-horizontal-recenter)
 
+
+;; jump between characters/words
+(use-package avy
+  :ensure t
+  :pin gnu
+  :config
+  (setq avy-background t))
 
 
 ;;;;;;;;;;;;;;;;;
@@ -237,7 +256,7 @@
   :init
   ;; save mc file in cache directory
   (setq-default mc/list-file (expand-file-name "mc-lists.el" rangi-emacs-cache-directory))
-  :bind-keymap (("C-c c" . rangi-mc-repeat-map))
+  :bind-keymap (("C-c e c" . rangi-mc-repeat-map))
   :bind
   (("s-<mouse-1>" . mc/add-cursor-on-click)
    (:repeat-map rangi-mc-repeat-map
@@ -250,39 +269,6 @@
 
 
 (provide 'init-editor)
-
-
-
-
-;; ;;
-;; ;; Navigation
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-
-
-;; ;; jump between characters/words
-;; (use-package avy
-;;   :config
-;;   (setq avy-background t)
-
-;;   ;; use this function to active jump
-;;   (defun rangi-active-cursor-jump (arg)
-;;     (interactive "p")
-;;     (message "Jump: (g): character (w): word (l): line (L): line in view")
-;;     (set-transient-map
-;;      (let ((map (make-sparse-keymap)))
-;;        (define-key map (kbd "g") 'avy-goto-char-timer)
-;;        (define-key map (kbd "w") 'avy-goto-word-or-subword-1)
-;;        (define-key map (kbd "l") 'goto-line)
-;;        (define-key map (kbd "L") 'avy-goto-line)
-;;        map)
-;;      t))
-
-;;   (bind-key "s-g" 'avy-goto-char-timer)
-;;   (bind-key "M-g c" 'avy-goto-char-timer)
-;;   (bind-key "s-G" 'rangi-active-cursor-jump))
-
 
 ;; ;; select marks
 ;; (defun marker-is-point-p (marker)
@@ -428,19 +414,6 @@
 ;;                        (inhibit-message t))
 ;;                    (recentf-save-list))))
 ;;   (recentf-mode 1))
-
-
-
-;; ;;
-;; ;; Snippets
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; (use-package yasnippet
-;;   :delight yas-minor-mode
-;;   :config
-;;   (use-package yasnippet-snippets)
-;;   (yas-global-mode 1))
 
 
 
