@@ -163,8 +163,13 @@
 
 
 ;; Mode for viewing Protobuf files
+;;
+;; Company mode is disabled in this mode currently, due to a bug that cause args-out-of-range
+;; error occasionally when company-mode trying to show tooltip. Since I don't know how to
+;; handle it, I just don't use it.
 (use-package protobuf-mode
   :load-path "site-lisp/protobuf-mode"
+  :hook (protobuf-mode . (lambda () (company-mode -1)))
   :mode ("\\.proto\\'" . protobuf-mode))
 
 
