@@ -24,6 +24,15 @@
   ;; auto pair
   (electric-pair-mode 1)
 
+  ;; zap
+  (bind-key "M-z" 'zap-up-to-char)
+  (bind-key "M-Z" 'zap-to-char)
+
+  ;; change case smartly
+  (bind-key "M-u" 'upcase-dwim)
+  (bind-key "M-l" 'downcase-dwim)
+  (bind-key "M-c" 'capitalize-dwim)
+
   ;; backward delete
   (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
   (define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
@@ -40,6 +49,21 @@
   :load-path "site-lisp/move-text"
   :config
   (move-text-default-bindings))
+
+
+;; transfer lines of string to array like data
+;; modified based on https://news.ycombinator.com/item?id=22131815
+(defun rangi-arrayify (start end quote)
+  "Turn strings on newlines into a QUOTEd, comma-separated one-liner."
+  (interactive "r\nMQuote: ")
+  (let ((insertion
+         (mapconcat
+          (lambda (x) (format "%s%s%s" quote x quote))
+          (split-string (buffer-substring start end) "\n" t "\s") ", ")))
+    (delete-region start end)
+    (insert insertion)))
+
+(global-set-key (kbd "C-c e a") 'rangi-arrayify)
 
 
 ;;;;;;;;;;;;
@@ -265,6 +289,7 @@
   :bind-keymap (("C-c e c" . rangi-mc-repeat-map))
   :bind
   (("s-<mouse-1>" . mc/add-cursor-on-click)
+   ("C-c e l" . mc/edit-lines)
    (:repeat-map rangi-mc-repeat-map
                 ("a" . mc/mark-all-dwim)
                 ("." . mc/mark-next-like-this)
@@ -306,85 +331,6 @@
 (provide 'init-editor)
 
 
-
-;; ;;
-;; ;; Editing actions
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; ;; zap
-;; (global-set-key (kbd "M-z") 'zap-up-to-char)
-;; (global-set-key (kbd "M-Z") 'zap-to-char)
-
-;; ;; comment smartly
-;; (global-set-key (kbd "C-/") 'comment-dwim)
-;; ;; always comment empty lines
-;; (setq comment-empty-lines t)
-
-;; ;; change case smartly
-;; (global-set-key (kbd "M-u") 'upcase-dwim)
-;; (global-set-key (kbd "M-l") 'downcase-dwim)
-;; (global-set-key (kbd "M-c") 'capitalize-dwim)
-
-;; ;; transfer lines of string to array like data
-;; ;; modified based on https://news.ycombinator.com/item?id=22131815
-;; (defun rangi-arrayify (start end quote)
-;;   "Turn strings on newlines into a QUOTEd, comma-separated one-liner."
-;;   (interactive "r\nMQuote: ")
-;;   (let ((insertion
-;;          (mapconcat
-;;           (lambda (x) (format "%s%s%s" quote x quote))
-;;           (split-string (buffer-substring start end) "\n" t "\s") ", ")))
-;;     (delete-region start end)
-;;     (insert insertion)))
-;; (global-set-key (kbd "C-c e a") 'rangi-arrayify)
-
-
-;; ;; regex replace with visual guide
-;; (use-package visual-regexp
-;;   :config
-;;   (bind-key "C-S-s-d" 'vr/mc-mark)
-;;   (bind-key "M-%" 'vr/query-replace)
-;;   (bind-key "s-r" 'vr/query-replace))
-
-
-;; (use-package regex-tool)
-
-
-;; (use-package transpose-mark
-;;   :bind (("M-T" . transpose-mark))
-;;   :config
-;;   (defun rangi-transpose-mark-abort-advice (fn &rest args)
-;;     (if (transpose-mark-region-overlay-active)
-;;         (transpose-mark-region-abort)
-;;       (apply fn args)))
-
-;;   (advice-add 'keyboard-quit :around #'rangi-transpose-mark-abort-advice))
-
-
-;; ;;
-;; ;; Recent files
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; (use-package recentf
-;;   :config
-;;   ;; put recentf file in designated cache directory
-;;   (setq recentf-save-file (expand-file-name "recentf" rangi-emacs-cache-directory))
-
-;;   ;; store 200 items
-;;   (setq recentf-max-menu-items 200)
-
-;;   ;; save recent files every 5 mins and do it silently, and don't display it
-;;   (run-at-time nil (* 5 60)
-;;                (lambda ()
-;;                  (let ((save-silently t)
-;;                        (inhibit-message t))
-;;                    (recentf-save-list))))
-;;   (recentf-mode 1))
-
-
-
 ;; ;;
 ;; ;; Spelling
 ;; ;; ----------------------------------------------------------------------------
@@ -409,21 +355,6 @@
 ;;   (add-hook 'prog-mode-hook (lambda () (flyspell-prog-mode)))
 ;;   ;; enable flyspell in text mode
 ;;   (add-hook 'text-mode-hook (lambda () (turn-on-flyspell))))
-
-
-
-;; ;;
-;; ;; Help
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; (use-package helpful
-;;   :bind (("<f1> f" . 'helpful-callable)
-;;          ("<f1> F" . 'helpful-function)
-;;          ("<f1> v" . 'helpful-variable)
-;;          ("<f1> k" . 'helpful-key)
-;;          ("<f1> C" . 'helpful-command)
-;;          ("C-c C-d" . 'helpful-at-point)))
 
 
 ;; ;;
