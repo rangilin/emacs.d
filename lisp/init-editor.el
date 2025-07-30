@@ -35,6 +35,12 @@
     (add-to-list 'default-frame-alist `(font . ,f))))
 
 
+;; move text
+(use-package move-text
+  :load-path "site-lisp/move-text"
+  :config
+  (move-text-default-bindings))
+
 
 ;;;;;;;;;;;;
 ;; Buffer ;;
@@ -367,10 +373,6 @@
 ;;     (insert insertion)))
 ;; (global-set-key (kbd "C-c e a") 'rangi-arrayify)
 
-;; ;; move text
-;; (use-package move-text
-;;   :config
-;;   (move-text-default-bindings))
 
 ;; ;; regex replace with visual guide
 ;; (use-package visual-regexp
