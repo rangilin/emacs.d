@@ -273,72 +273,38 @@
                 ("<" . mc/unmark-previous-like-this))))
 
 
+;;;;;;;;;;;;;;;;;
+;; Undo / Redo ;;
+;;;;;;;;;;;;;;;;;
+
+(use-package undo-tree
+  :diminish
+  :ensure t
+  :pin gnu
+  :config
+  ;; show time differences in visualizer
+  (setq undo-tree-visualizer-timestamps t)
+  ;; show diff between changes in visualizer
+  (setq undo-tree-visualizer-diff t)
+
+  ;; store undo histories
+  (setq undo-tree-auto-save-history t)
+  (let ((dir (expand-file-name "undo" rangi-emacs-cache-directory)))
+    (unless (file-exists-p dir) (make-directory dir))
+    (setq undo-tree-history-directory-alist `(("." . ,dir))))
+
+  ;; compress history files
+  (defadvice undo-tree-make-history-save-file-name
+      (after undo-tree activate)
+    (setq ad-return-value (concat ad-return-value ".gz")))
+
+  (global-undo-tree-mode))
+
+
+
 
 (provide 'init-editor)
 
-;; ;; select marks
-;; (defun marker-is-point-p (marker)
-;;   "test if marker is current point"
-;;   (and (eq (marker-buffer marker) (current-buffer))
-;;        (= (marker-position marker) (point))))
-
-;; (defun push-mark-maybe ()
-;;   "push mark onto `global-mark-ring' if mark head or tail is not current location"
-;;   (if (not global-mark-ring) (error "global-mark-ring empty")
-;;     (unless (or (marker-is-point-p (car global-mark-ring))
-;;                 (marker-is-point-p (car (reverse global-mark-ring))))
-;;       (push-mark))))
-
-;; (defun backward-global-mark ()
-;;   "use `pop-global-mark', pushing current point if not on ring."
-;;   (interactive)
-;;   (push-mark-maybe)
-;;   (when (marker-is-point-p (car global-mark-ring))
-;;     (call-interactively 'pop-global-mark))
-;;   (call-interactively 'pop-global-mark))
-
-;; (defun forward-global-mark ()
-;;   "hack `pop-global-mark' to go in reverse, pushing current point if not on ring."
-;;   (interactive)
-;;   (push-mark-maybe)
-;;   (setq global-mark-ring (nreverse global-mark-ring))
-;;   (when (marker-is-point-p (car global-mark-ring))
-;;     (call-interactively 'pop-global-mark))
-;;   (call-interactively 'pop-global-mark)
-;;   (setq global-mark-ring (nreverse global-mark-ring)))
-
-;; (global-set-key (kbd "s-<left>") 'backward-global-mark)
-;; (global-set-key (kbd "s-<right>") 'forward-global-mark)
-
-
-;; ;;
-;; ;; Undo & Redo
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; (use-package undo-tree
-;;   :delight
-;;   :config
-;;   ;; show time differences in visualizer
-;;   (setq undo-tree-visualizer-timestamps t)
-;;   ;; show diff between changes in visualizer
-;;   (setq undo-tree-visualizer-diff t)
-
-;;   ;; free up key for others
-;;   (unbind-key "C-/" undo-tree-map)
-
-;;   ;; store undo histories
-;;   (setq undo-tree-auto-save-history t)
-;;   (let ((dir (expand-file-name "undo" rangi-emacs-cache-directory)))
-;;     (unless (file-exists-p dir) (make-directory dir))
-;;     (setq undo-tree-history-directory-alist `(("." . ,dir))))
-
-;;   ;; compress history files
-;;   (defadvice undo-tree-make-history-save-file-name
-;;       (after undo-tree activate)
-;;     (setq ad-return-value (concat ad-return-value ".gz")))
-
-;;   (global-undo-tree-mode))
 
 
 ;; ;;
