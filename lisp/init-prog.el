@@ -162,6 +162,11 @@
   (setq web-mode-enable-current-element-highlight t))
 
 
+;; Mode for viewing Protobuf files
+(use-package protobuf-mode
+  :load-path "site-lisp/protobuf-mode"
+  :mode ("\\.proto\\'" . protobuf-mode))
+
 
 
 (provide 'init-prog)
