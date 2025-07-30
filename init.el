@@ -44,7 +44,6 @@
   :diminish 'gcmh-mode
   :load-path "site-lisp/gcmh"
   :config
-  (setq gcmh-high-cons-threshold (* 128 1024 1024))
   (gcmh-mode))
 
 
