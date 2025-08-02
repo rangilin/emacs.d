@@ -190,8 +190,8 @@
 ;; move where I meant
 (use-package mwim
   :load-path "site-lisp/mwim"
-  :bind (("C-a" . mwim-beginning-of-code-or-line)
-	 ("C-e" . mwim-end-of-code-or-line)))
+  :bind (("C-a" . mwim-beginning)
+         ("C-e" . mwim-end)))
 
 ;; move cursor to top or bottom of the buffer when it cannot be scrolled anymore
 (setq scroll-error-top-bottom t)
