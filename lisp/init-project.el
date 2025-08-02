@@ -1,6 +1,10 @@
 ;;; init-project.el --- Project management related configuration -*- lexical-binding: t; no-byte-compile: t -*-
 (use-package project
-  :bind (("C-x p v" . rangi-project-vc-dir))
+  :bind-keymap ("s-p" . project-prefix-map)
+  :bind (
+         :map project-prefix-map
+         ("C" . project-recompile)
+         ("v" . rangi-project-vc-dir))
   :config
   ;; use ibuffer when list project buffers
   (setq project-buffers-viewer 'project-list-buffers-ibuffer)

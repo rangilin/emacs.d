@@ -62,6 +62,17 @@
 
 
 
+;;;;;;;;;;;;;
+;; Compile ;;
+;;;;;;;;;;;;;
+
+(use-package compile
+  :config
+  ;; make compilation buffer scroll to the bottom automatically
+  (setq compilation-scroll-output t))
+
+
+
 ;;;;;;;;;
 ;; LSP ;;
 ;;;;;;;;;
