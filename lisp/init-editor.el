@@ -38,6 +38,11 @@
   (define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
   (bind-key "C-M-h" 'backward-kill-word)
 
+  ;; make emacs always display text from left to right instead of scanning it when render text
+  (setq bidi-paragraph-direction 'left-to-right)
+  ;; handle long line automatically
+  (global-so-long-mode 1)
+
   ;; fonts
   (let ((f "M PLUS 1 Code 16"))
     (set-frame-font f nil)
