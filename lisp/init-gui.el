@@ -146,21 +146,6 @@
 
 
 
-;;;;;;;;;;;;;;;
-;; Highlight ;;
-;;;;;;;;;;;;;;;
-
-;; highlight current line, use lin to improve it in different UI
-(use-package lin
-  :ensure t
-  :pin gnu
-  :init
-  (global-hl-line-mode)
-  :config
-  (lin-global-mode 1))
-
-
-
 ;;;;;;;;;;;;
 ;; Window ;;
 ;;;;;;;;;;;;
