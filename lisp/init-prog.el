@@ -130,7 +130,25 @@
   :ensure t
   :pin gnu
   :config
-  (yas-global-mode 1))
+  (yas-global-mode 1)
+
+  ;; make yasnippet work with company with eglot
+  (with-eval-after-load 'eglot
+    (add-hook 'eglot-managed-mode-hook
+              (lambda ()
+                (add-to-list 'company-backends
+                             '(company-capf :with company-yasnippet)))))
+
+  ;; append yasnippet to exist company backends
+  (with-eval-after-load 'company
+    (defun rangi-yasnippet-to-company-backends (backend)
+      "Add company-yasnippet to existing company backends"
+      (if
+          (and (listp backend) (member 'company-yasnippet backend))
+          backend
+        (append (if (consp backend) backend (list backend))
+                '(:with company-yasnippet))))
+    (setq company-backends (mapcar #'rangi-yasnippet-to-company-backends company-backends))))
 
 
 
@@ -182,6 +200,7 @@
   :load-path "site-lisp/protobuf-mode"
   :hook (protobuf-mode . (lambda () (company-mode -1)))
   :mode ("\\.proto\\'" . protobuf-mode))
+
 
 
 
