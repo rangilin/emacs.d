@@ -85,18 +85,20 @@
 (setq custom-file (expand-file-name "custom.el" rangi-emacs-cache-directory))
 (when (file-exists-p custom-file) (load custom-file))
 
-;; load the rest of the configurations
+;; add configuration files to load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
+;; load this first
+(require 'init-keybind)
+
+;; load the rest of the configurations
 (require 'init-editor)
 (require 'init-file)
 (require 'init-gui)
-(require 'init-macos)
 (require 'init-misc)
 (require 'init-prog)
 (require 'init-project)
 (require 'init-org)
-
 
 
 ;; ;; some libraries used in the configurations

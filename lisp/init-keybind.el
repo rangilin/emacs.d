@@ -1,0 +1,36 @@
+;;; init-keybind.el --- Keybinds stuff -*- lexical-binding: t -*-
+;;; This configuration used for unbind default keys and set up related stuff.
+
+(unbind-key "C-z")
+(unbind-key "C-x C-z")
+(unbind-key "s-," global-map)
+(unbind-key "s-?" global-map)
+(unbind-key "s-^" global-map)
+(unbind-key "s-&" global-map)
+(unbind-key "s-C" global-map)
+(unbind-key "s-E" global-map)
+(unbind-key "s-L" global-map)
+(unbind-key "s-M" global-map)
+(unbind-key "s-S" global-map)
+(unbind-key "s-d" global-map)
+(unbind-key "s-e" global-map)
+(unbind-key "s-g" global-map)
+(unbind-key "s-H" global-map)
+(unbind-key "M-s-h" global-map)
+(unbind-key "s-j" global-map)
+(unbind-key "s-l" global-map)
+(unbind-key "s-o" global-map)
+(unbind-key "s-p" global-map)
+(unbind-key "s-t" global-map)
+(unbind-key "s-u" global-map)
+(unbind-key "s-y" global-map)
+(unbind-key "s-+" global-map)
+(unbind-key "s-=" global-map)
+(unbind-key "s--" global-map)
+(unbind-key "s-0" global-map)
+(unbind-key "s-right" global-map)
+(unbind-key "s-left" global-map)
+
+
+
+(provide 'init-keybind)

@@ -31,10 +31,6 @@
   ;; no icon on title
   (setq ns-use-proxy-icon nil)
 
-  ;; unbind keys
-  (unbind-key "C-z") ; suspend frame
-  (unbind-key "s-p") ; print buffer
-
   ;; confirm before quit
   (setq confirm-kill-emacs 'y-or-n-p)
   ;; force ask y/n instead of yes/no
@@ -54,6 +50,22 @@
   (setq inhibit-startup-message t)
   (setq inhibit-startup-echo-area-message nil)
   (setq inhibit-startup-screen t))
+
+
+;;;;;;;;;;;
+;; MacOS ;;
+;;;;;;;;;;;
+
+;; set command keys as `super'
+(setq mac-command-modifier 'super)
+(setq mac-right-command-modifier 'super)
+
+;; set option keys as `meta'
+(setq mac-option-modifier 'meta)
+(setq mac-right-option-modifier 'meta)
+
+;; use `mdfind' on MacOS instead of `locate'
+(setq-default locate-command "mdfind")
 
 
 
