@@ -28,8 +28,8 @@
 (unbind-key "s-=" global-map)
 (unbind-key "s--" global-map)
 (unbind-key "s-0" global-map)
-(unbind-key "s-right" global-map)
-(unbind-key "s-left" global-map)
+(unbind-key "s-<right>" global-map)
+(unbind-key "s-<left>" global-map)
 
 
 

@@ -22,6 +22,9 @@
   (column-number-mode -1)
   (line-number-mode -1)
 
+  ;; default frame is maximized
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
   ;; show buffer name and size on frame title
   (setq frame-title-format '("%b (%I)"))
 
