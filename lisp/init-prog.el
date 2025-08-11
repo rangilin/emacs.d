@@ -80,6 +80,7 @@
 (use-package eglot
   :bind (:map eglot-mode-map
               ("C-c l a" . eglot-code-actions)
+              ("M-<return>" . eglot-code-actions)
 	            ("C-c l f" . eglot-format)
 	            ("C-c l h" . eldoc)
 	            ("C-c l r" . eglot-rename))
