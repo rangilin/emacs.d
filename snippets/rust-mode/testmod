@@ -7,7 +7,7 @@ mod ${1:tests} {
     use super::*;
 
     #[test]
-    fn ${2:test_name}() {
+    fn test_${2:name}() {
         $0
     }
 }
