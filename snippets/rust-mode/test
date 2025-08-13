@@ -3,6 +3,6 @@
 # key: test
 # --
 #[test]
-fn test_${1:name}() {
+fn test_${1:name}()$2 {
     $0
 }
