@@ -44,7 +44,9 @@
   (global-so-long-mode 1)
 
   ;; fonts
-  (let ((f "M PLUS 1 Code 16"))
+  ;; Mono: "Berkeley Mono 14"
+  ;; CJK Mono: "M PLUS 1 Code 16"
+  (let ((f "Berkeley Mono 14"))
     (set-frame-font f nil)
     (add-to-list 'default-frame-alist `(font . ,f))))
 
