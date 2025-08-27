@@ -19,6 +19,8 @@
 (setq org-enforce-todo-dependencies t)
 (setq org-enforce-todo-checkbox-dependencies t)
 
+;; don't insert empty line when creating new-entry
+(setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
 
 
 (provide 'init-org)
