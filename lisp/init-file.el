@@ -1,5 +1,13 @@
 ;;; init-file.el --- File related configurations -*- lexical-binding: t -*-
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Miscellaneous file settings ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; move file to trash when deleted
+(setq-default delete-by-moving-to-trash t)
+
+
 ;;;;;;;;;;;
 ;; Dired ;;
 ;;;;;;;;;;;
@@ -12,6 +20,9 @@
   (put 'dired-find-alternate-file 'disabled nil)
   ;; only ask for top-level directories when delete recursively
   (setq dired-recursive-deletes 'top)
+  ;; always yes
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
   ;; smart target
   (setq dired-dwim-target t))
 
