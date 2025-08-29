@@ -76,48 +76,19 @@
 ;; Theme ;;
 ;;;;;;;;;;;
 
-(use-package emacs
-  :bind (("C-c t t" . modus-themes-toggle))
+(use-package ef-themes
+  :load-path "site-lisp/ef-themes"
   :config
-  (require-theme 'modus-themes)
 
-  ;; toggle between tinted version of theme
-  (setq modus-themes-to-toggle '(modus-operandi-tinted modus-vivendi-tinted))
-
-  ;; my customizations
-  (defun rangi-modus-themes-custom-faces (&rest _)
-    (modus-themes-with-colors
+  (defun rangi-ef-themes-custom-faces (&rest _)
+    (ef-themes-with-colors
       (custom-set-faces
-       `(mode-line ((,c :box (:line-width 5 :color ,bg-mode-line-active))))
-       `(mode-line-inactive ((,c :box (:line-width 5 :color ,bg-mode-line-inactive)))))))
+       `(mode-line ((,c :box (:line-width 5 :color ,(face-background 'mode-line)))))
+       `(mode-line-inactive ((,c :box (:line-width 5 :color ,(face-background 'mode-line-inactive))))))))
 
-  ;; update theme faces after theme loaded
-  (add-hook 'modus-themes-after-load-theme-hook #'rangi-modus-themes-custom-faces)
+  (add-hook 'ef-themes-after-load-theme-hook #'rangi-ef-themes-custom-faces)
 
-
-  ;; load theme according to certain criteria
-  (defun rangi-load-theme-accordingly ()
-    (if (fboundp 'mac-application-state)
-	      (rangi-load-theme-according-to-macos)
-      (rangi-load-theme-according-to-time)))
-
-  (defun rangi-load-theme-according-to-macos ()
-    (let ((appearance (plist-get (mac-application-state) :appearance)))
-      (if (string-equal appearance "NSAppearanceNameDarkAqua")
-          (modus-themes-load-theme 'modus-vivendi-tinted)
-	      (modus-themes-load-theme 'modus-operandi-tinted))))
-
-  (defun rangi-load-theme-according-to-time ()
-    (let ((hour (string-to-number (format-time-string "%H"))))
-      (if (and (>= hour 8) (<= hour 18))
-	        (modus-themes-load-theme 'modus-operandi-tinted)
-	      (modus-themes-load-theme 'modus-vivendi-tinted))))
-
-  ;; load theme when macos change appearance, if available
-  (when (fboundp 'mac-effective-appearance-change-hook)
-    (add-hook 'mac-effective-appearance-change-hook #'rangi-load-theme-accordingly))
-
-  (rangi-load-theme-accordingly))
+  (ef-themes-select 'ef-autumn))
 
 
 
