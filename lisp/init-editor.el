@@ -44,11 +44,11 @@
   (global-so-long-mode 1)
 
   ;; fonts
-  ;; Mono: "Berkeley Mono 14"
-  ;; CJK Mono: "M PLUS 1 Code 16"
-  (let ((f "Berkeley Mono 14"))
-    (set-frame-font f nil)
-    (add-to-list 'default-frame-alist `(font . ,f))))
+  (let ((mono-spaced-font "Berkeley Mono")
+        (proportionately-spaced-font "Noto Sans CJK TC"))
+    (set-face-attribute 'default nil :family mono-spaced-font :height 140)
+    (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.4)
+    (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.1)))
 
 
 ;; move text
