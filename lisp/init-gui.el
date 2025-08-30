@@ -78,8 +78,9 @@
 
 (use-package ef-themes
   :load-path "site-lisp/ef-themes"
+  :bind (("C-c t t" . ef-themes-toggle))
   :config
-
+  (setq ef-themes-to-toggle '(ef-elea-light ef-elea-dark))
   (defun rangi-ef-themes-custom-faces (&rest _)
     (ef-themes-with-colors
       (custom-set-faces
