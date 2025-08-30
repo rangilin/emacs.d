@@ -1,5 +1,4 @@
-;;; init-func.el --- reusable functions
-
+;;; init-func.el --- reusable functions -*- lexical-binding: t -*-
 (require 'thingatpt)
 
 (defun rangi-text-at-point ()
