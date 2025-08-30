@@ -61,4 +61,27 @@
   (recentf-mode 1))
 
 
+
+;;;;;;;;;;;;
+;; Denote ;;
+;;;;;;;;;;;;
+
+(use-package denote
+  :pin gnu
+  :ensure t
+  :hook ((dired-mode . denote-dired-mode)
+         (text-mode . denote-fontify-links-mode-maybe))
+  :bind
+  (("C-c n n" . denote)
+   ("C-c n r" . denote-rename-file)
+   ("C-c n l" . denote-link)
+   ("C-c n b" . denote-backlinks)
+   ("C-c n d" . denote-dired)
+   ("C-c n g" . denote-grep))
+  :config
+  (setq denote-directory (expand-file-name "~/Documents/notes/"))
+  (denote-rename-buffer-mode 1))
+
+
+
 (provide 'init-file)
