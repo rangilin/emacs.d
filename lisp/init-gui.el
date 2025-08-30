@@ -80,7 +80,7 @@
   :load-path "site-lisp/ef-themes"
   :bind (("C-c t t" . ef-themes-toggle))
   :config
-  (setq ef-themes-to-toggle '(ef-elea-light ef-elea-dark))
+  (setq ef-themes-to-toggle '(ef-reverie ef-dream))
   (defun rangi-ef-themes-custom-faces (&rest _)
     (ef-themes-with-colors
       (custom-set-faces
@@ -89,7 +89,7 @@
 
   (add-hook 'ef-themes-after-load-theme-hook #'rangi-ef-themes-custom-faces)
 
-  (ef-themes-select 'ef-autumn))
+  (ef-themes-select 'ef-reverie))
 
 
 
