@@ -4,62 +4,60 @@
 ;; Miscellaneous editor settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package emacs
-  :config
+;; enable subword
+(global-subword-mode)
+(diminish 'subword-mode)
 
-  ;; enable subword
-  (global-subword-mode)
-  (diminish 'subword-mode)
+;; delete selection
+(delete-selection-mode)
 
-  ;; delete selection
-  (delete-selection-mode)
+;; add newline at EOF
+(setq require-final-newline t)
 
-  ;; add newline at EOF
-  (setq require-final-newline t)
-  ;; delete trailing whitespace on save
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
-  ;; hide trailing whiespace in minibuffer when inactive
-  (add-hook 'minibuffer-inactive-mode-hook
-            (lambda () (setq show-trailing-whitespace nil)))
+;; delete trailing whitespace on save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-  ;; auto pair
-  (electric-pair-mode 1)
+;; hide trailing whiespace in minibuffer when inactive
+(add-hook 'minibuffer-inactive-mode-hook
+          (lambda () (setq show-trailing-whitespace nil)))
 
-  ;; zap
-  (bind-key "M-z" 'zap-up-to-char)
-  (bind-key "M-Z" 'zap-to-char)
+;; auto pair
+(electric-pair-mode 1)
 
-  ;; change case smartly
-  (bind-key "M-u" 'upcase-dwim)
-  (bind-key "M-l" 'downcase-dwim)
-  (bind-key "M-c" 'capitalize-dwim)
+;; zap
+(bind-key "M-z" 'zap-up-to-char)
+(bind-key "M-Z" 'zap-to-char)
 
-  ;; backward delete
-  (define-key key-translation-map (kbd "C-h") (kbd "DEL"))
-  (define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
-  (bind-key "C-M-h" 'backward-kill-word)
+;; change case smartly
+(bind-key "M-u" 'upcase-dwim)
+(bind-key "M-l" 'downcase-dwim)
+(bind-key "M-c" 'capitalize-dwim)
 
-  ;; duplicate
-  (setq duplicate-line-final-position -1)
-  (setq duplicate-region-final-position -1)
-  (bind-key "M-D" 'duplicate-dwim)
+;; backward delete
+(define-key key-translation-map (kbd "C-h") (kbd "DEL"))
+(define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
+(bind-key "C-M-h" 'backward-kill-word)
 
-  ;; always render text from left to right, no scan
-  (setq bidi-paragraph-direction 'left-to-right)
-  ;; handle long line automatically
-  (global-so-long-mode 1)
+;; duplicate
+(setq duplicate-line-final-position -1)
+(setq duplicate-region-final-position -1)
+(bind-key "M-D" 'duplicate-dwim)
 
-  ;; enable set goal column
-  (put 'set-goal-column 'disabled nil)
+;; always render text from left to right, no scan
+(setq bidi-paragraph-direction 'left-to-right)
+;; handle long line automatically
+(global-so-long-mode 1)
 
-  ;; fonts
-  (let ((mono-spaced-font "Berkeley Mono")
-        (proportionately-spaced-font "Noto Sans CJK TC"))
-    (set-face-attribute 'default nil :family mono-spaced-font :height 140)
-    (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.4)
-    (set-face-attribute 'variable-pitch nil
-                        :family proportionately-spaced-font :height 1.1)))
+;; enable set goal column
+(put 'set-goal-column 'disabled nil)
 
+;; fonts
+(let ((mono-spaced-font "Berkeley Mono")
+      (proportionately-spaced-font "Noto Sans CJK TC"))
+  (set-face-attribute 'default nil :family mono-spaced-font :height 140)
+  (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.4)
+  (set-face-attribute 'variable-pitch nil
+                      :family proportionately-spaced-font :height 1.1))
 
 ;; move text
 (use-package move-text
@@ -332,6 +330,7 @@
                 ("<" . mc/unmark-previous-like-this))))
 
 
+
 ;;;;;;;;;;;;;;;;;
 ;; Undo / Redo ;;
 ;;;;;;;;;;;;;;;;;
@@ -361,65 +360,33 @@
 
 
 
+;;;;;;;;;;;;;;
+;; Spelling ;;
+;;;;;;;;;;;;;;
+
+
+(use-package ispell
+  :config
+  (setq ispell-program-name "aspell")
+  (setq ispell-personal-dictionary "~/Documents/misc/aspell-dictionaries/aspell.en_US.pws")
+  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
+
+
+(use-package flyspell
+  :diminish flyspell-mode
+  :config
+  ;; only check edited text
+  (setq flyspell-check-changes t)
+  ;; no show messages
+  (setq flyspell-issue-message-flag nil)
+  (setq flyspell-issue-welcome-flag nil)
+
+  ;; enable flyspell-prog-mode in all prog-modes test
+  (add-hook 'prog-mode-hook (lambda () (flyspell-prog-mode)))
+  ;; enable flyspell in text mode
+  (add-hook 'text-mode-hook (lambda () (turn-on-flyspell))))
+
+
+
 
 (provide 'init-editor)
-
-
-;; ;;
-;; ;; Spelling
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; ;; use aspell as ispell's program
-;; (use-package ispell
-;;   :config
-;;   (setq ispell-program-name "aspell")
-;;   (setq ispell-personal-dictionary "~/Documents/aspell-dictionaries/aspell.en_US.pws")
-;;   (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
-
-
-;; ;; on-the-fly spell checking
-;; (use-package flyspell
-;;   :delight flyspell-mode
-;;   :init
-;;   (setq-default flyspell-issue-message-flag nil)
-;;   (setq-default flyspell-issue-welcome-flag nil)
-
-;;   ;; enable flyspell-prog-mode in all prog-modes
-;;   (add-hook 'prog-mode-hook (lambda () (flyspell-prog-mode)))
-;;   ;; enable flyspell in text mode
-;;   (add-hook 'text-mode-hook (lambda () (turn-on-flyspell))))
-
-
-;; ;;
-;; ;; sudo edit
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; (use-package sudo-edit
-;;   :ensure t
-;;   :bind (:map ctl-x-map
-;;               ("M-s" . sudo-edit)))
-
-
-;; (provide 'init-editor)
-
-
-;; ;;
-;; ;; better keyboard quit
-;; ;; ----------------------------------------------------------------------------
-;; ;;
-
-;; ;; https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration/#h:1e468b2a-9bee-4571-8454-e3f5462d9321
-
-;; (defun rangi-keyboard-quit-dwim ()
-;;   (interactive)
-;;   (cond ((region-active-p)
-;;          (keyboard-quit))
-;;         ((derived-mode-p 'completion-list-mode)
-;;          (delete-completion-window))
-;;         ((> (minibuffer-depth) 0)
-;;          (abort-recursive-edit))
-;;         (t (keyboard-quit))))
-
-;; (bind-key "C-g" 'rangi-keyboard-quit-dwim)
