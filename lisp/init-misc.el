@@ -29,48 +29,36 @@
          ("\\.ansible-lint\\'" . yaml-mode)))
 
 
+;; MacOS
+(setq mac-command-modifier 'super)
+(setq mac-right-command-modifier 'super)
+(setq mac-option-modifier 'meta)
+(setq mac-right-option-modifier 'meta)
+(setq-default locate-command "mdfind")
+
+
+;; URL
+(defun rangi-browse-duckduckgo ()
+  (interactive)
+  (rangi-browse-url "Search DuckDuckGo: " "https://duckduckgo.com/?q=%s"))
+
+(defun rangi-open-dictionary ()
+  (interactive)
+  (rangi-open-url "Search Dictionary: " "dict://%s"))
+
+(bind-key "C-c o o" 'browse-url-at-point)
+(bind-key "C-c o <mouse-1>" 'browse-url-at-mouse)
+(bind-key "C-c o s" 'rangi-browse-duckduckgo)
+(bind-key "C-c o d" 'rangi-open-dictionary)
+
+
+;; csv mode
+(use-package csv-mode
+  :pin gnu
+  :ensure t
+  :mode "\\.csv\\'"
+  :config
+  (setq csv-separators '("," ";" "|" " " "\t")))
+
+
 (provide 'init-misc)
-
-;; ;; show hotkey when input incomplete command
-;; (use-package which-key
-;;   :delight
-;;   :config
-;;   (setq which-key-side-window-max-width 0.5)
-;;   (setq which-key-max-description-length 50)
-;;   (setq which-key-show-early-on-C-h t)
-;;   (setq which-key-idle-delay 3600)
-;;   (setq which-key-idle-secondary-delay 0.05)
-;;   (which-key-setup-side-window-bottom)
-;;   (which-key-mode))
-
-
-;; ;; control Emacs program
-;; (defun rangi-new-emacs (&optional prefix)
-;;   "Create a new Emacs instance, mostly for testing purpose"
-;;   (interactive "p")
-;;   (let ((name "Emacs")
-;;         (command "emacs")
-;;         (arg (cond ((equal prefix 4) "--debug-init")
-;;                    ((equal prefix 16) "-Q")
-;;                    (t nil))))
-;;     (if arg
-;;         (start-process name nil (executable-find command) arg)
-;;       (start-process name nil (executable-find command)))))
-
-;; (global-set-key (kbd "C-c e n") 'rangi-new-emacs)
-;; (global-set-key (kbd "C-c e r") 'restart-emacs)
-
-
-
-;; ;; csv mode
-;; (use-package csv-mode
-;;   :mode "\\.csv\\'"
-;;   :config
-;;   (setq csv-separators '("," ";" "|" " " "\t")))
-
-;; (use-package ag
-;;   :bind (("C-c s s" . counsel-ag) ; use counsel for better ux
-;;          ("C-c s S" . ag)
-;;          ("C-c s f" . ag-dired))
-;;   :config
-;;   (setq ag-highlight-search t))
