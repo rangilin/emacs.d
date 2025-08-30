@@ -1,6 +1,6 @@
 ;;; init.el --- Emacs initialization file -*- lexical-binding: t; no-byte-compile: t -*-
 
-;; TODO: fix recompiling https://emacs.stackexchange.com/questions/82010/why-is-emacs-recompiling-some-packages-on-every-startup
+;; Tasks:
 
 ;;;;;;;;;;;;;;;
 ;; Bootstrap ;;
@@ -46,18 +46,17 @@
   :config
   (gcmh-mode))
 
+;; read from sub-process in larger chunk
+(setq read-process-output-max (* 4 1024 1024))
 
-;; some miscellaneous stuff
-(use-package emacs
-  :config
-  ;; read from sub-process in larger chunk
-  (setq read-process-output-max (* 4 1024 1024))
-  ;; no delay when reading from sub-process
-  (setq process-adaptive-read-buffering nil)
-  ;; defer fontification until input is stopped
-  (setq jit-lock-defer-time 0)
-  ;; fast scroll
-  (setq fast-but-imprecise-scrolling t))
+;; no delay when reading from sub-process
+(setq process-adaptive-read-buffering nil)
+
+;; defer fontification until input is stopped
+(setq jit-lock-defer-time 0)
+
+;; fast scroll
+(setq fast-but-imprecise-scrolling t)
 
 
 
