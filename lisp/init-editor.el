@@ -81,21 +81,6 @@
 (global-set-key (kbd "C-c e a") 'rangi-arrayify)
 
 
-;; better (keyboard-quit)
-;; https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration/#h:1e468b2a-9bee-4571-8454-e3f5462d9321
-(defun rangi-keyboard-quit-dwim ()
-  (interactive)
-  (cond ((region-active-p)
-         (keyboard-quit))
-        ((derived-mode-p 'completion-list-mode)
-         (delete-completion-window))
-        ((> (minibuffer-depth) 0)
-         (abort-recursive-edit))
-        (t
-         (keyboard-quit))))
-
-(bind-key "C-g" 'rangi-keyboard-quit-dwim)
-
 
 
 ;;;;;;;;;;;;
@@ -158,48 +143,6 @@
   (message "buffer is refreshed"))
 
 (bind-key "C-c b r" 'rangi-refresh-buffer)
-
-
-
-;;;;;;;;;;;;;;;
-;; Auto Save ;;
-;;;;;;;;;;;;;;;
-
-;; prevent `auto-save-list' empty dir created
-(setq auto-save-list-file-prefix nil)
-
-;; set up autosave directory
-(setq rangi-auto-save-directory (expand-file-name "auto-save" rangi-emacs-cache-directory))
-(unless (file-exists-p rangi-auto-save-directory)
-  (make-directory rangi-auto-save-directory))
-
-;; put auto save files in to autosave dir
-(setq auto-save-file-name-transforms `((".*" ,rangi-auto-save-directory t)))
-
-
-
-;;;;;;;;;;;;
-;; Backup ;;
-;;;;;;;;;;;;
-
-;; set up backup directory
-(setq rangi-backup-directory (expand-file-name "backup" rangi-emacs-cache-directory))
-(unless (file-exists-p rangi-backup-directory)
-  (make-directory rangi-backup-directory))
-
-;; put backup files into backup directory
-(setq backup-directory-alist `((".*" . ,rangi-backup-directory)))
-
-;; use copy to backup files
-(setq backup-by-copying t)
-;; number version backup files
-(setq version-control t)
-;; kept no old backups
-(setq kept-old-versions 0)
-;; kept at most this many backups
-(setq kept-new-versions 5)
-;; delete old version of backup automatically
-(setq delete-old-versions t)
 
 
 

@@ -4,71 +4,72 @@
 ;; Miscellaneous GUI settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package emacs
-  :bind (("s-=" . rangi-what-line-column))
-  :config
-  ;; show lines and columns on demand
-  (defun rangi-what-line-column ()
-    (interactive)
-    (let ((l (line-number-at-pos))
-	        (c (current-column)))
-      (message "Line: %d, Column: %d" l c)))
+;; show lines and columns on demand
+(defun rangi-what-line-column ()
+  (interactive)
+  (let ((l (line-number-at-pos))
+	      (c (current-column)))
+    (message "Line: %d, Column: %d" l c)))
 
-  ;; turn off these
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
-  (scroll-bar-mode -1)
-  (blink-cursor-mode -1)
-  (column-number-mode -1)
-  (line-number-mode -1)
-
-  ;; default frame is maximized
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-  ;; show buffer name and size on frame title
-  (setq frame-title-format '("%b (%I)"))
-
-  ;; show keystrokes right away
-  (setq echo-keystrokes 0.1)
-
-  ;; no icon on title
-  (setq ns-use-proxy-icon nil)
-
-  ;; confirm before quit
-  (setq confirm-kill-emacs 'y-or-n-p)
-  ;; force ask y/n instead of yes/no
-  (fset 'yes-or-no-p 'y-or-n-p)
-
-  ;; select help window automatically, so it is easier to close it with `q`
-  (setq help-window-select t)
-
-  ;; make initial scratch buffer empty
-  (setq initial-scratch-message nil)
-
-  ;; make emacs resize UI by pixel
-  (setq window-resize-pixelwise t)
-  (setq frame-resize-pixelwise t)
-
-  ;; show no stuff on startup
-  (setq inhibit-startup-message t)
-  (setq inhibit-startup-echo-area-message nil)
-  (setq inhibit-startup-screen t))
+(bind-key "s-=" 'rangi-what-line-column)
 
 
-;;;;;;;;;;;
-;; MacOS ;;
-;;;;;;;;;;;
+;; turn off these
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(scroll-bar-mode -1)
+(blink-cursor-mode -1)
+(column-number-mode -1)
+(line-number-mode -1)
 
-;; set command keys as `super'
-(setq mac-command-modifier 'super)
-(setq mac-right-command-modifier 'super)
+;; default frame is maximized
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; set option keys as `meta'
-(setq mac-option-modifier 'meta)
-(setq mac-right-option-modifier 'meta)
+;; show buffer name and size on frame title
+(setq frame-title-format '("%b (%I)"))
 
-;; use `mdfind' on MacOS instead of `locate'
-(setq-default locate-command "mdfind")
+;; show keystrokes right away
+(setq echo-keystrokes 0.1)
+
+;; no icon on title
+(setq ns-use-proxy-icon nil)
+
+;; confirm before quit
+(setq confirm-kill-emacs 'y-or-n-p)
+
+;; force ask y/n instead of yes/no
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; select help window automatically, so it is easier to close it with `q`
+(setq help-window-select t)
+
+;; make initial scratch buffer empty
+(setq initial-scratch-message nil)
+
+;; make emacs resize UI by pixel
+(setq window-resize-pixelwise t)
+(setq frame-resize-pixelwise t)
+
+;; show no stuff on startup
+(setq inhibit-startup-message t)
+(setq inhibit-startup-echo-area-message nil)
+(setq inhibit-startup-screen t)
+
+
+;; better (keyboard-quit)
+;; https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration/#h:1e468b2a-9bee-4571-8454-e3f5462d9321
+(defun rangi-keyboard-quit-dwim ()
+  (interactive)
+  (cond ((region-active-p)
+         (keyboard-quit))
+        ((derived-mode-p 'completion-list-mode)
+         (delete-completion-window))
+        ((> (minibuffer-depth) 0)
+         (abort-recursive-edit))
+        (t
+         (keyboard-quit))))
+
+(bind-key "C-g" 'rangi-keyboard-quit-dwim)
 
 
 
@@ -78,6 +79,7 @@
 
 (use-package ef-themes
   :load-path "site-lisp/ef-themes"
+  :demand t
   :bind (("C-c t t" . ef-themes-toggle))
   :config
   (setq ef-themes-to-toggle '(ef-reverie ef-dream))
@@ -88,7 +90,6 @@
        `(mode-line-inactive ((,c :box (:line-width 5 :color ,(face-background 'mode-line-inactive))))))))
 
   (add-hook 'ef-themes-after-load-theme-hook #'rangi-ef-themes-custom-faces)
-
   (ef-themes-select 'ef-reverie))
 
 

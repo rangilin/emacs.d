@@ -8,6 +8,49 @@
 (setq-default delete-by-moving-to-trash t)
 
 
+
+;;;;;;;;;;;;;;;
+;; Auto Save ;;
+;;;;;;;;;;;;;;;
+
+;; prevent `auto-save-list' empty dir created
+(setq auto-save-list-file-prefix nil)
+
+;; set up autosave directory
+(setq rangi-auto-save-directory (expand-file-name "auto-save" rangi-emacs-cache-directory))
+(unless (file-exists-p rangi-auto-save-directory)
+  (make-directory rangi-auto-save-directory))
+
+;; put auto save files in to autosave dir
+(setq auto-save-file-name-transforms `((".*" ,rangi-auto-save-directory t)))
+
+
+
+;;;;;;;;;;;;
+;; Backup ;;
+;;;;;;;;;;;;
+
+;; set up backup directory
+(setq rangi-backup-directory (expand-file-name "backup" rangi-emacs-cache-directory))
+(unless (file-exists-p rangi-backup-directory)
+  (make-directory rangi-backup-directory))
+
+;; put backup files into backup directory
+(setq backup-directory-alist `((".*" . ,rangi-backup-directory)))
+
+;; use copy to backup files
+(setq backup-by-copying t)
+;; number version backup files
+(setq version-control t)
+;; kept no old backups
+(setq kept-old-versions 0)
+;; kept at most this many backups
+(setq kept-new-versions 5)
+;; delete old version of backup automatically
+(setq delete-old-versions t)
+
+
+
 ;;;;;;;;;;;
 ;; Dired ;;
 ;;;;;;;;;;;
