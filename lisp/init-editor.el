@@ -49,6 +49,9 @@
   ;; handle long line automatically
   (global-so-long-mode 1)
 
+  ;; enable set goal column
+  (put 'set-goal-column 'disabled nil)
+
   ;; fonts
   (let ((mono-spaced-font "Berkeley Mono")
         (proportionately-spaced-font "Noto Sans CJK TC"))
