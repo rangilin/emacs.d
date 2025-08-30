@@ -87,8 +87,9 @@
 ;; add configuration files to load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-;; load this first
+;; load these first
 (require 'init-keybind)
+(require 'init-func)
 
 ;; load the rest of the configurations
 (require 'init-editor)
