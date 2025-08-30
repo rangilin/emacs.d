@@ -19,7 +19,8 @@
   ;; delete trailing whitespace on save
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   ;; hide trailing whiespace in minibuffer when inactive
-  (add-hook 'minibuffer-inactive-mode-hook (lambda () (setq show-trailing-whitespace nil)))
+  (add-hook 'minibuffer-inactive-mode-hook
+            (lambda () (setq show-trailing-whitespace nil)))
 
   ;; auto pair
   (electric-pair-mode 1)
@@ -38,7 +39,12 @@
   (define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
   (bind-key "C-M-h" 'backward-kill-word)
 
-  ;; make emacs always display text from left to right instead of scanning it when render text
+  ;; duplicate
+  (setq duplicate-line-final-position -1)
+  (setq duplicate-region-final-position -1)
+  (bind-key "M-D" 'duplicate-dwim)
+
+  ;; always render text from left to right, no scan
   (setq bidi-paragraph-direction 'left-to-right)
   ;; handle long line automatically
   (global-so-long-mode 1)
@@ -48,7 +54,8 @@
         (proportionately-spaced-font "Noto Sans CJK TC"))
     (set-face-attribute 'default nil :family mono-spaced-font :height 140)
     (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.4)
-    (set-face-attribute 'variable-pitch nil :family proportionately-spaced-font :height 1.1)))
+    (set-face-attribute 'variable-pitch nil
+                        :family proportionately-spaced-font :height 1.1)))
 
 
 ;; move text
