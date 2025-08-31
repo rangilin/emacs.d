@@ -69,6 +69,8 @@
   :ensure t
   :pin nongnu
   :config
+  ;; for debugging
+  ;; (setq exec-path-from-shell-debug t)
   ;; use non-interactive shell
   (setq exec-path-from-shell-arguments nil)
   ;; load env from shell
