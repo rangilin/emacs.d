@@ -3,78 +3,20 @@
 This is my personal Emacs configuration.
 
 ** Rewrite
-
 The latest rewrite is in 2025, based on Emacs 30.1.
 
 In this rewrite I focus on a few things:
-
 1. Keep it simple: Reduce the amount of opinioned customizations as reasonably as I can, according to my own needs and opinions. Use built-in features when it's good enough, only rely on 3rd-party packages when it is necessary. This also encourage me to learn more about Emacs.
-
-2. Keep it fast: Keep it simple helps a lot. I intentionally add very little performance tweaks this time and dropped most old one I had. Will add more if I actually need it.
-
-3. Keep it safe: Again, keep it simple helps a lot. Now I don't need many packages, only those in Elpa(GNU/NonGNU) repositories are installed via package.el, others are installed manually. All packages are updated manually when I need to.
-
+2. Keep it fast: Keep it simple helps a lot. I also intentionally add very little performance tweaks this time and dropped most old one I had. Will add more if I actually need it.
+3. Keep it safe: Again, keep it simple helps a lot. Now I don't need many packages, only those in Elpa(GNU/NonGNU) repositories are installed via package.el, others are installed manually. All packages are updated manually when I need to, instead of constantly update codes from dozens of repositories without me knowing.
 
 ** Emacs
+I'm using @drkp maintained Emacs on MacPorts.
+https://ports.macports.org/port/emacs-app/
 
-I'm using Mac port addition to GNU Emacs, which provided better integration with MacOS.
-https://bitbucket.org/mituharu/emacs-mac/
-
-Homebrew:
-https://github.com/railwaycat/homebrew-emacsmacport
-Macport:
-https://ports.macports.org/port/emacs-mac-app-devel/details/
-
-
-** Font
-
-I'm using "M PLUS 1 Code", it's a great CJK characters supported programming monospace font.
-https://mplusfonts.github.io
-
-
-** Install External Packages
-
-*** GNU Transport Layer Security (TLS) Library
-
-#+BEGIN_SRC
-  sudo port install gnutls
-#+END_SRC
-
-*** The Silver Searcher
-
-#+BEGIN_SRC
-  sudo port install the_silver_searcher
-#+END_SRC
-
-*** Aspell
-
-#+BEGIN_SRC
-  sudo port install aspell
-#+END_SRC
-
-*** Language Protocol Server
-
-#+BEGIN_SRC
-  # golang
-  go install golang.org/x/tools/gopls@latest
-
-  # perl (with perlbrew/cpanm)
-  cpanm Perl::LanguageServer
-
-  # rust
-  rustup component add rust-src
-  rustup component add rust-analyzer
-
-  # javscript/typescript
-  deno install -g npm:typescript
-  deno install -g npm:typescript-language-server
-#+END_SRC
-
-** Install Configuration
-
-There is a git submodule  https://github.com/rangilin/duplicator in this repository, which is a small package I wrote.
-Because of this, you will need to run git clone recursively like this:
-
-#+BEGIN_SRC sh
-  git clone --recursive git@github.com:rangilin/emacs.d.git
-#+END_SRC
+** External Dependencies
+1. Most packages that is not included in `site-lisp` are installed from GNU / NonGNU ELPA.
+2. There are a few external command line used:
+  - `rust-analyzer` for running eglot for Rust
+  - `multimarkdown` for markdown mode
+  - `aspell` for `flyspell`
