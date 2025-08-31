@@ -85,7 +85,7 @@
   ;; (setq-default tramp-verbose 10)
 
   ;; assign tramp file location
-  (setq-default tramp-persistency-file-name(expand-file-name "tramp" rangi-emacs-cache-directory))
+  (setq tramp-persistency-file-name (expand-file-name "tramp" rangi-emacs-cache-directory))
 
   ;; clean all tramp connections & buffers
   (defun rangi-tramp-cleanup-all ()
@@ -95,6 +95,9 @@
     (message "Cleaned up all tramp buffers & connections"))
   (bind-key "C-c t c" 'rangi-tramp-cleanup-all))
 
+
+;; bookmark
+(setq bookmark-default-file (expand-file-name "bookmark" rangi-emacs-cache-directory))
 
 
 (provide 'init-misc)
