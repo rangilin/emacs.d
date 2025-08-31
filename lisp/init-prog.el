@@ -204,6 +204,15 @@
   :mode ("\\.proto\\'" . protobuf-mode))
 
 
+;; Golang
+(use-package go-mode
+  :pin nongnu
+  :ensure t
+  :mode "\\.go\\'"
+  :interpreter "go"
+  :hook ((go-mode . eglot-ensure)
+         (before-save . gofmt-before-save)))
+
 
 
 (provide 'init-prog)
