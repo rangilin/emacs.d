@@ -214,5 +214,16 @@
          (before-save . gofmt-before-save)))
 
 
+;; Markdown
+(use-package markdown-mode
+  :pin nongnu
+  :ensure t
+  :mode (("\\.md\\'"       . markdown-mode)
+         ("README\\.md\\'" . gfm-mode))
+  :init
+  (setq markdown-command "multimarkdown")
+  (add-hook 'markdown-mode-hook (lambda () (turn-on-flyspell))))
+
+
 
 (provide 'init-prog)
