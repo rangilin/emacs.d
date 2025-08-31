@@ -61,4 +61,40 @@
   (setq csv-separators '("," ";" "|" " " "\t")))
 
 
+;; eshell
+(use-package eshell
+  :config
+  ;; prepare and set eshell dir
+  (setq rangi-eshell-directory (expand-file-name "eshell" rangi-emacs-cache-directory))
+  (unless (file-exists-p rangi-eshell-directory)
+    (make-directory rangi-eshell-directory))
+  (setq eshell-directory-name rangi-eshell-directory))
+
+
+;; Eat
+(use-package eat
+  :pin nongnu
+  :ensure t)
+
+
+;; tramp
+(use-package tramp
+  :config
+  ;; for debugging tramp
+  ;; (setq-default tramp-debug-buffer t)
+  ;; (setq-default tramp-verbose 10)
+
+  ;; assign tramp file location
+  (setq-default tramp-persistency-file-name(expand-file-name "tramp" rangi-emacs-cache-directory))
+
+  ;; clean all tramp connections & buffers
+  (defun rangi-tramp-cleanup-all ()
+    (interactive)
+    (tramp-cleanup-all-buffers)
+    (tramp-cleanup-all-connections)
+    (message "Cleaned up all tramp buffers & connections"))
+  (bind-key "C-c t c" 'rangi-tramp-cleanup-all))
+
+
+
 (provide 'init-misc)

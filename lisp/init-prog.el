@@ -225,5 +225,21 @@
   (add-hook 'markdown-mode-hook (lambda () (turn-on-flyspell))))
 
 
+;; javascript
+(use-package js2-mode
+  :pin gnu
+  :ensure t
+  :mode "\\.js\\'"
+  :config
+  (setq js2-basic-offset 2))
+
+
+;; for json file
+(use-package json-mode
+  :pin gnu
+  :ensure t
+  :mode "\\.json\\'")
+
+
 
 (provide 'init-prog)
