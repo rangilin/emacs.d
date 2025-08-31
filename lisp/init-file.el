@@ -87,8 +87,9 @@
 ;;;;;;;;;;;;;;;;;;
 
 (use-package recentf
+  :demand t
   :bind (("C-c f r" . recentf-open)
-	 ("C-c f R" . recentf-open-files))
+	       ("C-c f R" . recentf-open-files))
   :config
   ;; put recentf file in designated cache directory
   (setq recentf-save-file (expand-file-name "recentf" rangi-emacs-cache-directory))
