@@ -204,16 +204,6 @@
   :mode ("\\.proto\\'" . protobuf-mode))
 
 
-;; Golang
-(use-package go-mode
-  :pin nongnu
-  :ensure t
-  :mode "\\.go\\'"
-  :interpreter "go"
-  :hook ((go-mode . eglot-ensure)
-         (before-save . gofmt-before-save)))
-
-
 ;; Markdown
 (use-package markdown-mode
   :pin nongnu
