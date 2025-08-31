@@ -83,6 +83,8 @@
   :bind (("C-c t t" . ef-themes-toggle))
   :config
   (setq ef-themes-to-toggle '(ef-reverie ef-dream))
+
+  ;; do my own customization after theme is loaded
   (defun rangi-ef-themes-custom-faces (&rest _)
     (ef-themes-with-colors
       (custom-set-faces
@@ -90,7 +92,14 @@
        `(mode-line-inactive ((,c :box (:line-width 5 :color ,(face-background 'mode-line-inactive))))))))
 
   (add-hook 'ef-themes-after-load-theme-hook #'rangi-ef-themes-custom-faces)
-  (ef-themes-select 'ef-reverie))
+
+  ;; choose initial theme based on time of day
+  (defun rangi-load-theme-according-to-time ()
+    (let ((hour (string-to-number (format-time-string "%H"))))
+      (if (and (>= hour 8) (<= hour 18))
+          (ef-themes-select 'ef-reverie)
+	      (ef-themes-select 'ef-dream))))
+  (rangi-load-theme-according-to-time))
 
 
 
