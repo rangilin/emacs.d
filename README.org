@@ -17,6 +17,7 @@ https://ports.macports.org/port/emacs-app/
 ** External Dependencies
 1. Most packages that is not included in `site-lisp` are installed from GNU / NonGNU ELPA.
 2. There are a few external command line used:
-  - `rust-analyzer` for running eglot for Rust
-  - `multimarkdown` for markdown mode
-  - `aspell` for `flyspell`
+   - `rust-analyzer` for Eglot with Rust
+   - `multimarkdown` for Markdown
+   - `aspell` for Flyspell
+   - `gls` from `coreutils` for Dired
