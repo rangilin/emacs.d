@@ -249,6 +249,16 @@
                          (lambda (a b) (< (car a) (car b))))))))
 
 
+;;;;;;;;;;
+;; Copy ;;
+;;;;;;;;;;
+
+
+;; make mouse yank at cursor instead of at where it click
+(setq mouse-yank-at-point t)
+;; preserve existing clipboard text into kill ring before replace it
+(setq save-interprogram-paste-before-kill t)
+
 
 ;;;;;;;;;;;;
 ;; Cursor ;;
