@@ -322,7 +322,7 @@
   :config
   (setq ispell-program-name "aspell")
   (setq ispell-personal-dictionary "~/Documents/misc/aspell-dictionaries/aspell.en_US.pws")
-  (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
+  (setq ispell-extra-args '("--run-together" "--camel-case" "--lang=en_US")))
 
 
 (use-package flyspell
