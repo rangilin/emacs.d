@@ -60,7 +60,7 @@
   ;; use GNU ls
   (setq insert-directory-program "gls")
   ;; dired list options
-  (setq dired-listing-switches "-alhBp --group-directories-first")
+  (setq dired-listing-switches "-ahBp --group-directories-first")
   ;; enable find alternate file command
   (put 'dired-find-alternate-file 'disabled nil)
   ;; only ask for top-level directories when delete recursively
