@@ -51,13 +51,6 @@
 ;; enable set goal column
 (put 'set-goal-column 'disabled nil)
 
-;; fonts
-(let ((mono-spaced-font "Berkeley Mono")
-      (proportionately-spaced-font "Noto Sans CJK TC"))
-  (set-face-attribute 'default nil :family mono-spaced-font :height 140)
-  (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.4)
-  (set-face-attribute 'variable-pitch nil
-                      :family proportionately-spaced-font :height 1.1))
 
 ;; move text
 (use-package move-text
@@ -81,6 +74,37 @@
 (global-set-key (kbd "C-c e a") 'rangi-arrayify)
 
 
+
+;;;;;;;;;;
+;; Font ;;
+;;;;;;;;;;
+
+
+;; fonts
+(let ((mono-spaced-font "Cascadia Code")
+      (proportionately-spaced-font "Noto Sans CJK TC"))
+  (set-face-attribute 'default nil :family mono-spaced-font :height 140)
+  (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.4)
+  (set-face-attribute 'variable-pitch nil
+                      :family proportionately-spaced-font :height 1.1))
+
+(use-package ligature
+  :load-path "site-lisp/ligature"
+  :config
+  (ligature-set-ligatures 'prog-mode '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                                       ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                                       "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                                       "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                                       "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                                       "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                                       "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                                       "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                                       ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                                       "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                                       "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                                       "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                                       "\\\\" "://"))
+  (global-ligature-mode t))
 
 
 ;;;;;;;;;;;;
