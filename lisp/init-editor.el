@@ -81,7 +81,7 @@
 
 
 ;; fonts
-(let ((mono-spaced-font "Cascadia Code")
+(let ((mono-spaced-font "Berkeley Mono")
       (proportionately-spaced-font "Noto Sans CJK TC"))
   (set-face-attribute 'default nil :family mono-spaced-font :height 140)
   (set-face-attribute 'fixed-pitch nil :family mono-spaced-font :height 1.4)
