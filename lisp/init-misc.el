@@ -71,12 +71,6 @@
   (setq eshell-directory-name rangi-eshell-directory))
 
 
-;; Eat
-(use-package eat
-  :pin nongnu
-  :ensure t)
-
-
 ;; tramp
 (use-package tramp
   :config
