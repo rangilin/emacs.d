@@ -173,19 +173,6 @@
 
 
 ;;;;;;;;;;;;;;;;
-;; Breadcrumb ;;
-;;;;;;;;;;;;;;;;
-
-(use-package breadcrumb
-  :diminish
-  :ensure t
-  :pin gnu
-  :config
-  (breadcrumb-mode))
-
-
-
-;;;;;;;;;;;;;;;;
 ;; Completion ;;
 ;;;;;;;;;;;;;;;;
 
