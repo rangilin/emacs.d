@@ -22,5 +22,7 @@
 ;; don't insert empty line when creating new-entry
 (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
 
+;; don't show makers
+(setq org-hide-emphasis-markers t)
 
 (provide 'init-org)
