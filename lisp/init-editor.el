@@ -111,6 +111,9 @@
 ;; Buffer ;;
 ;;;;;;;;;;;;
 
+;; set initial mode for new buffer
+(setq initial-major-mode 'fundamental-mode)
+
 ;; create new buffer
 (defun rangi-new-buffer ()
   "create a new buffer with specified name"
