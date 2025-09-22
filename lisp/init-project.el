@@ -14,6 +14,8 @@
                                   (project-find-dir "Find directory")
                                   (rangi-project-vc-dir "Magit/VC-Dir")
                                   (project-any-command "Other")))
+  ;; custom file identify project root
+  (setq project-vc-extra-root-markers '(".project"))
   ;; store projects data in cache directory
   (setq project-list-file (expand-file-name "projects" rangi-emacs-cache-directory)))
 
