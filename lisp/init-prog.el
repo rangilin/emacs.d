@@ -193,6 +193,12 @@
   (setq web-mode-enable-current-element-highlight t))
 
 
+;; CSS
+(use-package css-mode
+  :config
+  (setq css-indent-offset 2))
+
+
 ;; Mode for viewing Protobuf files
 ;;
 ;; Company mode is disabled in this mode currently, due to a bug that cause args-out-of-range
