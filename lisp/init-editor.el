@@ -51,7 +51,6 @@
 ;; enable set goal column
 (put 'set-goal-column 'disabled nil)
 
-
 ;; move text
 (use-package move-text
   :load-path "site-lisp/move-text"
@@ -73,6 +72,8 @@
 
 (global-set-key (kbd "C-c e a") 'rangi-arrayify)
 
+
+(bind-key "C-c e r" 'overwrite-mode)
 
 
 ;;;;;;;;;;
