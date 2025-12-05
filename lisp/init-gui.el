@@ -82,7 +82,7 @@
   :demand t
   :bind (("C-c t t" . ef-themes-toggle))
   :config
-  (setq ef-themes-to-toggle '(ef-maris-light ef-maris-dark))
+  (setq ef-themes-to-toggle '(ef-reverie ef-dream))
 
   ;; do my own customization after theme is loaded
   (defun rangi-ef-themes-custom-faces (&rest _)
