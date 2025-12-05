@@ -161,6 +161,11 @@
                ("l" . windmove-right)
                ("h" . windmove-left)))
 
+;; backward other-window with repeat enabled
+(bind-key "C-x O" (lambda ()
+                    (interactive)
+                    (setq repeat-map 'other-window-repeat-map)
+                    (other-window -1)))
 
 ;;;;;;;;;;;;
 ;; Fringe ;;
