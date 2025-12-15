@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-# name: #[test] fn test_name() { .. }
+# name: #[test] fn name() { .. }
 # key: test
 # --
 #[test]
-fn test_${1:name}()$2 {
+fn ${1:name}()$2 {
     $0
 }
