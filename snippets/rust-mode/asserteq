@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: assert_eq!(expected, actual);
+# name: assert_eq!(actual, expected);
 # key: asseq
 # --
-assert_eq!(${1:expected}, ${2:actual});
+assert_eq!(${1:actual}, ${2:expected});
