@@ -25,4 +25,7 @@
 ;; don't show makers
 (setq org-hide-emphasis-markers t)
 
+;; wrap lines in org mode
+(add-hook 'org-mode-hook (lambda () (visual-line-mode t)))
+
 (provide 'init-org)
