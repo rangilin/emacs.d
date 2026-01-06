@@ -82,7 +82,9 @@
   :demand t
   :bind (("C-c t t" . ef-themes-toggle))
   :config
-  (setq ef-themes-to-toggle '(ef-reverie ef-dream))
+  (setq rangi-theme-light 'ef-reverie)
+  (setq rangi-theme-dark 'ef-dream)
+  (setq ef-themes-to-toggle `(,rangi-theme-light ,rangi-theme-dark))
 
   ;; do my own customization after theme is loaded
   (defun rangi-ef-themes-custom-faces (&rest _)
@@ -97,8 +99,8 @@
   (defun rangi-load-theme-according-to-time ()
     (let ((hour (string-to-number (format-time-string "%H"))))
       (if (and (>= hour 8) (<= hour 18))
-          (ef-themes-select 'ef-maris-light)
-	      (ef-themes-select 'ef-maris-dark))))
+          (ef-themes-select rangi-theme-light)
+	      (ef-themes-select rangi-theme-dark))))
   (rangi-load-theme-according-to-time))
 
 
