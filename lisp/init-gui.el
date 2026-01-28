@@ -77,30 +77,35 @@
 ;; Theme ;;
 ;;;;;;;;;;;
 
-(use-package ef-themes
-  :load-path "site-lisp/ef-themes"
-  :demand t
-  :bind (("C-c t t" . ef-themes-toggle))
+(use-package modus-themes
+  :pin gnu
+  :ensure t
+  :init (modus-themes-include-derivatives-mode 1)
+  :bind (("C-c t t" . modus-themes-toggle))
   :config
+
+  ;; load derived themes
+  (require 'ef-themes (expand-file-name "site-lisp/ef-themes/ef-themes.el" user-emacs-directory))
+
+  ;; assign my light/dark theme for toggling
   (setq rangi-theme-light 'ef-reverie)
   (setq rangi-theme-dark 'ef-dream)
-  (setq ef-themes-to-toggle `(,rangi-theme-light ,rangi-theme-dark))
+  (setq modus-themes-to-toggle `(,rangi-theme-light ,rangi-theme-dark))
 
   ;; do my own customization after theme is loaded
-  (defun rangi-ef-themes-custom-faces (&rest _)
-    (ef-themes-with-colors
+  (defun rangi-themes-custom-faces (&rest _)
+    (modus-themes-with-colors
       (custom-set-faces
-       `(mode-line ((,c :box (:line-width 5 :color ,(face-background 'mode-line)))))
+       `(mode-line-active ((,c :box (:line-width 5 :color ,(face-background 'mode-line-active)))))
        `(mode-line-inactive ((,c :box (:line-width 5 :color ,(face-background 'mode-line-inactive))))))))
+  (add-hook 'modus-themes-after-load-theme-hook #'rangi-themes-custom-faces)
 
-  (add-hook 'ef-themes-after-load-theme-hook #'rangi-ef-themes-custom-faces)
-
-  ;; choose initial theme based on time of day
+  ;; load initial theme based on time of day
   (defun rangi-load-theme-according-to-time ()
     (let ((hour (string-to-number (format-time-string "%H"))))
       (if (and (>= hour 8) (<= hour 18))
-          (ef-themes-select rangi-theme-light)
-	      (ef-themes-select rangi-theme-dark))))
+          (modus-themes-load-theme rangi-theme-light)
+	      (modus-themes-load-theme rangi-theme-dark))))
   (rangi-load-theme-according-to-time))
 
 
