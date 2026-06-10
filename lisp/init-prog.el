@@ -237,5 +237,11 @@
   :mode "\\.json\\'")
 
 
+;; Zig
+(use-package zig-mode
+  :pin nongnu
+  :ensure t
+  :mode "\\.\\(zig\\|zon\\)\\'")
+
 
 (provide 'init-prog)
