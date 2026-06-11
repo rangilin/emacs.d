@@ -241,6 +241,7 @@
 (use-package zig-mode
   :pin nongnu
   :ensure t
+  :hook ((zig-mode . eglot-ensure))
   :mode "\\.\\(zig\\|zon\\)\\'")
 
 
