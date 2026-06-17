@@ -88,8 +88,10 @@
   (require 'ef-themes (expand-file-name "site-lisp/ef-themes/ef-themes.el" user-emacs-directory))
 
   ;; assign my light/dark theme for toggling
-  (setq rangi-theme-light 'ef-reverie)
-  (setq rangi-theme-dark 'ef-dream)
+  ;; other ef theme pair I use:
+  ;; ef-reverie/ef-dream
+  (setq rangi-theme-light 'ef-maris-light)
+  (setq rangi-theme-dark 'ef-maris-dark)
   (setq modus-themes-to-toggle `(,rangi-theme-light ,rangi-theme-dark))
 
   ;; do my own customization after theme is loaded
