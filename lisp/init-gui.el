@@ -176,6 +176,9 @@
                     (setq repeat-map 'other-window-repeat-map)
                     (other-window -1)))
 
+;; add built-in window swap in existing window keymap
+(keymap-set window-prefix-map "x" 'window-swap-states)
+
 ;;;;;;;;;;;;
 ;; Fringe ;;
 ;;;;;;;;;;;;
