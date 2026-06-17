@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: else if statement
+# key: elseif
+# --
+else if ($1)${2: |${3:value}|} {
+    $0
+}
