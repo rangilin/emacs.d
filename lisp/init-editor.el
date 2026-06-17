@@ -57,6 +57,13 @@
   :config
   (move-text-default-bindings))
 
+;; highlighting current line
+;; using lin package to make hl-line-mode works better
+(use-package lin
+  :pin gnu
+  :ensure t
+  :config
+  (lin-global-mode 1))
 
 ;; transfer lines of string to array like data
 ;; modified based on https://news.ycombinator.com/item?id=22131815
