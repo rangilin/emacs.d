@@ -262,12 +262,15 @@
 ;; Selection ;;
 ;;;;;;;;;;;;;;;
 
-;; expand region
-(use-package expand-region
+
+;; expand selection
+(use-package expreg
   :ensure t
   :pin gnu
-  :bind
-  (("C-=" . er/expand-region)))
+  :bind(("C-=" . expreg-expand)
+        ("C--" . expreg-contract))
+  :config
+  (setq expreg-restore-point-on-quit t))
 
 
 ;; randomize region
