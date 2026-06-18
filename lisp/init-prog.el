@@ -89,7 +89,7 @@
               ("C-c l a" . eglot-code-actions)
               ("M-<return>" . eglot-code-actions)
 	            ("C-c l f" . eglot-format)
-	            ("C-c l h" . eldoc)
+              ("C-c l h" . eglot-inlay-hints-mode)
 	            ("C-c l r" . eglot-rename))
   :hook ((eglot-managed-mode . rangi-set-eglot-managed-mode))
   :config
