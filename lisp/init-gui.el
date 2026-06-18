@@ -156,28 +156,38 @@
 ;; Window ;;
 ;;;;;;;;;;;;
 
+
 ;; winner for saving windows configurations
 (use-package winner
   :config
   (winner-mode 1))
 
-(use-package windmove
-  :bind-keymap ("C-c w" . rangi-windmove-repeat-map)
-  :bind
-  (:repeat-map rangi-windmove-repeat-map
-               ("k" . windmove-up)
-               ("j" . windmove-down)
-               ("l" . windmove-right)
-               ("h" . windmove-left)))
 
-;; backward other-window with repeat enabled
-(bind-key "C-x O" (lambda ()
-                    (interactive)
-                    (setq repeat-map 'other-window-repeat-map)
-                    (other-window -1)))
+;; moving point between windows
+(defun rangi-window-previous ()
+  "Switch to the previous window"
+  (interactive)
+  (other-window -1))
+
+(bind-key "C-x O" 'rangi-window-previous)
+
+(defvar-keymap rangi-window-repeat-map
+  :repeat t
+  "o" #'other-window
+  "O" #'rangi-window-previous
+  "k" #'windmove-up
+  "j" #'windmove-down
+  "l" #'windmove-right
+  "h" #'windmove-left)
+
+(put 'other-window 'repeat-map 'rangi-window-repeat-map)
+(put 'rangi-window-previous 'repeat-map 'rangi-window-repeat-map)
+
 
 ;; add built-in window swap in existing window keymap
 (keymap-set window-prefix-map "x" 'window-swap-states)
+
+
 
 ;;;;;;;;;;;;
 ;; Fringe ;;
