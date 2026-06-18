@@ -123,6 +123,8 @@
   :hook
   ((prog-mode . company-mode))
   :config
+  (setq company-transformers '(company-sort-by-occurrence
+                               company-sort-prefer-same-case-prefix))
   (setq company-idle-delay 0.5) ; add slight delay so easier to use with yasnippet
   (setq company-tooltip-align-annotations t)
   (setq company-format-margin-function 'company-text-icons-margin)
