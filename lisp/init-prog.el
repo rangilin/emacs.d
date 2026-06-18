@@ -9,7 +9,14 @@
 
 ;; show document with eldoc
 (use-package eldoc
-  :diminish eldoc-mode)
+  :diminish eldoc-mode
+  :config
+  (add-to-list 'display-buffer-alist
+               '("^\\*eldoc"
+                 (display-buffer-reuse-window display-buffer-use-some-window)
+                 (body-function . select-window)
+                 (inhibit-same-window . t)))
+  (setq eldoc-echo-area-use-multiline-p t))
 
 
 
@@ -88,8 +95,8 @@
   :config
 
   (defun rangi-set-eglot-managed-mode ()
-    ;; Turn off inlay hints
-    (eglot-inlay-hints-mode -1)
+    ;; explicitly enable eldoc when eglot is on
+    (eldoc-mode 1)
 
     ;; Make eglot/eldoc works better with flymake diagnostics.
     ;; https://github.com/joaotavora/eglot/discussions/898
