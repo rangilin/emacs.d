@@ -95,8 +95,11 @@
   :config
 
   (defun rangi-set-eglot-managed-mode ()
-    ;; explicitly enable eldoc when eglot is on
+    ;; enable eldoc when eglot is on
     (eldoc-mode 1)
+
+    ;; disable inlay hint, I can enable it via keybind when I need it
+    (eglot-inlay-hints-mode -1)
 
     ;; Make eglot/eldoc works better with flymake diagnostics.
     ;; https://github.com/joaotavora/eglot/discussions/898
