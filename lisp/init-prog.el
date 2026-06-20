@@ -250,11 +250,16 @@
 
 
 ;; Zig
-(use-package zig-mode
-  :pin nongnu
+(use-package zig-ts-mode
   :ensure t
-  :hook ((zig-mode . eglot-ensure))
-  :mode "\\.\\(zig\\|zon\\)\\'")
+  :vc (:url "https://codeberg.org/meow_king/zig-ts-mode"
+            :rev "bb1e828780")
+  :mode "\\.\\(zig\\|zon\\)\\'"
+  :hook ((zig-ts-mode . eglot-ensure))
+  :config
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '((zig-ts-mode) . ("zls")))))
 
 
 (provide 'init-prog)
