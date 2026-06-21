@@ -80,6 +80,7 @@
 ;; editing grep result on grep buffer
 (use-package wgrep
   :ensure t
+  :defer t
   :pin nongnu)
 
 

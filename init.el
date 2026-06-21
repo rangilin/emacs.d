@@ -2,16 +2,18 @@
 
 ;; Tasks:
 
+
 ;;;;;;;;;;;;;;;
 ;; Bootstrap ;;
 ;;;;;;;;;;;;;;;
+
+
 
 ;; enable more information when --debug-init
 (when init-file-debug
   (setq debug-on-error t
 	use-package-verbose t
-	use-package-expand-minimally nil
-	use-package-compute-statistics t))
+	use-package-expand-minimally nil))
 
 
 ;; set up package system so we can use it for the rest of the configuration
@@ -26,6 +28,8 @@
   (setq load-prefer-newer t)
   ;; compile package into native code
   (setq package-native-compile t)
+  (setq use-package-compute-statistics t)
+  (setq use-package-expand-minimally t)
   (package-initialize))
 
 

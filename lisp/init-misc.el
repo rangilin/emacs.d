@@ -62,17 +62,15 @@
 
 
 ;; eshell
-(use-package eshell
-  :config
-  ;; prepare and set eshell dir
-  (setq rangi-eshell-directory (expand-file-name "eshell" rangi-emacs-cache-directory))
-  (unless (file-exists-p rangi-eshell-directory)
-    (make-directory rangi-eshell-directory))
-  (setq eshell-directory-name rangi-eshell-directory))
+(setq rangi-eshell-directory (expand-file-name "eshell" rangi-emacs-cache-directory))
+(unless (file-exists-p rangi-eshell-directory)
+  (make-directory rangi-eshell-directory))
+(setq-default eshell-directory-name rangi-eshell-directory)
 
 
 ;; tramp
 (use-package tramp
+  :defer t
   :config
   ;; for debugging tramp
   ;; (setq-default tramp-debug-buffer t)

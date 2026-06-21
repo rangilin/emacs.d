@@ -42,6 +42,7 @@
   :init
   (use-package transient
     :ensure t
+    :defer t
     :pin nongnu
     :config
     (setq transient-levels-file (expand-file-name "transient-levels.el" rangi-emacs-cache-directory))
@@ -50,6 +51,7 @@
 
   (use-package with-editor
     :ensure t
+    :defer t
     :pin nongnu)
 
   :config
@@ -210,6 +212,7 @@
 
 ;; CSS
 (use-package css-mode
+  :mode (("\\.csv\\'" . css-mode))
   :config
   (setq css-indent-offset 2))
 
