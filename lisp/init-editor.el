@@ -115,9 +115,11 @@
   (global-ligature-mode t))
 
 
+
 ;;;;;;;;;;;;
 ;; Buffer ;;
 ;;;;;;;;;;;;
+
 
 ;; set initial mode for new buffer
 (setq initial-major-mode 'fundamental-mode)
@@ -129,46 +131,7 @@
   (let ((buffer (generate-new-buffer (read-string "Enter buffer name: " "*scratch*"))))
     (set-buffer-major-mode buffer)
     (switch-to-buffer buffer)))
-
 (bind-key "C-c b n" 'rangi-new-buffer)
-
-
-;; set up ibuffer
-(use-package ibuffer
-  :bind (("C-x C-b" . ibuffer))
-  :config
-  ;; don't show empty group
-  (setq-default ibuffer-show-empty-filter-groups nil)
-
-  ;; define a ibuffer column that show human readable size of the buffer
-  (define-ibuffer-column readable-size
-    (:name "Size" :inline t)
-    (cond
-     ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-     ((> (buffer-size) 1000) (format "%7.1fK" (/ (buffer-size) 1000.0)))
-     (t (format "%8d" (buffer-size)))))
-
-  ;; define ibuffer columns
-  (setq-default ibuffer-formats
-		'((mark modified read-only
-			" " (name 32 32 :left :elide)
-			" " (readable-size 9 -1 :right)
-			" " (mode 16 16 :left :elide)
-			" " filename-and-process)))
-
-  ;; unbind print so I don't accidentally print all of my buffers
-  (unbind-key "P" ibuffer-mode-map))
-
-
-;; auto refresh buffer
-(use-package autorevert
-  :diminish auto-revert-mode
-  :config
-  (global-auto-revert-mode 1)
-
-  ;; don't print anything after refresh
-  (setq auto-revert-verbose nil))
-
 
 ;; refresh buffer
 (defun rangi-refresh-buffer ()
@@ -176,8 +139,16 @@
   (interactive)
   (revert-buffer nil t nil)
   (message "buffer is refreshed"))
-
 (bind-key "C-c b r" 'rangi-refresh-buffer)
+
+
+;; auto refresh buffer
+(use-package autorevert
+  :diminish auto-revert-mode
+  :config
+  (global-auto-revert-mode 1)
+  ;; don't print anything after refresh
+  (setq auto-revert-verbose nil))
 
 
 

@@ -22,12 +22,6 @@
 (column-number-mode -1)
 (line-number-mode -1)
 
-;; default frame is maximized
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; show buffer name and size on frame title
-(setq frame-title-format '("%b (%I)"))
-
 ;; show keystrokes right away
 (setq echo-keystrokes 0.1)
 
@@ -144,11 +138,52 @@
 ;; Help ;;
 ;;;;;;;;;;
 
+
 (use-package which-key
   :diminish
   :config
   (setq which-key-idle-delay 0.5)
   (which-key-mode))
+
+
+
+;;;;;;;;;;;
+;; Frame ;;
+;;;;;;;;;;;
+
+
+;; default frame is maximized
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;; use beframe to organize buffers by frame
+(use-package beframe
+  :pin gnu
+  :ensure t
+  :bind (("C-x C-b" . beframe-buffer-menu)
+         :map beframe-prefix-map
+         ("a F" . beframe-assume-frame-buffers)
+         ("u F" . beframe-unassume-frame-buffers)
+         ("r" . rangi-beframe-rename-current-frame)
+         ("R" . rangi-beframe-rename-frame)
+         ("M" . list-buffers))
+  :bind-keymap ("C-c B" . beframe-prefix-map)
+  :config
+
+  (defun rangi-beframe-rename-current-frame ()
+    "Like `beframe-rename-current-frame' but prompt for name"
+    (interactive)
+    (beframe-rename-frame
+     (selected-frame)
+     (read-string "Rename current frame to: ")))
+
+  (defun rangi-beframe-rename-frame ()
+    "Like `beframe-rename-frame' but prompt for name"
+    (interactive)
+    (let ((current-prefix-arg '(4)))
+      (call-interactively 'beframe-rename-frame)))
+
+  (setq beframe-functions-in-frames '(project-prompt-project-dir))
+  (beframe-mode 1))
 
 
 
