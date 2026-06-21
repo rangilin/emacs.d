@@ -25,8 +25,6 @@
 ;; auto pair
 (electric-pair-mode 1)
 
-;; always render text from left to right, no scan
-(setq bidi-paragraph-direction 'left-to-right)
 ;; handle long line automatically
 (global-so-long-mode 1)
 

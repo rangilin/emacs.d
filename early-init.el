@@ -14,3 +14,8 @@
 (if (native-comp-available-p)
     (startup-redirect-eln-cache rangi-emacs-cache-directory)
   (warn "native compile is not available"))
+
+;; disable bidirectional text display
+(setq bidi-inhibit-bpa t)
+(setq-default bidi-display-reordering 'left-to-right)
+(setq-default bidi-paragraph-direction 'left-to-right)
