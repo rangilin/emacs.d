@@ -245,7 +245,7 @@
   ;; control completion list from minibuffer
   (setq minibuffer-visible-completions t)
   ;; change default completeion styles
-  (setq completion-styles '(initials partial-completion substring)))
+  (setq completion-styles '(partial-completion substring initials)))
 
 
 
