@@ -4,6 +4,7 @@
 ;; Miscellaneous editor settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
 ;; enable subword
 (global-subword-mode)
 (diminish 'subword-mode)
@@ -24,25 +25,6 @@
 ;; auto pair
 (electric-pair-mode 1)
 
-;; zap
-(bind-key "M-z" 'zap-up-to-char)
-(bind-key "M-Z" 'zap-to-char)
-
-;; change case smartly
-(bind-key "M-u" 'upcase-dwim)
-(bind-key "M-l" 'downcase-dwim)
-(bind-key "M-c" 'capitalize-dwim)
-
-;; backward delete
-(define-key key-translation-map (kbd "C-h") (kbd "DEL"))
-(define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
-(bind-key "C-M-h" 'backward-kill-word)
-
-;; duplicate
-(setq duplicate-line-final-position -1)
-(setq duplicate-region-final-position -1)
-(bind-key "M-D" 'duplicate-dwim)
-
 ;; always render text from left to right, no scan
 (setq bidi-paragraph-direction 'left-to-right)
 ;; handle long line automatically
@@ -50,12 +32,6 @@
 
 ;; enable set goal column
 (put 'set-goal-column 'disabled nil)
-
-;; move text
-(use-package move-text
-  :load-path "site-lisp/move-text"
-  :config
-  (move-text-default-bindings))
 
 ;; highlighting current line
 ;; using lin package to make hl-line-mode works better
@@ -65,21 +41,7 @@
   :config
   (lin-global-mode 1))
 
-;; transfer lines of string to array like data
-;; modified based on https://news.ycombinator.com/item?id=22131815
-(defun rangi-arrayify (start end quote)
-  "Turn strings on newlines into a QUOTEd, comma-separated one-liner."
-  (interactive "r\nMQuote: ")
-  (let ((insertion
-         (mapconcat
-          (lambda (x) (format "%s%s%s" quote x quote))
-          (split-string (buffer-substring start end) "\n" t "\s") ", ")))
-    (delete-region start end)
-    (insert insertion)))
-
-(global-set-key (kbd "C-c e a") 'rangi-arrayify)
-
-
+;; overwrite mode
 (bind-key "C-c e r" 'overwrite-mode)
 
 
@@ -159,14 +121,14 @@
 ;; keys for navigation around
 (defvar rangi-navigation-map
   (let ((map (make-sparse-keymap)))
-    (define-key map "c" 'avy-goto-char-timer)
     (define-key map "i" 'imenu)
     (define-key map "l" 'goto-line)
     (define-key map "L" 'avy-goto-line)
     map)
   "Keymap for navigation in the editor.")
 
-(bind-key "M-g" rangi-navigation-map)
+(bind-key "M-G" rangi-navigation-map)
+(bind-key "M-g" 'avy-goto-char-timer)
 
 ;; move where I meant
 (use-package mwim
@@ -258,6 +220,65 @@
                          (lambda (a b) (< (car a) (car b))))))))
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; Text Manipulation ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;; transfer lines of string to array like data
+;; modified based on https://news.ycombinator.com/item?id=22131815
+(defun rangi-arrayify (start end quote)
+  "Turn strings on newlines into a QUOTEd, comma-separated one-liner."
+  (interactive "r\nMQuote: ")
+  (let ((insertion
+         (mapconcat
+          (lambda (x) (format "%s%s%s" quote x quote))
+          (split-string (buffer-substring start end) "\n" t "\s") ", ")))
+    (delete-region start end)
+    (insert insertion)))
+(global-set-key (kbd "C-c e a") 'rangi-arrayify)
+
+
+;; surround region with input
+(defun rangi-surround-with (text)
+  (interactive "sSurround with: ")
+  (when (use-region-p)
+    (let ((beg (region-beginning))
+          (end (region-end)))
+      (save-excursion
+        (goto-char end)
+        (insert text)
+        (goto-char beg)
+        (insert text)))))
+(global-set-key (kbd "C-c e z") 'rangi-surround-with)
+
+;; zap
+(bind-key "M-z" 'zap-up-to-char)
+(bind-key "M-Z" 'zap-to-char)
+
+;; change case smartly
+(bind-key "M-u" 'upcase-dwim)
+(bind-key "M-l" 'downcase-dwim)
+(bind-key "M-c" 'capitalize-dwim)
+
+;; backward delete
+(define-key key-translation-map (kbd "C-h") (kbd "DEL"))
+(define-key key-translation-map (kbd "C-S-h") (kbd "C-S-<backspace>"))
+(bind-key "C-M-h" 'backward-kill-word)
+
+;; duplicate
+(setq duplicate-line-final-position -1)
+(setq duplicate-region-final-position -1)
+(bind-key "M-D" 'duplicate-dwim)
+
+;; move text
+(use-package move-text
+  :load-path "site-lisp/move-text"
+  :config
+  (move-text-default-bindings))
+
+
 ;;;;;;;;;;
 ;; Copy ;;
 ;;;;;;;;;;
@@ -342,7 +363,6 @@
   (add-hook 'prog-mode-hook (lambda () (flyspell-prog-mode)))
   ;; enable flyspell in text mode
   (add-hook 'text-mode-hook (lambda () (turn-on-flyspell))))
-
 
 
 
