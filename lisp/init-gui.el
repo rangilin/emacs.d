@@ -168,7 +168,6 @@
          ("M" . list-buffers))
   :bind-keymap ("C-c B" . beframe-prefix-map)
   :config
-
   (defun rangi-beframe-rename-current-frame ()
     "Like `beframe-rename-current-frame' but prompt for name"
     (interactive)
@@ -182,7 +181,6 @@
     (let ((current-prefix-arg '(4)))
       (call-interactively 'beframe-rename-frame)))
 
-  (setq beframe-functions-in-frames '(project-prompt-project-dir))
   (beframe-mode 1))
 
 
