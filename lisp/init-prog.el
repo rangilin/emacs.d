@@ -201,8 +201,11 @@
   (defun rangi-set-web-mode ()
     (electric-pair-local-mode -1))
 
-  ;; highlight
-  (setq web-mode-enable-current-element-highlight t))
+  ;; highlight current element with custom face
+  (setq web-mode-enable-current-element-highlight t)
+  (set-face-attribute
+   'web-mode-current-element-highlight-face nil
+   :weight 'bold :underline t :foreground 'unspecified :background 'unspecified))
 
 
 ;; CSS
