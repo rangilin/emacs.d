@@ -31,14 +31,6 @@
 ;; enable set goal column
 (put 'set-goal-column 'disabled nil)
 
-;; highlighting current line
-;; using lin package to make hl-line-mode works better
-(use-package lin
-  :pin gnu
-  :ensure t
-  :config
-  (lin-global-mode 1))
-
 ;; overwrite mode
 (bind-key "C-c e r" 'overwrite-mode)
 
@@ -308,6 +300,10 @@
 ;;;;;;;;;;;;
 
 
+;; blink cursor
+(blink-cursor-mode 1)
+
+;; multiple cursors
 (use-package multiple-cursors
   :ensure t
   :pin nongnu
@@ -324,7 +320,6 @@
                 ("," . mc/mark-previous-like-this)
                 (">" . mc/unmark-next-like-this)
                 ("<" . mc/unmark-previous-like-this))))
-
 
 
 ;;;;;;;;;;;;;;;;;

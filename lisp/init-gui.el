@@ -8,7 +8,6 @@
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (scroll-bar-mode -1)
-(blink-cursor-mode -1)
 
 ;; show line/column number on modeline
 (column-number-mode 1)
