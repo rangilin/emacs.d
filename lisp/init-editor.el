@@ -251,6 +251,9 @@
         (insert text)))))
 (global-set-key (kbd "C-c e z") 'rangi-surround-with)
 
+;; join line
+(bind-key "C-S-j" 'join-line)
+
 ;; zap
 (bind-key "M-z" 'zap-up-to-char)
 (bind-key "M-Z" 'zap-to-char)
