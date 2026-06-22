@@ -93,7 +93,6 @@
   (message "buffer is refreshed"))
 (bind-key "C-c b r" 'rangi-refresh-buffer)
 
-
 ;; auto refresh buffer
 (use-package autorevert
   :diminish auto-revert-mode
@@ -102,6 +101,10 @@
   ;; don't print anything after refresh
   (setq auto-revert-verbose nil))
 
+;; buffer menu list sort by files
+(add-hook 'Buffer-menu-mode-hook
+          (lambda ()
+            (setq tabulated-list-sort-key '("File" . nil))))
 
 
 ;;;;;;;;;;;;;;;;
