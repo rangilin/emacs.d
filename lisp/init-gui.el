@@ -4,23 +4,17 @@
 ;; Miscellaneous GUI settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; show lines and columns on demand
-(defun rangi-what-line-column ()
-  (interactive)
-  (let ((l (line-number-at-pos))
-	      (c (current-column)))
-    (message "Line: %d, Column: %d" l c)))
-
-(bind-key "s-=" 'rangi-what-line-column)
-
-
 ;; turn off these
 (tool-bar-mode -1)
 (tooltip-mode -1)
 (scroll-bar-mode -1)
 (blink-cursor-mode -1)
-(column-number-mode -1)
-(line-number-mode -1)
+
+;; show line/column number on modeline
+(column-number-mode 1)
+(line-number-mode t)
+(size-indication-mode 1)
+(setq-default mode-line-position-column-line-format '(" (%l,%C)"))
 
 ;; show keystrokes right away
 (setq echo-keystrokes 0.1)
