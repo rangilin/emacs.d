@@ -261,11 +261,13 @@
   :vc (:url "https://codeberg.org/meow_king/zig-ts-mode"
             :rev "bb1e828780")
   :mode "\\.\\(zig\\|zon\\)\\'"
-  :hook ((zig-ts-mode . eglot-ensure))
+  :hook ((zig-ts-mode . eglot-ensure)
+         (zig-ts-mode . (lambda () (add-hook 'before-save-hook #'eglot-format-buffer))))
   :config
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
                  '((zig-ts-mode) . ("zls")))))
+  :hook
 
 
 (provide 'init-prog)
