@@ -67,10 +67,10 @@
 (use-package modus-themes
   :pin gnu
   :ensure t
-  :init (modus-themes-include-derivatives-mode 1)
+  :demand t
   :bind (("C-c t t" . modus-themes-toggle))
+  ;; :init (modus-themes-include-derivatives-mode 1)
   :config
-
   ;; load derived themes
   ;; (require 'ef-themes (expand-file-name "site-lisp/ef-themes/ef-themes.el" user-emacs-directory))
 
@@ -82,9 +82,9 @@
   ;; do my own customization after theme is loaded
   (defun rangi-themes-custom-faces (&rest _)
     (modus-themes-with-colors
-      (custom-set-faces
-       `(mode-line-active ((,c :box (:line-width 5 :color ,(face-background 'mode-line-active)))))
-       `(mode-line-inactive ((,c :box (:line-width 5 :color ,(face-background 'mode-line-inactive))))))))
+     (custom-set-faces
+      `(mode-line-active ((,c :box (:line-width 5 :color ,(face-background 'mode-line-active)))))
+      `(mode-line-inactive ((,c :box (:line-width 5 :color ,(face-background 'mode-line-inactive))))))))
   (add-hook 'modus-themes-after-load-theme-hook #'rangi-themes-custom-faces)
 
   ;; load initial theme based on time of day
