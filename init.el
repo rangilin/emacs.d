@@ -59,10 +59,6 @@
 ;; defer fontification until input is stopped
 (setq jit-lock-defer-time 0)
 
-;; fast scroll
-(setq fast-but-imprecise-scrolling t)
-
-
 
 ;;;;;;;;;;;;;;;;;;
 ;; Environments ;;

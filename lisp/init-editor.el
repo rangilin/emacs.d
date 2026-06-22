@@ -134,8 +134,20 @@
   :bind (("C-a" . mwim-beginning)
          ("C-e" . mwim-end)))
 
+;; fast scroll
+(setq fast-but-imprecise-scrolling t)
 ;; move cursor to top or bottom of the buffer when it cannot be scrolled anymore
 (setq scroll-error-top-bottom t)
+;; don't recenter after scroll
+(setq scroll-conservatively 101)
+;; keep this amount of lines as margin when scrolling to the edge
+(setq scroll-margin 5)
+;; keep cursor position after scroll
+(setq scroll-preserve-screen-position t)
+;; scroll horizontal with smaller step
+(setq hscroll-step 1)
+;; keep this amount of lines after horizontal scroll happened
+(setq hscroll-margin 3)
 
 ;; recenter in the center of a horizontal line
 ;; http://stackoverflow.com/a/1249665/554279
