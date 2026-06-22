@@ -107,7 +107,8 @@
   "a custom visual bell that make cursor blink"
   (let ((frame (selected-frame))
 	      (before-color (face-attribute 'cursor :background))
-	      (after-color (face-attribute 'default :background)))
+	      ;; (after-color (face-attribute 'default :background))
+	      (after-color "#db3316"))
 
     ;; if bell function is called when color is still waiting to be change
     ;; it will cause cursor color remain `after-color'
