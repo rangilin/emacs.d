@@ -4,6 +4,9 @@
 ;; Miscellaneous GUI settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; default frame is maximized
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
 ;; turn off these
 (tool-bar-mode -1)
 (tooltip-mode -1)
@@ -136,48 +139,6 @@
   :config
   (setq which-key-idle-delay 0.5)
   (which-key-mode))
-
-
-
-;;;;;;;;;;;
-;; Frame ;;
-;;;;;;;;;;;
-
-
-;; default frame is maximized
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; use beframe to organize buffers by frame
-(use-package beframe
-  :pin gnu
-  :ensure t
-  :demand t
-  :bind (("C-x C-b" . beframe-buffer-menu)
-         :map beframe-prefix-map
-         ("a F" . beframe-assume-frame-buffers)
-         ("u F" . beframe-unassume-frame-buffers)
-         ("r" . rangi-beframe-rename-current-frame)
-         ("R" . rangi-beframe-rename-frame)
-         ("M" . list-buffers))
-  :bind-keymap ("C-c B" . beframe-prefix-map)
-  :config
-  ;; no frame scratch buffer
-  (setq beframe-create-frame-scratch-buffer nil)
-
-  (defun rangi-beframe-rename-current-frame ()
-    "Like `beframe-rename-current-frame' but prompt for name"
-    (interactive)
-    (beframe-rename-frame
-     (selected-frame)
-     (read-string "Rename current frame to: ")))
-
-  (defun rangi-beframe-rename-frame ()
-    "Like `beframe-rename-frame' but prompt for name"
-    (interactive)
-    (let ((current-prefix-arg '(4)))
-      (call-interactively 'beframe-rename-frame)))
-  (beframe-mode 1))
-
 
 
 ;;;;;;;;;;;;
