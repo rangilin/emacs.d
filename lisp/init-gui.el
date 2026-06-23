@@ -240,6 +240,7 @@
   ;; change default completeion styles
   (setq completion-styles '(partial-completion substring initials)))
 
-
+;; only show commands not excluded in current mode
+(setq read-extended-command-predicate #'command-completion-default-include-p)
 
 (provide 'init-gui)
