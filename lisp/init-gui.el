@@ -211,10 +211,10 @@
 (put 'other-window 'repeat-map 'rangi-window-repeat-map)
 (put 'rangi-window-previous 'repeat-map 'rangi-window-repeat-map)
 
-
 ;; add built-in window swap in existing window keymap
 (keymap-set window-prefix-map "x" 'window-swap-states)
-
+;; auto balance windows
+(setq window-combination-resize 1)
 
 
 ;;;;;;;;;;;;
