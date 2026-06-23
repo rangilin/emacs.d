@@ -163,6 +163,9 @@
   :config
   (setq avy-background t))
 
+;; save last cursor position in a file
+(save-place-mode 1)
+(setq save-place-file (expand-file-name "places" rangi-emacs-cache-directory))
 
 ;;;;;;;;;;;;;;;;;
 ;; Indentation ;;
