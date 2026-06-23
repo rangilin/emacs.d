@@ -84,6 +84,15 @@
   :pin nongnu)
 
 
+(use-package isearch
+  :config
+  ;; show match count
+  (setq isearch-lazy-count t)
+  ;; count display format (current/total)
+  (setq lazy-count-prefix-format "(%s/%s) ")
+  ;; show  highlight immediately
+  (setq lazy-highlight-initial-delay 0))
+
 
 ;;;;;;;;;;;;;;;;;;
 ;; Recent Files ;;
