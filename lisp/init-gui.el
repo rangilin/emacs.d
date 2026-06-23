@@ -161,6 +161,9 @@
          ("M" . list-buffers))
   :bind-keymap ("C-c B" . beframe-prefix-map)
   :config
+  ;; no frame scratch buffer
+  (setq beframe-create-frame-scratch-buffer nil)
+
   (defun rangi-beframe-rename-current-frame ()
     "Like `beframe-rename-current-frame' but prompt for name"
     (interactive)
