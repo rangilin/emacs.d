@@ -82,7 +82,7 @@
   (interactive)
   (let ((buffer (generate-new-buffer (read-string "Enter buffer name: "))))
     (set-buffer-major-mode buffer)
-    (switch-to-buffer buffer)))
+    (display-buffer buffer)))
 (bind-key "C-c b n" 'rangi-new-buffer)
 
 ;; refresh buffer
@@ -105,6 +105,9 @@
 (add-hook 'Buffer-menu-mode-hook
           (lambda ()
             (setq tabulated-list-sort-key '("File" . nil))))
+
+;; make emacs switching buffer the same as displaying it programmatically
+(setq switch-to-buffer-obey-display-actions t)
 
 
 ;;;;;;;;;;;;;;;;
