@@ -151,6 +151,7 @@
 (use-package beframe
   :pin gnu
   :ensure t
+  :demand t
   :bind (("C-x C-b" . beframe-buffer-menu)
          :map beframe-prefix-map
          ("a F" . beframe-assume-frame-buffers)
@@ -172,7 +173,6 @@
     (interactive)
     (let ((current-prefix-arg '(4)))
       (call-interactively 'beframe-rename-frame)))
-
   (beframe-mode 1))
 
 
