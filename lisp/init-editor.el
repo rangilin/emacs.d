@@ -95,6 +95,24 @@
 			" " (mode 16 16 :left :elide)
 			" " filename-and-process)))
 
+  ;; define filter groups
+  (setq ibuffer-saved-filter-groups
+        '(("default"
+           ("Temp" (starred-name)))))
+
+  ;; switch to the filter group when ibuffer is opened
+  (add-hook 'ibuffer-mode-hook
+            (lambda ()
+              ;; filter groups by default
+              (ibuffer-switch-to-saved-filter-groups "default")
+
+              ;; filters applied by default
+              (ibuffer-filter-by-starred-name nil)
+              (ibuffer-negate-filter)
+
+              ;; auto update
+              (ibuffer-auto-mode 1)))
+
   ;; unbind print so I don't accidentally print all of my buffers
   (unbind-key "P" ibuffer-mode-map))
 
