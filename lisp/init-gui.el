@@ -158,8 +158,6 @@
   (interactive)
   (other-window -1))
 
-(bind-key "C-x O" 'rangi-window-previous)
-
 (defvar-keymap rangi-window-repeat-map
   :repeat t
   "o" #'other-window
@@ -171,6 +169,11 @@
 
 (put 'other-window 'repeat-map 'rangi-window-repeat-map)
 (put 'rangi-window-previous 'repeat-map 'rangi-window-repeat-map)
+
+(bind-key "C-x O" 'rangi-window-previous)
+(bind-key "C-o" 'other-window)
+(bind-key "C-O" 'rangi-window-previous)
+
 
 ;; add built-in window swap in existing window keymap
 (keymap-set window-prefix-map "x" 'window-swap-states)
