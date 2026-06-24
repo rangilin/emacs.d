@@ -106,7 +106,7 @@
 (defun rangi-new-buffer ()
   "create a new buffer with specified name"
   (interactive)
-  (let ((buffer (generate-new-buffer (read-string "Enter buffer name: "))))
+  (let ((buffer (generate-new-buffer (read-string "Enter buffer name: " "*scratch*"))))
     (set-buffer-major-mode buffer)
     (display-buffer buffer)))
 (bind-key "C-c b n" 'rangi-new-buffer)
