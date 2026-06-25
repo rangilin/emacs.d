@@ -7,6 +7,8 @@
 ;; default frame is maximized
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+(setq frame-title-format '("%b"))
+
 ;; turn off these
 (tool-bar-mode -1)
 (tooltip-mode -1)
