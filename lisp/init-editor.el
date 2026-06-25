@@ -34,6 +34,8 @@
 ;; overwrite mode
 (bind-key "C-c e r" 'overwrite-mode)
 
+;; increase how long the pulse highlight stay
+(setq pulse-delay 0.05)
 
 ;;;;;;;;;;
 ;; Font ;;
