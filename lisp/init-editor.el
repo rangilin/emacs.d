@@ -178,6 +178,7 @@
   :bind (("C-a" . mwim-beginning)
          ("C-e" . mwim-end)))
 
+
 ;; fast scroll
 (setq fast-but-imprecise-scrolling t)
 ;; move cursor to top or bottom of the buffer when it cannot be scrolled anymore
@@ -192,6 +193,7 @@
 (setq hscroll-step 1)
 ;; keep this amount of lines after horizontal scroll happened
 (setq hscroll-margin 3)
+
 
 ;; recenter in the center of a horizontal line
 ;; http://stackoverflow.com/a/1249665/554279
@@ -212,9 +214,14 @@
   :config
   (setq avy-background t))
 
+
 ;; save last cursor position in a file
-(save-place-mode 1)
-(setq save-place-file (expand-file-name "places" rangi-emacs-cache-directory))
+(use-package saveplace
+  :init
+  (setq-default save-place-file (expand-file-name "places" rangi-emacs-cache-directory))
+  :config
+  (save-place-mode 1))
+
 
 ;;;;;;;;;;;;;;;;;
 ;; Indentation ;;
