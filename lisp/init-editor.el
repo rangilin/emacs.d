@@ -184,8 +184,8 @@
 (setq scroll-error-top-bottom t)
 ;; don't recenter after scroll
 (setq scroll-conservatively 101)
-;; keep this amount of lines as margin when scrolling to the edge
-(setq scroll-margin 5)
+;; keep this amount of lines as margin to the edge
+(setq scroll-margin 1)
 ;; keep cursor position after scroll
 (setq scroll-preserve-screen-position t)
 ;; scroll horizontal with smaller step
