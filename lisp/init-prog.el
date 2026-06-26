@@ -76,10 +76,14 @@
 ;;;;;;;;;;;;;
 
 (use-package compile
+  :hook (compilation-filter . ansi-color-compilation-filter)
   :config
+  ;; don't hide long line
+  (setq compilation-max-output-line-length nil)
+  ;; jump to first error after compilation
+  (setq compilation-auto-jump-to-first-error t)
   ;; make compilation buffer scroll to the bottom automatically
   (setq compilation-scroll-output t))
-
 
 
 ;;;;;;;;;
