@@ -7,7 +7,14 @@
 ;; default frame is maximized
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(setq frame-title-format '("%b"))
+;; dynamic frame title
+(setq frame-title-format
+      '((:eval (let ((project (project-current)))
+                 (if project (format "(%s) " (project-name project)) "")))
+        "%@ "
+        (:eval (if buffer-file-name
+                   buffer-file-name
+                 "%b"))))
 
 ;; turn off these
 (tool-bar-mode -1)
