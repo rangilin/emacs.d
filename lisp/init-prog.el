@@ -268,10 +268,14 @@
   :hook ((zig-ts-mode . eglot-ensure)
          (zig-ts-mode . (lambda () (add-hook 'before-save-hook #'eglot-format-buffer))))
   :config
+  ;; append extra arguments on zig command
+  (advice-add 'zig-ts--run-cmd :around
+              (lambda (f cmd &optional source &rest args)
+                (apply f cmd source (append '("--color" "off") args))))
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
                  '((zig-ts-mode) . ("zls")))))
-  :hook
+
 
 
 (provide 'init-prog)
