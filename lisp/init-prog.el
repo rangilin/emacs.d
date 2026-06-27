@@ -19,6 +19,10 @@
   (setq eldoc-echo-area-use-multiline-p t))
 
 
+;; enable breadcrumb in prog-mode
+(use-package breadcrumb
+  :hook (prog-mode . breadcrumb-local-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Source Control ;;

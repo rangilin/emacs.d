@@ -87,9 +87,11 @@
   ;; do my own customization after theme is loaded
   (defun rangi-themes-custom-faces (&rest _)
     (modus-themes-with-colors
-     (custom-set-faces
-      `(mode-line-active ((,c :box (:line-width 5 :color ,(face-background 'mode-line-active)))))
-      `(mode-line-inactive ((,c :box (:line-width 5 :color ,(face-background 'mode-line-inactive))))))))
+      (custom-set-faces
+       ;; increase header line and mode line padding
+       `(header-line ((,c :box (:line-width 5 :color ,(face-background 'header-line)))))
+       `(mode-line-active ((,c :box (:line-width 5 :color ,(face-background 'mode-line-active)))))
+       `(mode-line-inactive ((,c :box (:line-width 5 :color ,(face-background 'mode-line-inactive))))))))
   (add-hook 'modus-themes-after-load-theme-hook #'rangi-themes-custom-faces)
 
   ;; load initial theme based on time of day
