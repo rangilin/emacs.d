@@ -104,6 +104,9 @@
   :hook ((eglot-managed-mode . rangi-set-eglot-managed-mode))
   :config
 
+  ;; make highlight symbol slightly more obvious
+  (set-face-attribute 'eglot-highlight-symbol-face nil :underline '(:color foreground-color))
+
   (defun rangi-set-eglot-managed-mode ()
     ;; enable eldoc when eglot is on
     (eldoc-mode 1)
