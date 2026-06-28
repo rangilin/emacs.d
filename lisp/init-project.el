@@ -4,7 +4,8 @@
   :bind (
          :map project-prefix-map
          ("C" . project-recompile)
-         ("v" . rangi-project-vc-dir))
+         ("v" . rangi-project-vc-dir)
+         ("q" . keyboard-quit))
   :config
   ;; use ibuffer when list project buffers
   (setq project-buffers-viewer 'project-list-buffers-ibuffer)
@@ -13,7 +14,8 @@
                                   (project-find-regexp "Find regexp")
                                   (project-find-dir "Find directory")
                                   (rangi-project-vc-dir "Magit/VC-Dir")
-                                  (project-any-command "Other")))
+                                  (project-any-command "Other")
+                                  (keyboard-quit "Cancel")))
   ;; custom file identify project root
   (setq project-vc-extra-root-markers '(".project"))
   ;; store projects data in cache directory
