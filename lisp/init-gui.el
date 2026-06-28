@@ -208,6 +208,10 @@
 
 (use-package minibuffer
   :config
+  ;; completion case-insensitive
+  (setq completion-ignore-case t)
+  (setq read-file-name-completion-ignore-case t)
+  (setq read-buffer-completion-ignore-case t)
   ;; sort completion vertically
   (setq completions-format "vertical")
   ;; control completion list from minibuffer
