@@ -102,15 +102,19 @@
         '(("default"
            ("Temp" (starred-name)))))
 
+  ;; define some filters
+  (setq ibuffer-saved-filters
+        '(("essential"
+           (not (starred-name)))))
+
   ;; switch to the filter group when ibuffer is opened
   (add-hook 'ibuffer-mode-hook
             (lambda ()
               ;; filter groups by default
               (ibuffer-switch-to-saved-filter-groups "default")
 
-              ;; filters applied by default
-              (ibuffer-filter-by-starred-name nil)
-              (ibuffer-negate-filter)
+              ;; apply saved filters
+              (ibuffer-switch-to-saved-filters "essential")
 
               ;; auto update
               (ibuffer-auto-mode 1)))
