@@ -249,7 +249,7 @@
 
 (bind-key "<C-S-return>" 'rangi-insert-newline-above)
 (bind-key "<S-return>" 'rangi-insert-newline-below)
-(bind-key "<M-return>" 'open-line)
+(bind-key "<S-return>" 'open-line)
 
 ;; indent with space by default
 (setq-default indent-tabs-mode nil)
