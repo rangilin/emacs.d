@@ -18,6 +18,8 @@
                                   (keyboard-quit "Cancel")))
   ;; custom file identify project root
   (setq project-vc-extra-root-markers '(".project"))
+  (setq project-vc-ignores
+        '("zig-out/" ".zig-cache"))
   ;; store projects data in cache directory
   (setq project-list-file (expand-file-name "projects" rangi-emacs-cache-directory)))
 
