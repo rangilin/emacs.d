@@ -273,7 +273,7 @@
             :rev "bb1e828780")
   :mode "\\.\\(zig\\|zon\\)\\'"
   :hook ((zig-ts-mode . eglot-ensure)
-         (zig-ts-mode . (lambda () (add-hook 'before-save-hook #'eglot-format-buffer))))
+         (zig-ts-mode . (lambda () (add-hook 'before-save-hook #'eglot-format-buffer nil t))))
   :config
   ;; append extra arguments on zig command
   (advice-add 'zig-ts--run-cmd :around
