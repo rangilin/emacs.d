@@ -92,4 +92,14 @@
 (setq bookmark-default-file (expand-file-name "bookmark" rangi-emacs-cache-directory))
 
 
+;; mise
+(use-package mise
+  :load-path "site-lisp/mise"
+  :diminish
+  :hook (emacs-startup . global-mise-mode)
+  :init
+  (use-package inheritenv
+    :load-path "site-lisp/inheritenv"))
+
+
 (provide 'init-misc)
