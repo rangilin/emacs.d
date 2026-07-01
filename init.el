@@ -43,13 +43,6 @@
 ;; Performance ;;
 ;;;;;;;;;;;;;;;;;
 
-;; use garbage collect magic hack
-(use-package gcmh
-  :diminish 'gcmh-mode
-  :load-path "site-lisp/gcmh"
-  :config
-  (gcmh-mode))
-
 ;; read from sub-process in larger chunk
 (setq read-process-output-max (* 4 1024 1024))
 
