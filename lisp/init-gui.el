@@ -89,9 +89,16 @@
   (rangi-theme-set-faces))
 
 (defun rangi-theme-set-faces ()
+  ;; header-line
   (set-face-attribute 'header-line nil :box `(:line-width 5 :color ,(face-background 'default)) :background (face-background 'default))
+
+  ;; mode-line
   (set-face-attribute 'mode-line-active nil :box `(:line-width 5 :color ,(face-background 'mode-line)))
-  (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-background 'mode-line-inactive))))
+  (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-background 'mode-line-inactive)))
+
+  ;; # base16 theme specific customization
+  ;; remove box to avoid modeline jiggling when shown in minibuffer
+  (set-face-attribute 'help-key-binding nil :box nil))
 
 (defun rangi-load-theme-according-to-time ()
   (let ((hour (string-to-number (format-time-string "%H"))))
