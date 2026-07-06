@@ -76,39 +76,37 @@
 ;; Theme ;;
 ;;;;;;;;;;;
 
-(use-package modus-themes
-  :pin gnu
-  :ensure t
-  :demand t
-  :bind (("C-c t t" . modus-themes-toggle))
-  ;; :init (modus-themes-include-derivatives-mode 1)
-  :config
-  ;; load derived themes
-  ;; (require 'ef-themes (expand-file-name "site-lisp/ef-themes/ef-themes.el" user-emacs-directory))
+(use-package base16-theme
+  :load-path "site-lisp/base16-theme-20260621.406")
 
-  ;; assign my light/dark theme for toggling
-  (setq rangi-theme-light 'modus-operandi)
-  (setq rangi-theme-dark 'modus-vivendi)
-  (setq modus-themes-to-toggle `(,rangi-theme-light ,rangi-theme-dark))
+(setq rangi-theme-light 'base16-grayscale-light)
+(setq rangi-theme-dark 'base16-grayscale-dark)
+(setq rangi-theme-current nil)
 
-  ;; do my own customization after theme is loaded
-  (defun rangi-themes-custom-faces (&rest _)
-    (modus-themes-with-colors
-      (custom-set-faces
-       ;; increase header line and mode line padding
-       `(header-line ((,c :box (:line-width 5 :color ,(face-background 'header-line)))))
-       `(mode-line-active ((,c :box (:line-width 5 :color ,(face-background 'mode-line-active)))))
-       `(mode-line-inactive ((,c :box (:line-width 5 :color ,(face-background 'mode-line-inactive))))))))
-  (add-hook 'modus-themes-after-load-theme-hook #'rangi-themes-custom-faces)
+(defun rangi-load-theme (theme)
+  (setq rangi-theme-current theme)
+  (load-theme theme t)
+  (rangi-theme-set-faces))
 
-  ;; load initial theme based on time of day
-  (defun rangi-load-theme-according-to-time ()
-    (let ((hour (string-to-number (format-time-string "%H"))))
-      (if (and (>= hour 8) (<= hour 18))
-          (modus-themes-load-theme rangi-theme-light)
-	      (modus-themes-load-theme rangi-theme-dark))))
-  (rangi-load-theme-according-to-time))
+(defun rangi-theme-set-faces ()
+  (set-face-attribute 'header-line nil :box `(:line-width 5 :color ,(face-background 'default)) :background (face-background 'default))
+  (set-face-attribute 'mode-line-active nil :box `(:line-width 5 :color ,(face-background 'mode-line)))
+  (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-background 'mode-line-inactive))))
 
+(defun rangi-load-theme-according-to-time ()
+  (let ((hour (string-to-number (format-time-string "%H"))))
+    (if (and (>= hour 8) (<= hour 18))
+        (rangi-load-theme rangi-theme-light)
+	    (rangi-load-theme rangi-theme-dark))))
+
+(defun rangi-toggle-theme ()
+  (interactive)
+  (if (or (not rangi-theme-current) (eq rangi-theme-current rangi-theme-dark))
+      (rangi-load-theme rangi-theme-light)
+    (rangi-load-theme rangi-theme-dark)))
+
+(rangi-load-theme-according-to-time)
+(bind-key "C-c e t" 'rangi-toggle-theme)
 
 
 ;;;;;;;;;;
