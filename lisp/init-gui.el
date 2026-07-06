@@ -77,10 +77,12 @@
 ;;;;;;;;;;;
 
 (use-package base16-theme
-  :load-path "site-lisp/base16-theme-20260621.406")
+  :load-path "site-lisp/base16-theme-20260621.406"
+  :init
+  (setq-default base16-theme-distinct-fringe-background nil))
 
-(setq rangi-theme-light 'base16-grayscale-light)
-(setq rangi-theme-dark 'base16-grayscale-dark)
+(setq rangi-theme-light 'base16-harmonic16-light)
+(setq rangi-theme-dark 'base16-harmonic16-dark)
 (setq rangi-theme-current nil)
 
 (defun rangi-load-theme (theme)
@@ -89,16 +91,27 @@
   (rangi-theme-set-faces))
 
 (defun rangi-theme-set-faces ()
+
+  ;; base16s theme specific customization
+  ;; -------------------------------------
+  ;; remove box to avoid modeline jiggling when shown in minibuffer
+  (set-face-attribute 'help-key-binding nil :box nil)
+
+  (let ((theme (symbol-name rangi-theme-current))
+        (colors (symbol-value (intern (concat (symbol-name rangi-theme-current) "-theme-colors")))))
+
+    ;; handle atelier themes mode line so it's easier to read
+    (when (string-search "atelier" theme)
+      (set-face-attribute 'mode-line nil :background (plist-get colors :base01))
+      (set-face-attribute 'mode-line-inactive nil :background (plist-get colors :base00))))
+  ;; --------------------------------------
+
   ;; header-line
   (set-face-attribute 'header-line nil :box `(:line-width 5 :color ,(face-background 'default)) :background (face-background 'default))
 
   ;; mode-line
   (set-face-attribute 'mode-line-active nil :box `(:line-width 5 :color ,(face-background 'mode-line)))
-  (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-background 'mode-line-inactive)))
-
-  ;; # base16 theme specific customization
-  ;; remove box to avoid modeline jiggling when shown in minibuffer
-  (set-face-attribute 'help-key-binding nil :box nil))
+  (set-face-attribute 'mode-line-inactive nil :box `(:line-width 5 :color ,(face-background 'mode-line-inactive))))
 
 (defun rangi-load-theme-according-to-time ()
   (let ((hour (string-to-number (format-time-string "%H"))))
