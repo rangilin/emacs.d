@@ -1,4 +1,5 @@
 ;;; init-misc.el --- Misc initialization file -*- lexical-binding: t -*-
+(bind-key "C-c E r" 'restart-emacs)
 
 ;; package to edit beancount file
 (use-package beancount
