@@ -103,4 +103,22 @@
     :load-path "site-lisp/inheritenv"))
 
 
+;; AI stuff
+(use-package gptel
+  :pin nongnu
+  :ensure t
+  :bind (("C-c a a" . gptel-send)
+         ("C-c a A" . gptel-menu))
+  :config
+  (setq gptel-model 'anthropic/claude-haiku-4.5)
+  (setq gptel-backend
+        (gptel-make-openai "OpenRouter"
+          :host "openrouter.ai"
+          :endpoint "/api/v1/chat/completions"
+          :stream t
+          :key (string-trim (shell-command-to-string "op read 'op://Personal/OpenRouter/API Keys/default'"))
+          :models '(anthropic/claude-haiku-4.5))))
+
+
+
 (provide 'init-misc)
