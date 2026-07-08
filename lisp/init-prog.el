@@ -284,5 +284,22 @@
                  '((zig-ts-mode) . ("zls")))))
 
 
+;; Golang
+(use-package go-ts-mode
+  :mode "\\.go\\'"
+  :hook ((go-ts-mode . eglot-ensure)
+         (go-ts-mode . (lambda ()
+                         (add-hook 'before-save-hook #'rangi-before-save-go nil t))))
+  :config
+  (defun rangi-before-save-go ()
+    (eglot-format-buffer)
+    (call-interactively 'eglot-code-action-organize-imports))
+  (setq go-ts-mode-indent-offset 4))
+
+(use-package go-mod-ts-mode
+  :mode "/go\\.mod\\'"
+  :hook ((go-mod-ts-mode . eglot-ensure)))
+
+
 
 (provide 'init-prog)
