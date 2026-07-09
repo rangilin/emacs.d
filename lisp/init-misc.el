@@ -116,7 +116,7 @@
           :host "openrouter.ai"
           :endpoint "/api/v1/chat/completions"
           :stream t
-          :key (string-trim (shell-command-to-string "op read 'op://Personal/OpenRouter/API Keys/default'"))
+          :key (lambda () (string-trim (shell-command-to-string "op read 'op://Personal/OpenRouter/API Keys/default'")))
           :models '(anthropic/claude-haiku-4.5))))
 
 
