@@ -44,23 +44,16 @@
   :bind
   (("C-c v g" . magit-status)
    ("C-c v G" . magit-dispatch-popup))
-
-  :init
+  :config
+  ;; if there are issue, try clean up transient.elc and restart emacs again
+  ;; see https://github.com/magit/magit/discussions/5180
   (use-package transient
     :ensure t
-    :defer t
-    :pin nongnu
     :config
     (setq transient-levels-file (expand-file-name "transient-levels.el" rangi-emacs-cache-directory))
     (setq transient-values-file (expand-file-name "transient-values.el" rangi-emacs-cache-directory))
     (setq transient-history-file (expand-file-name "transient-history.el" rangi-emacs-cache-directory)))
 
-  (use-package with-editor
-    :ensure t
-    :defer t
-    :pin nongnu)
-
-  :config
   (setq-default magit-diff-refine-hunk t))
 
 
