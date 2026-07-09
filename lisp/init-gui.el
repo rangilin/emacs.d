@@ -76,13 +76,8 @@
 ;; Theme ;;
 ;;;;;;;;;;;
 
-(use-package base16-theme
-  :load-path "site-lisp/base16-theme-20260621.406"
-  :init
-  (setq-default base16-theme-distinct-fringe-background nil))
-
-(setq rangi-theme-light 'base16-harmonic16-light)
-(setq rangi-theme-dark 'base16-harmonic16-dark)
+(setq rangi-theme-light 'modus-operandi-tinted)
+(setq rangi-theme-dark 'modus-vivendi-tinted)
 (setq rangi-theme-current nil)
 
 (defun rangi-load-theme (theme)
@@ -91,23 +86,8 @@
   (rangi-theme-set-faces))
 
 (defun rangi-theme-set-faces ()
-
-  ;; base16s theme specific customization
-  ;; -------------------------------------
-  ;; remove box to avoid modeline jiggling when shown in minibuffer
-  (set-face-attribute 'help-key-binding nil :box nil)
-
-  (let ((theme (symbol-name rangi-theme-current))
-        (colors (symbol-value (intern (concat (symbol-name rangi-theme-current) "-theme-colors")))))
-
-    ;; handle atelier themes mode line so it's easier to read
-    (when (string-search "atelier" theme)
-      (set-face-attribute 'mode-line nil :background (plist-get colors :base01))
-      (set-face-attribute 'mode-line-inactive nil :background (plist-get colors :base00))))
-  ;; --------------------------------------
-
   ;; header-line
-  (set-face-attribute 'header-line nil :box `(:line-width 5 :color ,(face-background 'default)) :background (face-background 'default))
+  (set-face-attribute 'header-line nil :box `(:line-width 5 :color ,(face-background 'header-line)) :background (face-background 'header-line))
 
   ;; mode-line
   (set-face-attribute 'mode-line-active nil :box `(:line-width 5 :color ,(face-background 'mode-line)))
