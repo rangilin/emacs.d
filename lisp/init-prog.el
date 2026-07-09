@@ -21,6 +21,8 @@
 
 ;; enable breadcrumb in prog-mode
 (use-package breadcrumb
+  :ensure t
+  :pin gnu
   :hook (prog-mode . breadcrumb-local-mode))
 
 
