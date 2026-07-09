@@ -190,6 +190,19 @@
 (setq window-combination-resize 1)
 
 
+;; switch window after split it
+(defun rangi-split-window-horizontally ()
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1))
+(defun rangi-split-window-vertically ()
+  (interactive)
+  (split-window-vertically)
+  (other-window 1))
+(bind-key "C-x 2" 'rangi-split-window-vertically)
+(bind-key "C-x 3" 'rangi-split-window-horizontally)
+
+
 ;;;;;;;;;;;;
 ;; Fringe ;;
 ;;;;;;;;;;;;
