@@ -257,8 +257,8 @@
 
 ;; indent with space by default
 (setq-default indent-tabs-mode nil)
-;; indent 2 spaces by default
-(setq-default tab-width 2)
+;; indent 4 spaces by default
+(setq-default tab-width 4)
 ;; indent automatically
 (electric-indent-mode 1)
 
