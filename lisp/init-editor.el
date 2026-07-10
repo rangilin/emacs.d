@@ -37,6 +37,11 @@
 ;; increase how long the pulse highlight stay
 (setq pulse-delay 0.05)
 
+;; make url/email text openable
+(global-goto-address-mode t)
+(setq browse-url-secondary-browser-function 'eww-browse-url)
+
+
 ;;;;;;;;;;
 ;; Font ;;
 ;;;;;;;;;;
