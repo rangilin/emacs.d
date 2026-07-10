@@ -228,20 +228,9 @@
   ;; control completion list from minibuffer
   (setq minibuffer-visible-completions t)
   ;; change default completeion styles
-  (setq completion-styles '(partial-completion substring initials))
-
-  ;; during completion, use these keys to move selection
-  (keymap-set minibuffer-visible-completions-map "C-i"
-              (minibuffer-visible-completions--bind #'minibuffer-previous-line-completion))
-  (keymap-set minibuffer-visible-completions-map "C-k"
-              (minibuffer-visible-completions--bind #'minibuffer-next-line-completion))
-  (keymap-set minibuffer-visible-completions-map "C-j"
-              (minibuffer-visible-completions--bind #'minibuffer-previous-completion))
-  (keymap-set minibuffer-visible-completions-map "C-l"
-              (minibuffer-visible-completions--bind #'minibuffer-next-completion)))
+  (setq completion-styles '(partial-completion substring initials)))
 
 ;; only show commands not excluded in current mode
 (setq read-extended-command-predicate #'command-completion-default-include-p)
-
 
 (provide 'init-gui)
