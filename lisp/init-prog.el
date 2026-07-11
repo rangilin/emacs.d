@@ -263,14 +263,12 @@
 
 ;; Zig
 (use-package zig-ts-mode
-  :ensure t
-  :vc (:url "https://codeberg.org/meow_king/zig-ts-mode"
-            :rev "bb1e828780")
+  :load-path "site-lisp/zig-ts-mode"
   :mode "\\.\\(zig\\|zon\\)\\'"
   :hook ((zig-ts-mode . eglot-ensure)
          (zig-ts-mode . (lambda () (add-hook 'before-save-hook #'eglot-format-buffer nil t))))
   :config
-  ;; append extra arguments on zig command
+  ;; turn off color from zig's output for Emacs
   (advice-add 'zig-ts--run-cmd :around
               (lambda (f cmd &optional source &rest args)
                 (apply f cmd source (append '("--color" "off") args))))
