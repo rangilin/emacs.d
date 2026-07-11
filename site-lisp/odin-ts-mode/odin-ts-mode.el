@@ -1,0 +1,328 @@
+;;; odin-ts-mode.el --- Odin Lang Major Mode for Emacs -*- lexical-binding: t -*-
+
+;; Author: Sampie159
+;; URL: https://github.com/Sampie159/odin-ts-mode
+;; Keywords: odin languages tree-sitter
+;; Version 0.1.0
+;; Package-Requires : ((emacs "29.1"))
+
+;;; License:
+
+;; MIT License
+;;
+;; Copyright (c) 2024 Sampie159
+;;
+;; Permission is hereby granted, free of charge, to any person obtaining a copy
+;; of this software and associated documentation files (the "Software"), to deal
+;; in the Software without restriction, including without limitation the rights
+;; to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+;; copies of the Software, and to permit persons to whom the Software is
+;; furnished to do so, subject to the following conditions:
+;;
+;; The above copyright notice and this permission notice shall be included in all
+;; copies or substantial portions of the Software.
+;;
+;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+;; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+;; OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+;; SOFTWARE.
+
+;;; Commentary:
+
+;; Powered by Emacs >= 29 and tree-sitter this major mode provides
+;; syntax highlighting, indentation and imenu support for Odin.
+;; odin-ts-mode is built against the tree-sitter grammar locatated at
+;; https://github.com/tree-sitter-grammars/tree-sitter-odin
+
+;; Much of the structure of this code is based on the c3-ts-mode located at
+;; https://github.com/c3lang/c3-ts-mode
+;; and on odin-mode located at
+;; https://github.com/mattt-b/odin-mode
+
+;; Many thanks for Mickey Petersen for his article "Let's Write a Tree-Sitter Major mode"
+;; which can be found at https://www.masteringemacs.org/article/lets-write-a-treesitter-major-mode
+;; for helping me do this.
+
+;;; Code:
+
+(require 'treesit)
+(require 'js)
+(require 'c-ts-common)
+
+(defgroup odin-ts nil
+  "Major mode for editing odin files."
+  :prefix "odin-ts-"
+  :group 'languages)
+
+(defcustom odin-ts-mode-hook nil
+  "Hook run after entering `odin-ts-mode`."
+  :version "29.1"
+  :type 'symbol
+  :group 'odin-ts)
+
+(defcustom odin-ts-mode-indent-offset 4
+  "Number of spaces for each indentation step in `odin-ts-mode`."
+  :type 'integer
+  :safe 'integerp
+  :group 'odin-ts)
+
+(defconst odin-ts-mode--syntax-table ;; shamelessly stolen directly from odin-mode
+  (let ((table (make-syntax-table)))
+    (modify-syntax-entry ?\" "\"" table)
+    (modify-syntax-entry ?\\ "\\" table)
+
+    ;; additional symbols
+    (modify-syntax-entry ?' "\"" table)
+    (modify-syntax-entry ?` "\"" table)
+    (modify-syntax-entry ?: "." table)
+    (modify-syntax-entry ?+ "." table)
+    (modify-syntax-entry ?- "." table)
+    (modify-syntax-entry ?% "." table)
+    (modify-syntax-entry ?& "." table)
+    (modify-syntax-entry ?| "." table)
+    (modify-syntax-entry ?^ "." table)
+    (modify-syntax-entry ?! "." table)
+    (modify-syntax-entry ?$ "." table)
+    (modify-syntax-entry ?= "." table)
+    (modify-syntax-entry ?< "." table)
+    (modify-syntax-entry ?> "." table)
+    (modify-syntax-entry ?? "." table)
+
+    ;; Need this for #directive regexes to work correctly
+    (modify-syntax-entry ?#   "_" table)
+
+    ;; Modify some syntax entries to allow nested block comments
+    (modify-syntax-entry ?/ ". 124b" table)
+    (modify-syntax-entry ?* ". 23n" table)
+    (modify-syntax-entry ?\n "> b" table)
+    (modify-syntax-entry ?\^m "> b" table)
+
+    table)
+  "Syntax table for `odin-ts-mode`.")
+
+(defconst odin-ts-mode--includes
+  '("import" "package")
+  "Includes used in `odin-ts-mode`.")
+
+(defconst odin-ts-mode--storage-classes
+  '("distinct" "dynamic")
+  "Storage classes used in `odin-ts-mode`.")
+
+(defconst odin-ts-mode--operators
+  '(":=" "=" "+" "-" "*" "/" "%" "%%" ">" ">=" "<" "<=" "==" "!=" "~="
+    "|" "~" "&" "&~" "<<" ">>" "||" "&&" "!" "^" ".." "+=" "-=" "*="
+    "/=" "%=" "&=" "|=" "^=" "<<=" ">>=" "||=" "&&=" "&~=" "..=" "..<" "?")
+  "Operators used in `odin-ts-mode`.")
+
+(defconst odin-ts-mode--keywords
+  '("foreign" "or_continue" "or_break" "or_else" "or_return"
+    "in" "not_in"
+    "defer" "return" "proc"
+    "struct" "union" "enum" "bit_field" "bit_set" "map"
+    "using")
+  "Keywords used in the Odin language.")
+
+(defconst odin-ts-mode--conditionals
+  '("if" "else" "when" "switch" "case" "where" "break")
+  "Conditionals used in `odin-ts-mode`.")
+
+(defconst odin-ts-mode--repeats
+  '("for" "do" "continue")
+  "Repeats used in `odin-ts-mode`.")
+
+(defvar odin-ts-mode--font-lock-rules
+  (treesit-font-lock-rules
+   :language 'odin
+   :override t
+   :feature 'variable
+   '((identifier) @font-lock-variable-use-face)
+
+   :language 'odin
+   :override t
+   :feature 'namespace
+   '((package_declaration (identifier) @font-lock-constant-face)
+     (import_declaration alias: (identifier) @font-lock-constant-face)
+     (foreign_block (identifier) @font-lock-constant-face)
+     (using_statement (identifier) @font-lock-constant-face))
+
+   :language 'odin
+   :override t
+   :feature 'comment
+   '([(comment) (block_comment)] @font-lock-comment-face)
+
+   :language 'odin
+   :override t
+   :feature 'literal
+   '((number) @font-lock-number-face
+     (float) @font-lock-number-face
+     (character) @font-lock-constant-face
+     (boolean) @font-lock-constant-face
+     [(uninitialized) (nil)] @font-lock-constant-face)
+
+   :language 'odin
+   :override t
+   :feature 'string
+   '((string) @font-lock-string-face)
+
+   :language 'odin
+   :override t
+   :feature 'escape-sequence
+   '((escape_sequence) @font-lock-escape-face)
+
+   :language 'odin
+   :override t
+   :feature 'preproc
+   '([(calling_convention) (tag)] @font-lock-preprocessor-face)
+
+   :language 'odin
+   :override t
+   :feature 'keyword
+   `([,@odin-ts-mode--keywords] @font-lock-keyword-face
+     [,@odin-ts-mode--includes] @font-lock-keyword-face
+     [,@odin-ts-mode--storage-classes] @font-lock-keyword-face
+     [,@odin-ts-mode--conditionals (fallthrough_statement)] @font-lock-keyword-face
+     [,@odin-ts-mode--repeats] @font-lock-keyword-face)
+
+   :language 'odin
+   :override t
+   :feature 'builtin
+   '(["auto_cast" "cast" "transmute"] @font-lock-builtin-face)
+
+   :language 'odin
+   :override t
+   :feature 'function
+   '((procedure_declaration (identifier) @font-lock-function-name-face)
+     (call_expression function: (identifier) @font-lock-function-call-face)
+     (overloaded_procedure_declaration (identifier) @font-lock-function-name-face))
+
+   :language 'odin
+   :override t
+   :feature 'type
+   `((struct_declaration (identifier) @font-lock-type-face)
+     (type (identifier) @font-lock-type-face)
+     (const_declaration (identifier) @font-lock-type-face "::" (bit_set_type))
+     (enum_declaration (identifier) @font-lock-type-face)
+     (union_declaration (identifier) @font-lock-type-face)
+     (bit_field_declaration (identifier) @font-lock-type-face)
+     (type (field_type) @font-lock-type-face))
+
+   :language 'odin
+   :override t
+   :feature 'punctuation
+   `([,@odin-ts-mode--operators] @font-lock-punctuation-face
+     ["{" "}" "(" ")" "[" "]"] @font-lock-punctuation-face
+     ["::" "->" "." "," ":" ";"] @font-lock-punctuation-face
+     ["@" "$"] @font-lock-punctuation-face)
+
+   :language 'odin
+   :override t
+   :feature 'error
+   '((ERROR) @font-lock-warning-face)
+
+   :language 'odin
+   :override t
+   :feature 'property
+   `((field (identifier) @font-lock-property-name-face)
+     (struct_field (identifier) @font-lock-property-name-face)
+     (member_expression (identifier) (identifier) @font-lock-property-use-face))
+   )
+  "Font lock rules used by `odin-ts-mode`.")
+
+(defvar odin-ts-mode--font-lock-feature-list
+  '((comment string)
+    (keyword type)
+    (builtin preproc escape-sequence literal constant function)
+    (operator punctuation variable namespace property))
+  "Feature list used by `odin-ts-mode`.")
+
+(defconst odin-ts-mode--imenu-settings
+  `(("Struct" "\\`struct_declaration\\'" nil nil)
+    ("Enum" "\\`enum_declaration\\'" nil nil)
+    ("Union" "\\`union_declaration\\'" nil nil)
+    ("Bit Field" "\\`bit_field_declaration\\'" nil nil)
+    ("Function" "\\`procedure_declaration\\'" nil nil)
+    ("Function" "\\`overloaded_procedure_declaration\\'" nil nil))
+  "Imenu settings used by `odin-ts-mode`.")
+
+;; Once again shamelessely stolen from c-ts-mode and slightly changed because the c parser
+;; has no distinciton between comment and block_comment nodes while the odin parser does
+(defun odin-ts-comment-2nd-line-matcher (_n parent &rest _)
+  "Matches if point is at the second line of a block comment.
+PARENT should be a block_comment node."
+  (and (equal (treesit-node-type parent) "block_comment")
+       (save-excursion
+         (forward-line -1)
+         (back-to-indentation)
+         (eq (point) (treesit-node-start parent)))))
+
+;; Shamelessely ported from https://github.com/tree-sitter-grammars/tree-sitter-odin/blob/master/queries/indents.scm
+(defvar odin-ts-mode-indent-rules
+  '((odin
+     ((node-is "]") parent-bol 0)
+     ((node-is ")") parent-bol 0)
+     ((node-is "}") (and parent parent-bol) 0) ; We don't need to do all braces separately because we define indent relative to parent and not in blocks.
+                                               ; I don't know why but some of the other -ts-modes dedent to (and parent parent-bol) and i'll do the same just in case
+
+     ((parent-is "^block$")            parent-bol odin-ts-mode-indent-offset)
+
+     ;; Declarations
+     ((parent-is "enum_declaration")   parent-bol odin-ts-mode-indent-offset)
+     ((parent-is "union_declaration")  parent-bol odin-ts-mode-indent-offset)
+     ((parent-is "struct_declaration") parent-bol odin-ts-mode-indent-offset)
+
+     ;; Anonymous struct and union types
+     ((parent-is "union_type")         parent-bol odin-ts-mode-indent-offset)
+     ((parent-is "struct_type")        parent-bol odin-ts-mode-indent-offset)
+
+     ((parent-is "^struct$")           parent-bol odin-ts-mode-indent-offset)
+     ((parent-is "parameters")         parent-bol odin-ts-mode-indent-offset)
+     ((parent-is "tuple_type")         parent-bol odin-ts-mode-indent-offset)
+     ((parent-is "call_expression")    parent-bol odin-ts-mode-indent-offset)
+     ((parent-is "switch_case")        parent-bol odin-ts-mode-indent-offset)
+
+     ;; Shamelessely stolen from c-ts-mode
+     ((and (parent-is "block_comment") c-ts-common-looking-at-star)
+      c-ts-common-comment-start-after-first-star -1)
+     (odin-ts-comment-2nd-line-matcher
+      c-ts-common-comment-2nd-line-anchor
+      1)
+
+     ((parent-is "block_comment") prev-adaptive-prefix 0)
+
+     (catch-all parent-bol 0)))
+  "Tree-sitter indent rules for `odin-ts-mode`.")
+
+(defun odin-ts-mode-setup ()
+  "Setup treesit for `odin-ts-mode`."
+
+  ;; Highlighting
+  (setq-local treesit-font-lock-settings odin-ts-mode--font-lock-rules
+              treesit-font-lock-feature-list odin-ts-mode--font-lock-feature-list)
+
+  ;; Indentation
+  (setq-local treesit-simple-indent-rules odin-ts-mode-indent-rules)
+
+  ;; Imenu
+  (setq-local treesit-simple-imenu-settings odin-ts-mode--imenu-settings)
+
+  ;; Comment
+  (c-ts-common-comment-setup)
+
+  (treesit-major-mode-setup))
+
+;;;###autoload
+(define-derived-mode odin-ts-mode prog-mode "odin"
+  "Major mode for editing odin files, powered by tree-sitter."
+  :group 'odin-ts
+  :syntax-table odin-ts-mode--syntax-table
+
+  (when (treesit-ready-p 'odin)
+    (treesit-parser-create 'odin)
+    (odin-ts-mode-setup)))
+
+(provide 'odin-ts-mode)
+
+;;; odin-ts-mode.el ends here

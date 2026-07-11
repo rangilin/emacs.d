@@ -296,5 +296,20 @@
   :hook ((go-mod-ts-mode . eglot-ensure)))
 
 
+;; Odin
+(use-package odin-ts-mode
+  :load-path "site-lisp/odin-ts-mode"
+  :mode "\\.odin\\'"
+  :hook ((odin-ts-mode . eglot-ensure)
+         (odin-ts-mode . (lambda ()
+                           (add-hook 'before-save-hook #'rangi-before-save-odin nil t))))
+  :config
+  (defun rangi-before-save-odin()
+    (eglot-format-buffer))
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '((odin-ts-mode) . ("ols-arm64-darwin")))))
+
+
 
 (provide 'init-prog)
