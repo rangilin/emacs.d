@@ -5,7 +5,7 @@
          :map project-prefix-map
          ("C" . project-recompile)
          ("v" . rangi-project-vc-dir)
-         ("q" . keyboard-quit))
+         ("C-g" . keyboard-quit))
   :config
   ;; use ibuffer when list project buffers
   (setq project-buffers-viewer 'project-list-buffers-ibuffer)
