@@ -189,18 +189,25 @@
 ;; auto balance windows
 (setq window-combination-resize 1)
 
+;; select the new window after split
+(defun rangi-split-window-below ()
+  (interactive)
+  (select-window (call-interactively 'split-window-below)))
+(defun rangi-split-window-right ()
+  (interactive)
+  (select-window (call-interactively 'split-window-right)))
+(defun rangi-split-root-window-below ()
+  (interactive)
+  (select-window (call-interactively 'split-root-window-below)))
+(defun rangi-split-root-window-right ()
+  (interactive)
+  (select-window (call-interactively 'split-root-window-right)))
 
-;; switch window after split it
-(defun rangi-split-window-horizontally ()
-  (interactive)
-  (split-window-horizontally)
-  (other-window 1))
-(defun rangi-split-window-vertically ()
-  (interactive)
-  (split-window-vertically)
-  (other-window 1))
-(bind-key "C-x 2" 'rangi-split-window-vertically)
-(bind-key "C-x 3" 'rangi-split-window-horizontally)
+(bind-key "C-x 2" 'rangi-split-window-below)
+(bind-key "C-x 3" 'rangi-split-window-right)
+(bind-key "C-x w 2" 'rangi-split-root-window-below)
+(bind-key "C-x w 3" 'rangi-split-root-window-right)
+
 
 
 ;;;;;;;;;;;;
