@@ -19,6 +19,9 @@
 (setq org-enforce-todo-dependencies t)
 (setq org-enforce-todo-checkbox-dependencies t)
 
+;; make org use minibuffer to ask state
+(setq org-use-fast-todo-selection 'expert)
+
 ;; don't insert empty line when creating new-entry
 (setq org-blank-before-new-entry '((heading . nil) (plain-list-item . nil)))
 
