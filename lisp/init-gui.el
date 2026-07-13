@@ -76,8 +76,8 @@
 ;; Theme ;;
 ;;;;;;;;;;;
 
-(setq rangi-theme-light 'modus-operandi-tinted)
-(setq rangi-theme-dark 'modus-vivendi-tinted)
+(setq rangi-theme-light 'modus-operandi)
+(setq rangi-theme-dark 'modus-vivendi)
 (setq rangi-theme-current nil)
 
 (defun rangi-load-theme (theme)
