@@ -76,8 +76,12 @@
 ;; Theme ;;
 ;;;;;;;;;;;
 
-(setq rangi-theme-light 'modus-operandi-tinted)
-(setq rangi-theme-dark 'modus-vivendi-tinted)
+(use-package doric-themes
+  :ensure t
+  :pin gnu)
+
+(setq rangi-theme-light 'doric-beach)
+(setq rangi-theme-dark 'doric-valley)
 (setq rangi-theme-current nil)
 
 (defun rangi-load-theme (theme)
