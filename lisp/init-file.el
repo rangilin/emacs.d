@@ -112,6 +112,9 @@
   ;; exlucde these entries
   (setq recentf-exclude `("/ssh:"))
 
+  ;; auto cleanup after 5 mins, not on start up
+  (setq recentf-auto-cleanup 300)
+
   ;; add opened file into recentf when buffer list change
   (add-hook 'buffer-list-update-hook #'recentf-track-opened-file)
   (recentf-mode 1))
