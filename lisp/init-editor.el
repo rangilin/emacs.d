@@ -416,33 +416,16 @@
   (global-undo-tree-mode))
 
 
-
 ;;;;;;;;;;;;;;
 ;; Spelling ;;
 ;;;;;;;;;;;;;;
 
-
-(use-package ispell
-  :config
-  (setq ispell-program-name "aspell")
-  (setq ispell-personal-dictionary "~/Documents/misc/aspell-dictionaries/aspell.en_US.pws")
-  (setq ispell-extra-args '("--run-together" "--camel-case" "--lang=en_US")))
-
-
-(use-package flyspell
-  :diminish flyspell-mode
-  :config
-  ;; only check edited text
-  (setq flyspell-check-changes t)
-  ;; no show messages
-  (setq flyspell-issue-message-flag nil)
-  (setq flyspell-issue-welcome-flag nil)
-
-  ;; enable flyspell-prog-mode in all prog-modes test
-  (add-hook 'prog-mode-hook (lambda () (flyspell-prog-mode)))
-  ;; enable flyspell in text mode
-  (add-hook 'text-mode-hook (lambda () (turn-on-flyspell))))
-
+(use-package jinx
+  :pin gnu
+  :ensure t
+  :hook ((emacs-startup . global-jinx-mode))
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
 
 
 (provide 'init-editor)
