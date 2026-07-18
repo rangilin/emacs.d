@@ -49,7 +49,7 @@
   (package-initialize))
 
 
-;; Helper package for keep elpa gnupg pub key up-to-date.
+;; Helper package for keep elpa GNUPG pub key up-to-date.
 ;; When key expired in the future, upgrade this package should automatically fixed it.
 ;; Signature check is turned off temporarily to avoid chicken and egg problem, where
 ;; Emacs needs pub key to verify the package but it need the package to get pub key.
@@ -62,24 +62,10 @@
       (gnu-elpa-keyring-update))))
 
 
-;; hide mode line stuff, loaded earilier to use with use-package
+;; hide mode line stuff, loaded earlier to use with use-package
 (use-package diminish
   :ensure t
   :pin gnu)
-
-
-;;;;;;;;;;;;;;;;;
-;; Performance ;;
-;;;;;;;;;;;;;;;;;
-
-;; read from sub-process in larger chunk
-(setq read-process-output-max (* 4 1024 1024))
-
-;; no delay when reading from sub-process
-(setq process-adaptive-read-buffering nil)
-
-;; defer fontification until input is stopped
-(setq jit-lock-defer-time 0)
 
 
 ;;;;;;;;;;;;;;;;;;;;
