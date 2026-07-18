@@ -2,21 +2,38 @@
 
 This is my personal Emacs configuration.
 
-** Rewrite
-The latest rewrite is in 2025, based on Emacs 30.1.
+** Principles
 
-In this rewrite I focus on a few things:
-1. Keep it simple: Reduce the amount of opinioned customizations as reasonably as I can, according to my own needs and opinions. Use built-in features when it's good enough, only rely on 3rd-party packages when it is necessary. This also encourage me to learn more about Emacs.
-2. Keep it fast: Keep it simple helps a lot. I also intentionally add very little performance tweaks this time and dropped most old one I had. Will add more if I actually need it.
-3. Keep it safe: Again, keep it simple helps a lot. Now I don't need many packages, only those in Elpa(GNU/NonGNU) repositories are installed via package.el, others are installed manually. All packages are updated manually when I need to, instead of constantly update codes from dozens of repositories without me knowing.
+The current version of configuration was started in 2025, based on Emacs 30.1.
+
+I focused on a few things in this version:
+
+1. Simple
+2. Fast
+3. Safe
+4. Reasonable
+
+I reduced the amount of opinionated customizations I had. Use built-in package as much as possible, only use 3rd party packages when there are significant advantages, and when there is no other choice. This encourages me to learn more Emacs's built-in features.
+
+I enabled native compilation, so packages are compiled natively to have better performance. Lazy loading packages as much as possible also helps start up time, currently this configuration only need 0.5 seconds to start according to `use-package-report` once the complication is done.
+
+Security is a major concerns in this rewrite, several changes are made to address this:
+
+1. Packages are only installed automatically using package.el via GNU and NonGNU ELPA.
+2. Other packages are manually copied to `site-lisp` directory and loaded from there.
+3. No auto update, only manually update when I feel like it or out of necessity, which is not often.
+4. Packages on ELPAs are updated using `package.el`, the rest of them are manually reviewed before replacing exist one.
+
+Last, be reasonable, this tool is to used to serve me, not the other way around, or at least not all the time.
+
 
 ** Emacs
 I'm using @drkp maintained Emacs on MacPorts.
 https://ports.macports.org/port/emacs-app/
 
+
 ** External Dependencies
-1. Most packages that is not included in `site-lisp` are installed from GNU / NonGNU ELPA.
-2. There are a few external command line used (excluding specific programming languages):
-   - `multimarkdown` for Markdown
-   - `gls` from `coreutils` for Dired
-   - `enchant2` for Jinx
+There are a few external command line used (programming languages related are not listed):
+- `multimarkdown`: for Markdown converting to format.
+- `gls` from `coreutils`: for Dired for directory first sorting order
+- `enchant2`: for Jinx for faster spell checking
