@@ -158,12 +158,10 @@
 ;; Window ;;
 ;;;;;;;;;;;;
 
-
 ;; winner for saving windows configurations
 (use-package winner
   :config
   (winner-mode 1))
-
 
 ;; moving point between windows
 (defun rangi-window-previous ()
@@ -171,21 +169,28 @@
   (interactive)
   (other-window -1))
 
-(defvar-keymap rangi-window-repeat-map
+(defvar-keymap rangi-window-prefix-map
   :repeat t
-  "o" #'other-window
-  "O" #'rangi-window-previous
-  "k" #'windmove-up
-  "j" #'windmove-down
-  "l" #'windmove-right
-  "h" #'windmove-left)
+  "<up>" #'windmove-up
+  "<down>" #'windmove-down
+  "<left>" #'windmove-left
+  "<right>" #'windmove-right
+  "C-S-<up>" #'windmove-swap-states-up
+  "C-S-<down>" #'windmove-swap-states-down
+  "C-S-<left>" #'windmove-swap-states-left
+  "C-S-<right>" #'windmove-swap-states-right
+  "S-<up>" #'windmove-delete-up
+  "S-<down>" #'windmove-delete-down
+  "S-<right>" #'windmove-delete-right
+  "S-<left>" #'windmove-delete-left
+  "o" 'other-window
+  "O" 'rangi-window-previous)
 
-(put 'other-window 'repeat-map 'rangi-window-repeat-map)
-(put 'rangi-window-previous 'repeat-map 'rangi-window-repeat-map)
-
+(bind-key "s-o" 'other-window)
 (bind-key "C-x O" 'rangi-window-previous)
-(bind-key "C-o" 'other-window)
-(bind-key "C-O" 'rangi-window-previous)
+(bind-key "s-O" 'rangi-window-previous)
+(bind-key "C-c w" rangi-window-prefix-map)
+(bind-key "s-w" rangi-window-prefix-map)
 
 
 ;; add built-in window swap in existing window keymap
