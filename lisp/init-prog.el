@@ -241,8 +241,7 @@
   :mode (("\\.md\\'"       . markdown-mode)
          ("README\\.md\\'" . gfm-mode))
   :init
-  (setq markdown-command "multimarkdown")
-  (add-hook 'markdown-mode-hook (lambda () (turn-on-flyspell))))
+  (setq markdown-command "multimarkdown"))
 
 
 ;; javascript
