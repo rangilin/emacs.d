@@ -26,6 +26,11 @@
   :hook (prog-mode . breadcrumb-local-mode))
 
 
+(use-package compile
+  :bind (("C-c c c" . compile)
+         ("C-c c r" . recompile)))
+
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; Source Control ;;
 ;;;;;;;;;;;;;;;;;;;;
