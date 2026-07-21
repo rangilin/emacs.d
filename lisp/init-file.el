@@ -56,6 +56,8 @@
 ;;;;;;;;;;;
 
 (use-package dired
+  :bind (("s-d" . dired)
+         ("s-D" . dired-jump))
   :config
   ;; use GNU ls
   (setq insert-directory-program "gls")

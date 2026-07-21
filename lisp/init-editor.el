@@ -80,7 +80,9 @@
 
 ;; set up ibuffer
 (use-package ibuffer
-  :bind (("C-x C-b" . ibuffer))
+  :bind (("C-x C-b" . ibuffer)
+         ("s-r" . switch-to-buffer)
+         ("s-R" . ibuffer))
   :config
   ;; don't show empty group
   (setq-default ibuffer-show-empty-filter-groups nil)
