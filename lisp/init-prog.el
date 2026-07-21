@@ -41,14 +41,10 @@
   (setq vc-handled-backends `(Git)))
 
 
-
 ;; use magit
 (use-package magit
   :ensure t
   :pin nongnu
-  :bind
-  (("C-c v g" . magit-status)
-   ("C-c v G" . magit-dispatch-popup))
   :config
   ;; if there are issue, try clean up transient.elc and restart emacs again
   ;; see https://github.com/magit/magit/discussions/5180
@@ -60,7 +56,6 @@
     (setq transient-history-file (expand-file-name "transient-history.el" rangi-emacs-cache-directory)))
 
   (setq-default magit-diff-refine-hunk t))
-
 
 
 ;;;;;;;;;;;;;;;;;
