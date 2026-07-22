@@ -77,6 +77,8 @@
 (use-package compile
   :hook (compilation-filter . ansi-color-compilation-filter)
   :config
+  ;; don't assume compile command
+  (setq compile-command "")
   ;; don't hide long line
   (setq compilation-max-output-line-length nil)
   ;; jump to first error after compilation
