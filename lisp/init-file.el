@@ -144,5 +144,21 @@
   (denote-rename-buffer-mode 1))
 
 
+;;;;;;;;;;;;;;;
+;; Read Only ;;
+;;;;;;;;;;;;;;;
+
+;; prevent accidentally edits on certain parts of settings
+(defun rangi-auto-protect-files ()
+  (let ((protected-dirs `(,(expand-file-name (locate-user-emacs-file ".cache/"))
+                          ,(expand-file-name (locate-user-emacs-file "site-lisp/")))))
+    (when (and buffer-file-name
+               (cl-some (lambda (regexp) (string-match regexp buffer-file-name))
+                        protected-dirs))
+      (read-only-mode 1)
+      (message "Buffer set to read-only because it is protected."))))
+
+(add-hook 'find-file-hook 'rangi-auto-protect-files)
+
 
 (provide 'init-file)
