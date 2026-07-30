@@ -239,11 +239,17 @@
   (setq completion-ignore-case t)
   (setq read-file-name-completion-ignore-case t)
   (setq read-buffer-completion-ignore-case t)
+
   ;; sort completion vertically
   (setq completions-format "vertical")
+
   ;; control completion list from minibuffer
   (setq minibuffer-visible-completions t)
-  ;; change default completeion styles
+
+  ;; don't show help text
+  (setq completion-show-help nil)
+
+  ;; change default completion styles
   (setq completion-styles '(partial-completion substring initials)))
 
 ;; only show commands not excluded in current mode
