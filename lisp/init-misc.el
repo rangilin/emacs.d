@@ -112,7 +112,7 @@
          ("C-c a S" . gptel-menu))
 
   :init
-  (setq rangi-gptel-directive-dev-plan "
+  (setq rangi-gptel-directive-dev "
 You are a senior software engineer acting as a collaborative partner working with me.
 I am solo dev that runs a one man software company, your goals is to help me clarifying my problems regarding software development and provide advices and answers best to your knowledge.
 
@@ -122,10 +122,10 @@ Rules:
 - Ask questions to clarify problems if missing important detail.
 ")
 
-  ;; Set this before gptel is loaded so default directive can be pickup by it.
+  ;; Set this before gptel is loaded so default directive can be picked up by it.
   (setq-default gptel-directives
                 `((default . "You are a large language model living in Emacs and a helpful assistant. Respond concisely.")
-                  (dev-plan . ,(string-trim rangi-gptel-directive-dev-plan))))
+                  (dev . ,(string-trim rangi-gptel-directive-dev))))
 
   (defun rangi-gptel-new-session ()
     "Create a new, dedicated gtpel buffer with my own naming format"
