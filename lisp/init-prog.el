@@ -28,7 +28,13 @@
 
 (use-package compile
   :bind (("C-c c c" . compile)
-         ("C-c c r" . recompile)))
+         ("C-c c r" . recompile))
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\*compilation\\*"
+                 (display-buffer-reuse-window display-buffer-pop-up-window)
+                 (body-function . select-window)
+                 (inhibit-same-window . t))))
 
 
 ;;;;;;;;;;;;;;;;;;;;
