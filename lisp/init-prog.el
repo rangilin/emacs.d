@@ -4,8 +4,13 @@
 ;; Miscellaneous programming settings ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; show trailing whitespace in prog-mode
-(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace t)))
+;; prog mode specific set up
+(add-hook 'prog-mode-hook
+          (lambda ()
+            ;; set tab width 4 in prog mode
+            (setq tab-width 4)
+            ;; show trailing whitespace in prog-mode
+            (setq show-trailing-whitespace t)))
 
 ;; show document with eldoc
 (use-package eldoc
