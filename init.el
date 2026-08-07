@@ -1,5 +1,18 @@
 ;;; init.el --- Emacs initialization file -*- lexical-binding: t; no-byte-compile: t -*-
 
+;; Tasks:
+;; TODO: rethink how gptel access API key without me confirming access from OP every single time
+;; TODO: check how to make it easier to save gptel session file, like save will pre-fill default path/file names
+;; TODO: check how to make it easier to restore session file (auto insert # -*- eval: (gptel-mode 1) -*- )
+;; TODO: use org file for llm session for better formatting ? how to do better formatting ?
+;; TODO: can I shorten buffer name in modeline if it's too long (those in llm sessions are long)
+;; TODO: better ibuffer group (idea: VC)
+;; TODO: how to apply "tabs for indentation, spaces for alignment"
+;; TODO: check config https://github.com/zHaOdANiuu/.emacs.d
+;; TODO: check config https://github.com/skunkdog/emacs-config/
+;; TODO: check config https://codeberg.org/ashton314/emacs-bedrock
+;; TODO: check https://github.com/svaante/dape
+
 
 ;;;;;;;;;;;;;;;
 ;; Bootstrap ;;
