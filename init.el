@@ -84,6 +84,7 @@
 (require 'init-func)
 
 ;; load the rest of the configurations
+(require 'init-ai)
 (require 'init-editor)
 (require 'init-file)
 (require 'init-gui)
